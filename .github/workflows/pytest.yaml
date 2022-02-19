@@ -1,0 +1,27 @@
+name: PyTest
+
+on:
+  push:
+    branches-ignore:
+      - docs
+  pull_request:
+    branchest-ignore:
+      - docs
+ 
+jobs:
+  pytest_job:
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v2
+    - name: Install prerequisites
+      run:
+        pip install .
+        pip install -r requirements-dev.txt
+    - name: Run pytest
+      run: |
+        pytest -rf tests/
