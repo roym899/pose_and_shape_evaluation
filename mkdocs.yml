@@ -1,0 +1,26 @@
+site_name: Categorical Pose and Shape Evaluation
+site_url: https://roym899.github.io/pose_and_shape_evaluation/
+repo_url: https://github.com/roym899/pose_and_shape_evaluation
+repo_name: roym899/pose_and_shape_evaluation
+theme: 
+  name: material
+  icon: 
+    repo: fontawesome/brands/github
+
+extra_css:
+  - css/mkdocstrings.css
+
+plugins:
+  - search
+  - mkdocstrings:
+      watch:
+        - cpas_toolbox
+      handlers:
+        python:
+          selection:
+            docstring_style: "google"
+      enable_inventory: true
+
+nav:
+  - Getting started: index.md
+  - API Reference: api_reference.md

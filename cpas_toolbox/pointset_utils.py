@@ -5,8 +5,7 @@ from typing import Optional
 import matplotlib.pyplot as plt
 import numpy as np
 
-from sdf_differentiable_renderer import Camera
-from sdf_single_shot import quaternion_utils, utils
+from cpas_toolbox import camera_utils, quaternion_utils, utils
 
 
 def normalize_points(points: torch.Tensor) -> torch.Tensor:
@@ -33,7 +32,7 @@ def normalize_points(points: torch.Tensor) -> torch.Tensor:
 
 def depth_to_pointcloud(
     depth_image: torch.Tensor,
-    camera: Camera,
+    camera: camera_utils.Camera,
     normalize: bool = False,
     mask: Optional[torch.Tensor] = None,
     convention: str = "opengl",
@@ -102,6 +101,7 @@ def change_transform_camera_convention(
             Camera convention for the in_transform. One of "opengl", "opencv".
         out_convention:
             Camera convention for the returned transform. One of "opengl", "opencv".
+
     Returns:
         Transformtion matrix(es) from coordinate frame A to out_convention camera frame.
         Same shape as in_transform.
@@ -136,6 +136,7 @@ def change_position_camera_convention(
             Camera convention for the in_position. One of "opengl", "opencv".
         out_convention:
             Camera convention for the returned transform. One of "opengl", "opencv".
+
     Returns:
         Position(s) of coordinate frame A in out_convention camera frame. Shape (...,3).
     """
@@ -170,6 +171,7 @@ def change_orientation_camera_convention(
             Camera convention for the in_transform. One of "opengl", "opencv".
         out_convention:
             Camera convention for the returned transform. One of "opengl", "opencv".
+
     Returns:
         Quaternion(s) which transforms from coordinate frame A to in_convention camera
         frame. Scalar-last convention. Same shape as in_orientation_q.
