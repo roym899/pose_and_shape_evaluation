@@ -11,7 +11,6 @@ from PIL import Image
 import yoco
 
 from cpas_toolbox import camera_utils, pointset_utils, quaternion_utils
-from sdf_estimation import synthetic
 
 
 class AnnotatedRedwoodDataset(torch.utils.data.Dataset):
@@ -60,7 +59,7 @@ class AnnotatedRedwoodDataset(torch.utils.data.Dataset):
                 Note that this does not influence how the dataset is processed, only the
                 returned position and quaternion.
             orientation_repr:
-                Which orientation representation is used. Currently only "quaternion" 
+                Which orientation representation is used. Currently only "quaternion"
                 supported.
             remap_y_axis:
                 If not None, the Redwood y-axis will be mapped to the provided axis.
@@ -254,15 +253,12 @@ class AnnotatedRedwoodDataset(torch.utils.data.Dataset):
         return sample
 
     def _compute_mask(self, depth: torch.Tensor, raw_sample: dict) -> torch.Tensor:
-        mesh = synthetic.Mesh(
-            path=raw_sample["mesh_path"],
-            scale=1.0,  # do not resize mesh, as it is already at right size
-            rel_scale=True,
-            center=False,
-        )
-        mesh.position = raw_sample["position"]
-        mesh.orientation = raw_sample["orientation_q"]
-        gt_depth = torch.from_numpy(synthetic.draw_depth_geometry(mesh, self._camera))
+        posed_mesh = o3d.io.read_triangle_mesh(raw_sample["mesh_path"])
+        R = Rotation.from_quat(raw_sample["orientation_q"]).as_matrix()
+        posed_mesh.rotate(R, center=np.array([0, 0, 0]))
+        posed_mesh.translate(raw_sample["position"])
+        posed_mesh.compute_vertex_normals()
+        gt_depth = torch.from_numpy(_draw_depth_geometry(posed_mesh, self._camera))
         mask = gt_depth != 0
         # exclude occluded parts from mask
         mask[(depth != 0) * (depth < gt_depth - 0.01)] = 0
@@ -402,3 +398,35 @@ class ObjectError(Exception):
     """Error if something with the mesh is wrong."""
 
     pass
+
+
+def _draw_depth_geometry(
+    posed_mesh: o3d.geometry.TriangleMesh, camera: camera_utils.Camera
+) -> np.ndarray:
+    """Render a posed mesh given a camera looking along z axis (OpenCV convention)."""
+    # see http://www.open3d.org/docs/latest/tutorial/visualization/customized_visualization.html
+
+    # Create visualizer
+    vis = o3d.visualization.Visualizer()
+    vis.create_window(width=camera.width, height=camera.height, visible=False)
+
+    # Add mesh in correct position
+    vis.add_geometry(posed_mesh, True)
+
+    options = vis.get_render_option()
+    options.mesh_show_back_face = True
+
+    # Set camera at fixed position (i.e., at 0,0,0, looking along z axis)
+    view_control = vis.get_view_control()
+    o3d_cam = camera.get_o3d_pinhole_camera_parameters()
+    o3d_cam.extrinsic = np.array(
+        [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]
+    )
+    view_control.convert_from_pinhole_camera_parameters(o3d_cam, True)
+
+    # Generate the depth image
+    vis.poll_events()
+    vis.update_renderer()
+    depth = np.asarray(vis.capture_depth_float_buffer())
+
+    return depth

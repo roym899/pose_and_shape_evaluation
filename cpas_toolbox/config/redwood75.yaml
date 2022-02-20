@@ -5,11 +5,11 @@ config:
     asmnet: ./asmnet.yaml
 
 dataset_config:
-  name: Redwood
-  type: sdf_single_shot.datasets.redwood_dataset.AnnotatedRedwoodDataset
+  name: REDWOOD75
+  type: cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset
   config_dict: 
-    root_dir: ../../data/redwood/
-    ann_dir: ../../data/redwood_annotations/
+    root_dir: data/redwood/
+    ann_dir: data/redwood75/
     camera_convention: opencv
     scale_convention: full
     remap_y_axis: -y

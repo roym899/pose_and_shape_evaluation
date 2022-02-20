@@ -16,3 +16,15 @@ The expected folder structure for REAL275 evaluation is as follows:
 An additional directory `{root_dir}/csap_toolbox/` will be created to store preprocessed files. By default `{root_dir}` will be `data/nocs/` (i.e., relative to the current working directory, when executing the evaluation script), but it can be modified.
 
 ## REDWOOD75
+To download the raw data check the [redwood-data website](http://redwood-data.org/3dscan/dataset.html).
+You can download the REDWOOD75 annotations [here](https://drive.google.com/file/d/1PMvIblsXWDxEJykVwhUk_QEjy4_bmDU-/view?usp=sharing). Only the Redwood sequences ids contained in this file are required for evaluation.
+
+The expected folder structure for REDWOOD75 evaluation is as follows:
+```
+    {root_dir}/bottle/rgbd/00049/depth/*.png
+    {root_dir}/bottle/rgbd/...
+    {root_dir}/bowl/...
+    {root_dir}/mug/...
+    {ann_dir}/obj_models/...
+```
+By default `{root_dir}` will be `data/redwood/` (i.e., relative to the current working directory, when executing the evaluation script) `{ann_dir}` will be `data/redwood75/`, but those can be modified.
