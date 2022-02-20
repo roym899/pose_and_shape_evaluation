@@ -9,20 +9,17 @@ import open3d as o3d
 import torch
 import torchvision.transforms.functional as TF
 from scipy.spatial.transform import Rotation
-
-from sdf_differentiable_renderer import Camera
-from sdf_single_shot import pointset_utils, quaternion_utils
-from sdf_estimation.simple_setup import SDFPipeline
-
 import yoco
-from cass.cass.lib.models import CASS
-from cass.cass.datasets.dataset import get_bbox as cass_get_bbox
-import asmnet.cr6d_utils
-import asmnet.common3Dfunc
 
-from spd.lib.network import DeformNet
-import spd.lib.utils
-import spd.lib.align
+from cpas_toolbox import pointset_utils, quaternion_utils, camera_utils
+
+# from cass.cass.lib.models import CASS
+# from cass.cass.datasets.dataset import get_bbox as cass_get_bbox
+from cpas_toolbox import asmnet
+
+# from spd.lib.network import DeformNet
+# import spd.lib.utils
+# import spd.lib.align
 
 
 class PredictionDict(TypedDict):
@@ -94,7 +91,7 @@ class SPDWrapper(MethodWrapper):
         "num_shape_points": None,
     }
 
-    def __init__(self, config: Config, camera: Camera) -> None:
+    def __init__(self, config: Config, camera: camera_utils.Camera) -> None:
         """Initialize and load SPD model.
 
         Args:
@@ -266,7 +263,7 @@ class CASSWrapper(MethodWrapper):
         "model": None,
     }
 
-    def __init__(self, config: Config, camera: Camera) -> None:
+    def __init__(self, config: Config, camera: camera_utils.Camera) -> None:
         """Initialize and load CASS model.
 
         Args:
@@ -467,7 +464,7 @@ class ASMNetWrapper:
         "use_icp": True,
     }
 
-    def __init__(self, config: Config, camera: Camera) -> None:
+    def __init__(self, config: Config, camera: camera_utils.Camera) -> None:
         """Initialize and load ASMNet model.
 
         Args:

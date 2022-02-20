@@ -14,11 +14,8 @@ import torch
 from tqdm import tqdm
 import yoco
 
-from sdf_single_shot.utils import str_to_object
-
 from cpas_toolbox import metrics, pointset_utils, quaternion_utils, camera_utils, utils
-
-from method_wrappers import MethodWrapper, PredictionDict
+from cpas_toolbox.method_wrappers import MethodWrapper, PredictionDict
 
 
 def visualize_estimation(
@@ -59,6 +56,7 @@ def visualize_estimation(
         vis_path:
             If not None, the image will be rendered off screen and saved at the
             specified path.
+
     Returns:
         True if confirmation was positive. False if negative.
     """
@@ -211,7 +209,7 @@ class Evaluator:
         """
         self._dataset_name = dataset_config["name"]
         print(f"Initializing {self._dataset_name} dataset...")
-        dataset_type = str_to_object(dataset_config["type"])
+        dataset_type = utils.str_to_object(dataset_config["type"])
         self._dataset = dataset_type(config=dataset_config["config_dict"])
         # Faster but probably only worth it if whole evaluation supports batches
         # self._dataloader = DataLoader(self._dataset, 1, num_workers=8)
@@ -226,7 +224,7 @@ class Evaluator:
         for method_dict in method_configs.values():
             method_name = method_dict["name"]
             print(f"Initializing {method_name}...")
-            wrapper_type = str_to_object(method_dict["wrapper_type"])
+            wrapper_type = utils.str_to_object(method_dict["wrapper_type"])
             self._wrappers[method_name] = wrapper_type(
                 config=method_dict["config_dict"], camera=self._cam
             )
@@ -420,7 +418,7 @@ class Evaluator:
         m2s = self._metric_data[metric_name]["m2s"]
         counts = self._metric_data[metric_name]["counts"]
         category_id = sample["category_id"]
-        point_metric = str_to_object(metric_config_dict["pointwise_f"])
+        point_metric = utils.str_to_object(metric_config_dict["pointwise_f"])
 
         gt_points, pred_points = self._get_points(
             sample, prediction, metric_config_dict["posed"]

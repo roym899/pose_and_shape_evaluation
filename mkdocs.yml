@@ -23,4 +23,5 @@ plugins:
 
 nav:
   - Getting started: index.md
+  - Data preparation: data_preparation.md
   - API Reference: api_reference.md

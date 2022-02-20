@@ -1,0 +1,7 @@
+name: CASS
+wrapper_type: method_wrappers.CASSWrapper
+config_dict:
+  num_points: 500  # points in reconstructed pointcloud
+  num_objects: 6  # number of categories
+  model: ../cass/trained_models/cass_best.pth
+  device: cuda

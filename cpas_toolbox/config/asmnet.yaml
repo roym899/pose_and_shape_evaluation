@@ -1,0 +1,11 @@
+name: ASMNet
+wrapper_type: cpas_toolbox.method_wrappers.ASMNetWrapper
+config_dict:
+  models_folder: ../asmnet/params/weights/
+  asm_params_folder: ../asmnet/params/asm_params/
+  categories: ["bottle", "bowl", "camera", "can", "laptop", "mug"]
+  deformation_dimension: 3
+  num_points: 800
+  use_mean_shape: False
+  use_icp: True
+  device: cuda

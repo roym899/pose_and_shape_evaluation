@@ -1,0 +1,71 @@
+# Standalone config to use with evaluate.py
+config:
+  methods:
+    asmnet: ./asmnet.yaml
+
+dataset_config:
+  name: REAL275
+  type: cpas_toolbox.datasets.nocs_dataset.NOCSDataset
+  config_dict: 
+    root_dir: data/nocs/
+    split: real_test
+    camera_convention: opencv
+    scale_convention: full
+    remap_y_axis: y
+    remap_x_axis: -z
+
+# See https://github.com/hughw19/NOCS_CVPR2019/blob/master/detect_eval.py for camera
+# intrinsics (seems to be different from info.txt in the dataset folder).
+camera:
+  width: 640
+  height: 480
+  fx: 591.0125
+  fy: 590.16775
+  cx: 322.525
+  cy: 244.11084
+  pixel_center: 0
+visualize_input: False
+visualize_prediction: False
+visualize_gt: False
+fast_eval: False  # only evaluate every 10th sample
+store_visualization: False
+run_name: ""
+num_gt_points: 10000
+vis_camera_json: ./real275_camera.json
+render_options_json: ./real275_renderoptions.json
+metrics:
+  correct_position:
+    position_thresholds: [0, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035, 0.04, 0.045, 0.05]
+    deg_thresholds: [null]
+    iou_thresholds: [null]
+    f_thresholds: [null]
+  correct_degree:
+    position_thresholds: [null]
+    deg_thresholds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+    iou_thresholds: [null]
+    f_thresholds: [null]
+  correct_fscore:
+    position_thresholds: [null]
+    deg_thresholds: [null]
+    iou_thresholds: [null]
+    f_thresholds: [0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]
+  correct_10deg2cm:
+    position_thresholds: [0.02]
+    deg_thresholds: [10]
+    iou_thresholds: [null]
+    f_thresholds: [null]
+  correct_5deg1cm:
+    position_thresholds: [0.01]
+    deg_thresholds: [5]
+    iou_thresholds: [null]
+    f_thresholds: [null]
+  correct_10deg2cm06:
+    position_thresholds: [0.02]
+    deg_thresholds: [10]
+    iou_thresholds: [null]
+    f_thresholds: [0.6]
+  correct_5deg1cm08:
+    position_thresholds: [0.01]
+    deg_thresholds: [5]
+    iou_thresholds: [null]
+    f_thresholds: [0.8]
