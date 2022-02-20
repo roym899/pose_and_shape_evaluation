@@ -1,10 +1,10 @@
 name: SPD
-wrapper_type: method_wrappers.SPDWrapper
+wrapper_type: cpas_toolbox.method_wrappers.SPDWrapper
 config_dict:
   num_categories: 6
   num_shape_points: 1024 
   num_input_points: 1024
   image_size: 192
-  model: ../spd/results/real/model_50.pth
-  mean_shape_pointsets: ../spd/assets/mean_points_emb.npy
+  model: ../spd/model/model_50.pth
+  mean_shape_pointsets: ../spd/model/mean_points_emb.npy
   device: cuda

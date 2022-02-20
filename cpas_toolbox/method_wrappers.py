@@ -12,12 +12,7 @@ from scipy.spatial.transform import Rotation
 import yoco
 
 from cpas_toolbox import pointset_utils, quaternion_utils, camera_utils
-
-from cpas_toolbox import cass, asmnet
-
-# from spd.lib.network import DeformNet
-# import spd.lib.utils
-# import spd.lib.align
+from cpas_toolbox import cass, asmnet, spd
 
 
 class PredictionDict(TypedDict):
@@ -102,7 +97,7 @@ class SPDWrapper(MethodWrapper):
 
     def _parse_config(self, config: Config) -> None:
         self._device = config["device"]
-        self._spd_net = DeformNet(config["num_categories"], config["num_shape_points"])
+        self._spd_net = spd.DeformNet(config["num_categories"], config["num_shape_points"])
         self._spd_net.to(self._device)
         self._spd_net.load_state_dict(torch.load(config["model"]))
         self._spd_net.eval()
@@ -137,7 +132,7 @@ class SPDWrapper(MethodWrapper):
         y1 = min(instance_mask.nonzero()[:, 0]).item()
         x2 = max(instance_mask.nonzero()[:, 1]).item()
         y2 = max(instance_mask.nonzero()[:, 0]).item()
-        rmin, rmax, cmin, cmax = spd.lib.utils.get_bbox([y1, x1, y2, x2])
+        rmin, rmax, cmin, cmax = spd.get_bbox([y1, x1, y2, x2])
         bb_mask = torch.zeros_like(depth_image)
         bb_mask[rmin:rmax, cmin:cmax] = 1.0
 
@@ -216,7 +211,7 @@ class SPDWrapper(MethodWrapper):
         nocs_coords = coords[0, point_indices, :].detach().cpu().numpy()
         extents = 2 * np.amax(np.abs(inst_shape[0].detach().cpu().numpy()), axis=0)
         points = points[0, point_indices, :].cpu().numpy()
-        scale, orientation_m, position, _ = spd.lib.align.estimateSimilarityTransform(
+        scale, orientation_m, position, _ = spd.align.estimateSimilarityTransform(
             nocs_coords, points
         )
         orientation_q = torch.Tensor(Rotation.from_matrix(orientation_m).as_quat())
