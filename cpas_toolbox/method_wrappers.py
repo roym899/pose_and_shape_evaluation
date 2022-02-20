@@ -13,9 +13,7 @@ import yoco
 
 from cpas_toolbox import pointset_utils, quaternion_utils, camera_utils
 
-# from cass.cass.lib.models import CASS
-# from cass.cass.datasets.dataset import get_bbox as cass_get_bbox
-from cpas_toolbox import asmnet
+from cpas_toolbox import cass, asmnet
 
 # from spd.lib.network import DeformNet
 # import spd.lib.utils
@@ -276,7 +274,7 @@ class CASSWrapper(MethodWrapper):
 
     def _parse_config(self, config: Config) -> None:
         self._device = config["device"]
-        self._cass = CASS(
+        self._cass = cass.CASS(
             num_points=config["num_points"], num_obj=config["num_objects"]
         )
         self._num_points = config["num_points"]
@@ -297,7 +295,7 @@ class CASSWrapper(MethodWrapper):
         """
         # get bounding box
         valid_mask = (depth_image != 0) * instance_mask
-        rmin, rmax, cmin, cmax = cass_get_bbox(valid_mask.numpy())
+        rmin, rmax, cmin, cmax = cass.get_bbox(valid_mask.numpy())
         bb_mask = torch.zeros_like(depth_image)
         bb_mask[rmin:rmax, cmin:cmax] = 1.0
 
