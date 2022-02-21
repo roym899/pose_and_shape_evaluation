@@ -1,0 +1,3210 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://roym899.github.io/pose_and_shape_evaluation/api_reference/datasets/redwood_dataset/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.1">
+    
+    
+      
+        <title>redwood_dataset.py - Categorical Pose and Shape Evaluation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.e8d9bf0c.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../../css/mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cpas_toolbox.datasets.redwood_dataset" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Categorical Pose and Shape Evaluation" class="md-header__button md-logo" aria-label="Categorical Pose and Shape Evaluation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Categorical Pose and Shape Evaluation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              redwood_dataset.py
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/roym899/pose_and_shape_evaluation/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    roym899/pose_and_shape_evaluation
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Categorical Pose and Shape Evaluation" class="md-nav__button md-logo" aria-label="Categorical Pose and Shape Evaluation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Categorical Pose and Shape Evaluation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/roym899/pose_and_shape_evaluation/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    roym899/pose_and_shape_evaluation
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Getting started
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../data_preparation/" class="md-nav__link">
+        Data preparation
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../evaluate/" class="md-nav__link">
+        evaluate.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_2">
+          datasets
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="datasets" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          datasets
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nocs_dataset/" class="md-nav__link">
+        nocs_dataset.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nocs_utils/" class="md-nav__link">
+        nocs_utils.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          redwood_dataset.py
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        redwood_dataset.py
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset" class="md-nav__link">
+    AnnotatedRedwoodDataset
+  </a>
+  
+    <nav class="md-nav" aria-label="AnnotatedRedwoodDataset">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset.Config" class="md-nav__link">
+    Config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset._load_annotations" class="md-nav__link">
+    _load_annotations()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset._create_raw_sample" class="md-nav__link">
+    _create_raw_sample()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset.__len__" class="md-nav__link">
+    __len__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset.__getitem__" class="md-nav__link">
+    __getitem__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset._load_depth" class="md-nav__link">
+    _load_depth()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset._get_scale" class="md-nav__link">
+    _get_scale()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset._change_axis_convention" class="md-nav__link">
+    _change_axis_convention()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset._get_o2n_object_rotation_matrix" class="md-nav__link">
+    _get_o2n_object_rotation_matrix()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset._quat_to_orientation_repr" class="md-nav__link">
+    _quat_to_orientation_repr()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset.load_mesh" class="md-nav__link">
+    load_mesh()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.ObjectError" class="md-nav__link">
+    ObjectError
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset._draw_depth_geometry" class="md-nav__link">
+    _draw_depth_geometry()
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../metrics/" class="md-nav__link">
+        metrics.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../method_wrappers/" class="md-nav__link">
+        method_wrappers.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../camera_utils/" class="md-nav__link">
+        camera_utils.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pointset_utils/" class="md-nav__link">
+        pointset_utils.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quaternion_utils/" class="md-nav__link">
+        quaternion_utils.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../utils/" class="md-nav__link">
+        utils.py
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset" class="md-nav__link">
+    AnnotatedRedwoodDataset
+  </a>
+  
+    <nav class="md-nav" aria-label="AnnotatedRedwoodDataset">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset.Config" class="md-nav__link">
+    Config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset._load_annotations" class="md-nav__link">
+    _load_annotations()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset._create_raw_sample" class="md-nav__link">
+    _create_raw_sample()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset.__len__" class="md-nav__link">
+    __len__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset.__getitem__" class="md-nav__link">
+    __getitem__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset._load_depth" class="md-nav__link">
+    _load_depth()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset._get_scale" class="md-nav__link">
+    _get_scale()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset._change_axis_convention" class="md-nav__link">
+    _change_axis_convention()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset._get_o2n_object_rotation_matrix" class="md-nav__link">
+    _get_o2n_object_rotation_matrix()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset._quat_to_orientation_repr" class="md-nav__link">
+    _quat_to_orientation_repr()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset.load_mesh" class="md-nav__link">
+    load_mesh()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset.ObjectError" class="md-nav__link">
+    ObjectError
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.redwood_dataset._draw_depth_geometry" class="md-nav__link">
+    _draw_depth_geometry()
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/roym899/pose_and_shape_evaluation/edit/master/docs/api_reference/datasets/redwood_dataset.md" title="Edit this page" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+
+<div class="doc doc-object doc-module">
+
+
+
+<h1 id="cpas_toolbox.datasets.redwood_dataset" class="doc doc-heading">
+        <code>cpas_toolbox.datasets.redwood_dataset</code>
+
+
+
+</h1>
+
+    <div class="doc doc-contents first">
+
+      <p>Module providing dataset class for annotated Redwood dataset.</p>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset" class="doc doc-heading">
+          <code>AnnotatedRedwoodDataset</code>
+
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code>torch.<span title="torch.utils">utils</span>.<span title="torch.utils.data">data</span>.<span title="torch.utils.data.Dataset">Dataset</span></code></p>
+
+
+
+<details class="expected-directory-format">
+  <summary>Expected directory format</summary>
+  <p>{root_dir}/{category_str}/rgbd/{sequence_id}/...
+{ann_dir}/{sequence_id}.obj
+{ann_dir}/annotations.json</p>
+</details>      <p>Dataset class for annotated Redwood dataset.</p>
+<p>Data can be found here:
+http://redwood-data.org/3dscan/index.html</p>
+<p>Annotations are of repo.</p>
+
+
+          <details class="quote">
+            <summary>Source code in <code>cpas_toolbox/datasets/redwood_dataset.py</code></summary>
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span>
+<span class="normal">324</span>
+<span class="normal">325</span>
+<span class="normal">326</span>
+<span class="normal">327</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span>
+<span class="normal">332</span>
+<span class="normal">333</span>
+<span class="normal">334</span>
+<span class="normal">335</span>
+<span class="normal">336</span>
+<span class="normal">337</span>
+<span class="normal">338</span>
+<span class="normal">339</span>
+<span class="normal">340</span>
+<span class="normal">341</span>
+<span class="normal">342</span>
+<span class="normal">343</span>
+<span class="normal">344</span>
+<span class="normal">345</span>
+<span class="normal">346</span>
+<span class="normal">347</span>
+<span class="normal">348</span>
+<span class="normal">349</span>
+<span class="normal">350</span>
+<span class="normal">351</span>
+<span class="normal">352</span>
+<span class="normal">353</span>
+<span class="normal">354</span>
+<span class="normal">355</span>
+<span class="normal">356</span>
+<span class="normal">357</span>
+<span class="normal">358</span>
+<span class="normal">359</span>
+<span class="normal">360</span>
+<span class="normal">361</span>
+<span class="normal">362</span>
+<span class="normal">363</span>
+<span class="normal">364</span>
+<span class="normal">365</span>
+<span class="normal">366</span>
+<span class="normal">367</span>
+<span class="normal">368</span>
+<span class="normal">369</span>
+<span class="normal">370</span>
+<span class="normal">371</span>
+<span class="normal">372</span>
+<span class="normal">373</span>
+<span class="normal">374</span>
+<span class="normal">375</span>
+<span class="normal">376</span>
+<span class="normal">377</span>
+<span class="normal">378</span>
+<span class="normal">379</span>
+<span class="normal">380</span>
+<span class="normal">381</span>
+<span class="normal">382</span>
+<span class="normal">383</span>
+<span class="normal">384</span>
+<span class="normal">385</span>
+<span class="normal">386</span>
+<span class="normal">387</span>
+<span class="normal">388</span>
+<span class="normal">389</span>
+<span class="normal">390</span>
+<span class="normal">391</span>
+<span class="normal">392</span>
+<span class="normal">393</span>
+<span class="normal">394</span>
+<span class="normal">395</span>
+<span class="normal">396</span>
+<span class="normal">397</span>
+<span class="normal">398</span>
+<span class="normal">399</span>
+<span class="normal">400</span>
+<span class="normal">401</span>
+<span class="normal">402</span>
+<span class="normal">403</span>
+<span class="normal">404</span>
+<span class="normal">405</span>
+<span class="normal">406</span>
+<span class="normal">407</span>
+<span class="normal">408</span>
+<span class="normal">409</span>
+<span class="normal">410</span>
+<span class="normal">411</span>
+<span class="normal">412</span>
+<span class="normal">413</span>
+<span class="normal">414</span>
+<span class="normal">415</span>
+<span class="normal">416</span>
+<span class="normal">417</span>
+<span class="normal">418</span>
+<span class="normal">419</span>
+<span class="normal">420</span>
+<span class="normal">421</span>
+<span class="normal">422</span>
+<span class="normal">423</span>
+<span class="normal">424</span>
+<span class="normal">425</span>
+<span class="normal">426</span>
+<span class="normal">427</span>
+<span class="normal">428</span>
+<span class="normal">429</span>
+<span class="normal">430</span>
+<span class="normal">431</span>
+<span class="normal">432</span>
+<span class="normal">433</span>
+<span class="normal">434</span>
+<span class="normal">435</span>
+<span class="normal">436</span>
+<span class="normal">437</span>
+<span class="normal">438</span>
+<span class="normal">439</span>
+<span class="normal">440</span>
+<span class="normal">441</span>
+<span class="normal">442</span>
+<span class="normal">443</span>
+<span class="normal">444</span>
+<span class="normal">445</span>
+<span class="normal">446</span>
+<span class="normal">447</span>
+<span class="normal">448</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">AnnotatedRedwoodDataset</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Dataset class for annotated Redwood dataset.</span>
+
+<span class="sd">    Data can be found here:</span>
+<span class="sd">    http://redwood-data.org/3dscan/index.html</span>
+
+<span class="sd">    Annotations are of repo.</span>
+
+<span class="sd">    Expected directory format:</span>
+<span class="sd">        {root_dir}/{category_str}/rgbd/{sequence_id}/...</span>
+<span class="sd">        {ann_dir}/{sequence_id}.obj</span>
+<span class="sd">        {ann_dir}/annotations.json</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">num_categories</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">category_id_to_str</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;bottle&quot;</span><span class="p">,</span>
+        <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;bowl&quot;</span><span class="p">,</span>
+        <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;mug&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">category_str_to_id</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">category_id_to_str</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+    <span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Configuration dictionary for annoated Redwood dataset.</span>
+
+<span class="sd">        Attributes:</span>
+<span class="sd">            root_dir: See AnnotatedRedwoodDataset docstring.</span>
+<span class="sd">            ann_dir: See AnnotatedRedwoodDataset docstring.</span>
+<span class="sd">            mask_pointcloud: Whether the returned pointcloud will be masked.</span>
+<span class="sd">            normalize_pointcloud:</span>
+<span class="sd">                Whether the returned pointcloud and position will be normalized, such</span>
+<span class="sd">                that pointcloud centroid is at the origin.</span>
+<span class="sd">            scale_convention:</span>
+<span class="sd">                Which scale is returned. The following strings are supported:</span>
+<span class="sd">                    &quot;diagonal&quot;:</span>
+<span class="sd">                        Length of bounding box&#39; diagonal. This is what NOCS uses.</span>
+<span class="sd">                    &quot;max&quot;: Maximum side length of bounding box.</span>
+<span class="sd">                    &quot;half_max&quot;: Half maximum side length of bounding box.</span>
+<span class="sd">                    &quot;full&quot;: Bounding box side lengths. Shape (3,).</span>
+<span class="sd">            camera_convention:</span>
+<span class="sd">                Which camera convention is used for position and orientation. One of:</span>
+<span class="sd">                    &quot;opengl&quot;: x right, y up, z back</span>
+<span class="sd">                    &quot;opencv&quot;: x right, y down, z forward</span>
+<span class="sd">                Note that this does not influence how the dataset is processed, only the</span>
+<span class="sd">                returned position and quaternion.</span>
+<span class="sd">            orientation_repr:</span>
+<span class="sd">                Which orientation representation is used. Currently only &quot;quaternion&quot;</span>
+<span class="sd">                supported.</span>
+<span class="sd">            remap_y_axis:</span>
+<span class="sd">                If not None, the Redwood y-axis will be mapped to the provided axis.</span>
+<span class="sd">                Resulting coordinate system will always be right-handed.</span>
+<span class="sd">                This is typically the up-axis.</span>
+<span class="sd">                Note that NOCS object models are NOT aligned the same as ShapeNetV2.</span>
+<span class="sd">                To get ShapeNetV2 alignment: -y</span>
+<span class="sd">                One of: &quot;x&quot;, &quot;y&quot;, &quot;z&quot;, &quot;-x&quot;, &quot;-y&quot;, &quot;-z&quot;</span>
+<span class="sd">            remap_x_axis:</span>
+<span class="sd">                If not None, the original x-axis will be mapped to the provided axis.</span>
+<span class="sd">                Resulting coordinate system will always be right-handed.</span>
+<span class="sd">                Note that NOCS object models are NOT aligned the same as ShapeNetV2.</span>
+<span class="sd">                To get ShapeNetV2 alignment: z</span>
+<span class="sd">                One of: &quot;x&quot;, &quot;y&quot;, &quot;z&quot;, &quot;-x&quot;, &quot;-y&quot;, &quot;-z&quot;</span>
+<span class="sd">            category_str:</span>
+<span class="sd">                If not None, only samples from the matching category will be returned.</span>
+<span class="sd">                See AnnotatedRedwoodDataset.category_id_to_str for admissible category</span>
+<span class="sd">                strings.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">root_dir</span><span class="p">:</span> <span class="nb">str</span>
+        <span class="n">ann_dir</span><span class="p">:</span> <span class="nb">str</span>
+        <span class="n">split</span><span class="p">:</span> <span class="nb">str</span>
+        <span class="n">mask_pointcloud</span><span class="p">:</span> <span class="nb">bool</span>
+        <span class="n">normalize_pointcloud</span><span class="p">:</span> <span class="nb">bool</span>
+        <span class="n">scale_convention</span><span class="p">:</span> <span class="nb">str</span>
+        <span class="n">camera_convention</span><span class="p">:</span> <span class="nb">str</span>
+        <span class="n">orientation_repr</span><span class="p">:</span> <span class="nb">str</span>
+        <span class="n">orientation_grid_resolution</span><span class="p">:</span> <span class="nb">int</span>
+        <span class="n">remap_y_axis</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+        <span class="n">remap_x_axis</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+        <span class="n">category_str</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+
+    <span class="n">default_config</span><span class="p">:</span> <span class="n">Config</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;root_dir&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;ann_dir&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;mask_pointcloud&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s2">&quot;normalize_pointcloud&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s2">&quot;camera_convention&quot;</span><span class="p">:</span> <span class="s2">&quot;opengl&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;scale_convention&quot;</span><span class="p">:</span> <span class="s2">&quot;half_max&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;orientation_repr&quot;</span><span class="p">:</span> <span class="s2">&quot;quaternion&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;orientation_grid_resolution&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;category_str&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;remap_y_axis&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;remap_x_axis&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Initialize the dataset.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            config:</span>
+<span class="sd">                Configuration dictionary of dataset. Provided dictionary will be merged</span>
+<span class="sd">                with default_dict. See AnnotatedRedwoodDataset.Config for keys.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">yoco</span><span class="o">.</span><span class="n">load_config</span><span class="p">(</span>
+            <span class="n">config</span><span class="p">,</span> <span class="n">current_dict</span><span class="o">=</span><span class="n">AnnotatedRedwoodDataset</span><span class="o">.</span><span class="n">default_config</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;root_dir&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;ann_dir&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_dirs</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_camera_convention</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;camera_convention&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mask_pointcloud</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;mask_pointcloud&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_normalize_pointcloud</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;normalize_pointcloud&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scale_convention</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;scale_convention&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;remap_y_axis&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_remap_x_axis</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;remap_x_axis&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_orientation_repr</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;orientation_repr&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load_annotations</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span> <span class="o">=</span> <span class="n">camera_utils</span><span class="o">.</span><span class="n">Camera</span><span class="p">(</span>
+            <span class="n">width</span><span class="o">=</span><span class="mi">640</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">480</span><span class="p">,</span> <span class="n">fx</span><span class="o">=</span><span class="mi">525</span><span class="p">,</span> <span class="n">fy</span><span class="o">=</span><span class="mi">525</span><span class="p">,</span> <span class="n">cx</span><span class="o">=</span><span class="mf">319.5</span><span class="p">,</span> <span class="n">cy</span><span class="o">=</span><span class="mf">239.5</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_check_dirs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir</span><span class="p">):</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;REDWOOD75 dataset not found, do you want to download it into the &quot;</span>
+                <span class="s2">&quot;following directories:&quot;</span>
+            <span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir</span><span class="p">)</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">decision</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;(Y/n) &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">decision</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">decision</span> <span class="o">==</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_download_dataset</span><span class="p">()</span>
+                    <span class="k">break</span>
+                <span class="k">elif</span> <span class="n">decision</span> <span class="o">==</span> <span class="s2">&quot;n&quot;</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dataset not found. Aborting.&quot;</span><span class="p">)</span>
+                    <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_download_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Download anns</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir</span><span class="p">):</span>
+            <span class="n">zip_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir</span><span class="p">,</span> <span class="s2">&quot;redwood75.zip&quot;</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">&quot;https://drive.google.com/u/0/uc?id=1PMvIblsXWDxEJykVwhUk_QEjy4_bmDU&quot;</span>
+                <span class="s2">&quot;-&amp;export=download&quot;</span>
+            <span class="p">)</span>
+            <span class="n">utils</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">zip_path</span><span class="p">)</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">zip_path</span><span class="p">)</span>
+            <span class="n">z</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir</span><span class="p">,</span> <span class="s2">&quot;..&quot;</span><span class="p">))</span>
+            <span class="n">z</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">zip_path</span><span class="p">)</span>
+
+        <span class="n">ann_json</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir</span><span class="p">,</span> <span class="s2">&quot;annotations.json&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ann_json</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">anns_dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+        <span class="n">baseurl</span> <span class="o">=</span> <span class="s2">&quot;https://s3.us-west-1.wasabisys.com/redwood-3dscan/rgbd/&quot;</span>
+        <span class="k">for</span> <span class="n">seq_id</span> <span class="ow">in</span> <span class="n">anns_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">download_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">,</span> <span class="n">anns_dict</span><span class="p">[</span><span class="n">seq_id</span><span class="p">][</span><span class="s2">&quot;category&quot;</span><span class="p">])</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">download_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">zip_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">download_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">seq_id</span><span class="si">}</span><span class="s2">.zip&quot;</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">zip_path</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">utils</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">baseurl</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">seq_id</span><span class="si">}</span><span class="s2">.zip&quot;</span><span class="p">,</span> <span class="n">zip_path</span><span class="p">)</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">zip_path</span><span class="p">)</span>
+            <span class="n">out_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">download_dir</span><span class="p">,</span> <span class="s2">&quot;rgbd&quot;</span><span class="p">,</span> <span class="n">seq_id</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out_folder</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">z</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">out_folder</span><span class="p">)</span>
+            <span class="n">z</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">zip_path</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_load_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Load annotations into memory.&quot;&quot;&quot;</span>
+        <span class="n">ann_json</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir</span><span class="p">,</span> <span class="s2">&quot;annotations.json&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ann_json</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">anns_dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_raw_samples</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">seq_id</span><span class="p">,</span> <span class="n">seq_anns</span> <span class="ow">in</span> <span class="n">anns_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">pose_ann</span> <span class="ow">in</span> <span class="n">seq_anns</span><span class="p">[</span><span class="s2">&quot;pose_anns&quot;</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_raw_samples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_create_raw_sample</span><span class="p">(</span><span class="n">seq_id</span><span class="p">,</span> <span class="n">seq_anns</span><span class="p">,</span> <span class="n">pose_ann</span><span class="p">)</span>
+                <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_create_raw_sample</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">seq_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sequence_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">annotation_dict</span><span class="p">:</span> <span class="nb">dict</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Create raw sample from information in annotations file.&quot;&quot;&quot;</span>
+        <span class="n">position</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">annotation_dict</span><span class="p">[</span><span class="s2">&quot;position&quot;</span><span class="p">])</span>
+        <span class="n">orientation_q</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">annotation_dict</span><span class="p">[</span><span class="s2">&quot;orientation&quot;</span><span class="p">])</span>
+        <span class="n">rgb_filename</span> <span class="o">=</span> <span class="n">annotation_dict</span><span class="p">[</span><span class="s2">&quot;rgb_file&quot;</span><span class="p">]</span>
+        <span class="n">depth_filename</span> <span class="o">=</span> <span class="n">annotation_dict</span><span class="p">[</span><span class="s2">&quot;depth_file&quot;</span><span class="p">]</span>
+        <span class="n">mesh_filename</span> <span class="o">=</span> <span class="n">sequence_dict</span><span class="p">[</span><span class="s2">&quot;mesh&quot;</span><span class="p">]</span>
+        <span class="n">mesh_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir</span><span class="p">,</span> <span class="n">mesh_filename</span><span class="p">)</span>
+        <span class="n">category_str</span> <span class="o">=</span> <span class="n">sequence_dict</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span>
+        <span class="n">color_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">,</span> <span class="n">category_str</span><span class="p">,</span> <span class="s2">&quot;rgbd&quot;</span><span class="p">,</span> <span class="n">seq_id</span><span class="p">,</span> <span class="s2">&quot;rgb&quot;</span><span class="p">,</span> <span class="n">rgb_filename</span>
+        <span class="p">)</span>
+        <span class="n">depth_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">,</span> <span class="n">category_str</span><span class="p">,</span> <span class="s2">&quot;rgbd&quot;</span><span class="p">,</span> <span class="n">seq_id</span><span class="p">,</span> <span class="s2">&quot;depth&quot;</span><span class="p">,</span> <span class="n">depth_filename</span>
+        <span class="p">)</span>
+        <span class="n">extents</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">sequence_dict</span><span class="p">[</span><span class="s2">&quot;scale&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="mi">2</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;position&quot;</span><span class="p">:</span> <span class="n">position</span><span class="p">,</span>
+            <span class="s2">&quot;orientation_q&quot;</span><span class="p">:</span> <span class="n">orientation_q</span><span class="p">,</span>
+            <span class="s2">&quot;extents&quot;</span><span class="p">:</span> <span class="n">extents</span><span class="p">,</span>
+            <span class="s2">&quot;color_path&quot;</span><span class="p">:</span> <span class="n">color_path</span><span class="p">,</span>
+            <span class="s2">&quot;depth_path&quot;</span><span class="p">:</span> <span class="n">depth_path</span><span class="p">,</span>
+            <span class="s2">&quot;mesh_path&quot;</span><span class="p">:</span> <span class="n">mesh_path</span><span class="p">,</span>
+            <span class="s2">&quot;category_str&quot;</span><span class="p">:</span> <span class="n">category_str</span><span class="p">,</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return number of sample in dataset.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_raw_samples</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return a sample of the dataset.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            idx: Index of the instance.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Sample containing the following keys:</span>
+<span class="sd">                &quot;color&quot;</span>
+<span class="sd">                &quot;depth&quot;</span>
+<span class="sd">                &quot;mask&quot;</span>
+<span class="sd">                &quot;pointset&quot;</span>
+<span class="sd">                &quot;position&quot;</span>
+<span class="sd">                &quot;orientation&quot;</span>
+<span class="sd">                &quot;quaternion&quot;</span>
+<span class="sd">                &quot;scale&quot;</span>
+<span class="sd">                &quot;color_path&quot;</span>
+<span class="sd">                &quot;obj_path&quot;</span>
+<span class="sd">                &quot;category_id&quot;</span>
+<span class="sd">                &quot;category_str&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">raw_sample</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_raw_samples</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">raw_sample</span><span class="p">[</span><span class="s2">&quot;color_path&quot;</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>
+        <span class="p">)</span>
+        <span class="n">depth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_depth</span><span class="p">(</span><span class="n">raw_sample</span><span class="p">[</span><span class="s2">&quot;depth_path&quot;</span><span class="p">])</span>
+        <span class="n">instance_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_mask</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="n">raw_sample</span><span class="p">)</span>
+
+        <span class="n">pointcloud_mask</span> <span class="o">=</span> <span class="n">instance_mask</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mask_pointcloud</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="n">pointcloud</span> <span class="o">=</span> <span class="n">pointset_utils</span><span class="o">.</span><span class="n">depth_to_pointcloud</span><span class="p">(</span>
+            <span class="n">depth</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span><span class="p">,</span>
+            <span class="n">mask</span><span class="o">=</span><span class="n">pointcloud_mask</span><span class="p">,</span>
+            <span class="n">convention</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_camera_convention</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># adjust camera convention for position, orientation and scale</span>
+        <span class="n">position</span> <span class="o">=</span> <span class="n">pointset_utils</span><span class="o">.</span><span class="n">change_position_camera_convention</span><span class="p">(</span>
+            <span class="n">raw_sample</span><span class="p">[</span><span class="s2">&quot;position&quot;</span><span class="p">],</span> <span class="s2">&quot;opencv&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_camera_convention</span>
+        <span class="p">)</span>
+
+        <span class="c1"># orientation / scale</span>
+        <span class="n">orientation_q</span><span class="p">,</span> <span class="n">extents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_change_axis_convention</span><span class="p">(</span>
+            <span class="n">raw_sample</span><span class="p">[</span><span class="s2">&quot;orientation_q&quot;</span><span class="p">],</span> <span class="n">raw_sample</span><span class="p">[</span><span class="s2">&quot;extents&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">orientation_q</span> <span class="o">=</span> <span class="n">pointset_utils</span><span class="o">.</span><span class="n">change_orientation_camera_convention</span><span class="p">(</span>
+            <span class="n">orientation_q</span><span class="p">,</span> <span class="s2">&quot;opencv&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_camera_convention</span>
+        <span class="p">)</span>
+        <span class="n">orientation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quat_to_orientation_repr</span><span class="p">(</span><span class="n">orientation_q</span><span class="p">)</span>
+        <span class="n">scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_scale</span><span class="p">(</span><span class="n">extents</span><span class="p">)</span>
+
+        <span class="c1"># normalize pointcloud &amp; position</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_normalize_pointcloud</span><span class="p">:</span>
+            <span class="n">pointcloud</span><span class="p">,</span> <span class="n">centroid</span> <span class="o">=</span> <span class="n">pointset_utils</span><span class="o">.</span><span class="n">normalize_points</span><span class="p">(</span><span class="n">pointcloud</span><span class="p">)</span>
+            <span class="n">position</span> <span class="o">=</span> <span class="n">position</span> <span class="o">-</span> <span class="n">centroid</span>
+
+        <span class="n">category_str</span> <span class="o">=</span> <span class="n">raw_sample</span><span class="p">[</span><span class="s2">&quot;category_str&quot;</span><span class="p">]</span>
+        <span class="n">sample</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">color</span><span class="p">,</span>
+            <span class="s2">&quot;depth&quot;</span><span class="p">:</span> <span class="n">depth</span><span class="p">,</span>
+            <span class="s2">&quot;pointset&quot;</span><span class="p">:</span> <span class="n">pointcloud</span><span class="p">,</span>
+            <span class="s2">&quot;mask&quot;</span><span class="p">:</span> <span class="n">instance_mask</span><span class="p">,</span>
+            <span class="s2">&quot;position&quot;</span><span class="p">:</span> <span class="n">position</span><span class="p">,</span>
+            <span class="s2">&quot;orientation&quot;</span><span class="p">:</span> <span class="n">orientation</span><span class="p">,</span>
+            <span class="s2">&quot;quaternion&quot;</span><span class="p">:</span> <span class="n">orientation_q</span><span class="p">,</span>
+            <span class="s2">&quot;scale&quot;</span><span class="p">:</span> <span class="n">scale</span><span class="p">,</span>
+            <span class="s2">&quot;color_path&quot;</span><span class="p">:</span> <span class="n">raw_sample</span><span class="p">[</span><span class="s2">&quot;color_path&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;obj_path&quot;</span><span class="p">:</span> <span class="n">raw_sample</span><span class="p">[</span><span class="s2">&quot;mesh_path&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;category_id&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">category_str_to_id</span><span class="p">[</span><span class="n">category_str</span><span class="p">],</span>
+            <span class="s2">&quot;category_str&quot;</span><span class="p">:</span> <span class="n">category_str</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">sample</span>
+
+    <span class="k">def</span> <span class="nf">_compute_mask</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">raw_sample</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="n">posed_mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">raw_sample</span><span class="p">[</span><span class="s2">&quot;mesh_path&quot;</span><span class="p">])</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">Rotation</span><span class="o">.</span><span class="n">from_quat</span><span class="p">(</span><span class="n">raw_sample</span><span class="p">[</span><span class="s2">&quot;orientation_q&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()</span>
+        <span class="n">posed_mesh</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
+        <span class="n">posed_mesh</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">raw_sample</span><span class="p">[</span><span class="s2">&quot;position&quot;</span><span class="p">])</span>
+        <span class="n">posed_mesh</span><span class="o">.</span><span class="n">compute_vertex_normals</span><span class="p">()</span>
+        <span class="n">gt_depth</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">_draw_depth_geometry</span><span class="p">(</span><span class="n">posed_mesh</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span><span class="p">))</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">gt_depth</span> <span class="o">!=</span> <span class="mi">0</span>
+        <span class="c1"># exclude occluded parts from mask</span>
+        <span class="n">mask</span><span class="p">[(</span><span class="n">depth</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">depth</span> <span class="o">&lt;</span> <span class="n">gt_depth</span> <span class="o">-</span> <span class="mf">0.01</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="n">mask</span>
+
+    <span class="k">def</span> <span class="nf">_load_depth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Load depth from depth filepath.&quot;&quot;&quot;</span>
+        <span class="n">depth</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">depth_path</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.001</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">depth</span>
+
+    <span class="k">def</span> <span class="nf">_get_scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extents</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return scale from stored sample data and extents.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scale_convention</span> <span class="o">==</span> <span class="s2">&quot;diagonal&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">extents</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scale_convention</span> <span class="o">==</span> <span class="s2">&quot;max&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">extents</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scale_convention</span> <span class="o">==</span> <span class="s2">&quot;half_max&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">extents</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scale_convention</span> <span class="o">==</span> <span class="s2">&quot;full&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">extents</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Specified scale convention </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_scale_convention</span><span class="si">}</span><span class="s2"> not supported.&quot;</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_change_axis_convention</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">orientation_q</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">extents</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Adjust up-axis for orientation and extents.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Tuple of position, orienation_q and extents, with specified up-axis.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_x_axis</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">orientation_q</span><span class="p">,</span> <span class="n">extents</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_x_axis</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Either both or none of remap_{y,x}_axis have to be None.&quot;</span><span class="p">)</span>
+
+        <span class="n">rotation_o2n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_o2n_object_rotation_matrix</span><span class="p">()</span>
+        <span class="n">remapped_extents</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">rotation_o2n</span><span class="p">)</span> <span class="o">@</span> <span class="n">extents</span><span class="p">)</span>
+
+        <span class="c1"># quaternion so far: original -&gt; camera</span>
+        <span class="c1"># we want a quaternion: new -&gt; camera</span>
+        <span class="n">rotation_n2o</span> <span class="o">=</span> <span class="n">rotation_o2n</span><span class="o">.</span><span class="n">T</span>
+
+        <span class="n">quaternion_n2o</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">Rotation</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">rotation_n2o</span><span class="p">)</span><span class="o">.</span><span class="n">as_quat</span><span class="p">())</span>
+
+        <span class="n">remapped_orientation_q</span> <span class="o">=</span> <span class="n">quaternion_utils</span><span class="o">.</span><span class="n">quaternion_multiply</span><span class="p">(</span>
+            <span class="n">orientation_q</span><span class="p">,</span> <span class="n">quaternion_n2o</span>
+        <span class="p">)</span>  <span class="c1"># new -&gt; original -&gt; camera</span>
+
+        <span class="k">return</span> <span class="n">remapped_orientation_q</span><span class="p">,</span> <span class="n">remapped_extents</span>
+
+    <span class="k">def</span> <span class="nf">_get_o2n_object_rotation_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Compute rotation matrix which rotates original to new object coordinates.&quot;&quot;&quot;</span>
+        <span class="n">rotation_o2n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>  <span class="c1"># original to new object convention</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="o">==</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span>
+            <span class="n">rotation_o2n</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="o">==</span> <span class="s2">&quot;-x&quot;</span><span class="p">:</span>
+            <span class="n">rotation_o2n</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="o">==</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>
+            <span class="n">rotation_o2n</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="o">==</span> <span class="s2">&quot;-y&quot;</span><span class="p">:</span>
+            <span class="n">rotation_o2n</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="o">==</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span>
+            <span class="n">rotation_o2n</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="o">==</span> <span class="s2">&quot;-z&quot;</span><span class="p">:</span>
+            <span class="n">rotation_o2n</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unsupported remap_y_axis </span><span class="si">{self.remap_y}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_x_axis</span> <span class="o">==</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span>
+            <span class="n">rotation_o2n</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_x_axis</span> <span class="o">==</span> <span class="s2">&quot;-x&quot;</span><span class="p">:</span>
+            <span class="n">rotation_o2n</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_x_axis</span> <span class="o">==</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>
+            <span class="n">rotation_o2n</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_x_axis</span> <span class="o">==</span> <span class="s2">&quot;-y&quot;</span><span class="p">:</span>
+            <span class="n">rotation_o2n</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_x_axis</span> <span class="o">==</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span>
+            <span class="n">rotation_o2n</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_x_axis</span> <span class="o">==</span> <span class="s2">&quot;-z&quot;</span><span class="p">:</span>
+            <span class="n">rotation_o2n</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unsupported remap_x_axis </span><span class="si">{self.remap_y}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># infer last column</span>
+        <span class="n">rotation_o2n</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">rotation_o2n</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># rows must sum to +-1</span>
+        <span class="n">rotation_o2n</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">*=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">rotation_o2n</span><span class="p">)</span>  <span class="c1"># make special orthogonal</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">rotation_o2n</span><span class="p">)</span> <span class="o">!=</span> <span class="mf">1.0</span><span class="p">:</span>  <span class="c1"># check if special orthogonal</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unsupported combination of remap_{y,x}_axis. det != 1&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">rotation_o2n</span>
+
+    <span class="k">def</span> <span class="nf">_quat_to_orientation_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quaternion</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Convert quaternion to selected orientation representation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            quaternion:</span>
+<span class="sd">                The quaternion to convert, scalar-last, shape (4,).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The same orientation as represented by the quaternion in the chosen</span>
+<span class="sd">            orientation representation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_orientation_repr</span> <span class="o">==</span> <span class="s2">&quot;quaternion&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">quaternion</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_orientation_repr</span> <span class="o">==</span> <span class="s2">&quot;discretized&quot;</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_orientation_grid</span><span class="o">.</span><span class="n">quat_to_index</span><span class="p">(</span><span class="n">quaternion</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+            <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
+                <span class="n">index</span><span class="p">,</span>
+                <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Orientation representation </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_orientation_repr</span><span class="si">}</span><span class="s2"> is not supported.&quot;</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">load_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Load an object mesh and adjust its object frame convention.&quot;&quot;&quot;</span>
+        <span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">object_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_x_axis</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">mesh</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_x_axis</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Either both or none of remap_{y,x}_axis have to be None.&quot;</span><span class="p">)</span>
+
+        <span class="n">rotation_o2n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_o2n_object_rotation_matrix</span><span class="p">()</span>
+        <span class="n">mesh</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span>
+            <span class="n">rotation_o2n</span><span class="p">,</span>
+            <span class="n">center</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])[:,</span> <span class="kc">None</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">mesh</span>
+</code></pre></div>
+</td></tr></table>
+          </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h3 id="cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset.Config" class="doc doc-heading">
+          <code>Config</code>
+
+
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code><span title="typing.TypedDict">TypedDict</span></code></p>
+
+
+      <p>Configuration dictionary for annoated Redwood dataset.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>ATTRIBUTE</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>root_dir</code></td>
+          <td class="doc-attribute-details">
+            <p>See AnnotatedRedwoodDataset docstring.</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code>str</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>ann_dir</code></td>
+          <td class="doc-attribute-details">
+            <p>See AnnotatedRedwoodDataset docstring.</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code>str</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>mask_pointcloud</code></td>
+          <td class="doc-attribute-details">
+            <p>Whether the returned pointcloud will be masked.</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code>bool</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>normalize_pointcloud</code></td>
+          <td class="doc-attribute-details">
+            <p>Whether the returned pointcloud and position will be normalized, such
+that pointcloud centroid is at the origin.</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code>bool</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>scale_convention</code></td>
+          <td class="doc-attribute-details">
+            <p>Which scale is returned. The following strings are supported:
+    "diagonal":
+        Length of bounding box' diagonal. This is what NOCS uses.
+    "max": Maximum side length of bounding box.
+    "half_max": Half maximum side length of bounding box.
+    "full": Bounding box side lengths. Shape (3,).</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code>str</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>camera_convention</code></td>
+          <td class="doc-attribute-details">
+            <p>Which camera convention is used for position and orientation. One of:
+    "opengl": x right, y up, z back
+    "opencv": x right, y down, z forward
+Note that this does not influence how the dataset is processed, only the
+returned position and quaternion.</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code>str</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>orientation_repr</code></td>
+          <td class="doc-attribute-details">
+            <p>Which orientation representation is used. Currently only "quaternion"
+supported.</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code>str</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>remap_y_axis</code></td>
+          <td class="doc-attribute-details">
+            <p>If not None, the Redwood y-axis will be mapped to the provided axis.
+Resulting coordinate system will always be right-handed.
+This is typically the up-axis.
+Note that NOCS object models are NOT aligned the same as ShapeNetV2.
+To get ShapeNetV2 alignment: -y
+One of: "x", "y", "z", "-x", "-y", "-z"</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="typing.Optional">Optional</span>[str]</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>remap_x_axis</code></td>
+          <td class="doc-attribute-details">
+            <p>If not None, the original x-axis will be mapped to the provided axis.
+Resulting coordinate system will always be right-handed.
+Note that NOCS object models are NOT aligned the same as ShapeNetV2.
+To get ShapeNetV2 alignment: z
+One of: "x", "y", "z", "-x", "-y", "-z"</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="typing.Optional">Optional</span>[str]</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>category_str</code></td>
+          <td class="doc-attribute-details">
+            <p>If not None, only samples from the matching category will be returned.
+See AnnotatedRedwoodDataset.category_id_to_str for admissible category
+strings.</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="typing.Optional">Optional</span>[str]</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+          <details class="quote">
+            <summary>Source code in <code>cpas_toolbox/datasets/redwood_dataset.py</code></summary>
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span>
+<span class="normal">95</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Configuration dictionary for annoated Redwood dataset.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        root_dir: See AnnotatedRedwoodDataset docstring.</span>
+<span class="sd">        ann_dir: See AnnotatedRedwoodDataset docstring.</span>
+<span class="sd">        mask_pointcloud: Whether the returned pointcloud will be masked.</span>
+<span class="sd">        normalize_pointcloud:</span>
+<span class="sd">            Whether the returned pointcloud and position will be normalized, such</span>
+<span class="sd">            that pointcloud centroid is at the origin.</span>
+<span class="sd">        scale_convention:</span>
+<span class="sd">            Which scale is returned. The following strings are supported:</span>
+<span class="sd">                &quot;diagonal&quot;:</span>
+<span class="sd">                    Length of bounding box&#39; diagonal. This is what NOCS uses.</span>
+<span class="sd">                &quot;max&quot;: Maximum side length of bounding box.</span>
+<span class="sd">                &quot;half_max&quot;: Half maximum side length of bounding box.</span>
+<span class="sd">                &quot;full&quot;: Bounding box side lengths. Shape (3,).</span>
+<span class="sd">        camera_convention:</span>
+<span class="sd">            Which camera convention is used for position and orientation. One of:</span>
+<span class="sd">                &quot;opengl&quot;: x right, y up, z back</span>
+<span class="sd">                &quot;opencv&quot;: x right, y down, z forward</span>
+<span class="sd">            Note that this does not influence how the dataset is processed, only the</span>
+<span class="sd">            returned position and quaternion.</span>
+<span class="sd">        orientation_repr:</span>
+<span class="sd">            Which orientation representation is used. Currently only &quot;quaternion&quot;</span>
+<span class="sd">            supported.</span>
+<span class="sd">        remap_y_axis:</span>
+<span class="sd">            If not None, the Redwood y-axis will be mapped to the provided axis.</span>
+<span class="sd">            Resulting coordinate system will always be right-handed.</span>
+<span class="sd">            This is typically the up-axis.</span>
+<span class="sd">            Note that NOCS object models are NOT aligned the same as ShapeNetV2.</span>
+<span class="sd">            To get ShapeNetV2 alignment: -y</span>
+<span class="sd">            One of: &quot;x&quot;, &quot;y&quot;, &quot;z&quot;, &quot;-x&quot;, &quot;-y&quot;, &quot;-z&quot;</span>
+<span class="sd">        remap_x_axis:</span>
+<span class="sd">            If not None, the original x-axis will be mapped to the provided axis.</span>
+<span class="sd">            Resulting coordinate system will always be right-handed.</span>
+<span class="sd">            Note that NOCS object models are NOT aligned the same as ShapeNetV2.</span>
+<span class="sd">            To get ShapeNetV2 alignment: z</span>
+<span class="sd">            One of: &quot;x&quot;, &quot;y&quot;, &quot;z&quot;, &quot;-x&quot;, &quot;-y&quot;, &quot;-z&quot;</span>
+<span class="sd">        category_str:</span>
+<span class="sd">            If not None, only samples from the matching category will be returned.</span>
+<span class="sd">            See AnnotatedRedwoodDataset.category_id_to_str for admissible category</span>
+<span class="sd">            strings.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">root_dir</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">ann_dir</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">split</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">mask_pointcloud</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">normalize_pointcloud</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">scale_convention</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">camera_convention</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">orientation_repr</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">orientation_grid_resolution</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">remap_y_axis</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">remap_x_axis</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">category_str</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+</code></pre></div>
+</td></tr></table>
+          </details>
+
+
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset.__init__" class="doc doc-heading">
+__init__
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+      <p>Initialize the dataset.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>config</code></td>
+          <td class="doc-param-details">
+            <p>Configuration dictionary of dataset. Provided dictionary will be merged
+with default_dict. See AnnotatedRedwoodDataset.Config for keys.</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><a title="cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset.Config" href="#cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset.Config">Config</a></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+        <details class="quote">
+          <summary>Source code in <code>cpas_toolbox/datasets/redwood_dataset.py</code></summary>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Initialize the dataset.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        config:</span>
+<span class="sd">            Configuration dictionary of dataset. Provided dictionary will be merged</span>
+<span class="sd">            with default_dict. See AnnotatedRedwoodDataset.Config for keys.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">yoco</span><span class="o">.</span><span class="n">load_config</span><span class="p">(</span>
+        <span class="n">config</span><span class="p">,</span> <span class="n">current_dict</span><span class="o">=</span><span class="n">AnnotatedRedwoodDataset</span><span class="o">.</span><span class="n">default_config</span>
+    <span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;root_dir&quot;</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;ann_dir&quot;</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_check_dirs</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_camera_convention</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;camera_convention&quot;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_mask_pointcloud</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;mask_pointcloud&quot;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_normalize_pointcloud</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;normalize_pointcloud&quot;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_scale_convention</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;scale_convention&quot;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;remap_y_axis&quot;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_remap_x_axis</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;remap_x_axis&quot;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_orientation_repr</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;orientation_repr&quot;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_load_annotations</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span> <span class="o">=</span> <span class="n">camera_utils</span><span class="o">.</span><span class="n">Camera</span><span class="p">(</span>
+        <span class="n">width</span><span class="o">=</span><span class="mi">640</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">480</span><span class="p">,</span> <span class="n">fx</span><span class="o">=</span><span class="mi">525</span><span class="p">,</span> <span class="n">fy</span><span class="o">=</span><span class="mi">525</span><span class="p">,</span> <span class="n">cx</span><span class="o">=</span><span class="mf">319.5</span><span class="p">,</span> <span class="n">cy</span><span class="o">=</span><span class="mf">239.5</span>
+    <span class="p">)</span>
+</code></pre></div>
+</td></tr></table>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset._load_annotations" class="doc doc-heading">
+_load_annotations
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">_load_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+      <p>Load annotations into memory.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>cpas_toolbox/datasets/redwood_dataset.py</code></summary>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">_load_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Load annotations into memory.&quot;&quot;&quot;</span>
+    <span class="n">ann_json</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir</span><span class="p">,</span> <span class="s2">&quot;annotations.json&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ann_json</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">anns_dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_raw_samples</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">seq_id</span><span class="p">,</span> <span class="n">seq_anns</span> <span class="ow">in</span> <span class="n">anns_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">pose_ann</span> <span class="ow">in</span> <span class="n">seq_anns</span><span class="p">[</span><span class="s2">&quot;pose_anns&quot;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_raw_samples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_create_raw_sample</span><span class="p">(</span><span class="n">seq_id</span><span class="p">,</span> <span class="n">seq_anns</span><span class="p">,</span> <span class="n">pose_ann</span><span class="p">)</span>
+            <span class="p">)</span>
+</code></pre></div>
+</td></tr></table>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset._create_raw_sample" class="doc doc-heading">
+_create_raw_sample
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">_create_raw_sample</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">seq_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sequence_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">annotation_dict</span><span class="p">:</span> <span class="nb">dict</span>
+<span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+      <p>Create raw sample from information in annotations file.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>cpas_toolbox/datasets/redwood_dataset.py</code></summary>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">_create_raw_sample</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">seq_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sequence_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">annotation_dict</span><span class="p">:</span> <span class="nb">dict</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Create raw sample from information in annotations file.&quot;&quot;&quot;</span>
+    <span class="n">position</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">annotation_dict</span><span class="p">[</span><span class="s2">&quot;position&quot;</span><span class="p">])</span>
+    <span class="n">orientation_q</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">annotation_dict</span><span class="p">[</span><span class="s2">&quot;orientation&quot;</span><span class="p">])</span>
+    <span class="n">rgb_filename</span> <span class="o">=</span> <span class="n">annotation_dict</span><span class="p">[</span><span class="s2">&quot;rgb_file&quot;</span><span class="p">]</span>
+    <span class="n">depth_filename</span> <span class="o">=</span> <span class="n">annotation_dict</span><span class="p">[</span><span class="s2">&quot;depth_file&quot;</span><span class="p">]</span>
+    <span class="n">mesh_filename</span> <span class="o">=</span> <span class="n">sequence_dict</span><span class="p">[</span><span class="s2">&quot;mesh&quot;</span><span class="p">]</span>
+    <span class="n">mesh_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir</span><span class="p">,</span> <span class="n">mesh_filename</span><span class="p">)</span>
+    <span class="n">category_str</span> <span class="o">=</span> <span class="n">sequence_dict</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span>
+    <span class="n">color_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">,</span> <span class="n">category_str</span><span class="p">,</span> <span class="s2">&quot;rgbd&quot;</span><span class="p">,</span> <span class="n">seq_id</span><span class="p">,</span> <span class="s2">&quot;rgb&quot;</span><span class="p">,</span> <span class="n">rgb_filename</span>
+    <span class="p">)</span>
+    <span class="n">depth_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">,</span> <span class="n">category_str</span><span class="p">,</span> <span class="s2">&quot;rgbd&quot;</span><span class="p">,</span> <span class="n">seq_id</span><span class="p">,</span> <span class="s2">&quot;depth&quot;</span><span class="p">,</span> <span class="n">depth_filename</span>
+    <span class="p">)</span>
+    <span class="n">extents</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">sequence_dict</span><span class="p">[</span><span class="s2">&quot;scale&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;position&quot;</span><span class="p">:</span> <span class="n">position</span><span class="p">,</span>
+        <span class="s2">&quot;orientation_q&quot;</span><span class="p">:</span> <span class="n">orientation_q</span><span class="p">,</span>
+        <span class="s2">&quot;extents&quot;</span><span class="p">:</span> <span class="n">extents</span><span class="p">,</span>
+        <span class="s2">&quot;color_path&quot;</span><span class="p">:</span> <span class="n">color_path</span><span class="p">,</span>
+        <span class="s2">&quot;depth_path&quot;</span><span class="p">:</span> <span class="n">depth_path</span><span class="p">,</span>
+        <span class="s2">&quot;mesh_path&quot;</span><span class="p">:</span> <span class="n">mesh_path</span><span class="p">,</span>
+        <span class="s2">&quot;category_str&quot;</span><span class="p">:</span> <span class="n">category_str</span><span class="p">,</span>
+    <span class="p">}</span>
+</code></pre></div>
+</td></tr></table>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset.__len__" class="doc doc-heading">
+__len__
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+      <p>Return number of sample in dataset.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>cpas_toolbox/datasets/redwood_dataset.py</code></summary>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Return number of sample in dataset.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_raw_samples</span><span class="p">)</span>
+</code></pre></div>
+</td></tr></table>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset.__getitem__" class="doc doc-heading">
+__getitem__
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+      <p>Return a sample of the dataset.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>idx</code></td>
+          <td class="doc-param-details">
+            <p>Index of the instance.</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>int</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>RETURNS</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+              <span class="doc-returns-annotation">
+                  <code>dict</code>
+              </span>
+          </td>
+          <td class="doc-returns-details">
+            <p>Sample containing the following keys:
+"color"
+"depth"
+"mask"
+"pointset"
+"position"
+"orientation"
+"quaternion"
+"scale"
+"color_path"
+"obj_path"
+"category_id"
+"category_str"</p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+        <details class="quote">
+          <summary>Source code in <code>cpas_toolbox/datasets/redwood_dataset.py</code></summary>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Return a sample of the dataset.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        idx: Index of the instance.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Sample containing the following keys:</span>
+<span class="sd">            &quot;color&quot;</span>
+<span class="sd">            &quot;depth&quot;</span>
+<span class="sd">            &quot;mask&quot;</span>
+<span class="sd">            &quot;pointset&quot;</span>
+<span class="sd">            &quot;position&quot;</span>
+<span class="sd">            &quot;orientation&quot;</span>
+<span class="sd">            &quot;quaternion&quot;</span>
+<span class="sd">            &quot;scale&quot;</span>
+<span class="sd">            &quot;color_path&quot;</span>
+<span class="sd">            &quot;obj_path&quot;</span>
+<span class="sd">            &quot;category_id&quot;</span>
+<span class="sd">            &quot;category_str&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">raw_sample</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_raw_samples</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">raw_sample</span><span class="p">[</span><span class="s2">&quot;color_path&quot;</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>
+    <span class="p">)</span>
+    <span class="n">depth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_depth</span><span class="p">(</span><span class="n">raw_sample</span><span class="p">[</span><span class="s2">&quot;depth_path&quot;</span><span class="p">])</span>
+    <span class="n">instance_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compute_mask</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="n">raw_sample</span><span class="p">)</span>
+
+    <span class="n">pointcloud_mask</span> <span class="o">=</span> <span class="n">instance_mask</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mask_pointcloud</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="n">pointcloud</span> <span class="o">=</span> <span class="n">pointset_utils</span><span class="o">.</span><span class="n">depth_to_pointcloud</span><span class="p">(</span>
+        <span class="n">depth</span><span class="p">,</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span><span class="p">,</span>
+        <span class="n">mask</span><span class="o">=</span><span class="n">pointcloud_mask</span><span class="p">,</span>
+        <span class="n">convention</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_camera_convention</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># adjust camera convention for position, orientation and scale</span>
+    <span class="n">position</span> <span class="o">=</span> <span class="n">pointset_utils</span><span class="o">.</span><span class="n">change_position_camera_convention</span><span class="p">(</span>
+        <span class="n">raw_sample</span><span class="p">[</span><span class="s2">&quot;position&quot;</span><span class="p">],</span> <span class="s2">&quot;opencv&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_camera_convention</span>
+    <span class="p">)</span>
+
+    <span class="c1"># orientation / scale</span>
+    <span class="n">orientation_q</span><span class="p">,</span> <span class="n">extents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_change_axis_convention</span><span class="p">(</span>
+        <span class="n">raw_sample</span><span class="p">[</span><span class="s2">&quot;orientation_q&quot;</span><span class="p">],</span> <span class="n">raw_sample</span><span class="p">[</span><span class="s2">&quot;extents&quot;</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">orientation_q</span> <span class="o">=</span> <span class="n">pointset_utils</span><span class="o">.</span><span class="n">change_orientation_camera_convention</span><span class="p">(</span>
+        <span class="n">orientation_q</span><span class="p">,</span> <span class="s2">&quot;opencv&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_camera_convention</span>
+    <span class="p">)</span>
+    <span class="n">orientation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quat_to_orientation_repr</span><span class="p">(</span><span class="n">orientation_q</span><span class="p">)</span>
+    <span class="n">scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_scale</span><span class="p">(</span><span class="n">extents</span><span class="p">)</span>
+
+    <span class="c1"># normalize pointcloud &amp; position</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_normalize_pointcloud</span><span class="p">:</span>
+        <span class="n">pointcloud</span><span class="p">,</span> <span class="n">centroid</span> <span class="o">=</span> <span class="n">pointset_utils</span><span class="o">.</span><span class="n">normalize_points</span><span class="p">(</span><span class="n">pointcloud</span><span class="p">)</span>
+        <span class="n">position</span> <span class="o">=</span> <span class="n">position</span> <span class="o">-</span> <span class="n">centroid</span>
+
+    <span class="n">category_str</span> <span class="o">=</span> <span class="n">raw_sample</span><span class="p">[</span><span class="s2">&quot;category_str&quot;</span><span class="p">]</span>
+    <span class="n">sample</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">color</span><span class="p">,</span>
+        <span class="s2">&quot;depth&quot;</span><span class="p">:</span> <span class="n">depth</span><span class="p">,</span>
+        <span class="s2">&quot;pointset&quot;</span><span class="p">:</span> <span class="n">pointcloud</span><span class="p">,</span>
+        <span class="s2">&quot;mask&quot;</span><span class="p">:</span> <span class="n">instance_mask</span><span class="p">,</span>
+        <span class="s2">&quot;position&quot;</span><span class="p">:</span> <span class="n">position</span><span class="p">,</span>
+        <span class="s2">&quot;orientation&quot;</span><span class="p">:</span> <span class="n">orientation</span><span class="p">,</span>
+        <span class="s2">&quot;quaternion&quot;</span><span class="p">:</span> <span class="n">orientation_q</span><span class="p">,</span>
+        <span class="s2">&quot;scale&quot;</span><span class="p">:</span> <span class="n">scale</span><span class="p">,</span>
+        <span class="s2">&quot;color_path&quot;</span><span class="p">:</span> <span class="n">raw_sample</span><span class="p">[</span><span class="s2">&quot;color_path&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;obj_path&quot;</span><span class="p">:</span> <span class="n">raw_sample</span><span class="p">[</span><span class="s2">&quot;mesh_path&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;category_id&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">category_str_to_id</span><span class="p">[</span><span class="n">category_str</span><span class="p">],</span>
+        <span class="s2">&quot;category_str&quot;</span><span class="p">:</span> <span class="n">category_str</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">sample</span>
+</code></pre></div>
+</td></tr></table>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset._load_depth" class="doc doc-heading">
+_load_depth
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">_load_depth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+      <p>Load depth from depth filepath.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>cpas_toolbox/datasets/redwood_dataset.py</code></summary>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span>
+<span class="normal">324</span>
+<span class="normal">325</span>
+<span class="normal">326</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">_load_depth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Load depth from depth filepath.&quot;&quot;&quot;</span>
+    <span class="n">depth</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">depth_path</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.001</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">depth</span>
+</code></pre></div>
+</td></tr></table>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset._get_scale" class="doc doc-heading">
+_get_scale
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">_get_scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extents</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+      <p>Return scale from stored sample data and extents.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>cpas_toolbox/datasets/redwood_dataset.py</code></summary>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span>
+<span class="normal">332</span>
+<span class="normal">333</span>
+<span class="normal">334</span>
+<span class="normal">335</span>
+<span class="normal">336</span>
+<span class="normal">337</span>
+<span class="normal">338</span>
+<span class="normal">339</span>
+<span class="normal">340</span>
+<span class="normal">341</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">_get_scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extents</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Return scale from stored sample data and extents.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scale_convention</span> <span class="o">==</span> <span class="s2">&quot;diagonal&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">extents</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scale_convention</span> <span class="o">==</span> <span class="s2">&quot;max&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">extents</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scale_convention</span> <span class="o">==</span> <span class="s2">&quot;half_max&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">extents</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scale_convention</span> <span class="o">==</span> <span class="s2">&quot;full&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">extents</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Specified scale convention </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_scale_convention</span><span class="si">}</span><span class="s2"> not supported.&quot;</span>
+        <span class="p">)</span>
+</code></pre></div>
+</td></tr></table>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset._change_axis_convention" class="doc doc-heading">
+_change_axis_convention
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">_change_axis_convention</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">orientation_q</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">extents</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+<span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+      <p>Adjust up-axis for orientation and extents.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>RETURNS</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+              <span class="doc-returns-annotation">
+                  <code>tuple</code>
+              </span>
+          </td>
+          <td class="doc-returns-details">
+            <p>Tuple of position, orienation_q and extents, with specified up-axis.</p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+        <details class="quote">
+          <summary>Source code in <code>cpas_toolbox/datasets/redwood_dataset.py</code></summary>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">343</span>
+<span class="normal">344</span>
+<span class="normal">345</span>
+<span class="normal">346</span>
+<span class="normal">347</span>
+<span class="normal">348</span>
+<span class="normal">349</span>
+<span class="normal">350</span>
+<span class="normal">351</span>
+<span class="normal">352</span>
+<span class="normal">353</span>
+<span class="normal">354</span>
+<span class="normal">355</span>
+<span class="normal">356</span>
+<span class="normal">357</span>
+<span class="normal">358</span>
+<span class="normal">359</span>
+<span class="normal">360</span>
+<span class="normal">361</span>
+<span class="normal">362</span>
+<span class="normal">363</span>
+<span class="normal">364</span>
+<span class="normal">365</span>
+<span class="normal">366</span>
+<span class="normal">367</span>
+<span class="normal">368</span>
+<span class="normal">369</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">_change_axis_convention</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">orientation_q</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">extents</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Adjust up-axis for orientation and extents.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple of position, orienation_q and extents, with specified up-axis.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_x_axis</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">orientation_q</span><span class="p">,</span> <span class="n">extents</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_x_axis</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Either both or none of remap_{y,x}_axis have to be None.&quot;</span><span class="p">)</span>
+
+    <span class="n">rotation_o2n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_o2n_object_rotation_matrix</span><span class="p">()</span>
+    <span class="n">remapped_extents</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">rotation_o2n</span><span class="p">)</span> <span class="o">@</span> <span class="n">extents</span><span class="p">)</span>
+
+    <span class="c1"># quaternion so far: original -&gt; camera</span>
+    <span class="c1"># we want a quaternion: new -&gt; camera</span>
+    <span class="n">rotation_n2o</span> <span class="o">=</span> <span class="n">rotation_o2n</span><span class="o">.</span><span class="n">T</span>
+
+    <span class="n">quaternion_n2o</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">Rotation</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">rotation_n2o</span><span class="p">)</span><span class="o">.</span><span class="n">as_quat</span><span class="p">())</span>
+
+    <span class="n">remapped_orientation_q</span> <span class="o">=</span> <span class="n">quaternion_utils</span><span class="o">.</span><span class="n">quaternion_multiply</span><span class="p">(</span>
+        <span class="n">orientation_q</span><span class="p">,</span> <span class="n">quaternion_n2o</span>
+    <span class="p">)</span>  <span class="c1"># new -&gt; original -&gt; camera</span>
+
+    <span class="k">return</span> <span class="n">remapped_orientation_q</span><span class="p">,</span> <span class="n">remapped_extents</span>
+</code></pre></div>
+</td></tr></table>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset._get_o2n_object_rotation_matrix" class="doc doc-heading">
+_get_o2n_object_rotation_matrix
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">_get_o2n_object_rotation_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+      <p>Compute rotation matrix which rotates original to new object coordinates.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>cpas_toolbox/datasets/redwood_dataset.py</code></summary>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">371</span>
+<span class="normal">372</span>
+<span class="normal">373</span>
+<span class="normal">374</span>
+<span class="normal">375</span>
+<span class="normal">376</span>
+<span class="normal">377</span>
+<span class="normal">378</span>
+<span class="normal">379</span>
+<span class="normal">380</span>
+<span class="normal">381</span>
+<span class="normal">382</span>
+<span class="normal">383</span>
+<span class="normal">384</span>
+<span class="normal">385</span>
+<span class="normal">386</span>
+<span class="normal">387</span>
+<span class="normal">388</span>
+<span class="normal">389</span>
+<span class="normal">390</span>
+<span class="normal">391</span>
+<span class="normal">392</span>
+<span class="normal">393</span>
+<span class="normal">394</span>
+<span class="normal">395</span>
+<span class="normal">396</span>
+<span class="normal">397</span>
+<span class="normal">398</span>
+<span class="normal">399</span>
+<span class="normal">400</span>
+<span class="normal">401</span>
+<span class="normal">402</span>
+<span class="normal">403</span>
+<span class="normal">404</span>
+<span class="normal">405</span>
+<span class="normal">406</span>
+<span class="normal">407</span>
+<span class="normal">408</span>
+<span class="normal">409</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">_get_o2n_object_rotation_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Compute rotation matrix which rotates original to new object coordinates.&quot;&quot;&quot;</span>
+    <span class="n">rotation_o2n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>  <span class="c1"># original to new object convention</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="o">==</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span>
+        <span class="n">rotation_o2n</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="o">==</span> <span class="s2">&quot;-x&quot;</span><span class="p">:</span>
+        <span class="n">rotation_o2n</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="o">==</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>
+        <span class="n">rotation_o2n</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="o">==</span> <span class="s2">&quot;-y&quot;</span><span class="p">:</span>
+        <span class="n">rotation_o2n</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="o">==</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span>
+        <span class="n">rotation_o2n</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="o">==</span> <span class="s2">&quot;-z&quot;</span><span class="p">:</span>
+        <span class="n">rotation_o2n</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unsupported remap_y_axis </span><span class="si">{self.remap_y}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_x_axis</span> <span class="o">==</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span>
+        <span class="n">rotation_o2n</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_x_axis</span> <span class="o">==</span> <span class="s2">&quot;-x&quot;</span><span class="p">:</span>
+        <span class="n">rotation_o2n</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_x_axis</span> <span class="o">==</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>
+        <span class="n">rotation_o2n</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_x_axis</span> <span class="o">==</span> <span class="s2">&quot;-y&quot;</span><span class="p">:</span>
+        <span class="n">rotation_o2n</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_x_axis</span> <span class="o">==</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span>
+        <span class="n">rotation_o2n</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_x_axis</span> <span class="o">==</span> <span class="s2">&quot;-z&quot;</span><span class="p">:</span>
+        <span class="n">rotation_o2n</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unsupported remap_x_axis </span><span class="si">{self.remap_y}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># infer last column</span>
+    <span class="n">rotation_o2n</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">rotation_o2n</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># rows must sum to +-1</span>
+    <span class="n">rotation_o2n</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">*=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">rotation_o2n</span><span class="p">)</span>  <span class="c1"># make special orthogonal</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">rotation_o2n</span><span class="p">)</span> <span class="o">!=</span> <span class="mf">1.0</span><span class="p">:</span>  <span class="c1"># check if special orthogonal</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unsupported combination of remap_{y,x}_axis. det != 1&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">rotation_o2n</span>
+</code></pre></div>
+</td></tr></table>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset._quat_to_orientation_repr" class="doc doc-heading">
+_quat_to_orientation_repr
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">_quat_to_orientation_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quaternion</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+      <p>Convert quaternion to selected orientation representation.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>quaternion</code></td>
+          <td class="doc-param-details">
+            <p>The quaternion to convert, scalar-last, shape (4,).</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>torch.<span title="torch.Tensor">Tensor</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>RETURNS</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+              <span class="doc-returns-annotation">
+                  <code>torch.<span title="torch.Tensor">Tensor</span></code>
+              </span>
+          </td>
+          <td class="doc-returns-details">
+            <p>The same orientation as represented by the quaternion in the chosen</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+              <span class="doc-returns-annotation">
+                  <code>torch.<span title="torch.Tensor">Tensor</span></code>
+              </span>
+          </td>
+          <td class="doc-returns-details">
+            <p>orientation representation.</p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+        <details class="quote">
+          <summary>Source code in <code>cpas_toolbox/datasets/redwood_dataset.py</code></summary>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">411</span>
+<span class="normal">412</span>
+<span class="normal">413</span>
+<span class="normal">414</span>
+<span class="normal">415</span>
+<span class="normal">416</span>
+<span class="normal">417</span>
+<span class="normal">418</span>
+<span class="normal">419</span>
+<span class="normal">420</span>
+<span class="normal">421</span>
+<span class="normal">422</span>
+<span class="normal">423</span>
+<span class="normal">424</span>
+<span class="normal">425</span>
+<span class="normal">426</span>
+<span class="normal">427</span>
+<span class="normal">428</span>
+<span class="normal">429</span>
+<span class="normal">430</span>
+<span class="normal">431</span>
+<span class="normal">432</span>
+<span class="normal">433</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">_quat_to_orientation_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quaternion</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Convert quaternion to selected orientation representation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        quaternion:</span>
+<span class="sd">            The quaternion to convert, scalar-last, shape (4,).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The same orientation as represented by the quaternion in the chosen</span>
+<span class="sd">        orientation representation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_orientation_repr</span> <span class="o">==</span> <span class="s2">&quot;quaternion&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">quaternion</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_orientation_repr</span> <span class="o">==</span> <span class="s2">&quot;discretized&quot;</span><span class="p">:</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_orientation_grid</span><span class="o">.</span><span class="n">quat_to_index</span><span class="p">(</span><span class="n">quaternion</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
+            <span class="n">index</span><span class="p">,</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Orientation representation </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_orientation_repr</span><span class="si">}</span><span class="s2"> is not supported.&quot;</span>
+        <span class="p">)</span>
+</code></pre></div>
+</td></tr></table>
+        </details>
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h3 id="cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset.load_mesh" class="doc doc-heading">
+load_mesh
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">load_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+      <p>Load an object mesh and adjust its object frame convention.</p>
+
+        <details class="quote">
+          <summary>Source code in <code>cpas_toolbox/datasets/redwood_dataset.py</code></summary>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">435</span>
+<span class="normal">436</span>
+<span class="normal">437</span>
+<span class="normal">438</span>
+<span class="normal">439</span>
+<span class="normal">440</span>
+<span class="normal">441</span>
+<span class="normal">442</span>
+<span class="normal">443</span>
+<span class="normal">444</span>
+<span class="normal">445</span>
+<span class="normal">446</span>
+<span class="normal">447</span>
+<span class="normal">448</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">load_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Load an object mesh and adjust its object frame convention.&quot;&quot;&quot;</span>
+    <span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">object_path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_x_axis</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">mesh</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_x_axis</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Either both or none of remap_{y,x}_axis have to be None.&quot;</span><span class="p">)</span>
+
+    <span class="n">rotation_o2n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_o2n_object_rotation_matrix</span><span class="p">()</span>
+    <span class="n">mesh</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span>
+        <span class="n">rotation_o2n</span><span class="p">,</span>
+        <span class="n">center</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])[:,</span> <span class="kc">None</span><span class="p">],</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">mesh</span>
+</code></pre></div>
+</td></tr></table>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="doc doc-object doc-class">
+
+
+
+<h2 id="cpas_toolbox.datasets.redwood_dataset.ObjectError" class="doc doc-heading">
+          <code>ObjectError</code>
+
+
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+        <p class="doc doc-class-bases">
+          Bases: <code>Exception</code></p>
+
+
+      <p>Error if something with the mesh is wrong.</p>
+
+
+          <details class="quote">
+            <summary>Source code in <code>cpas_toolbox/datasets/redwood_dataset.py</code></summary>
+            <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">451</span>
+<span class="normal">452</span>
+<span class="normal">453</span>
+<span class="normal">454</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">ObjectError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Error if something with the mesh is wrong.&quot;&quot;&quot;</span>
+
+    <span class="k">pass</span>
+</code></pre></div>
+</td></tr></table>
+          </details>
+
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="doc doc-object doc-function">
+
+
+
+<h2 id="cpas_toolbox.datasets.redwood_dataset._draw_depth_geometry" class="doc doc-heading">
+_draw_depth_geometry
+
+
+</h2>
+<div class="highlight"><pre><span></span><code><span class="n">_draw_depth_geometry</span><span class="p">(</span>
+    <span class="n">posed_mesh</span><span class="p">:</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="n">camera_utils</span><span class="o">.</span><span class="n">Camera</span>
+<span class="p">)</span>
+</code></pre></div>
+
+    <div class="doc doc-contents ">
+
+      <p>Render a posed mesh given a camera looking along z axis (OpenCV convention).</p>
+
+        <details class="quote">
+          <summary>Source code in <code>cpas_toolbox/datasets/redwood_dataset.py</code></summary>
+          <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">457</span>
+<span class="normal">458</span>
+<span class="normal">459</span>
+<span class="normal">460</span>
+<span class="normal">461</span>
+<span class="normal">462</span>
+<span class="normal">463</span>
+<span class="normal">464</span>
+<span class="normal">465</span>
+<span class="normal">466</span>
+<span class="normal">467</span>
+<span class="normal">468</span>
+<span class="normal">469</span>
+<span class="normal">470</span>
+<span class="normal">471</span>
+<span class="normal">472</span>
+<span class="normal">473</span>
+<span class="normal">474</span>
+<span class="normal">475</span>
+<span class="normal">476</span>
+<span class="normal">477</span>
+<span class="normal">478</span>
+<span class="normal">479</span>
+<span class="normal">480</span>
+<span class="normal">481</span>
+<span class="normal">482</span>
+<span class="normal">483</span>
+<span class="normal">484</span>
+<span class="normal">485</span>
+<span class="normal">486</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">_draw_depth_geometry</span><span class="p">(</span>
+    <span class="n">posed_mesh</span><span class="p">:</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="n">camera_utils</span><span class="o">.</span><span class="n">Camera</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Render a posed mesh given a camera looking along z axis (OpenCV convention).&quot;&quot;&quot;</span>
+    <span class="c1"># see http://www.open3d.org/docs/latest/tutorial/visualization/customized_visualization.html</span>
+
+    <span class="c1"># Create visualizer</span>
+    <span class="n">vis</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">Visualizer</span><span class="p">()</span>
+    <span class="n">vis</span><span class="o">.</span><span class="n">create_window</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">camera</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">camera</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># Add mesh in correct position</span>
+    <span class="n">vis</span><span class="o">.</span><span class="n">add_geometry</span><span class="p">(</span><span class="n">posed_mesh</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">options</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">get_render_option</span><span class="p">()</span>
+    <span class="n">options</span><span class="o">.</span><span class="n">mesh_show_back_face</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="c1"># Set camera at fixed position (i.e., at 0,0,0, looking along z axis)</span>
+    <span class="n">view_control</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">get_view_control</span><span class="p">()</span>
+    <span class="n">o3d_cam</span> <span class="o">=</span> <span class="n">camera</span><span class="o">.</span><span class="n">get_o3d_pinhole_camera_parameters</span><span class="p">()</span>
+    <span class="n">o3d_cam</span><span class="o">.</span><span class="n">extrinsic</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+    <span class="p">)</span>
+    <span class="n">view_control</span><span class="o">.</span><span class="n">convert_from_pinhole_camera_parameters</span><span class="p">(</span><span class="n">o3d_cam</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Generate the depth image</span>
+    <span class="n">vis</span><span class="o">.</span><span class="n">poll_events</span><span class="p">()</span>
+    <span class="n">vis</span><span class="o">.</span><span class="n">update_renderer</span><span class="p">()</span>
+    <span class="n">depth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">vis</span><span class="o">.</span><span class="n">capture_depth_float_buffer</span><span class="p">())</span>
+
+    <span class="k">return</span> <span class="n">depth</span>
+</code></pre></div>
+</td></tr></table>
+        </details>
+    </div>
+
+  </div>
+
+
+
+
+
+  </div>
+
+    </div>
+
+  </div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../nocs_utils/" class="md-footer__link md-footer__link--prev" aria-label="Previous: nocs_utils.py" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              nocs_utils.py
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../metrics/" class="md-footer__link md-footer__link--next" aria-label="Next: metrics.py" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              metrics.py
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.8aa65030.min.js"></script>
+      
+    
+  </body>
+</html>
