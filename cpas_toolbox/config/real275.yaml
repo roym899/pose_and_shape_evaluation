@@ -9,7 +9,7 @@ dataset_config:
   name: REAL275
   type: cpas_toolbox.datasets.nocs_dataset.NOCSDataset
   config_dict: 
-    root_dir: data/nocs/
+    root_dir: ~/.cpas_toolbox/datasets/nocs/
     split: real_test
     camera_convention: opencv
     scale_convention: full

@@ -148,9 +148,12 @@ class NOCSDataset(torch.utils.data.Dataset):
         config = yoco.load_config(config, current_dict=NOCSDataset.default_config)
         self._root_dir = config["root_dir"]
         self._split = config["split"]
+        self._check_dirs()
         self._camera_convention = config["camera_convention"]
         self._camera = self._get_split_camera()
-        self._preprocess_path = os.path.join(self._root_dir, "csap_toolbox", self._split)
+        self._preprocess_path = os.path.join(
+            self._root_dir, "csap_toolbox", self._split
+        )
         if not os.path.isdir(self._preprocess_path):
             self._preprocess_dataset()
         self._mask_pointcloud = config["mask_pointcloud"]
@@ -160,6 +163,26 @@ class NOCSDataset(torch.utils.data.Dataset):
         self._remap_y_axis = config["remap_y_axis"]
         self._remap_x_axis = config["remap_x_axis"]
         self._orientation_repr = config["orientation_repr"]
+
+    def _check_dirs(self) -> None:
+        if os.path.exists(self._root_dir):
+            pass
+        else:
+            print(
+                f"NOCS dataset ({self._split} split) not found, do you want to download"
+                " it into the following directory:"
+            )
+            print("  ", self._root_dir)
+            while True:
+                decision = input("(Y/n) ").lower()
+                if decision == "" or decision == "y":
+                    self._download_dataset()
+                elif decision == "n":
+                    print("Dataset not found. Aborting.")
+                    exit(0)
+
+    def _download_dataset(self) -> None:
+        raise NotImplementedError("Downloading not supported yet.")
 
     def __len__(self) -> int:
         """Return number of sample in dataset."""

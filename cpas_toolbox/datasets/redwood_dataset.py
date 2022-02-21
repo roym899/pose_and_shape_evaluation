@@ -10,7 +10,7 @@ import torch
 from PIL import Image
 import yoco
 
-from cpas_toolbox import camera_utils, pointset_utils, quaternion_utils
+from cpas_toolbox import camera_utils, pointset_utils, quaternion_utils, utils
 
 
 class AnnotatedRedwoodDataset(torch.utils.data.Dataset):
@@ -121,8 +121,9 @@ class AnnotatedRedwoodDataset(torch.utils.data.Dataset):
         config = yoco.load_config(
             config, current_dict=AnnotatedRedwoodDataset.default_config
         )
-        self._root_dir = config["root_dir"]
-        self._ann_dir = config["ann_dir"]
+        self._root_dir = utils.resolve_path(config["root_dir"])
+        self._ann_dir = utils.resolve_path(config["ann_dir"])
+        self._check_dirs()
         self._camera_convention = config["camera_convention"]
         self._mask_pointcloud = config["mask_pointcloud"]
         self._normalize_pointcloud = config["normalize_pointcloud"]
@@ -134,6 +135,27 @@ class AnnotatedRedwoodDataset(torch.utils.data.Dataset):
         self._camera = camera_utils.Camera(
             width=640, height=480, fx=525, fy=525, cx=319.5, cy=239.5
         )
+
+    def _check_dirs(self) -> None:
+        if os.path.exists(self._root_dir) and os.path.exists(self._ann_dir):
+            pass
+        else:
+            print(
+                "REDWOOD75 dataset not found, do you want to download it into the "
+                "following directories:"
+            )
+            print("  ", self._root_dir)
+            print("  ", self._ann_dir)
+            while True:
+                decision = input("(Y/n) ").lower()
+                if decision == "" or decision == "y":
+                    self._download_dataset()
+                elif decision == "n":
+                    print("Dataset not found. Aborting.")
+                    exit(0)
+
+    def _download_dataset(self) -> None:
+        raise NotImplementedError("Downloading not supported yet.")
 
     def _load_annotations(self) -> None:
         """Load annotations into memory."""

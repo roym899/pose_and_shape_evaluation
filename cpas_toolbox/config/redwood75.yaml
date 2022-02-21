@@ -8,8 +8,8 @@ dataset_config:
   name: REDWOOD75
   type: cpas_toolbox.datasets.redwood_dataset.AnnotatedRedwoodDataset
   config_dict: 
-    root_dir: data/redwood/
-    ann_dir: data/redwood75/
+    root_dir: ~/.cpas_toolbox/datasets/redwood/
+    ann_dir: ~/.cpas_toolbox/datasets/redwood75/
     camera_convention: opencv
     scale_convention: full
     remap_y_axis: -y
