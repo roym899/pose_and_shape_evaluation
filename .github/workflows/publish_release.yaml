@@ -1,0 +1,27 @@
+name: PyPI Release
+
+on: 
+  release:
+    types: [published]
+
+jobs:
+  publish_package_job:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - uses: actions/checkout@v2
+      with:
+        persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
+    - name: Build package
+      run: |
+        pip install --upgrade build
+        python3 -m build
+    - name: Publish package to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        user: __token__
+        password: ${{ secrets.PYPI_API_TOKEN }}
