@@ -4,6 +4,8 @@ On first usage of a dataset the script will download and preprocess the datasets
 
 If you already downloaded a dataset and want to use symlinks instead of storing them again to save storage space, you can follow the manual instructions below.
 
+The default directories can be found in the configuration file for the respective dataset ([REAL275](https://github.com/roym899/pose_and_shape_evaluation/blob/main/cpas_toolbox/config/real275.yaml), [REDWOOD75](https://github.com/roym899/pose_and_shape_evaluation/blob/main/cpas_toolbox/config/redwood75.yaml)).
+
 ## REAL275
 For download links check the [NOCS repository](https://github.com/hughw19/NOCS_CVPR2019).
 

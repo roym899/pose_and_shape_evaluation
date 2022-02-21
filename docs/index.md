@@ -7,11 +7,20 @@ Run
 ```bash
 pip install cpas_toolbox
 ```
-to install the latest release of the toolbox.
-
+to install the latest release of the toolbox. There is no need to download any additional weights or datasets. Upon first usage the evaluation script will ask to download the weights if they are not available at the expected path.
 
 ## Evaluation of baseline methods
+To reproduce the REAL275 benchmark run:
+```bash
+python -m cpas_toolbox.evaluate --config real275.yaml --out_folder ./results/
+```
+To reproduce the REDWOOD75 benchmark run:
+```bash
+python -m cpas_toolbox.evaluate --config redwood75.yaml --out_folder ./results/
+```
 
-## Configuring of evaluation protocol
-
-## Implementation of new method wrapper
+We can overwrite settings of the configuration via the command-line. For example, 
+```bash
+python -m cpas_toolbox.evaluate --config redwood75.yaml --out_folder ./results/ --visualize_gt True --visualize_prediction True
+```
+enables interactive visualization of ground truth and predictions. Alternatively, you could specify `--store_visualization True` to save the visualization of every prediction in the results directory.
