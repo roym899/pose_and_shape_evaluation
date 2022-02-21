@@ -4,6 +4,7 @@ import os
 from pydoc import locate
 from typing import Any, List, Optional
 
+import gdown
 import requests
 from tqdm import tqdm
 
@@ -81,32 +82,9 @@ def resolve_path(path: str, search_paths: Optional[List[str]] = None) -> str:
 
 def download(url: str, download_path: str) -> str:
     """Download file from URL to a specified path."""
-    block_size = 1024
+    block_size = 100
     if "drive.google.com" in url:
-        URL = "https://drive.google.com/uc?export=download"
-        url_parts = url.split("/")
-        file_id = None
-        for url_part in url_parts:
-            if len(url_part) == 33:
-                file_id = url_part
-                break
-        if file_id is None:
-            print(f"Could not extract gdrive file id from url {url}")
-            exit()
-        session = requests.Session()
-        response = session.get(URL, params={"id": file_id}, stream=True)
-        token = None
-        for key, value in response.cookies.items():
-            print(key)
-            if key.startswith("download_warning"):
-                token = value
-                break
-        params = {"id": file_id, "confirm": token}
-        response = session.get(URL, params=params, stream=True)
-        with open(download_path, "wb") as f:
-            for data in response.iter_content(block_size):
-                if data:
-                    f.write(data)
+        gdown.download(url, download_path)
     else:
         # adapted from https://stackoverflow.com/a/37573701
         response = requests.get(url, stream=True)

@@ -1,7 +1,10 @@
 """Wrapper for pose and shape estimation methods."""
 from abc import ABC
 import copy
+import os
+import shutil
 from typing import List, Optional, TypedDict
+import zipfile
 
 import cv2
 import numpy as np
@@ -11,7 +14,7 @@ import torchvision.transforms.functional as TF
 from scipy.spatial.transform import Rotation
 import yoco
 
-from cpas_toolbox import pointset_utils, quaternion_utils, camera_utils
+from cpas_toolbox import pointset_utils, quaternion_utils, camera_utils, utils
 from cpas_toolbox import cass, asmnet, spd
 
 
@@ -97,13 +100,61 @@ class SPDWrapper(MethodWrapper):
 
     def _parse_config(self, config: Config) -> None:
         self._device = config["device"]
-        self._spd_net = spd.DeformNet(config["num_categories"], config["num_shape_points"])
+        self._model_path = utils.resolve_path(config["model"])
+        self._mean_shape_path = utils.resolve_path(config["mean_shape"])
+        self._check_paths()
+        self._spd_net = spd.DeformNet(
+            config["num_categories"], config["num_shape_points"]
+        )
         self._spd_net.to(self._device)
-        self._spd_net.load_state_dict(torch.load(config["model"]))
+        self._spd_net.load_state_dict(torch.load(self._model_path))
         self._spd_net.eval()
-        self._mean_shape_pointsets = np.load(config["mean_shape_pointsets"])
+        self._mean_shape_pointsets = np.load(self._mean_shape_path)
         self._num_input_points = config["num_input_points"]
         self._image_size = config["image_size"]
+
+    def _check_paths(self) -> None:
+        if os.path.exists(self._model_path) and os.path.exists(self._mean_shape_path):
+            pass
+        else:
+            print("SPD model weights not found, do you want to download to ")
+            print("  ", self._model_path)
+            print("  ", self._mean_shape_path)
+            while True:
+                decision = input("(Y/n) ").lower()
+                if decision == "" or decision == "y":
+                    self._download_weights()
+                    break
+                elif decision == "n":
+                    print("Dataset not found. Aborting.")
+                    exit(0)
+
+    def _download_weights(self) -> None:
+        if not os.path.exists(self._model_path):
+            os.makedirs(os.path.dirname(self._model_path), exist_ok=True)
+            download_folder = os.path.dirname(self._model_path)
+            zip_path = os.path.join(download_folder, "temp.zip")
+            utils.download(
+                "https://drive.google.com/u/0/uc?id=1p72NdY4Bie_sra9U8zoUNI4fTrQZdbnc&"
+                "export=download",
+                zip_path,
+            )
+            z = zipfile.ZipFile(zip_path)
+            z.extract("deformnet_eval/real/model_50.pth", download_folder)
+            z.close()
+            os.remove(zip_path)
+            shutil.move(
+                os.path.join(download_folder, "deformnet_eval", "real", "model_50.pth"),
+                download_folder,
+            )
+            shutil.rmtree(os.path.join(download_folder, "deformnet_eval", "real"))
+        if not os.path.exists(self._mean_shape_path):
+            os.makedirs(os.path.dirname(self._mean_shape_path), exist_ok=True)
+            utils.download(
+                "https://github.com/mentian/object-deformnet/raw/master/assets/"
+                "mean_points_emb.npy",
+                self._mean_shape_path,
+            )
 
     def inference(
         self,

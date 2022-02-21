@@ -161,7 +161,10 @@ class AnnotatedRedwoodDataset(torch.utils.data.Dataset):
         if not os.path.exists(self._ann_dir):
             zip_path = os.path.join(self._ann_dir, "redwood75.zip")
             os.makedirs(self._ann_dir, exist_ok=True)
-            url = "https://drive.google.com/file/d/1PMvIblsXWDxEJykVwhUk_QEjy4_bmDU-"
+            url = (
+                "https://drive.google.com/u/0/uc?id=1PMvIblsXWDxEJykVwhUk_QEjy4_bmDU"
+                "-&export=download"
+            )
             utils.download(url, zip_path)
             z = zipfile.ZipFile(zip_path)
             z.extractall(os.path.join(self._ann_dir, ".."))

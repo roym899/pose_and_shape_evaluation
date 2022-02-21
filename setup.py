@@ -15,6 +15,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     package_data={"": ["config/*.yaml"]},
     install_requires=[
+        "gdown",
         "matplotlib",
         "numpy",
         "open3d",
