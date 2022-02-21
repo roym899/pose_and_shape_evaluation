@@ -114,19 +114,19 @@ class SPDWrapper(MethodWrapper):
         self._image_size = config["image_size"]
 
     def _check_paths(self) -> None:
-        if os.path.exists(self._model_path) and os.path.exists(self._mean_shape_path):
-            pass
-        else:
+        if not os.path.exists(self._model_path) or not os.path.exists(
+            self._mean_shape_path
+        ):
             print("SPD model weights not found, do you want to download to ")
             print("  ", self._model_path)
-            print("  ", self._mean_shape_path)
+            print("  ", self._model_path)
             while True:
                 decision = input("(Y/n) ").lower()
                 if decision == "" or decision == "y":
                     self._download_weights()
                     break
                 elif decision == "n":
-                    print("Dataset not found. Aborting.")
+                    print("SPD model weights not found. Aborting.")
                     exit(0)
 
     def _download_weights(self) -> None:
@@ -147,7 +147,7 @@ class SPDWrapper(MethodWrapper):
                 os.path.join(download_folder, "deformnet_eval", "real", "model_50.pth"),
                 download_folder,
             )
-            shutil.rmtree(os.path.join(download_folder, "deformnet_eval", "real"))
+            shutil.rmtree(os.path.join(download_folder, "deformnet_eval"))
         if not os.path.exists(self._mean_shape_path):
             os.makedirs(os.path.dirname(self._mean_shape_path), exist_ok=True)
             utils.download(
@@ -320,13 +320,37 @@ class CASSWrapper(MethodWrapper):
 
     def _parse_config(self, config: Config) -> None:
         self._device = config["device"]
+        self._model_path = utils.resolve_path(config["model"])
+        self._check_paths()
         self._cass = cass.CASS(
             num_points=config["num_points"], num_obj=config["num_objects"]
         )
         self._num_points = config["num_points"]
-        self._cass.load_state_dict(torch.load(config["model"]))
+        self._cass.load_state_dict(torch.load(self._model_path))
         self._cass.to(config["device"])
         self._cass.eval()
+
+    def _check_paths(self) -> None:
+        if not os.path.exists(self._model_path):
+            print("CASS model weights not found, do you want to download to ")
+            print("  ", self._model_path)
+            while True:
+                decision = input("(Y/n) ").lower()
+                if decision == "" or decision == "y":
+                    self._download_weights()
+                    break
+                elif decision == "n":
+                    print("CASS model weights not found. Aborting.")
+                    exit(0)
+
+    def _download_weights(self) -> None:
+        if not os.path.exists(self._model_path):
+            os.makedirs(os.path.dirname(self._model_path), exist_ok=True)
+            utils.download(
+                "https://drive.google.com/u/0/uc?id=14K1a-Ft-YO9dUREEXxmWqF2ruUP4p7BZ&"
+                "export=download",
+                self._model_path,
+            )
 
     def inference(
         self,
