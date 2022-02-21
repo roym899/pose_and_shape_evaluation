@@ -119,7 +119,7 @@ class SPDWrapper(MethodWrapper):
         ):
             print("SPD model weights not found, do you want to download to ")
             print("  ", self._model_path)
-            print("  ", self._model_path)
+            print("  ", self._mean_shape_path)
             while True:
                 decision = input("(Y/n) ").lower()
                 if decision == "" or decision == "y":
@@ -545,12 +545,15 @@ class ASMNetWrapper:
 
     def _parse_config(self, config: Config) -> None:
         self._device = config["device"]
+        self._weights_folder = utils.resolve_path(config["models_folder"])
+        self._asm_params_folder = utils.resolve_path(config["asm_params_folder"])
+        self._check_paths()
         synset_names = ["placeholder"] + config["categories"]  # first will be ignored
         self._asmds = asmnet.cr6d_utils.load_asmds(
-            config["asm_params_folder"], synset_names
+            self._asm_params_folder, synset_names
         )
         self._models = asmnet.cr6d_utils.load_models_release(
-            config["models_folder"],
+            self._weights_folder,
             synset_names,
             config["deformation_dimension"],
             config["num_points"],
@@ -559,6 +562,51 @@ class ASMNetWrapper:
         self._num_points = config["num_points"]
         self._use_mean_shape = config["use_mean_shape"]
         self._use_icp = config["use_icp"]
+
+    def _check_paths(self) -> None:
+        if not os.path.exists(self._weights_folder) or not os.path.exists(
+            self._asm_params_folder
+        ):
+            print("ASM-Net model weights not found, do you want to download to ")
+            print("  ", self._weights_folder)
+            print("  ", self._asm_params_folder)
+            while True:
+                decision = input("(Y/n) ").lower()
+                if decision == "" or decision == "y":
+                    self._download_weights()
+                    break
+                elif decision == "n":
+                    print("ASM-Net model weights not found. Aborting.")
+                    exit(0)
+
+    def _download_weights(self) -> None:
+        download_folder = "./"
+        zip_path = os.path.join(download_folder, "asmnetweights.zip")
+        utils.download(
+            "https://drive.google.com/u/0/uc?id=1fxc9UoRhfTsoV3ZML3Mx_mc79904zpcx"
+            "&export=download",
+            zip_path,
+        )
+        z = zipfile.ZipFile(zip_path)
+        z.extractall(download_folder)
+        z.close()
+        os.remove(zip_path)
+
+        if not os.path.exists(self._asm_params_folder):
+            os.makedirs(self._asm_params_folder, exist_ok=True)
+            source_dir = os.path.join(download_folder, "params", "asm_params")
+            file_names = os.listdir(source_dir)
+            for fn in file_names:
+                shutil.move(os.path.join(source_dir, fn), self._asm_params_folder)
+
+        if not os.path.exists(self._weights_folder):
+            os.makedirs(self._weights_folder, exist_ok=True)
+            source_dir = os.path.join(download_folder, "params", "weights")
+            file_names = os.listdir(source_dir)
+            for fn in file_names:
+                shutil.move(os.path.join(source_dir, fn), self._weights_folder)
+
+        shutil.rmtree(os.path.join(download_folder, "params"))
 
     def inference(
         self,
