@@ -2,8 +2,9 @@
 import argparse
 import os
 from datetime import datetime
-from typing import Tuple, Optional
+from typing import List, Optional, Tuple
 import random
+import sys
 
 from scipy.spatial.transform import Rotation
 import numpy as np
@@ -155,9 +156,6 @@ def visualize_estimation(
         vis.capture_screen_image(vis_path, do_render=True)
     else:
         vis.run()
-
-    # vis.destroy_window()
-    # o3d.visualization.draw_geometries(o3d_geometries)
 
 
 class Evaluator:
@@ -569,6 +567,29 @@ class Evaluator:
             self._eval_method(method_name, method_wrapper)
 
 
+def _resolve_config_args(args: List[str]) -> List[str]:
+    resolved_args = []
+    resolve = False
+    for raw_arg in args:
+        arg = raw_arg
+        if raw_arg == "--config":
+            resolve = True
+        elif raw_arg.startswith == "--":
+            resolve = False
+        elif resolve:
+            arg = utils.resolve_path(
+                raw_arg,
+                search_paths=[
+                    ".",
+                    "~/.cpas_toolbox",
+                    os.path.join(os.path.dirname(__file__), "config"),
+                    os.path.dirname(__file__),
+                ],
+            )
+        resolved_args.append(arg)
+    return resolved_args
+
+
 def main() -> None:
     """Entry point of the evaluation program."""
     parser = argparse.ArgumentParser(
@@ -576,7 +597,10 @@ def main() -> None:
     )
     parser.add_argument("--config", required=True)
     parser.add_argument("--out_folder", required=True)
-    config = yoco.load_config_from_args(parser)
+
+    resolved_args = _resolve_config_args(sys.argv[1:])
+
+    config = yoco.load_config_from_args(parser, resolved_args)
 
     evaluator = Evaluator(config)
     evaluator.run()
