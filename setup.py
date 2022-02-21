@@ -13,7 +13,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/roym899/pose_and_shape_evaluation",
     packages=setuptools.find_packages(),
-    package_data={"": ["config/*.yaml"]},
+    package_data={"": ["config/*"]},
     install_requires=[
         "gdown",
         "matplotlib",
