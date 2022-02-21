@@ -165,7 +165,7 @@ class SPDWrapper(MethodWrapper):
     ) -> PredictionDict:
         """See MethodWrapper.inference.
 
-        Based on spd.evalute.
+        Based on spd.evaluate.
         """
         category_str_to_id = {
             "bottle": 0,

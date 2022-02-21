@@ -7,3 +7,4 @@ pytest-cov
 mkdocs
 mkdocs-material
 mkdocstrings
+mkdocstrings-python

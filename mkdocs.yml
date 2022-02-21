@@ -17,11 +17,32 @@ plugins:
         - cpas_toolbox
       handlers:
         python:
+          rendering:
+            show_root_heading: true
+            show_signature_annotations: true
+            show_source: true
+            heading_level: 1
+            separate_signature: True
+            docstring_section_style: "spacy"
+            line_length: 75
+            members_order: source
           selection:
             docstring_style: "google"
+            members: no
       enable_inventory: true
 
 nav:
   - Getting started: index.md
   - Data preparation: data_preparation.md
-  - API Reference: api_reference.md
+  - API Reference:
+    - evaluate.py: api_reference/evaluate.md
+    - datasets:
+      - nocs_dataset.py: api_reference/datasets/nocs_dataset.md
+      - nocs_utils.py: api_reference/datasets/nocs_utils.md
+      - redwood_dataset.py: api_reference/datasets/redwood_dataset.md
+    - metrics.py: api_reference/metrics.md
+    - method_wrappers.py: api_reference/method_wrappers.md
+    - camera_utils.py: api_reference/camera_utils.md
+    - pointset_utils.py: api_reference/pointset_utils.md
+    - quaternion_utils.py: api_reference/quaternion_utils.md
+    - utils.py: api_reference/utils.md
