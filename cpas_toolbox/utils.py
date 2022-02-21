@@ -69,7 +69,7 @@ def resolve_path(path: str, search_paths: Optional[List[str]] = None) -> str:
         return os.path.expanduser(path)
 
     for search_path in search_paths:
-        resolved_path = os.path.join(search_path, path)
+        resolved_path = os.path.expanduser(os.path.join(search_path, path))
         if os.path.exists(resolved_path):
             return os.path.abspath(resolved_path)
 
