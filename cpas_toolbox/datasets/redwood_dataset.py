@@ -2,6 +2,7 @@
 import json
 import os
 from typing import TypedDict, Optional
+import zipfile
 
 from scipy.spatial.transform import Rotation
 import numpy as np
@@ -156,7 +157,34 @@ class AnnotatedRedwoodDataset(torch.utils.data.Dataset):
                     exit(0)
 
     def _download_dataset(self) -> None:
-        raise NotImplementedError("Downloading not supported yet.")
+        # Download anns
+        if not os.path.exists(self._ann_dir):
+            zip_path = os.path.join(self._ann_dir, "redwood75.zip")
+            os.makedirs(self._ann_dir, exist_ok=True)
+            url = "https://drive.google.com/file/d/1PMvIblsXWDxEJykVwhUk_QEjy4_bmDU-"
+            utils.download(url, zip_path)
+            z = zipfile.ZipFile(zip_path)
+            z.extractall(os.path.join(self._ann_dir, ".."))
+            z.close()
+            os.remove(zip_path)
+
+        ann_json = os.path.join(self._ann_dir, "annotations.json")
+        with open(ann_json, "r") as f:
+            anns_dict = json.load(f)
+
+        baseurl = "https://s3.us-west-1.wasabisys.com/redwood-3dscan/rgbd/"
+        for seq_id in anns_dict.keys():
+            download_dir = os.path.join(self._root_dir, anns_dict[seq_id]["category"])
+            os.makedirs(download_dir, exist_ok=True)
+            zip_path = os.path.join(download_dir, f"{seq_id}.zip")
+            os.makedirs(os.path.dirname(zip_path), exist_ok=True)
+            utils.download(baseurl + f"{seq_id}.zip", zip_path)
+            z = zipfile.ZipFile(zip_path)
+            out_folder = os.path.join(download_dir, "rgbd", seq_id)
+            os.makedirs(out_folder, exist_ok=True)
+            z.extractall(out_folder)
+            z.close()
+            os.remove(zip_path)
 
     def _load_annotations(self) -> None:
         """Load annotations into memory."""

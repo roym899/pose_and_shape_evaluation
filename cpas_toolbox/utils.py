@@ -37,7 +37,6 @@ def str_to_object(name: str) -> Any:
 
 def resolve_path(path: str, search_paths: Optional[List[str]] = None) -> str:
     """Resolves a path to a full absolute path based on search_paths.
-    url = "http://download.thinkbroadband.com/10MB.zip"
 
     This function considers paths of 5 different cases
         /... -> absolute path, nothing todo
@@ -82,15 +81,42 @@ def resolve_path(path: str, search_paths: Optional[List[str]] = None) -> str:
 
 def download(url: str, download_path: str) -> str:
     """Download file from URL to a specified path."""
-    # adapted from https://stackoverflow.com/a/37573701
-    response = requests.get(url, stream=True)
-    total_size_in_bytes = int(response.headers.get("content-length", 0))
     block_size = 1024
-    progress_bar = tqdm(total=total_size_in_bytes, unit="iB", unit_scale=True)
-    with open(download_path, "wb") as file:
-        for data in response.iter_content(block_size):
-            progress_bar.update(len(data))
-            file.write(data)
-    progress_bar.close()
-    if total_size_in_bytes != 0 and progress_bar.n != total_size_in_bytes:
-        print("ERROR, something went wrong")
+    if "drive.google.com" in url:
+        URL = "https://drive.google.com/uc?export=download"
+        url_parts = url.split("/")
+        file_id = None
+        for url_part in url_parts:
+            if len(url_part) == 33:
+                file_id = url_part
+                break
+        if file_id is None:
+            print(f"Could not extract gdrive file id from url {url}")
+            exit()
+        session = requests.Session()
+        response = session.get(URL, params={"id": file_id}, stream=True)
+        token = None
+        for key, value in response.cookies.items():
+            print(key)
+            if key.startswith("download_warning"):
+                token = value
+                break
+        params = {"id": file_id, "confirm": token}
+        response = session.get(URL, params=params, stream=True)
+        with open(download_path, "wb") as f:
+            for data in response.iter_content(block_size):
+                if data:
+                    f.write(data)
+    else:
+        # adapted from https://stackoverflow.com/a/37573701
+        response = requests.get(url, stream=True)
+        total_size_in_bytes = int(response.headers.get("content-length", 0))
+        progress_bar = tqdm(total=total_size_in_bytes, unit="iB", unit_scale=True)
+        with open(download_path, "wb") as file:
+            for data in response.iter_content(block_size):
+                progress_bar.update(len(data))
+                file.write(data)
+        progress_bar.close()
+        if total_size_in_bytes != 0 and progress_bar.n != total_size_in_bytes:
+            print("ERROR, download failed")
+            exit()
