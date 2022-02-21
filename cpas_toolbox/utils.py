@@ -4,6 +4,9 @@ import os
 from pydoc import locate
 from typing import Any, List, Optional
 
+import requests
+from tqdm import tqdm
+
 
 def str_to_object(name: str) -> Any:
     """Try to find object with a given name.
@@ -34,6 +37,7 @@ def str_to_object(name: str) -> Any:
 
 def resolve_path(path: str, search_paths: Optional[List[str]] = None) -> str:
     """Resolves a path to a full absolute path based on search_paths.
+    url = "http://download.thinkbroadband.com/10MB.zip"
 
     This function considers paths of 5 different cases
         /... -> absolute path, nothing todo
@@ -74,3 +78,19 @@ def resolve_path(path: str, search_paths: Optional[List[str]] = None) -> str:
             return os.path.abspath(resolved_path)
 
     return path
+
+
+def download(url: str, download_path: str) -> str:
+    """Download file from URL to a specified path."""
+    # adapted from https://stackoverflow.com/a/37573701
+    response = requests.get(url, stream=True)
+    total_size_in_bytes = int(response.headers.get("content-length", 0))
+    block_size = 1024
+    progress_bar = tqdm(total=total_size_in_bytes, unit="iB", unit_scale=True)
+    with open(download_path, "wb") as file:
+        for data in response.iter_content(block_size):
+            progress_bar.update(len(data))
+            file.write(data)
+    progress_bar.close()
+    if total_size_in_bytes != 0 and progress_bar.n != total_size_in_bytes:
+        print("ERROR, something went wrong")

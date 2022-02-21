@@ -150,6 +150,7 @@ class AnnotatedRedwoodDataset(torch.utils.data.Dataset):
                 decision = input("(Y/n) ").lower()
                 if decision == "" or decision == "y":
                     self._download_dataset()
+                    break
                 elif decision == "n":
                     print("Dataset not found. Aborting.")
                     exit(0)

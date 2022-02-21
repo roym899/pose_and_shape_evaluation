@@ -20,6 +20,7 @@ setuptools.setup(
         "open3d",
         "opencv-python-headless",
         "Pillow",
+        "requests",
         "scipy",
         "tikzplotlib",
         "torch",

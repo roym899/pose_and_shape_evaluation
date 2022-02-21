@@ -7,7 +7,8 @@ import os
 import pickle
 from shutil import copyfile
 import time
-from typing import TypedDict, Optional
+from typing import TypedDict, Optional, List
+import zipfile
 
 from joblib import Parallel, delayed
 from scipy.spatial.transform import Rotation
@@ -19,7 +20,7 @@ from PIL import Image
 import yoco
 from tqdm import tqdm
 
-from cpas_toolbox import pointset_utils, quaternion_utils, camera_utils
+from cpas_toolbox import pointset_utils, quaternion_utils, camera_utils, utils
 from cpas_toolbox.datasets import nocs_utils
 
 
@@ -146,7 +147,7 @@ class NOCSDataset(torch.utils.data.Dataset):
                 with default_dict. See NOCSDataset.Config for supported keys.
         """
         config = yoco.load_config(config, current_dict=NOCSDataset.default_config)
-        self._root_dir = config["root_dir"]
+        self._root_dir = utils.resolve_path(config["root_dir"])
         self._split = config["split"]
         self._check_dirs()
         self._camera_convention = config["camera_convention"]
@@ -165,7 +166,11 @@ class NOCSDataset(torch.utils.data.Dataset):
         self._orientation_repr = config["orientation_repr"]
 
     def _check_dirs(self) -> None:
-        if os.path.exists(self._root_dir):
+        directories = [
+            os.path.join(self._root_dir, "gts"),
+        ]
+        # required folders
+        if all(os.path.exists(directory) for directory in directories):
             pass
         else:
             print(
@@ -177,12 +182,88 @@ class NOCSDataset(torch.utils.data.Dataset):
                 decision = input("(Y/n) ").lower()
                 if decision == "" or decision == "y":
                     self._download_dataset()
+                    break
                 elif decision == "n":
                     print("Dataset not found. Aborting.")
                     exit(0)
 
+    def _get_dirs(self) -> List[str]:
+        """Return required list of directories for current split."""
+        dirs = []
+
+        # gts only available for real test and camera val
+        if self._split in ["real_test", "camera_val"]:
+            dirs.append(os.path.join(self._root_dir, "gts"))
+
+        dirs.append(os.path.join(self._root_dir, "obj_models"))
+
+        # full depths for CAMERA
+        if self._split in ["camera_val", "camera_train"]:
+            dirs.append(os.path.join(self._root_dir, "camera_full_depths"))
+
+        if self._split == "camera_train":
+            dirs.append(os.path.join(self._root_dir, "train"))
+        elif self._split == "camera_val":
+            dirs.append(os.path.join(self._root_dir, "val"))
+        elif self._split in ["real_train", "real_test"]:
+            dirs.append(os.path.join(self._root_dir, self._split))
+        else:
+            raise ValueError(f"Specified split {self._split} is not supported.")
+
+        return dirs
+
     def _download_dataset(self) -> None:
-        raise NotImplementedError("Downloading not supported yet.")
+        missing_dirs = [d for d in self._get_dirs() if not os.path.exists(d)]
+        for missing_dir in missing_dirs:
+            download_dir, identifier = os.path.split(missing_dir)
+            os.makedirs(download_dir, exist_ok=True)
+            if identifier == "gts":
+                zip_path = os.path.join(download_dir, "gts.zip")
+                utils.download(
+                    "http://download.cs.stanford.edu/orion/nocs/gts.zip", zip_path
+                )
+            elif identifier == "obj_models":
+                zip_path = os.path.join(download_dir, "obj_models.zip")
+                utils.download(
+                    "http://download.cs.stanford.edu/orion/nocs/obj_models.zip",
+                    zip_path,
+                )
+            elif identifier == "camera_full_depths":
+                zip_path = os.path.join(download_dir, "camera_full_depths.zip")
+                utils.download(
+                    "http://download.cs.stanford.edu/orion/nocs/camera_composed_depth.zip",
+                    zip_path,
+                )
+                z = zipfile.ZipFile(zip_path)
+            elif identifier == "train":
+                zip_path = os.path.join(download_dir, "train.zip")
+                utils.download(
+                    "http://download.cs.stanford.edu/orion/nocs/camera_train.zip",
+                    zip_path,
+                )
+            elif identifier == "val":
+                zip_path = os.path.join(download_dir, "val.zip")
+                utils.download(
+                    "http://download.cs.stanford.edu/orion/nocs/camera_val25K.zip",
+                    zip_path,
+                )
+            elif identifier == "real_train":
+                zip_path = os.path.join(download_dir, "real_train.zip")
+                utils.download(
+                    "http://download.cs.stanford.edu/orion/nocs/real_train.zip",
+                    zip_path,
+                )
+            elif identifier == "real_test":
+                zip_path = os.path.join(download_dir, "real_test.zip")
+                utils.download(
+                    "http://download.cs.stanford.edu/orion/nocs/real_test.zip", zip_path
+                )
+            else:
+                raise ValueError(f"Downloading dir {missing_dir} unsupported.")
+            z = zipfile.ZipFile(zip_path)
+            z.extractall(download_dir)
+            z.close()
+            os.remove(zip_path)
 
     def __len__(self) -> int:
         """Return number of sample in dataset."""
