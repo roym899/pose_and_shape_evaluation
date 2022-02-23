@@ -2022,7 +2022,7 @@ __init__
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2130,7 +2130,7 @@ _load_annotations
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">_load_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">_load_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2180,7 +2180,7 @@ _create_raw_sample
 </h3>
 <div class="highlight"><pre><span></span><code><span class="n">_create_raw_sample</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">seq_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">sequence_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">annotation_dict</span><span class="p">:</span> <span class="nb">dict</span>
-<span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2260,7 +2260,7 @@ __len__
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2292,7 +2292,7 @@ __getitem__
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2519,7 +2519,7 @@ _load_depth
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">_load_depth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">_load_depth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2557,7 +2557,7 @@ _get_scale
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">_get_scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extents</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">_get_scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">extents</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2613,7 +2613,7 @@ _change_axis_convention
 </h3>
 <div class="highlight"><pre><span></span><code><span class="n">_change_axis_convention</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">orientation_q</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">extents</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
-<span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2714,7 +2714,7 @@ _get_o2n_object_rotation_matrix
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">_get_o2n_object_rotation_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">_get_o2n_object_rotation_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2818,7 +2818,7 @@ _quat_to_orientation_repr
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">_quat_to_orientation_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quaternion</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">_quat_to_orientation_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quaternion</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2944,7 +2944,7 @@ load_mesh
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">load_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">load_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -3051,7 +3051,7 @@ _draw_depth_geometry
 </h2>
 <div class="highlight"><pre><span></span><code><span class="n">_draw_depth_geometry</span><span class="p">(</span>
     <span class="n">posed_mesh</span><span class="p">:</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="n">camera_utils</span><span class="o">.</span><span class="n">Camera</span>
-<span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">

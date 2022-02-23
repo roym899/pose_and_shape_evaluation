@@ -2,62 +2,62 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://roym899.github.io/pose_and_shape_evaluation/</loc>
-         <lastmod>2022-02-21</lastmod>
+         <lastmod>2022-02-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://roym899.github.io/pose_and_shape_evaluation/data_preparation/</loc>
-         <lastmod>2022-02-21</lastmod>
+         <lastmod>2022-02-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://roym899.github.io/pose_and_shape_evaluation/api_reference/camera_utils/</loc>
-         <lastmod>2022-02-21</lastmod>
+         <lastmod>2022-02-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://roym899.github.io/pose_and_shape_evaluation/api_reference/evaluate/</loc>
-         <lastmod>2022-02-21</lastmod>
+         <lastmod>2022-02-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://roym899.github.io/pose_and_shape_evaluation/api_reference/method_wrappers/</loc>
-         <lastmod>2022-02-21</lastmod>
+         <lastmod>2022-02-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://roym899.github.io/pose_and_shape_evaluation/api_reference/metrics/</loc>
-         <lastmod>2022-02-21</lastmod>
+         <lastmod>2022-02-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://roym899.github.io/pose_and_shape_evaluation/api_reference/pointset_utils/</loc>
-         <lastmod>2022-02-21</lastmod>
+         <lastmod>2022-02-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://roym899.github.io/pose_and_shape_evaluation/api_reference/quaternion_utils/</loc>
-         <lastmod>2022-02-21</lastmod>
+         <lastmod>2022-02-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://roym899.github.io/pose_and_shape_evaluation/api_reference/utils/</loc>
-         <lastmod>2022-02-21</lastmod>
+         <lastmod>2022-02-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://roym899.github.io/pose_and_shape_evaluation/api_reference/datasets/nocs_dataset/</loc>
-         <lastmod>2022-02-21</lastmod>
+         <lastmod>2022-02-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://roym899.github.io/pose_and_shape_evaluation/api_reference/datasets/nocs_utils/</loc>
-         <lastmod>2022-02-21</lastmod>
+         <lastmod>2022-02-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://roym899.github.io/pose_and_shape_evaluation/api_reference/datasets/redwood_dataset/</loc>
-         <lastmod>2022-02-21</lastmod>
+         <lastmod>2022-02-23</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>

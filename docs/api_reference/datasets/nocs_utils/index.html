@@ -672,7 +672,7 @@ estimate_similarity_transform
 </h2>
 <div class="highlight"><pre><span></span><code><span class="n">estimate_similarity_transform</span><span class="p">(</span>
     <span class="n">source</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -978,7 +978,7 @@ _get_ransac_inliers
     <span class="n">max_iterations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
     <span class="n">pass_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span>
     <span class="n">stop_threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -1253,7 +1253,7 @@ _evaluate_model
     <span class="n">source_hom</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">target_hom</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">pass_threshold</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -1449,7 +1449,7 @@ _estimate_similarity_umeyama
 </h2>
 <div class="highlight"><pre><span></span><code><span class="n">_estimate_similarity_umeyama</span><span class="p">(</span>
     <span class="n">source_hom</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">target_hom</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-<span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">

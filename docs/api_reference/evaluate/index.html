@@ -1649,7 +1649,7 @@ __init__
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -1681,7 +1681,7 @@ _parse_config
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">_parse_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">_parse_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -1753,7 +1753,7 @@ _init_dataset
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">_init_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">_init_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset_config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -1810,7 +1810,7 @@ _init_wrappers
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">_init_wrappers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method_configs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">_init_wrappers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method_configs</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -1856,7 +1856,9 @@ _eval_method
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">_eval_method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">method_wrapper</span><span class="p">:</span> <span class="n">MethodWrapper</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">_eval_method</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">method_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">method_wrapper</span><span class="p">:</span> <span class="n">MethodWrapper</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2026,7 +2028,7 @@ _eval_prediction
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">_eval_prediction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prediction</span><span class="p">:</span> <span class="n">PredictionDict</span><span class="p">,</span> <span class="n">sample</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">_eval_prediction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prediction</span><span class="p">:</span> <span class="n">PredictionDict</span><span class="p">,</span> <span class="n">sample</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2062,7 +2064,7 @@ _init_metrics
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">_init_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">_init_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2098,7 +2100,7 @@ _init_metric_data
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">_init_metric_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metric_config_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">_init_metric_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metric_config_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2176,7 +2178,7 @@ _eval_metric
 </h3>
 <div class="highlight"><pre><span></span><code><span class="n">_eval_metric</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">metric_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prediction</span><span class="p">:</span> <span class="n">PredictionDict</span><span class="p">,</span> <span class="n">sample</span><span class="p">:</span> <span class="nb">dict</span>
-<span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2289,7 +2291,7 @@ _eval_correctness_metric
 </h3>
 <div class="highlight"><pre><span></span><code><span class="n">_eval_correctness_metric</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">metric_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prediction</span><span class="p">:</span> <span class="n">PredictionDict</span><span class="p">,</span> <span class="n">sample</span><span class="p">:</span> <span class="nb">dict</span>
-<span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2448,7 +2450,7 @@ _eval_pointwise_metric
 </h3>
 <div class="highlight"><pre><span></span><code><span class="n">_eval_pointwise_metric</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">metric_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prediction</span><span class="p">:</span> <span class="n">PredictionDict</span><span class="p">,</span> <span class="n">sample</span><span class="p">:</span> <span class="nb">dict</span>
-<span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2600,7 +2602,7 @@ _finalize_metrics
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">_finalize_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">_finalize_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2722,7 +2724,7 @@ _create_metric_plot
     <span class="n">metric_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
     <span class="n">correct_percentage</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">out_folder</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2875,7 +2877,7 @@ run
 
 
 </h3>
-<div class="highlight"><pre><span></span><code><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -2935,7 +2937,7 @@ visualize_estimation
     <span class="n">vis_camera_json</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">render_options_json</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">vis_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -3418,7 +3420,7 @@ main
 
 
 </h2>
-<div class="highlight"><pre><span></span><code><span class="n">main</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="n">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">

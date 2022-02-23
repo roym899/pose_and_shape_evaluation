@@ -635,7 +635,7 @@ normalize_points
 
 
 </h2>
-<div class="highlight"><pre><span></span><code><span class="n">normalize_points</span><span class="p">(</span><span class="n">points</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">normalize_points</span><span class="p">(</span><span class="n">points</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -740,7 +740,7 @@ depth_to_pointcloud
     <span class="n">normalize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">mask</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">convention</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;opengl&quot;</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -987,7 +987,7 @@ change_transform_camera_convention
 </h2>
 <div class="highlight"><pre><span></span><code><span class="n">change_transform_camera_convention</span><span class="p">(</span>
     <span class="n">in_transform</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">in_convention</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">out_convention</span><span class="p">:</span> <span class="nb">str</span>
-<span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -1156,7 +1156,7 @@ change_position_camera_convention
 </h2>
 <div class="highlight"><pre><span></span><code><span class="n">change_position_camera_convention</span><span class="p">(</span>
     <span class="n">in_position</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">in_convention</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">out_convention</span><span class="p">:</span> <span class="nb">str</span>
-<span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -1313,7 +1313,7 @@ change_orientation_camera_convention
 </h2>
 <div class="highlight"><pre><span></span><code><span class="n">change_orientation_camera_convention</span><span class="p">(</span>
     <span class="n">in_orientation_q</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">in_convention</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">out_convention</span><span class="p">:</span> <span class="nb">str</span>
-<span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -1490,7 +1490,7 @@ visualize_pointset
 
 
 </h2>
-<div class="highlight"><pre><span></span><code><span class="n">visualize_pointset</span><span class="p">(</span><span class="n">pointset</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">max_points</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">visualize_pointset</span><span class="p">(</span><span class="n">pointset</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">max_points</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">

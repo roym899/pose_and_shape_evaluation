@@ -611,7 +611,7 @@ quaternion_multiply
 </h2>
 <div class="highlight"><pre><span></span><code><span class="n">quaternion_multiply</span><span class="p">(</span>
     <span class="n">quaternions_1</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">quaternions_2</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
-<span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -738,7 +738,9 @@ quaternion_apply
 
 
 </h2>
-<div class="highlight"><pre><span></span><code><span class="n">quaternion_apply</span><span class="p">(</span><span class="n">quaternions</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">points</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">quaternion_apply</span><span class="p">(</span>
+    <span class="n">quaternions</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">points</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -861,7 +863,7 @@ quaternion_invert
 
 
 </h2>
-<div class="highlight"><pre><span></span><code><span class="n">quaternion_invert</span><span class="p">(</span><span class="n">quaternions</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">quaternion_invert</span><span class="p">(</span><span class="n">quaternions</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -953,7 +955,7 @@ geodesic_distance
 
 
 </h2>
-<div class="highlight"><pre><span></span><code><span class="n">geodesic_distance</span><span class="p">(</span><span class="n">q1</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">geodesic_distance</span><span class="p">(</span><span class="n">q1</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
