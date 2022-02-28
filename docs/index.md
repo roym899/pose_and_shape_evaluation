@@ -24,3 +24,14 @@ We can overwrite settings of the configuration via the command-line. For example
 python -m cpas_toolbox.evaluate --config redwood75.yaml --out_folder ./results/ --visualize_gt True --visualize_prediction True
 ```
 enables interactive visualization of ground truth and predictions. Alternatively, you could specify `--store_visualization True` to save the visualization of every prediction in the results directory.
+
+## Citation
+If you find this library useful in your research, consider citing [our publication](https://arxiv.org/abs/2202.10346):
+```
+@article{bruns2022evaluation,
+  title={On the Evaluation of {RGB-D}-based Categorical Pose and Shape Estimation},
+  author={Bruns, Leonard and Jensfelt, Patric},
+  journal={arXiv preprint arXiv:2202.10346},
+  year={2022}
+}
+```

@@ -10,6 +10,17 @@ Visit the [documentation](https://roym899.github.io/pose_and_shape_evaluation/) 
 pip install cpas_toolbox
 ```
 
+## Citation
+If you find this library useful in your research, consider citing [our publication](https://arxiv.org/abs/2202.10346):
+```
+@article{bruns2022evaluation,
+  title={On the Evaluation of {RGB-D}-based Categorical Pose and Shape Estimation},
+  author={Bruns, Leonard and Jensfelt, Patric},
+  journal={arXiv preprint arXiv:2202.10346},
+  year={2022}
+}
+```
+
 ## Development
 - Use `pip install -e .` to install the package in editable mode
 - Use `pip install -r requirements-dev.txt` to install dev tools
