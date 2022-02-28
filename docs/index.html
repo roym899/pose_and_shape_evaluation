@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://roym899.github.io/pose_and_shape_evaluation/">
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.1">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.3">
     
     
       
@@ -31,7 +31,7 @@
       
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
@@ -250,6 +250,13 @@
         <li class="md-nav__item">
   <a href="#evaluation-of-baseline-methods" class="md-nav__link">
     Evaluation of baseline methods
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#citation" class="md-nav__link">
+    Citation
   </a>
   
 </li>
@@ -524,6 +531,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#citation" class="md-nav__link">
+    Citation
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -560,6 +574,15 @@
 <pre><code class="language-bash">python -m cpas_toolbox.evaluate --config redwood75.yaml --out_folder ./results/ --visualize_gt True --visualize_prediction True
 </code></pre>
 <p>enables interactive visualization of ground truth and predictions. Alternatively, you could specify <code>--store_visualization True</code> to save the visualization of every prediction in the results directory.</p>
+<h2 id="citation">Citation</h2>
+<p>If you find this library useful in your research, consider citing <a href="https://arxiv.org/abs/2202.10346">our publication</a>:</p>
+<pre><code>@article{bruns2022evaluation,
+  title={On the Evaluation of {RGB-D}-based Categorical Pose and Shape Estimation},
+  author={Bruns, Leonard and Jensfelt, Patric},
+  journal={arXiv preprint arXiv:2202.10346},
+  year={2022}
+}
+</code></pre>
 
               
             </article>
@@ -613,7 +636,7 @@
     <script id="__config" type="application/json">{"base": ".", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
     
     
-      <script src="assets/javascripts/bundle.8aa65030.min.js"></script>
+      <script src="assets/javascripts/bundle.b88e97c5.min.js"></script>
       
     
   </body>
