@@ -220,5 +220,5 @@ def visualize_pointset(pointset: torch.Tensor, max_points: int = 1000) -> None:
     ax.set_ylabel("y")
     ax.set_zlabel("z")
 
-    utils.set_axes_equal(ax)
+    ax.set_box_aspect([1,1,1])
     plt.show()
