@@ -24,22 +24,25 @@ def correct_thresh(
     """Classify a pose prediction as correct or incorrect.
 
     Args:
-        position_gt: ground truth position, expected shape (3,).
-        position_prediction: predicted position, expected shape (3,).
-        position_threshold: position threshold in meters, no threshold if None
-        orientation_q_qt: ground truth orientation, scalar-last quaternion, shape (4,)
-        orientation_q_prediction:
-            predicted orientation, scalar-last quaternion, shape (4,)
+        position_gt: Ground truth position, shape (3,).
+        position_prediction: Predicted position, shape (3,).
+        position_threshold: Position threshold in meters, no threshold if None.
+        orientation_gt:
+            Ground truth orientation.
+            This is the rotation that rotates points from bounding box to camera frame.
+        orientation_prediction:
+            Predicted orientation.
+            This is the rotation that rotates points from bounding box to camera frame.
         extent_gt:
-            bounding box extents, shape (3,)
-            only used if IoU threshold specified
+            Bounding box extents, shape (3,).
+            Only used if IoU threshold specified.
         extent_prediction:
-            bounding box extents, shape (3,)
-            only used if IoU threshold specified
-        point_gt: set of true points, expected shape (N,3)
-        points_rec: set of reconstructed points, expected shape (M,3)
-        degree_threshold: orientation threshold in degrees, no threshold if None
-        iou_3d_threshold: 3D IoU threshold, no threshold if None
+            Bounding box extents, shape (3,).
+            Only used if IoU threshold specified.
+        point_gt: Set of true points, shape (N,3).
+        points_rec: Set of reconstructed points, shape (M,3).
+        degree_threshold: Orientation threshold in degrees, no threshold if None.
+        iou_3d_threshold: 3D IoU threshold, no threshold if None.
         rotational_symmetry_axis:
             Specify axis along which rotation is ignored. If None, no axis is ignored.
             0 for x-axis, 1 for y-axis, 2 for z-axis.
@@ -277,3 +280,53 @@ def extent(points: np.ndarray) -> float:
     return np.max(
         scipy.spatial.distance_matrix(points[hull.vertices], points[hull.vertices])
     )
+
+
+def iou_3d_sampling(
+    p1: np.ndarray,
+    q1: Rotation,
+    e1: np.ndarray,
+    p2: np.ndarray,
+    q2: np.ndarray,
+    e2: np.ndarray,
+    num_points=10000,
+):
+    """Compute 3D IoU by sampling points in oriented bounding boxes.
+
+    Args:
+        p1: Center position of first bounding box, shape (3,).
+        q1: Orientation of first bounding box.
+            This is the rotation that rotates points from bounding box to camera frame.
+        e1: Extents (i.e., side lengths) of first bounding box, shape (3,).
+        p2: Center position of second bounding box, shape (3,).
+        q2: Orientation of second bounding box.
+            This is the rotation that rotates points from bounding box to camera frame.
+        e2: Extents (i.e., side lengths) of second bounding box, shape (3,).
+        num_points: Number of points to sample in each bounding box.
+
+    Returns:
+        Approximate intersection-over-union for the two oriented bounding boxes.
+    """
+    # sample smaller volume to estimate intersection
+    vol_1 = np.prod(e1)
+    vol_2 = np.prod(e2)
+    if vol_1 < vol_2:
+        points_1_in_1 = e1 * np.random.rand(num_points, 3) - e1 / 2
+        points_1_in_w = q1.apply(points_1_in_1) + p1
+        points_1_in_2 = q2.inv().apply(points_1_in_w - p2)
+        ratio_1_in_2 = np.sum(
+            np.all(points_1_in_2 < e2 / 2, axis=1) * np.all(-e2 / 2 < points_1_in_2, axis=1)
+        ) / num_points
+        intersection = ratio_1_in_2 * vol_1
+    else:
+        points_2_in_2 = e2 * np.random.rand(num_points, 3) - e2 / 2
+        points_2_in_w = q2.apply(points_2_in_2) + p2
+        points_2_in_1 = q1.inv().apply(points_2_in_w - p1)
+        ratio_2_in_1 = np.sum(
+            np.all(points_2_in_1 < e1 / 2, axis=1) * np.all(-e1 / 2 < points_2_in_1, axis=1)
+        ) / num_points
+        intersection = ratio_2_in_1 * vol_2
+
+    union = vol_1 + vol_2 - intersection
+
+    return intersection / union
