@@ -203,7 +203,6 @@ def visualize_pointset(pointset: torch.Tensor, max_points: int = 1000) -> None:
     pointset_np = pointset.cpu().detach().numpy()
     fig = plt.figure()
     ax = fig.add_subplot(projection="3d")
-    ax.set_box_aspect((1, 1, 1))
 
     if len(pointset_np) > max_points:
         indices = np.random.choice(len(pointset_np), replace=False, size=max_points)
@@ -220,5 +219,5 @@ def visualize_pointset(pointset: torch.Tensor, max_points: int = 1000) -> None:
     ax.set_ylabel("y")
     ax.set_zlabel("z")
 
-    ax.set_box_aspect([1,1,1])
+    ax.set_box_aspect(pointset_np.max(axis=0) - pointset_np.min(axis=0))
     plt.show()
