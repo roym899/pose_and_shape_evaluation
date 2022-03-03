@@ -3,6 +3,7 @@ from typing import Optional
 
 import numpy as np
 import scipy.spatial
+from scipy.optimize import linprog
 from scipy.spatial.transform import Rotation
 
 
@@ -284,22 +285,22 @@ def extent(points: np.ndarray) -> float:
 
 def iou_3d_sampling(
     p1: np.ndarray,
-    q1: Rotation,
+    r1: Rotation,
     e1: np.ndarray,
     p2: np.ndarray,
-    q2: np.ndarray,
+    r2: Rotation,
     e2: np.ndarray,
     num_points=10000,
 ):
-    """Compute 3D IoU by sampling points in oriented bounding boxes.
+    """Compute 3D IoU of oriented bounding boxes by sampling the smaller bounding box.
 
     Args:
         p1: Center position of first bounding box, shape (3,).
-        q1: Orientation of first bounding box.
+        r1: Orientation of first bounding box.
             This is the rotation that rotates points from bounding box to camera frame.
         e1: Extents (i.e., side lengths) of first bounding box, shape (3,).
         p2: Center position of second bounding box, shape (3,).
-        q2: Orientation of second bounding box.
+        r2: Orientation of second bounding box.
             This is the rotation that rotates points from bounding box to camera frame.
         e2: Extents (i.e., side lengths) of second bounding box, shape (3,).
         num_points: Number of points to sample in each bounding box.
@@ -312,21 +313,86 @@ def iou_3d_sampling(
     vol_2 = np.prod(e2)
     if vol_1 < vol_2:
         points_1_in_1 = e1 * np.random.rand(num_points, 3) - e1 / 2
-        points_1_in_w = q1.apply(points_1_in_1) + p1
-        points_1_in_2 = q2.inv().apply(points_1_in_w - p2)
-        ratio_1_in_2 = np.sum(
-            np.all(points_1_in_2 < e2 / 2, axis=1) * np.all(-e2 / 2 < points_1_in_2, axis=1)
-        ) / num_points
+        points_1_in_w = r1.apply(points_1_in_1) + p1
+        points_1_in_2 = r2.inv().apply(points_1_in_w - p2)
+        ratio_1_in_2 = (
+            np.sum(
+                np.all(points_1_in_2 < e2 / 2, axis=1)
+                * np.all(-e2 / 2 < points_1_in_2, axis=1)
+            )
+            / num_points
+        )
         intersection = ratio_1_in_2 * vol_1
     else:
         points_2_in_2 = e2 * np.random.rand(num_points, 3) - e2 / 2
-        points_2_in_w = q2.apply(points_2_in_2) + p2
-        points_2_in_1 = q1.inv().apply(points_2_in_w - p1)
-        ratio_2_in_1 = np.sum(
-            np.all(points_2_in_1 < e1 / 2, axis=1) * np.all(-e1 / 2 < points_2_in_1, axis=1)
-        ) / num_points
+        points_2_in_w = r2.apply(points_2_in_2) + p2
+        points_2_in_1 = r1.inv().apply(points_2_in_w - p1)
+        ratio_2_in_1 = (
+            np.sum(
+                np.all(points_2_in_1 < e1 / 2, axis=1)
+                * np.all(-e1 / 2 < points_2_in_1, axis=1)
+            )
+            / num_points
+        )
         intersection = ratio_2_in_1 * vol_2
 
     union = vol_1 + vol_2 - intersection
 
+    return intersection / union
+
+
+def iou_3d(
+    p1: np.ndarray,
+    r1: Rotation,
+    e1: np.ndarray,
+    p2: np.ndarray,
+    r2: Rotation,
+    e2: np.ndarray,
+):
+    """Compute 3D IoU of oriented bounding boxes analytically.
+
+    Code partly based on https://github.com/google-research-datasets/Objectron/.
+    Implementation uses HalfSpace intersection instead of Sutherland-Hodgman algorithm.
+
+    Args:
+        p1: Center position of first bounding box, shape (3,).
+        r1: Orientation of first bounding box.
+            This is the rotation that rotates points from bounding box to camera frame.
+        e1: Extents (i.e., side lengths) of first bounding box, shape (3,).
+        p2: Center position of second bounding box, shape (3,).
+        r2: Orientation of second bounding box.
+            This is the rotation that rotates points from bounding box to camera frame.
+        e2: Extents (i.e., side lengths) of second bounding box, shape (3,).
+
+    Returns:
+        Accurate intersection-over-union for the two oriented bounding boxes.
+    """
+    # create halfspaces
+    halfspaces = np.zeros((12,4))
+    halfspaces[0:3,0:3] = r1.as_matrix().T
+    halfspaces[0:3,3] = - halfspaces[0:3,0:3] @ (r1.apply(e1/2) + p1)
+    halfspaces[3:6,0:3] = -halfspaces[0:3,0:3]
+    halfspaces[3:6,3] = - halfspaces[3:6,0:3] @ (r1.apply(-e1/2) + p1)
+    halfspaces[6:9,0:3] = r2.as_matrix().T
+    halfspaces[6:9,3] = - halfspaces[6:9,0:3] @ (r2.apply(e2/2) + p2)
+    halfspaces[9:12,0:3] = -halfspaces[6:9,0:3]
+    halfspaces[9:12,3] = - halfspaces[9:12,0:3] @ (r2.apply(-e2/2) + p2)
+
+    # try to find point inside both bounding boxes
+    c = np.zeros((halfspaces.shape[1],))
+    c[-1] = -1
+    A = np.hstack((halfspaces[:, :-1], np.ones((halfspaces.shape[0], 1))))
+    b = -halfspaces[:, -1:]
+    res = linprog(c, A_ub=A, b_ub=b, bounds=(None, None))
+    if res.fun > 0:  # no intersection
+        return 0
+    inside_point = res.x[:3]
+
+    # create halfspace intersection and compute IoU
+    hs = scipy.spatial.HalfspaceIntersection(halfspaces, inside_point)
+    ch = scipy.spatial.ConvexHull(hs.intersections)
+    intersection = ch.volume
+    vol_1 = np.prod(e1)
+    vol_2 = np.prod(e2)
+    union = vol_1 + vol_2 - intersection
     return intersection / union
