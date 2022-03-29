@@ -21,7 +21,6 @@ plugins:
             show_root_heading: true
             show_signature_annotations: true
             show_source: true
-            heading_level: 1
             separate_signature: True
             docstring_section_style: "spacy"
             line_length: 75
