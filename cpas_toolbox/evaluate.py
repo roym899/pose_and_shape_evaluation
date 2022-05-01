@@ -2,6 +2,7 @@
 import argparse
 import os
 from datetime import datetime
+import time
 from typing import List, Optional, Tuple
 import random
 import sys
@@ -245,12 +246,16 @@ class Evaluator:
                 ax3.imshow(sample["mask"].numpy())
                 plt.show()
 
+            t_start = time.time()
             prediction = method_wrapper.inference(
                 color_image=sample["color"],
                 depth_image=sample["depth"],
                 instance_mask=sample["mask"],
                 category_str=sample["category_str"],
             )
+            inference_time = time.time() - t_start
+            self._runtime_data["total"] += inference_time
+            self._runtime_data["count"] += 1
 
             if self._visualize_gt:
                 visualize_estimation(
@@ -309,6 +314,10 @@ class Evaluator:
     def _init_metrics(self) -> None:
         """Initialize metrics."""
         self._metric_data = {}
+        self._runtime_data = {
+            "total": 0.0,
+            "count": 0.0,
+        }
         for metric_name, metric_config_dict in self._metrics.items():
             self._metric_data[metric_name] = self._init_metric_data(metric_config_dict)
 
@@ -473,6 +482,9 @@ class Evaluator:
         yaml_path = os.path.join(out_folder, "results.yaml")
 
         self._results_dict[method_name] = {}
+        self._runtime_results_dict[method_name] = (
+            self._runtime_data["total"] / self._runtime_data["count"]
+        )
         for metric_name, metric_dict in self._metrics.items():
             if "position_thresholds" in metric_dict:  # correctness metrics
                 correct_counter = self._metric_data[metric_name]["correct_counters"]
@@ -504,7 +516,11 @@ class Evaluator:
                     f"Unsupported metric configuration with name {metric_name}."
                 )
 
-        results_dict = {**self._config, "results": self._results_dict}
+        results_dict = {
+            **self._config,
+            "results": self._results_dict,
+            "runtime_results": self._runtime_results_dict,
+        }
         yoco.save_config_to_file(yaml_path, results_dict)
         print(f"Results saved to: {yaml_path}")
 
@@ -563,6 +579,7 @@ class Evaluator:
     def run(self) -> None:
         """Run the evaluation."""
         self._results_dict = {}
+        self._runtime_results_dict = {}
         for method_name, method_wrapper in self._wrappers.items():
             self._eval_method(method_name, method_wrapper)
 
