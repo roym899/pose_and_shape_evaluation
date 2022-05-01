@@ -1,8 +1,9 @@
 """Metrics for shape evaluation."""
-from typing import Optional
+from typing import Optional, Union
 
 import numpy as np
 import scipy.spatial
+from scipy.optimize import linprog
 from scipy.spatial.transform import Rotation
 
 
@@ -24,25 +25,29 @@ def correct_thresh(
     """Classify a pose prediction as correct or incorrect.
 
     Args:
-        position_gt: ground truth position, expected shape (3,).
-        position_prediction: predicted position, expected shape (3,).
-        position_threshold: position threshold in meters, no threshold if None
-        orientation_q_qt: ground truth orientation, scalar-last quaternion, shape (4,)
-        orientation_q_prediction:
-            predicted orientation, scalar-last quaternion, shape (4,)
+        position_gt: Ground truth position, shape (3,).
+        position_prediction: Predicted position, shape (3,).
+        position_threshold: Position threshold in meters, no threshold if None.
+        orientation_gt:
+            Ground truth orientation.
+            This is the rotation that rotates points from bounding box to camera frame.
+        orientation_prediction:
+            Predicted orientation.
+            This is the rotation that rotates points from bounding box to camera frame.
         extent_gt:
-            bounding box extents, shape (3,)
-            only used if IoU threshold specified
+            Bounding box extents, shape (3,).
+            Only used if IoU threshold specified.
         extent_prediction:
-            bounding box extents, shape (3,)
-            only used if IoU threshold specified
-        point_gt: set of true points, expected shape (N,3)
-        points_rec: set of reconstructed points, expected shape (M,3)
-        degree_threshold: orientation threshold in degrees, no threshold if None
-        iou_3d_threshold: 3D IoU threshold, no threshold if None
+            Bounding box extents, shape (3,).
+            Only used if IoU threshold specified.
+        point_gt: Set of true points, shape (N,3).
+        points_rec: Set of reconstructed points, shape (M,3).
+        degree_threshold: Orientation threshold in degrees, no threshold if None.
+        iou_3d_threshold: 3D IoU threshold, no threshold if None.
         rotational_symmetry_axis:
             Specify axis along which rotation is ignored. If None, no axis is ignored.
             0 for x-axis, 1 for y-axis, 2 for z-axis.
+
     Returns:
         1 if error is below all provided thresholds.  0 if error is above one provided
         threshold.
@@ -64,10 +69,35 @@ def correct_thresh(
         if rad_error > rad_threshold:
             return 0
     if iou_3d_threshold is not None:
-        raise NotImplementedError("3D IoU is not impemented yet.")
-        # TODO implement 3D IoU
-        # starting point for proper implementation: https://github.com/google-research-datasets/Objectron/blob/c06a65165a18396e1e00091981fd1652875c97b5/objectron/dataset/iou.py#L6
-        pass
+        if rotational_symmetry_axis is not None:
+            max_iou = 0
+
+            for r in np.linspace(0, np.pi, 100):
+                p = np.array([0.0, 0.0, 0.0])
+                p[rotational_symmetry_axis] = 1.0
+                p *= r
+                sym_rot = Rotation.from_rotvec(r)
+                iou = iou_3d(
+                    position_gt,
+                    orientation_gt,
+                    extent_gt,
+                    position_prediction,
+                    orientation_prediction * sym_rot,
+                    extent_prediction,
+                )
+                max_iou = max(iou, max_iou)
+            iou = max_iou
+        else:
+            iou = iou_3d(
+                position_gt,
+                orientation_gt,
+                extent_gt,
+                position_prediction,
+                orientation_prediction,
+                extent_prediction,
+            )
+        if iou < iou_3d_threshold:
+            return 0
     if fscore_threshold is not None:
         fscore = reconstruction_fscore(points_gt, points_prediction, 0.01)
         if fscore < fscore_threshold:
@@ -277,3 +307,178 @@ def extent(points: np.ndarray) -> float:
     return np.max(
         scipy.spatial.distance_matrix(points[hull.vertices], points[hull.vertices])
     )
+
+
+def iou_3d_sampling(
+    p1: np.ndarray,
+    r1: Rotation,
+    e1: np.ndarray,
+    p2: np.ndarray,
+    r2: Rotation,
+    e2: np.ndarray,
+    num_points: int = 10000,
+) -> float:
+    """Compute 3D IoU of oriented bounding boxes by sampling the smaller bounding box.
+
+    Args:
+        p1: Center position of first bounding box, shape (3,).
+        r1: Orientation of first bounding box.
+            This is the rotation that rotates points from bounding box to camera frame.
+        e1: Extents (i.e., side lengths) of first bounding box, shape (3,).
+        p2: Center position of second bounding box, shape (3,).
+        r2: Orientation of second bounding box.
+            This is the rotation that rotates points from bounding box to camera frame.
+        e2: Extents (i.e., side lengths) of second bounding box, shape (3,).
+        num_points: Number of points to sample in smaller bounding box.
+
+    Returns:
+        Approximate intersection-over-union for the two oriented bounding boxes.
+    """
+    # sample smaller volume to estimate intersection
+    vol_1 = np.prod(e1)
+    vol_2 = np.prod(e2)
+    if vol_1 < vol_2:
+        points_1_in_1 = e1 * np.random.rand(num_points, 3) - e1 / 2
+        points_1_in_w = r1.apply(points_1_in_1) + p1
+        points_1_in_2 = r2.inv().apply(points_1_in_w - p2)
+        ratio_1_in_2 = (
+            np.sum(
+                np.all(points_1_in_2 < e2 / 2, axis=1)
+                * np.all(-e2 / 2 < points_1_in_2, axis=1)
+            )
+            / num_points
+        )
+        intersection = ratio_1_in_2 * vol_1
+    else:
+        points_2_in_2 = e2 * np.random.rand(num_points, 3) - e2 / 2
+        points_2_in_w = r2.apply(points_2_in_2) + p2
+        points_2_in_1 = r1.inv().apply(points_2_in_w - p1)
+        ratio_2_in_1 = (
+            np.sum(
+                np.all(points_2_in_1 < e1 / 2, axis=1)
+                * np.all(-e1 / 2 < points_2_in_1, axis=1)
+            )
+            / num_points
+        )
+        intersection = ratio_2_in_1 * vol_2
+
+    union = vol_1 + vol_2 - intersection
+
+    return intersection / union
+
+
+def iou_3d(
+    p1: np.ndarray,
+    r1: Rotation,
+    e1: np.ndarray,
+    p2: np.ndarray,
+    r2: Rotation,
+    e2: np.ndarray,
+) -> float:
+    """Compute 3D IoU of oriented bounding boxes analytically.
+
+    Code partly based on https://github.com/google-research-datasets/Objectron/.
+    Implementation uses HalfSpace intersection instead of Sutherland-Hodgman algorithm.
+
+    Args:
+        p1: Center position of first bounding box, shape (3,).
+        r1: Orientation of first bounding box.
+            This is the rotation that rotates points from bounding box to camera frame.
+        e1: Extents (i.e., side lengths) of first bounding box, shape (3,).
+        p2: Center position of second bounding box, shape (3,).
+        r2: Orientation of second bounding box.
+            This is the rotation that rotates points from bounding box to camera frame.
+        e2: Extents (i.e., side lengths) of second bounding box, shape (3,).
+
+    Returns:
+        Accurate intersection-over-union for the two oriented bounding boxes.
+    """
+    # create halfspaces
+    halfspaces = np.zeros((12, 4))
+    halfspaces[0:3, 0:3] = r1.as_matrix().T
+    halfspaces[0:3, 3] = -halfspaces[0:3, 0:3] @ (r1.apply(e1 / 2) + p1)
+    halfspaces[3:6, 0:3] = -halfspaces[0:3, 0:3]
+    halfspaces[3:6, 3] = -halfspaces[3:6, 0:3] @ (r1.apply(-e1 / 2) + p1)
+    halfspaces[6:9, 0:3] = r2.as_matrix().T
+    halfspaces[6:9, 3] = -halfspaces[6:9, 0:3] @ (r2.apply(e2 / 2) + p2)
+    halfspaces[9:12, 0:3] = -halfspaces[6:9, 0:3]
+    halfspaces[9:12, 3] = -halfspaces[9:12, 0:3] @ (r2.apply(-e2 / 2) + p2)
+
+    # try to find point inside both bounding boxes
+    inside_point = _find_inside_point(p1, r1, e1, p2, r2, e2, halfspaces)
+    if inside_point is None:
+        return 0
+
+    # create halfspace intersection and compute IoU
+    hs = scipy.spatial.HalfspaceIntersection(halfspaces, inside_point)
+    ch = scipy.spatial.ConvexHull(hs.intersections)
+    intersection = ch.volume
+    vol_1 = np.prod(e1)
+    vol_2 = np.prod(e2)
+    union = vol_1 + vol_2 - intersection
+    return intersection / union
+
+
+def _find_inside_point(
+    p1: np.ndarray,
+    r1: Rotation,
+    e1: np.ndarray,
+    p2: np.ndarray,
+    r2: Rotation,
+    e2: np.ndarray,
+    halfspaces: np.ndarray,
+    sample_points: int = 100,
+) -> Union[np.ndarray, None]:
+    """Find 3D point inside two oriented bounding boxes.
+
+    Args:
+        p1: Center position of first bounding box, shape (3,).
+        r1: Orientation of first bounding box.
+            This is the rotation that rotates points from bounding box to camera frame.
+        e1: Extents (i.e., side lengths) of first bounding box, shape (3,).
+        p2: Center position of second bounding box, shape (3,).
+        r2: Orientation of second bounding box.
+            This is the rotation that rotates points from bounding box to camera frame.
+        e2: Extents (i.e., side lengths) of second bounding box, shape (3,).
+        halfspaces: Halfspaces defining the bounding boxes.
+        sample_points:
+            Number of samples sampled from smaller bounding box to check initially.
+            If none of the points is inside both bounding boxes a linear program will
+            be solved.
+
+    Returns:
+        Point inside both oriented bounding boxes. None if there is no such point.
+        Shape (3,).
+    """
+    vol_1 = np.prod(e1)
+    vol_2 = np.prod(e2)
+    if vol_1 < vol_2:
+        points_1_in_1 = e1 * np.random.rand(sample_points, 3) - e1 / 2
+        points_1_in_w = r1.apply(points_1_in_1) + p1
+        points_1_in_2 = r2.inv().apply(points_1_in_w - p2)
+        points_in = np.all(points_1_in_2 < e2 / 2, axis=1) * np.all(
+            -e2 / 2 < points_1_in_2, axis=1
+        )
+        index = np.argmax(points_in)
+        if points_in[index]:
+            return points_1_in_w[index]
+    else:
+        points_2_in_2 = e2 * np.random.rand(sample_points, 3) - e2 / 2
+        points_2_in_w = r2.apply(points_2_in_2) + p2
+        points_2_in_1 = r1.inv().apply(points_2_in_w - p1)
+        points_in = np.all(points_2_in_1 < e1 / 2, axis=1) * np.all(
+            -e1 / 2 < points_2_in_1, axis=1
+        )
+        index = np.argmax(points_in)
+        if points_in[index]:
+            return points_2_in_w[index]
+
+    # no points found, solve linear program to find intersection point
+    c = np.zeros((halfspaces.shape[1],))
+    c[-1] = -1
+    A = np.hstack((halfspaces[:, :-1], np.ones((halfspaces.shape[0], 1))))
+    b = -halfspaces[:, -1:]
+    res = linprog(c, A_ub=A, b_ub=b, bounds=(None, None))
+    if res.fun > 0:  # no intersection
+        return None
+    return res.x[:3]
