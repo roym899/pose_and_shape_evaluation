@@ -23,7 +23,7 @@ class Camera:
         cy: float,
         s: float = 0.0,
         pixel_center: float = 0.0,
-    ):
+    ) -> None:
         """Initialize camera parameters.
 
         Note that the principal point is only fully defined in combination with
@@ -97,6 +97,7 @@ class Camera:
             pixel_center:
                 At which ratio of a square the pixel center should be for the resulting
                 parameters. Typically 0 or 0.5. See class documentation for more info.
+
         Returns:
             - fx, fy: The horizontal and vertical focal length
             - cx, cy:
