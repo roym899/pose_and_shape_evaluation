@@ -2,25 +2,31 @@
 import datetime
 import imghdr
 import json
-from glob import glob
 import os
 import pickle
-from shutil import copyfile
+import sys
 import time
-from typing import TypedDict, Optional, List
 import zipfile
+from glob import glob
+from shutil import copyfile
+from typing import List, Optional
 
-from joblib import Parallel, delayed
-from scipy.spatial.transform import Rotation
+if sys.version_info[0] >= 3 and sys.version_info[1] >= 8:
+    from typing import TypedDict
+else:
+    from typing_extensions import TypedDict
+
 import numpy as np
 import open3d as o3d
 import pandas as pd
 import torch
-from PIL import Image
 import yoco
+from joblib import Parallel, delayed
+from PIL import Image
+from scipy.spatial.transform import Rotation
 from tqdm import tqdm
 
-from cpas_toolbox import pointset_utils, quaternion_utils, camera_utils, utils
+from cpas_toolbox import camera_utils, pointset_utils, quaternion_utils, utils
 from cpas_toolbox.datasets import nocs_utils
 
 
@@ -646,7 +652,7 @@ class NOCSDataset(torch.utils.data.Dataset):
             nocs_transform = gts_data["gt_RTs"][gt_id]
             position = nocs_transform[0:3, 3]
             rot_scale = nocs_transform[0:3, 0:3]
-            nocs_scales = np.sqrt(np.sum(rot_scale ** 2, axis=0))
+            nocs_scales = np.sqrt(np.sum(rot_scale**2, axis=0))
             rotation_matrix = rot_scale / nocs_scales[:, None]
             nocs_scale = nocs_scales[0]
         else:  # camera_train, camera_val, real_train
