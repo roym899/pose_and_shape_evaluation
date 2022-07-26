@@ -1,21 +1,34 @@
 """Wrapper for pose and shape estimation methods."""
-from abc import ABC
 import copy
 import os
 import shutil
-from typing import List, Optional, TypedDict
+import sys
 import zipfile
+from abc import ABC
+from typing import List, Optional
+
+if sys.version_info[0] >= 3 and sys.version_info[1] >= 8:
+    from typing import TypedDict
+else:
+    from typing_extensions import TypedDict
 
 import cv2
 import numpy as np
 import open3d as o3d
 import torch
 import torchvision.transforms.functional as TF
-from scipy.spatial.transform import Rotation
 import yoco
+from scipy.spatial.transform import Rotation
 
-from cpas_toolbox import pointset_utils, quaternion_utils, camera_utils, utils
-from cpas_toolbox import cass, asmnet, spd
+from cpas_toolbox import (
+    asmnet,
+    camera_utils,
+    cass,
+    pointset_utils,
+    quaternion_utils,
+    spd,
+    utils,
+)
 
 
 class PredictionDict(TypedDict):

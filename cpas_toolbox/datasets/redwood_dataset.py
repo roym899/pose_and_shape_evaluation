@@ -1,15 +1,21 @@
 """Module providing dataset class for annotated Redwood dataset."""
 import json
 import os
-from typing import TypedDict, Optional
+import sys
 import zipfile
+from typing import Optional
 
-from scipy.spatial.transform import Rotation
+if sys.version_info[0] >= 3 and sys.version_info[1] >= 8:
+    from typing import TypedDict
+else:
+    from typing_extensions import TypedDict
+
 import numpy as np
 import open3d as o3d
 import torch
-from PIL import Image
 import yoco
+from PIL import Image
+from scipy.spatial.transform import Rotation
 
 from cpas_toolbox import camera_utils, pointset_utils, quaternion_utils, utils
 
