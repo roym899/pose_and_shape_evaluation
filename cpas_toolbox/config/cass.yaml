@@ -1,5 +1,5 @@
 name: CASS
-wrapper_type: cpas_toolbox.cpas_methods.CASS
+wrapper_type: cpas_toolbox.cpas_methods.cass.CASS
 config_dict:
   num_points: 500  # points in reconstructed pointcloud
   num_objects: 6  # number of categories

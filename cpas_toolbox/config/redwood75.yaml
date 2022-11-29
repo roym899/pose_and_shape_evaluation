@@ -1,7 +1,7 @@
 config:
   methods:
-    # cass: ./cass.yaml
-    spd: ./spd.yaml
+    cass: ./cass.yaml
+    # spd: ./spd.yaml
     # asmnet: ./asmnet.yaml
 
 dataset_config:
