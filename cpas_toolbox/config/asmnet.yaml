@@ -1,5 +1,5 @@
 name: ASMNet
-wrapper_type: cpas_toolbox.method_wrappers.ASMNetWrapper
+wrapper_type: cpas_toolbox.cpas_methods.ASMNet
 config_dict:
   models_folder: ~/.cpas_toolbox/models/asmnet/weights/
   asm_params_folder: ~/.cpas_toolbox/models/asmnet/asm_params/

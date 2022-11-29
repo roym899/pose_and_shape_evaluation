@@ -1,8 +1,8 @@
 config:
   methods:
-    cass: ./cass.yaml
+    # cass: ./cass.yaml
     spd: ./spd.yaml
-    asmnet: ./asmnet.yaml
+    # asmnet: ./asmnet.yaml
 
 dataset_config:
   name: REDWOOD75
