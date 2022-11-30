@@ -1,5 +1,5 @@
 name: SPD
-wrapper_type: cpas_toolbox.cpas_methods.spd.SPD
+method_type: cpas_toolbox.cpas_methods.spd.SPD
 config_dict:
   num_categories: 6
   num_shape_points: 1024 

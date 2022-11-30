@@ -88,7 +88,7 @@ class CASS(CPASMethod):
         instance_mask: torch.Tensor,
         category_str: str,
     ) -> PredictionDict:
-        """See MethodWrapper.inference.
+        """See CPASMethod.inference.
 
         Based on cass.tools.eval.
         """

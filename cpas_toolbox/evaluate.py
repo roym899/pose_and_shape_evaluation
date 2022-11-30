@@ -223,11 +223,11 @@ class Evaluator:
         for method_dict in method_configs.values():
             method_name = method_dict["name"]
             print(f"Initializing {method_name}...")
-            wrapper_type = utils.str_to_object(method_dict["wrapper_type"])
-            if wrapper_type is None:
-                print(f"Could not find class {method_dict['wrapper_type']}")
+            method_type = utils.str_to_object(method_dict["method_type"])
+            if method_type is None:
+                print(f"Could not find class {method_dict['method_type']}")
                 continue
-            self._wrappers[method_name] = wrapper_type(
+            self._wrappers[method_name] = method_type(
                 config=method_dict["config_dict"], camera=self._cam
             )
 

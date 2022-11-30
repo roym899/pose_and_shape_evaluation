@@ -76,7 +76,7 @@ class ASMNet(CPASMethod):
         """Initialize and load ASMNet model.
 
         Args:
-            config: ASMNet configuration. See ASMNetWrapper.Config for more information.
+            config: ASMNet configuration. See ASMNet.Config for more information.
             camera: Camera used for the input image.
         """
         config = yoco.load_config(config, current_dict=ASMNet.default_config)
@@ -155,7 +155,7 @@ class ASMNet(CPASMethod):
         instance_mask: torch.Tensor,
         category_str: str,
     ) -> PredictionDict:
-        """See MethodWrapper.inference.
+        """See CPASMethod.inference.
 
         Based on asmnet.ASM_Net.test_net_nocs2019_release
         """

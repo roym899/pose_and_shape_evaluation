@@ -50,7 +50,7 @@ class SPD(CPASMethod):
         """Initialize and load SPD model.
 
         Args:
-            config: SPD configuration. See SPDWrapper.Config for more information.
+            config: SPD configuration. See SPD.Config for more information.
             camera: Camera used for the input image.
         """
         config = yoco.load_config(config, current_dict=SPD.default_config)
