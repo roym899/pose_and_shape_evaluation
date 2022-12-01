@@ -1,6 +1,7 @@
 # Standalone config to use with evaluate.py
 config:
   methods:
+    crnet: ./crnet.yaml
     spd: ./spd.yaml
     cass: ./cass.yaml
     asmnet: ./asmnet.yaml

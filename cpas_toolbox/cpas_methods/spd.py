@@ -229,9 +229,7 @@ class SPD(CPASMethod):
         reconstructed_points = inst_shape[0].detach().cpu() * scale
 
         # NOCS Object -> ShapeNet Object convention
-        obj_fix = torch.tensor(
-            [0.0, -1 / np.sqrt(2.0), 0.0, 1 / np.sqrt(2.0)]
-        )  # CASS object to ShapeNet object
+        obj_fix = torch.tensor([0.0, -1 / np.sqrt(2.0), 0.0, 1 / np.sqrt(2.0)])
         orientation_q = quaternion_utils.quaternion_multiply(orientation_q, obj_fix)
         reconstructed_points = quaternion_utils.quaternion_apply(
             quaternion_utils.quaternion_invert(obj_fix),
@@ -239,6 +237,17 @@ class SPD(CPASMethod):
         )
         extents, _ = reconstructed_points.abs().max(dim=0)
         extents *= 2.0
+
+        # Recenter for mug category
+        if category_str == "mug":  # undo mug translation
+            tbb_center = (
+                reconstructed_points.max(dim=0)[0] + reconstructed_points.min(dim=0)[0]
+            ) / 2
+            reconstructed_points -= tbb_center
+            extents = 2 * reconstructed_points.abs().max(dim=0)[0]
+            position += quaternion_utils.quaternion_apply(
+                orientation_q, tbb_center
+            ).numpy()
 
         return {
             "position": torch.Tensor(position),
