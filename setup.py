@@ -8,6 +8,7 @@ with open("README.md", "r") as fh:
 install_requires = [
     "gdown",
     "matplotlib",
+    "ninja",
     "numpy",
     "open3d",
     "opencv-python-headless",

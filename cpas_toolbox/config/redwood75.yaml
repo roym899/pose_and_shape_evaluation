@@ -1,5 +1,6 @@
 config:
   methods:
+    asmnet: ./sgpa.yaml
     crnet: ./crnet.yaml
     cass: ./cass.yaml
     spd: ./spd.yaml
