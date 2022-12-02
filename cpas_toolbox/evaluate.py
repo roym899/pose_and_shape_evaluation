@@ -17,7 +17,7 @@ from tqdm import tqdm
 import yoco
 
 from cpas_toolbox import metrics, pointset_utils, quaternion_utils, camera_utils, utils
-from cpas_toolbox.method_wrappers import MethodWrapper, PredictionDict
+from cpas_toolbox.cpas_method import CPASMethod, PredictionDict
 
 
 def visualize_estimation(
@@ -223,12 +223,15 @@ class Evaluator:
         for method_dict in method_configs.values():
             method_name = method_dict["name"]
             print(f"Initializing {method_name}...")
-            wrapper_type = utils.str_to_object(method_dict["wrapper_type"])
-            self._wrappers[method_name] = wrapper_type(
+            method_type = utils.str_to_object(method_dict["method_type"])
+            if method_type is None:
+                print(f"Could not find class {method_dict['method_type']}")
+                continue
+            self._wrappers[method_name] = method_type(
                 config=method_dict["config_dict"], camera=self._cam
             )
 
-    def _eval_method(self, method_name: str, method_wrapper: MethodWrapper) -> None:
+    def _eval_method(self, method_name: str, method_wrapper: CPASMethod) -> None:
         """Run and evaluate method on all samples."""
         print(f"Run {method_name}...")
         self._init_metrics()

@@ -39,8 +39,13 @@ nav:
       - nocs_dataset.py: api_reference/datasets/nocs_dataset.md
       - nocs_utils.py: api_reference/datasets/nocs_utils.md
       - redwood_dataset.py: api_reference/datasets/redwood_dataset.md
+    - cpas_methods:
+      - cass.py: api_reference/cpas_methods/cass.md
+      - spd.py: api_reference/cpas_methods/spd.md
+      - crnet.py: api_reference/cpas_methods/crnet.md
+      - asmnet.py: api_reference/cpas_methods/asmnet.md
     - metrics.py: api_reference/metrics.md
-    - method_wrappers.py: api_reference/method_wrappers.md
+    - cpas_method.py: api_reference/cpas_method.md
     - camera_utils.py: api_reference/camera_utils.md
     - pointset_utils.py: api_reference/pointset_utils.md
     - quaternion_utils.py: api_reference/quaternion_utils.md

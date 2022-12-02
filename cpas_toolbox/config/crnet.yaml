@@ -1,0 +1,12 @@
+name: CRNet
+method_type: cpas_toolbox.cpas_methods.crnet.CRNet
+config_dict:
+  num_categories: 6
+  num_shape_points: 1024 
+  num_input_points: 1024
+  image_size: 192
+  model: ~/.cpas_toolbox/models/crnet/real.pth
+  model_url: https://github.com/JeremyWANGJZ/Category-6D-Pose/raw/main/models/real.pth
+  mean_shape: ~/.cpas_toolbox/models/crnet/mean_points_emb.npy
+  mean_shape_url: https://github.com/JeremyWANGJZ/Category-6D-Pose/raw/main/assets/mean_points_emb.npy
+  device: cuda
