@@ -462,6 +462,46 @@
     asmnet
   </a>
   
+    <nav class="md-nav" aria-label="asmnet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.cpas_methods.asmnet.ASMNet" class="md-nav__link">
+    ASMNet
+  </a>
+  
+    <nav class="md-nav" aria-label="ASMNet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.cpas_methods.asmnet.ASMNet.Config" class="md-nav__link">
+    Config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.cpas_methods.asmnet.ASMNet.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.cpas_methods.asmnet.ASMNet.inference" class="md-nav__link">
+    inference()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -599,6 +639,46 @@
     asmnet
   </a>
   
+    <nav class="md-nav" aria-label="asmnet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.cpas_methods.asmnet.ASMNet" class="md-nav__link">
+    ASMNet
+  </a>
+  
+    <nav class="md-nav" aria-label="ASMNet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.cpas_methods.asmnet.ASMNet.Config" class="md-nav__link">
+    Config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.cpas_methods.asmnet.ASMNet.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.cpas_methods.asmnet.ASMNet.inference" class="md-nav__link">
+    inference()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -649,6 +729,1128 @@
 
 
 
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="cpas_toolbox.cpas_methods.asmnet.ASMNet" class="doc doc-heading">
+        <span class="doc doc-object-name doc-class-name">ASMNet</span>
+
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+      <p class="doc doc-class-bases">
+        Bases: <code><a class="autorefs autorefs-internal" title="cpas_toolbox.cpas_method.CPASMethod" href="../../cpas_method/#cpas_toolbox.cpas_method.CPASMethod">CPASMethod</a></code></p>
+
+  
+      <p>Wrapper class for ASMNet.</p>
+
+
+        <details class="quote">
+          <summary>Source code in <code>cpas_toolbox/cpas_methods/asmnet.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ASMNet</span><span class="p">(</span><span class="n">CPASMethod</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Wrapper class for ASMNet.&quot;&quot;&quot;</span>
+
+    <span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Configuration dictionary for ASMNet.</span>
+
+<span class="sd">        Attributes:</span>
+<span class="sd">            model: Path to model.</span>
+<span class="sd">            device: Device string for the model.</span>
+<span class="sd">            models_folder:</span>
+<span class="sd">                Path to folder containing model parameters.</span>
+<span class="sd">                Must contain the following folder structure:</span>
+<span class="sd">                    {models_folder}/{category_0}/model.pth</span>
+<span class="sd">                    ...</span>
+<span class="sd">            asm_params_folder:</span>
+<span class="sd">                Path to folder containing ASM parameters.</span>
+<span class="sd">                Must contain the following folder structure:</span>
+<span class="sd">                    {asm_params_folder}/{category_0}/train/info.npz</span>
+<span class="sd">                    ...</span>
+<span class="sd">            categories:</span>
+<span class="sd">                List of categories. Each category requires corresponding folder with</span>
+<span class="sd">                model.pth and info.npz. See models_folder and asm_params_folder.</span>
+<span class="sd">            num_points: Number of input points.</span>
+<span class="sd">            deformation_dimension: Number of deformation parameters.</span>
+<span class="sd">            use_mean_shape:</span>
+<span class="sd">                Whether the mean shape (0) or the predicted shape deformation should</span>
+<span class="sd">                be used.</span>
+<span class="sd">            use_icp: Whether to use ICP to refine the pose.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">models_folder</span><span class="p">:</span> <span class="nb">str</span>
+        <span class="n">asm_params_folder</span><span class="p">:</span> <span class="nb">str</span>
+        <span class="n">device</span><span class="p">:</span> <span class="nb">str</span>
+        <span class="n">categories</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+        <span class="n">num_points</span><span class="p">:</span> <span class="nb">int</span>
+        <span class="n">deformation_dimension</span><span class="p">:</span> <span class="nb">int</span>
+        <span class="n">use_mean_shape</span><span class="p">:</span> <span class="nb">bool</span>
+        <span class="n">use_icp</span><span class="p">:</span> <span class="nb">bool</span>
+
+    <span class="n">default_config</span><span class="p">:</span> <span class="n">Config</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;model_params_folder&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;asm_params_folder&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="s2">&quot;cuda&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;categories&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;num_points&quot;</span><span class="p">:</span> <span class="mi">800</span><span class="p">,</span>
+        <span class="s2">&quot;deformation_dimension&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="s2">&quot;use_mean_shape&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s2">&quot;use_icp&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="n">camera_utils</span><span class="o">.</span><span class="n">Camera</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Initialize and load ASMNet model.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            config: ASMNet configuration. See ASMNet.Config for more information.</span>
+<span class="sd">            camera: Camera used for the input image.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">yoco</span><span class="o">.</span><span class="n">load_config</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">current_dict</span><span class="o">=</span><span class="n">ASMNet</span><span class="o">.</span><span class="n">default_config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span> <span class="o">=</span> <span class="n">camera</span>
+
+    <span class="k">def</span> <span class="nf">_parse_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;device&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_weights_folder</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;models_folder&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_asm_params_folder</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;asm_params_folder&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_paths</span><span class="p">()</span>
+        <span class="n">synset_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;placeholder&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;categories&quot;</span><span class="p">]</span>  <span class="c1"># first will be ignored</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_asmds</span> <span class="o">=</span> <span class="n">asmnet</span><span class="o">.</span><span class="n">cr6d_utils</span><span class="o">.</span><span class="n">load_asmds</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_asm_params_folder</span><span class="p">,</span> <span class="n">synset_names</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_models</span> <span class="o">=</span> <span class="n">asmnet</span><span class="o">.</span><span class="n">cr6d_utils</span><span class="o">.</span><span class="n">load_models_release</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_weights_folder</span><span class="p">,</span>
+            <span class="n">synset_names</span><span class="p">,</span>
+            <span class="n">config</span><span class="p">[</span><span class="s2">&quot;deformation_dimension&quot;</span><span class="p">],</span>
+            <span class="n">config</span><span class="p">[</span><span class="s2">&quot;num_points&quot;</span><span class="p">],</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_num_points</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;num_points&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_use_mean_shape</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;use_mean_shape&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_use_icp</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;use_icp&quot;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_check_paths</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_weights_folder</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_asm_params_folder</span>
+        <span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ASM-Net model weights not found, do you want to download to &quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_weights_folder</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_asm_params_folder</span><span class="p">)</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">decision</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;(Y/n) &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">decision</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">decision</span> <span class="o">==</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_download_weights</span><span class="p">()</span>
+                    <span class="k">break</span>
+                <span class="k">elif</span> <span class="n">decision</span> <span class="o">==</span> <span class="s2">&quot;n&quot;</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ASM-Net model weights not found. Aborting.&quot;</span><span class="p">)</span>
+                    <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_download_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">download_folder</span> <span class="o">=</span> <span class="s2">&quot;./&quot;</span>
+        <span class="n">zip_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">download_folder</span><span class="p">,</span> <span class="s2">&quot;asmnetweights.zip&quot;</span><span class="p">)</span>
+        <span class="n">utils</span><span class="o">.</span><span class="n">download</span><span class="p">(</span>
+            <span class="s2">&quot;https://drive.google.com/u/0/uc?id=1fxc9UoRhfTsoV3ZML3Mx_mc79904zpcx&quot;</span>
+            <span class="s2">&quot;&amp;export=download&quot;</span><span class="p">,</span>
+            <span class="n">zip_path</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">zip_path</span><span class="p">)</span>
+        <span class="n">z</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">download_folder</span><span class="p">)</span>
+        <span class="n">z</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">zip_path</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_asm_params_folder</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_asm_params_folder</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">source_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">download_folder</span><span class="p">,</span> <span class="s2">&quot;params&quot;</span><span class="p">,</span> <span class="s2">&quot;asm_params&quot;</span><span class="p">)</span>
+            <span class="n">file_names</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">source_dir</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">file_names</span><span class="p">:</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">source_dir</span><span class="p">,</span> <span class="n">fn</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_asm_params_folder</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_weights_folder</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_weights_folder</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">source_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">download_folder</span><span class="p">,</span> <span class="s2">&quot;params&quot;</span><span class="p">,</span> <span class="s2">&quot;weights&quot;</span><span class="p">)</span>
+            <span class="n">file_names</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">source_dir</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">file_names</span><span class="p">:</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">source_dir</span><span class="p">,</span> <span class="n">fn</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_weights_folder</span><span class="p">)</span>
+
+        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">download_folder</span><span class="p">,</span> <span class="s2">&quot;params&quot;</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">inference</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">color_image</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">depth_image</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">instance_mask</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">category_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PredictionDict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;See CPASMethod.inference.</span>
+
+<span class="sd">        Based on asmnet.ASM_Net.test_net_nocs2019_release</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># torch -&gt; numpy</span>
+        <span class="n">color_image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">color_image</span> <span class="o">*</span> <span class="mi">255</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="p">)</span>  <span class="c1"># (H, W, 3), uint8, 0-255, RGB</span>
+        <span class="n">depth_image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">uint16</span><span class="p">((</span><span class="n">depth_image</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>  <span class="c1"># (H, W), uint16, mm</span>
+        <span class="n">instance_mask</span> <span class="o">=</span> <span class="n">instance_mask</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+        <span class="c1"># Noise reduction + pointcloud generation</span>
+        <span class="n">masked_depth</span> <span class="o">=</span> <span class="n">depth_image</span> <span class="o">*</span> <span class="n">instance_mask</span>
+        <span class="n">masked_depth</span> <span class="o">=</span> <span class="n">asmnet</span><span class="o">.</span><span class="n">common3Dfunc</span><span class="o">.</span><span class="n">image_statistical_outlier_removal</span><span class="p">(</span>
+            <span class="n">masked_depth</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">2.0</span>
+        <span class="p">)</span>
+        <span class="n">pcd_obj</span> <span class="o">=</span> <span class="n">asmnet</span><span class="o">.</span><span class="n">cr6d_utils</span><span class="o">.</span><span class="n">get_pcd_from_rgbd</span><span class="p">(</span>
+            <span class="n">color_image</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
+            <span class="n">masked_depth</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span><span class="o">.</span><span class="n">get_o3d_pinhole_camera_parameters</span><span class="p">()</span><span class="o">.</span><span class="n">intrinsic</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="p">[</span><span class="n">pcd_obj</span><span class="p">,</span> <span class="n">_</span><span class="p">]</span> <span class="o">=</span> <span class="n">pcd_obj</span><span class="o">.</span><span class="n">remove_statistical_outlier</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span>
+        <span class="n">pcd_in</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">pcd_obj</span><span class="p">)</span>
+        <span class="n">pcd_c</span><span class="p">,</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">asmnet</span><span class="o">.</span><span class="n">common3Dfunc</span><span class="o">.</span><span class="n">centering</span><span class="p">(</span><span class="n">pcd_in</span><span class="p">)</span>
+        <span class="n">pcd_n</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="n">asmnet</span><span class="o">.</span><span class="n">common3Dfunc</span><span class="o">.</span><span class="n">size_normalization</span><span class="p">(</span><span class="n">pcd_c</span><span class="p">)</span>
+
+        <span class="c1"># o3d -&gt; torch</span>
+        <span class="n">np_pcd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pcd_n</span><span class="o">.</span><span class="n">points</span><span class="p">)</span>
+        <span class="n">np_input</span> <span class="o">=</span> <span class="n">asmnet</span><span class="o">.</span><span class="n">cr6d_utils</span><span class="o">.</span><span class="n">random_sample</span><span class="p">(</span><span class="n">np_pcd</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_points</span><span class="p">)</span>
+        <span class="n">np_input</span> <span class="o">=</span> <span class="n">np_input</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="n">input_points</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">np_input</span><span class="p">)</span>
+
+        <span class="c1"># prepare input shape</span>
+        <span class="n">input_points</span> <span class="o">=</span> <span class="n">input_points</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">)</span>
+
+        <span class="c1"># evaluate model</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">dparam_pred</span><span class="p">,</span> <span class="n">q_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="p">[</span><span class="n">category_str</span><span class="p">](</span><span class="n">input_points</span><span class="p">)</span>
+            <span class="n">dparam_pred</span> <span class="o">=</span> <span class="n">dparam_pred</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+            <span class="n">pred_rot</span> <span class="o">=</span> <span class="n">asmnet</span><span class="o">.</span><span class="n">cr6d_utils</span><span class="o">.</span><span class="n">quaternion2rotationPT</span><span class="p">(</span><span class="n">q_pred</span><span class="p">)</span>
+            <span class="n">pred_rot</span> <span class="o">=</span> <span class="n">pred_rot</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+            <span class="n">pred_dp_param</span> <span class="o">=</span> <span class="n">dparam_pred</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># deformation params</span>
+            <span class="n">pred_scaling_param</span> <span class="o">=</span> <span class="n">dparam_pred</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># scale</span>
+
+            <span class="c1"># get shape prediction</span>
+            <span class="n">pcd_pred</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_use_mean_shape</span><span class="p">:</span>
+                <span class="n">pcd_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_asmds</span><span class="p">[</span><span class="n">category_str</span><span class="p">]</span><span class="o">.</span><span class="n">deformation</span><span class="p">([</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">pcd_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_asmds</span><span class="p">[</span><span class="n">category_str</span><span class="p">]</span><span class="o">.</span><span class="n">deformation</span><span class="p">(</span><span class="n">pred_dp_param</span><span class="p">)</span>
+                <span class="n">pcd_pred</span> <span class="o">=</span> <span class="n">pcd_pred</span><span class="o">.</span><span class="n">remove_statistical_outlier</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">pcd_pred</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">pred_scaling_param</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+
+            <span class="n">metric_pcd</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">pcd_pred</span><span class="p">)</span>
+            <span class="n">metric_pcd</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">scale</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>  <span class="c1"># undo scale normalization</span>
+
+            <span class="c1"># ICP</span>
+            <span class="n">pcd_pred_posed</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">metric_pcd</span><span class="p">)</span>
+            <span class="n">pcd_pred_posed</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">pred_rot</span><span class="p">)</span>  <span class="c1"># rotate metric reconstruction</span>
+            <span class="n">pcd_pred_posed</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>  <span class="c1"># move to center of cropped pcd</span>
+            <span class="n">pred_rt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+            <span class="n">pred_rt</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">pred_rot</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_use_icp</span><span class="p">:</span>
+                <span class="n">pcd_pred_posed_ds</span> <span class="o">=</span> <span class="n">pcd_pred_posed</span><span class="o">.</span><span class="n">voxel_down_sample</span><span class="p">(</span><span class="mf">0.005</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pcd_pred_posed_ds</span><span class="o">.</span><span class="n">points</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+                    <span class="c1"># remove hidden points</span>
+                    <span class="n">pcd_pred_posed_visible</span> <span class="o">=</span> <span class="n">asmnet</span><span class="o">.</span><span class="n">common3Dfunc</span><span class="o">.</span><span class="n">applyHPR</span><span class="p">(</span>
+                        <span class="n">pcd_pred_posed_ds</span>
+                    <span class="p">)</span>
+                    <span class="n">pcd_in</span> <span class="o">=</span> <span class="n">pcd_in</span><span class="o">.</span><span class="n">voxel_down_sample</span><span class="p">(</span><span class="mf">0.005</span><span class="p">)</span>
+                    <span class="n">reg_result</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">registration_icp</span><span class="p">(</span>
+                        <span class="n">pcd_pred_posed_visible</span><span class="p">,</span> <span class="n">pcd_in</span><span class="p">,</span> <span class="n">max_correspondence_distance</span><span class="o">=</span><span class="mf">0.02</span>
+                    <span class="p">)</span>
+                    <span class="n">pcd_pred_posed</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">pcd_pred_posed_ds</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span>
+                        <span class="n">reg_result</span><span class="o">.</span><span class="n">transformation</span>
+                    <span class="p">)</span>
+                    <span class="n">pred_rt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">reg_result</span><span class="o">.</span><span class="n">transformation</span><span class="p">,</span> <span class="n">pred_rt</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span>
+                        <span class="s2">&quot;ASM-Net Warning: Couldn&#39;t perform ICP, too few points after&quot;</span>
+                        <span class="s2">&quot;voxel down sampling&quot;</span>
+                    <span class="p">)</span>
+
+            <span class="c1"># center position</span>
+            <span class="n">maxb</span> <span class="o">=</span> <span class="n">pcd_pred_posed</span><span class="o">.</span><span class="n">get_max_bound</span><span class="p">()</span>  <span class="c1"># bbox max</span>
+            <span class="n">minb</span> <span class="o">=</span> <span class="n">pcd_pred_posed</span><span class="o">.</span><span class="n">get_min_bound</span><span class="p">()</span>  <span class="c1"># bbox min</span>
+            <span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="n">maxb</span> <span class="o">-</span> <span class="n">minb</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">minb</span>  <span class="c1"># bbox center</span>
+            <span class="n">pred_rt</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">center</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+            <span class="n">position</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">pred_rt</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+            <span class="n">orientation_q</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
+                <span class="n">Rotation</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">pred_rt</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">as_quat</span><span class="p">()</span>
+            <span class="p">)</span>
+            <span class="n">reconstructed_points</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">metric_pcd</span><span class="o">.</span><span class="n">points</span><span class="p">))</span>
+
+            <span class="c1"># NOCS Object -&gt; ShapeNet Object convention</span>
+            <span class="n">obj_fix</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
+                <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)]</span>
+            <span class="p">)</span>  <span class="c1"># CASS object to ShapeNet object</span>
+            <span class="n">orientation_q</span> <span class="o">=</span> <span class="n">quaternion_utils</span><span class="o">.</span><span class="n">quaternion_multiply</span><span class="p">(</span><span class="n">orientation_q</span><span class="p">,</span> <span class="n">obj_fix</span><span class="p">)</span>
+            <span class="n">reconstructed_points</span> <span class="o">=</span> <span class="n">quaternion_utils</span><span class="o">.</span><span class="n">quaternion_apply</span><span class="p">(</span>
+                <span class="n">quaternion_utils</span><span class="o">.</span><span class="n">quaternion_invert</span><span class="p">(</span><span class="n">obj_fix</span><span class="p">),</span>
+                <span class="n">reconstructed_points</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">extents</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">reconstructed_points</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">extents</span> <span class="o">*=</span> <span class="mf">2.0</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;position&quot;</span><span class="p">:</span> <span class="n">position</span><span class="p">,</span>
+            <span class="s2">&quot;orientation&quot;</span><span class="p">:</span> <span class="n">orientation_q</span><span class="p">,</span>
+            <span class="s2">&quot;extents&quot;</span><span class="p">:</span> <span class="n">extents</span><span class="p">,</span>
+            <span class="s2">&quot;reconstructed_pointcloud&quot;</span><span class="p">:</span> <span class="n">reconstructed_points</span><span class="p">,</span>
+            <span class="s2">&quot;reconstructed_mesh&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h4 id="cpas_toolbox.cpas_methods.asmnet.ASMNet.Config" class="doc doc-heading">
+        <span class="doc doc-object-name doc-class-name">Config</span>
+
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+      <p class="doc doc-class-bases">
+        Bases: <code><span title="typing.TypedDict">TypedDict</span></code></p>
+
+  
+      <p>Configuration dictionary for ASMNet.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>ATTRIBUTE</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>model</code></td>
+          <td class="doc-attribute-details">
+            <p>Path to model.</p>
+            <p>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>device</code></td>
+          <td class="doc-attribute-details">
+            <p>Device string for the model.</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code>str</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>models_folder</code></td>
+          <td class="doc-attribute-details">
+            <p>Path to folder containing model parameters.
+Must contain the following folder structure:
+    {models_folder}/{category_0}/model.pth
+    ...</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code>str</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>asm_params_folder</code></td>
+          <td class="doc-attribute-details">
+            <p>Path to folder containing ASM parameters.
+Must contain the following folder structure:
+    {asm_params_folder}/{category_0}/train/info.npz
+    ...</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code>str</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>categories</code></td>
+          <td class="doc-attribute-details">
+            <p>List of categories. Each category requires corresponding folder with
+model.pth and info.npz. See models_folder and asm_params_folder.</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="typing.List">List</span>[str]</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>num_points</code></td>
+          <td class="doc-attribute-details">
+            <p>Number of input points.</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code>int</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>deformation_dimension</code></td>
+          <td class="doc-attribute-details">
+            <p>Number of deformation parameters.</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code>int</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>use_mean_shape</code></td>
+          <td class="doc-attribute-details">
+            <p>Whether the mean shape (0) or the predicted shape deformation should
+be used.</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code>bool</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>use_icp</code></td>
+          <td class="doc-attribute-details">
+            <p>Whether to use ICP to refine the pose.</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code>bool</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+        <details class="quote">
+          <summary>Source code in <code>cpas_toolbox/cpas_methods/asmnet.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Configuration dictionary for ASMNet.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        model: Path to model.</span>
+<span class="sd">        device: Device string for the model.</span>
+<span class="sd">        models_folder:</span>
+<span class="sd">            Path to folder containing model parameters.</span>
+<span class="sd">            Must contain the following folder structure:</span>
+<span class="sd">                {models_folder}/{category_0}/model.pth</span>
+<span class="sd">                ...</span>
+<span class="sd">        asm_params_folder:</span>
+<span class="sd">            Path to folder containing ASM parameters.</span>
+<span class="sd">            Must contain the following folder structure:</span>
+<span class="sd">                {asm_params_folder}/{category_0}/train/info.npz</span>
+<span class="sd">                ...</span>
+<span class="sd">        categories:</span>
+<span class="sd">            List of categories. Each category requires corresponding folder with</span>
+<span class="sd">            model.pth and info.npz. See models_folder and asm_params_folder.</span>
+<span class="sd">        num_points: Number of input points.</span>
+<span class="sd">        deformation_dimension: Number of deformation parameters.</span>
+<span class="sd">        use_mean_shape:</span>
+<span class="sd">            Whether the mean shape (0) or the predicted shape deformation should</span>
+<span class="sd">            be used.</span>
+<span class="sd">        use_icp: Whether to use ICP to refine the pose.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">models_folder</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">asm_params_folder</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">device</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">categories</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">num_points</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">deformation_dimension</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">use_mean_shape</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">use_icp</span><span class="p">:</span> <span class="nb">bool</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="cpas_toolbox.cpas_methods.asmnet.ASMNet.__init__" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">__init__</span>
+
+
+</h4>
+<div class="highlight"><pre><span></span><code><span class="fm">__init__</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="n">camera_utils</span><span class="o">.</span><span class="n">Camera</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Initialize and load ASMNet model.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>config</code></td>
+          <td class="doc-param-details">
+            <p>ASMNet configuration. See ASMNet.Config for more information.</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><a class="autorefs autorefs-internal" title="cpas_toolbox.cpas_methods.asmnet.ASMNet.Config" href="#cpas_toolbox.cpas_methods.asmnet.ASMNet.Config">Config</a></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>camera</code></td>
+          <td class="doc-param-details">
+            <p>Camera used for the input image.</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><a class="autorefs autorefs-internal" title="cpas_toolbox.camera_utils" href="../../camera_utils/#cpas_toolbox.camera_utils">camera_utils</a>.<a class="autorefs autorefs-internal" title="cpas_toolbox.camera_utils.Camera" href="../../camera_utils/#cpas_toolbox.camera_utils.Camera">Camera</a></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cpas_toolbox/cpas_methods/asmnet.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="n">camera_utils</span><span class="o">.</span><span class="n">Camera</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Initialize and load ASMNet model.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        config: ASMNet configuration. See ASMNet.Config for more information.</span>
+<span class="sd">        camera: Camera used for the input image.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">yoco</span><span class="o">.</span><span class="n">load_config</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">current_dict</span><span class="o">=</span><span class="n">ASMNet</span><span class="o">.</span><span class="n">default_config</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_parse_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span> <span class="o">=</span> <span class="n">camera</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="cpas_toolbox.cpas_methods.asmnet.ASMNet.inference" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">inference</span>
+
+
+</h4>
+<div class="highlight"><pre><span></span><code><span class="n">inference</span><span class="p">(</span>
+    <span class="n">color_image</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">depth_image</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">instance_mask</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">category_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PredictionDict</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>See CPASMethod.inference.</p>
+<p>Based on asmnet.ASM_Net.test_net_nocs2019_release</p>
+
+      <details class="quote">
+        <summary>Source code in <code>cpas_toolbox/cpas_methods/asmnet.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">inference</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">color_image</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">depth_image</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">instance_mask</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">category_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PredictionDict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;See CPASMethod.inference.</span>
+
+<span class="sd">    Based on asmnet.ASM_Net.test_net_nocs2019_release</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># torch -&gt; numpy</span>
+    <span class="n">color_image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">color_image</span> <span class="o">*</span> <span class="mi">255</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="p">)</span>  <span class="c1"># (H, W, 3), uint8, 0-255, RGB</span>
+    <span class="n">depth_image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">uint16</span><span class="p">((</span><span class="n">depth_image</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>  <span class="c1"># (H, W), uint16, mm</span>
+    <span class="n">instance_mask</span> <span class="o">=</span> <span class="n">instance_mask</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+    <span class="c1"># Noise reduction + pointcloud generation</span>
+    <span class="n">masked_depth</span> <span class="o">=</span> <span class="n">depth_image</span> <span class="o">*</span> <span class="n">instance_mask</span>
+    <span class="n">masked_depth</span> <span class="o">=</span> <span class="n">asmnet</span><span class="o">.</span><span class="n">common3Dfunc</span><span class="o">.</span><span class="n">image_statistical_outlier_removal</span><span class="p">(</span>
+        <span class="n">masked_depth</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">2.0</span>
+    <span class="p">)</span>
+    <span class="n">pcd_obj</span> <span class="o">=</span> <span class="n">asmnet</span><span class="o">.</span><span class="n">cr6d_utils</span><span class="o">.</span><span class="n">get_pcd_from_rgbd</span><span class="p">(</span>
+        <span class="n">color_image</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
+        <span class="n">masked_depth</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span><span class="o">.</span><span class="n">get_o3d_pinhole_camera_parameters</span><span class="p">()</span><span class="o">.</span><span class="n">intrinsic</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="p">[</span><span class="n">pcd_obj</span><span class="p">,</span> <span class="n">_</span><span class="p">]</span> <span class="o">=</span> <span class="n">pcd_obj</span><span class="o">.</span><span class="n">remove_statistical_outlier</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span>
+    <span class="n">pcd_in</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">pcd_obj</span><span class="p">)</span>
+    <span class="n">pcd_c</span><span class="p">,</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">asmnet</span><span class="o">.</span><span class="n">common3Dfunc</span><span class="o">.</span><span class="n">centering</span><span class="p">(</span><span class="n">pcd_in</span><span class="p">)</span>
+    <span class="n">pcd_n</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="n">asmnet</span><span class="o">.</span><span class="n">common3Dfunc</span><span class="o">.</span><span class="n">size_normalization</span><span class="p">(</span><span class="n">pcd_c</span><span class="p">)</span>
+
+    <span class="c1"># o3d -&gt; torch</span>
+    <span class="n">np_pcd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pcd_n</span><span class="o">.</span><span class="n">points</span><span class="p">)</span>
+    <span class="n">np_input</span> <span class="o">=</span> <span class="n">asmnet</span><span class="o">.</span><span class="n">cr6d_utils</span><span class="o">.</span><span class="n">random_sample</span><span class="p">(</span><span class="n">np_pcd</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_points</span><span class="p">)</span>
+    <span class="n">np_input</span> <span class="o">=</span> <span class="n">np_input</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">input_points</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">np_input</span><span class="p">)</span>
+
+    <span class="c1"># prepare input shape</span>
+    <span class="n">input_points</span> <span class="o">=</span> <span class="n">input_points</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">)</span>
+
+    <span class="c1"># evaluate model</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">dparam_pred</span><span class="p">,</span> <span class="n">q_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="p">[</span><span class="n">category_str</span><span class="p">](</span><span class="n">input_points</span><span class="p">)</span>
+        <span class="n">dparam_pred</span> <span class="o">=</span> <span class="n">dparam_pred</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+        <span class="n">pred_rot</span> <span class="o">=</span> <span class="n">asmnet</span><span class="o">.</span><span class="n">cr6d_utils</span><span class="o">.</span><span class="n">quaternion2rotationPT</span><span class="p">(</span><span class="n">q_pred</span><span class="p">)</span>
+        <span class="n">pred_rot</span> <span class="o">=</span> <span class="n">pred_rot</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+        <span class="n">pred_dp_param</span> <span class="o">=</span> <span class="n">dparam_pred</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># deformation params</span>
+        <span class="n">pred_scaling_param</span> <span class="o">=</span> <span class="n">dparam_pred</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># scale</span>
+
+        <span class="c1"># get shape prediction</span>
+        <span class="n">pcd_pred</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_use_mean_shape</span><span class="p">:</span>
+            <span class="n">pcd_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_asmds</span><span class="p">[</span><span class="n">category_str</span><span class="p">]</span><span class="o">.</span><span class="n">deformation</span><span class="p">([</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pcd_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_asmds</span><span class="p">[</span><span class="n">category_str</span><span class="p">]</span><span class="o">.</span><span class="n">deformation</span><span class="p">(</span><span class="n">pred_dp_param</span><span class="p">)</span>
+            <span class="n">pcd_pred</span> <span class="o">=</span> <span class="n">pcd_pred</span><span class="o">.</span><span class="n">remove_statistical_outlier</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">pcd_pred</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">pred_scaling_param</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+
+        <span class="n">metric_pcd</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">pcd_pred</span><span class="p">)</span>
+        <span class="n">metric_pcd</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">scale</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>  <span class="c1"># undo scale normalization</span>
+
+        <span class="c1"># ICP</span>
+        <span class="n">pcd_pred_posed</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">metric_pcd</span><span class="p">)</span>
+        <span class="n">pcd_pred_posed</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">pred_rot</span><span class="p">)</span>  <span class="c1"># rotate metric reconstruction</span>
+        <span class="n">pcd_pred_posed</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>  <span class="c1"># move to center of cropped pcd</span>
+        <span class="n">pred_rt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">pred_rt</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">pred_rot</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_use_icp</span><span class="p">:</span>
+            <span class="n">pcd_pred_posed_ds</span> <span class="o">=</span> <span class="n">pcd_pred_posed</span><span class="o">.</span><span class="n">voxel_down_sample</span><span class="p">(</span><span class="mf">0.005</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pcd_pred_posed_ds</span><span class="o">.</span><span class="n">points</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="c1"># remove hidden points</span>
+                <span class="n">pcd_pred_posed_visible</span> <span class="o">=</span> <span class="n">asmnet</span><span class="o">.</span><span class="n">common3Dfunc</span><span class="o">.</span><span class="n">applyHPR</span><span class="p">(</span>
+                    <span class="n">pcd_pred_posed_ds</span>
+                <span class="p">)</span>
+                <span class="n">pcd_in</span> <span class="o">=</span> <span class="n">pcd_in</span><span class="o">.</span><span class="n">voxel_down_sample</span><span class="p">(</span><span class="mf">0.005</span><span class="p">)</span>
+                <span class="n">reg_result</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">pipelines</span><span class="o">.</span><span class="n">registration</span><span class="o">.</span><span class="n">registration_icp</span><span class="p">(</span>
+                    <span class="n">pcd_pred_posed_visible</span><span class="p">,</span> <span class="n">pcd_in</span><span class="p">,</span> <span class="n">max_correspondence_distance</span><span class="o">=</span><span class="mf">0.02</span>
+                <span class="p">)</span>
+                <span class="n">pcd_pred_posed</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">pcd_pred_posed_ds</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span>
+                    <span class="n">reg_result</span><span class="o">.</span><span class="n">transformation</span>
+                <span class="p">)</span>
+                <span class="n">pred_rt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">reg_result</span><span class="o">.</span><span class="n">transformation</span><span class="p">,</span> <span class="n">pred_rt</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="s2">&quot;ASM-Net Warning: Couldn&#39;t perform ICP, too few points after&quot;</span>
+                    <span class="s2">&quot;voxel down sampling&quot;</span>
+                <span class="p">)</span>
+
+        <span class="c1"># center position</span>
+        <span class="n">maxb</span> <span class="o">=</span> <span class="n">pcd_pred_posed</span><span class="o">.</span><span class="n">get_max_bound</span><span class="p">()</span>  <span class="c1"># bbox max</span>
+        <span class="n">minb</span> <span class="o">=</span> <span class="n">pcd_pred_posed</span><span class="o">.</span><span class="n">get_min_bound</span><span class="p">()</span>  <span class="c1"># bbox min</span>
+        <span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="n">maxb</span> <span class="o">-</span> <span class="n">minb</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">minb</span>  <span class="c1"># bbox center</span>
+        <span class="n">pred_rt</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">center</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="n">position</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">pred_rt</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+        <span class="n">orientation_q</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
+            <span class="n">Rotation</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">pred_rt</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">as_quat</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="n">reconstructed_points</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">metric_pcd</span><span class="o">.</span><span class="n">points</span><span class="p">))</span>
+
+        <span class="c1"># NOCS Object -&gt; ShapeNet Object convention</span>
+        <span class="n">obj_fix</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
+            <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)]</span>
+        <span class="p">)</span>  <span class="c1"># CASS object to ShapeNet object</span>
+        <span class="n">orientation_q</span> <span class="o">=</span> <span class="n">quaternion_utils</span><span class="o">.</span><span class="n">quaternion_multiply</span><span class="p">(</span><span class="n">orientation_q</span><span class="p">,</span> <span class="n">obj_fix</span><span class="p">)</span>
+        <span class="n">reconstructed_points</span> <span class="o">=</span> <span class="n">quaternion_utils</span><span class="o">.</span><span class="n">quaternion_apply</span><span class="p">(</span>
+            <span class="n">quaternion_utils</span><span class="o">.</span><span class="n">quaternion_invert</span><span class="p">(</span><span class="n">obj_fix</span><span class="p">),</span>
+            <span class="n">reconstructed_points</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">extents</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">reconstructed_points</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">extents</span> <span class="o">*=</span> <span class="mf">2.0</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;position&quot;</span><span class="p">:</span> <span class="n">position</span><span class="p">,</span>
+        <span class="s2">&quot;orientation&quot;</span><span class="p">:</span> <span class="n">orientation_q</span><span class="p">,</span>
+        <span class="s2">&quot;extents&quot;</span><span class="p">:</span> <span class="n">extents</span><span class="p">,</span>
+        <span class="s2">&quot;reconstructed_pointcloud&quot;</span><span class="p">:</span> <span class="n">reconstructed_points</span><span class="p">,</span>
+        <span class="s2">&quot;reconstructed_mesh&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
 
 
 

@@ -537,6 +537,40 @@
     quaternion_utils
   </a>
   
+    <nav class="md-nav" aria-label="quaternion_utils">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.quaternion_utils.quaternion_multiply" class="md-nav__link">
+    quaternion_multiply()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.quaternion_utils.quaternion_apply" class="md-nav__link">
+    quaternion_apply()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.quaternion_utils.quaternion_invert" class="md-nav__link">
+    quaternion_invert()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.quaternion_utils.geodesic_distance" class="md-nav__link">
+    geodesic_distance()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -597,6 +631,40 @@
     quaternion_utils
   </a>
   
+    <nav class="md-nav" aria-label="quaternion_utils">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.quaternion_utils.quaternion_multiply" class="md-nav__link">
+    quaternion_multiply()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.quaternion_utils.quaternion_apply" class="md-nav__link">
+    quaternion_apply()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.quaternion_utils.quaternion_invert" class="md-nav__link">
+    quaternion_invert()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.quaternion_utils.geodesic_distance" class="md-nav__link">
+    geodesic_distance()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -648,6 +716,448 @@ https://github.com/facebookresearch/pytorch3d</p>
 
 
 
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="cpas_toolbox.quaternion_utils.quaternion_multiply" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">quaternion_multiply</span>
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">quaternion_multiply</span><span class="p">(</span>
+    <span class="n">quaternions_1</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">quaternions_2</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Multiply two quaternions representing rotations.</p>
+<p>Normal broadcasting rules apply.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>quaternions_1</code></td>
+          <td class="doc-param-details">
+            <p>normalized quaternions of shape (..., 4), scalar-last convention</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>torch.<span title="torch.Tensor">Tensor</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>quaternions_2</code></td>
+          <td class="doc-param-details">
+            <p>normalized quaternions of shape (..., 4), scalar-last convention</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>torch.<span title="torch.Tensor">Tensor</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>RETURNS</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+              <span class="doc-returns-annotation">
+                  <code>torch.<span title="torch.Tensor">Tensor</span></code>
+              </span>
+          </td>
+          <td class="doc-returns-details">
+            <p>Composition of passed quaternions.</p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cpas_toolbox/quaternion_utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">quaternion_multiply</span><span class="p">(</span>
+    <span class="n">quaternions_1</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">quaternions_2</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Multiply two quaternions representing rotations.</span>
+
+<span class="sd">    Normal broadcasting rules apply.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        quaternions_1:</span>
+<span class="sd">            normalized quaternions of shape (..., 4), scalar-last convention</span>
+<span class="sd">        quaternions_2:</span>
+<span class="sd">            normalized quaternions of shape (..., 4), scalar-last convention</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Composition of passed quaternions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ax</span><span class="p">,</span> <span class="n">ay</span><span class="p">,</span> <span class="n">az</span><span class="p">,</span> <span class="n">aw</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">unbind</span><span class="p">(</span><span class="n">quaternions_1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">bx</span><span class="p">,</span> <span class="n">by</span><span class="p">,</span> <span class="n">bz</span><span class="p">,</span> <span class="n">bw</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">unbind</span><span class="p">(</span><span class="n">quaternions_2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ox</span> <span class="o">=</span> <span class="n">aw</span> <span class="o">*</span> <span class="n">bx</span> <span class="o">+</span> <span class="n">ax</span> <span class="o">*</span> <span class="n">bw</span> <span class="o">+</span> <span class="n">ay</span> <span class="o">*</span> <span class="n">bz</span> <span class="o">-</span> <span class="n">az</span> <span class="o">*</span> <span class="n">by</span>
+    <span class="n">oy</span> <span class="o">=</span> <span class="n">aw</span> <span class="o">*</span> <span class="n">by</span> <span class="o">-</span> <span class="n">ax</span> <span class="o">*</span> <span class="n">bz</span> <span class="o">+</span> <span class="n">ay</span> <span class="o">*</span> <span class="n">bw</span> <span class="o">+</span> <span class="n">az</span> <span class="o">*</span> <span class="n">bx</span>
+    <span class="n">oz</span> <span class="o">=</span> <span class="n">aw</span> <span class="o">*</span> <span class="n">bz</span> <span class="o">+</span> <span class="n">ax</span> <span class="o">*</span> <span class="n">by</span> <span class="o">-</span> <span class="n">ay</span> <span class="o">*</span> <span class="n">bx</span> <span class="o">+</span> <span class="n">az</span> <span class="o">*</span> <span class="n">bw</span>
+    <span class="n">ow</span> <span class="o">=</span> <span class="n">aw</span> <span class="o">*</span> <span class="n">bw</span> <span class="o">-</span> <span class="n">ax</span> <span class="o">*</span> <span class="n">bx</span> <span class="o">-</span> <span class="n">ay</span> <span class="o">*</span> <span class="n">by</span> <span class="o">-</span> <span class="n">az</span> <span class="o">*</span> <span class="n">bz</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">ox</span><span class="p">,</span> <span class="n">oy</span><span class="p">,</span> <span class="n">oz</span><span class="p">,</span> <span class="n">ow</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="cpas_toolbox.quaternion_utils.quaternion_apply" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">quaternion_apply</span>
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">quaternion_apply</span><span class="p">(</span>
+    <span class="n">quaternions</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">points</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Rotate points by quaternions representing rotations.</p>
+<p>Normal broadcasting rules apply.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>quaternions</code></td>
+          <td class="doc-param-details">
+            <p>normalized quaternions of shape (..., 4), scalar-last convention</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>torch.<span title="torch.Tensor">Tensor</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>points</code></td>
+          <td class="doc-param-details">
+            <p>points of shape (..., 3)</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>torch.<span title="torch.Tensor">Tensor</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>RETURNS</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+              <span class="doc-returns-annotation">
+                  <code>torch.<span title="torch.Tensor">Tensor</span></code>
+              </span>
+          </td>
+          <td class="doc-returns-details">
+            <p>Points rotated by the rotations representing quaternions.</p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cpas_toolbox/quaternion_utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">quaternion_apply</span><span class="p">(</span><span class="n">quaternions</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">points</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Rotate points by quaternions representing rotations.</span>
+
+<span class="sd">    Normal broadcasting rules apply.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        quaternions:</span>
+<span class="sd">            normalized quaternions of shape (..., 4), scalar-last convention</span>
+<span class="sd">        points:</span>
+<span class="sd">            points of shape (..., 3)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Points rotated by the rotations representing quaternions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">points_as_quaternions</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">new_zeros</span><span class="p">(</span><span class="n">points</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">4</span><span class="p">,))</span>
+    <span class="n">points_as_quaternions</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">points</span>
+    <span class="k">return</span> <span class="n">quaternion_multiply</span><span class="p">(</span>
+        <span class="n">quaternion_multiply</span><span class="p">(</span><span class="n">quaternions</span><span class="p">,</span> <span class="n">points_as_quaternions</span><span class="p">),</span>
+        <span class="n">quaternion_invert</span><span class="p">(</span><span class="n">quaternions</span><span class="p">),</span>
+    <span class="p">)[</span><span class="o">...</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="cpas_toolbox.quaternion_utils.quaternion_invert" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">quaternion_invert</span>
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">quaternion_invert</span><span class="p">(</span><span class="n">quaternions</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Invert quaternions representing orientations.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>quaternions</code></td>
+          <td class="doc-param-details">
+            <p>The quaternions to invert, shape (..., 4), scalar-last convention.</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>torch.<span title="torch.Tensor">Tensor</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>RETURNS</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+              <span class="doc-returns-annotation">
+                  <code>torch.<span title="torch.Tensor">Tensor</span></code>
+              </span>
+          </td>
+          <td class="doc-returns-details">
+            <p>Inverted quaternions, same shape as quaternions.</p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cpas_toolbox/quaternion_utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">quaternion_invert</span><span class="p">(</span><span class="n">quaternions</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Invert quaternions representing orientations.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        quaternions:</span>
+<span class="sd">            The quaternions to invert, shape (..., 4), scalar-last convention.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Inverted quaternions, same shape as quaternions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">quaternions</span> <span class="o">*</span> <span class="n">quaternions</span><span class="o">.</span><span class="n">new_tensor</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="cpas_toolbox.quaternion_utils.geodesic_distance" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">geodesic_distance</span>
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">geodesic_distance</span><span class="p">(</span><span class="n">q1</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Compute geodesic distances between quaternions.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>q1</code></td>
+          <td class="doc-param-details">
+            <p>First set of quaterions, shape (N,4).</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>torch.<span title="torch.Tensor">Tensor</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>q2</code></td>
+          <td class="doc-param-details">
+            <p>Second set of quaternions, shape (N,4).</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>torch.<span title="torch.Tensor">Tensor</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>RETURNS</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+              <span class="doc-returns-annotation">
+                  <code>torch.<span title="torch.Tensor">Tensor</span></code>
+              </span>
+          </td>
+          <td class="doc-returns-details">
+            <p>Mean distance between the quaternions, scalar.</p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cpas_toolbox/quaternion_utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">geodesic_distance</span><span class="p">(</span><span class="n">q1</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">q2</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Compute geodesic distances between quaternions.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        q1: First set of quaterions, shape (N,4).</span>
+<span class="sd">        q2: Second set of quaternions, shape (N,4).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Mean distance between the quaternions, scalar.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">abs_q1q2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">q1</span> <span class="o">*</span> <span class="n">q2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">geodesic_distances</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">acos</span><span class="p">(</span><span class="n">abs_q1q2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">geodesic_distances</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
 
 
 

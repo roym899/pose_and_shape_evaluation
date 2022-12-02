@@ -481,6 +481,82 @@
     metrics
   </a>
   
+    <nav class="md-nav" aria-label="metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.metrics.correct_thresh" class="md-nav__link">
+    correct_thresh()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.metrics.mean_accuracy" class="md-nav__link">
+    mean_accuracy()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.metrics.mean_completeness" class="md-nav__link">
+    mean_completeness()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.metrics.symmetric_chamfer" class="md-nav__link">
+    symmetric_chamfer()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.metrics.completeness_thresh" class="md-nav__link">
+    completeness_thresh()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.metrics.accuracy_thresh" class="md-nav__link">
+    accuracy_thresh()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.metrics.reconstruction_fscore" class="md-nav__link">
+    reconstruction_fscore()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.metrics.extent" class="md-nav__link">
+    extent()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.metrics.iou_3d_sampling" class="md-nav__link">
+    iou_3d_sampling()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.metrics.iou_3d" class="md-nav__link">
+    iou_3d()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -597,6 +673,82 @@
     metrics
   </a>
   
+    <nav class="md-nav" aria-label="metrics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.metrics.correct_thresh" class="md-nav__link">
+    correct_thresh()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.metrics.mean_accuracy" class="md-nav__link">
+    mean_accuracy()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.metrics.mean_completeness" class="md-nav__link">
+    mean_completeness()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.metrics.symmetric_chamfer" class="md-nav__link">
+    symmetric_chamfer()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.metrics.completeness_thresh" class="md-nav__link">
+    completeness_thresh()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.metrics.accuracy_thresh" class="md-nav__link">
+    accuracy_thresh()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.metrics.reconstruction_fscore" class="md-nav__link">
+    reconstruction_fscore()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.metrics.extent" class="md-nav__link">
+    extent()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.metrics.iou_3d_sampling" class="md-nav__link">
+    iou_3d_sampling()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.metrics.iou_3d" class="md-nav__link">
+    iou_3d()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -646,6 +798,2207 @@
 
 
 
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="cpas_toolbox.metrics.correct_thresh" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">correct_thresh</span>
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">correct_thresh</span><span class="p">(</span>
+    <span class="n">position_gt</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">position_prediction</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">orientation_gt</span><span class="p">:</span> <span class="n">Rotation</span><span class="p">,</span>
+    <span class="n">orientation_prediction</span><span class="p">:</span> <span class="n">Rotation</span><span class="p">,</span>
+    <span class="n">extent_gt</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">extent_prediction</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">points_gt</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">points_prediction</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">position_threshold</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">degree_threshold</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">iou_3d_threshold</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fscore_threshold</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">rotational_symmetry_axis</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Classify a pose prediction as correct or incorrect.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>position_gt</code></td>
+          <td class="doc-param-details">
+            <p>Ground truth position, shape (3,).</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>position_prediction</code></td>
+          <td class="doc-param-details">
+            <p>Predicted position, shape (3,).</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>position_threshold</code></td>
+          <td class="doc-param-details">
+            <p>Position threshold in meters, no threshold if None.</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="typing.Optional">Optional</span>[float]</code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>None</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>orientation_gt</code></td>
+          <td class="doc-param-details">
+            <p>Ground truth orientation.
+This is the rotation that rotates points from bounding box to camera frame.</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="scipy.spatial.transform.Rotation">Rotation</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>orientation_prediction</code></td>
+          <td class="doc-param-details">
+            <p>Predicted orientation.
+This is the rotation that rotates points from bounding box to camera frame.</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="scipy.spatial.transform.Rotation">Rotation</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>extent_gt</code></td>
+          <td class="doc-param-details">
+            <p>Bounding box extents, shape (3,).
+Only used if IoU threshold specified.</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="typing.Optional">Optional</span>[<span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span>]</code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>None</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>extent_prediction</code></td>
+          <td class="doc-param-details">
+            <p>Bounding box extents, shape (3,).
+Only used if IoU threshold specified.</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="typing.Optional">Optional</span>[<span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span>]</code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>None</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>point_gt</code></td>
+          <td class="doc-param-details">
+            <p>Set of true points, shape (N,3).</p>
+            <p>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>points_rec</code></td>
+          <td class="doc-param-details">
+            <p>Set of reconstructed points, shape (M,3).</p>
+            <p>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>degree_threshold</code></td>
+          <td class="doc-param-details">
+            <p>Orientation threshold in degrees, no threshold if None.</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="typing.Optional">Optional</span>[float]</code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>None</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>iou_3d_threshold</code></td>
+          <td class="doc-param-details">
+            <p>3D IoU threshold, no threshold if None.</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="typing.Optional">Optional</span>[float]</code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>None</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>rotational_symmetry_axis</code></td>
+          <td class="doc-param-details">
+            <p>Specify axis along which rotation is ignored. If None, no axis is ignored.
+0 for x-axis, 1 for y-axis, 2 for z-axis.</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="typing.Optional">Optional</span>[int]</code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>None</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>RETURNS</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+              <span class="doc-returns-annotation">
+                  <code>int</code>
+              </span>
+          </td>
+          <td class="doc-returns-details">
+            <p>1 if error is below all provided thresholds.  0 if error is above one provided</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+              <span class="doc-returns-annotation">
+                  <code>int</code>
+              </span>
+          </td>
+          <td class="doc-returns-details">
+            <p>threshold.</p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cpas_toolbox/metrics.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 10</span>
+<span class="normal"> 11</span>
+<span class="normal"> 12</span>
+<span class="normal"> 13</span>
+<span class="normal"> 14</span>
+<span class="normal"> 15</span>
+<span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">correct_thresh</span><span class="p">(</span>
+    <span class="n">position_gt</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">position_prediction</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">orientation_gt</span><span class="p">:</span> <span class="n">Rotation</span><span class="p">,</span>
+    <span class="n">orientation_prediction</span><span class="p">:</span> <span class="n">Rotation</span><span class="p">,</span>
+    <span class="n">extent_gt</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">extent_prediction</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">points_gt</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">points_prediction</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">position_threshold</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">degree_threshold</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">iou_3d_threshold</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fscore_threshold</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">rotational_symmetry_axis</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Classify a pose prediction as correct or incorrect.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        position_gt: Ground truth position, shape (3,).</span>
+<span class="sd">        position_prediction: Predicted position, shape (3,).</span>
+<span class="sd">        position_threshold: Position threshold in meters, no threshold if None.</span>
+<span class="sd">        orientation_gt:</span>
+<span class="sd">            Ground truth orientation.</span>
+<span class="sd">            This is the rotation that rotates points from bounding box to camera frame.</span>
+<span class="sd">        orientation_prediction:</span>
+<span class="sd">            Predicted orientation.</span>
+<span class="sd">            This is the rotation that rotates points from bounding box to camera frame.</span>
+<span class="sd">        extent_gt:</span>
+<span class="sd">            Bounding box extents, shape (3,).</span>
+<span class="sd">            Only used if IoU threshold specified.</span>
+<span class="sd">        extent_prediction:</span>
+<span class="sd">            Bounding box extents, shape (3,).</span>
+<span class="sd">            Only used if IoU threshold specified.</span>
+<span class="sd">        point_gt: Set of true points, shape (N,3).</span>
+<span class="sd">        points_rec: Set of reconstructed points, shape (M,3).</span>
+<span class="sd">        degree_threshold: Orientation threshold in degrees, no threshold if None.</span>
+<span class="sd">        iou_3d_threshold: 3D IoU threshold, no threshold if None.</span>
+<span class="sd">        rotational_symmetry_axis:</span>
+<span class="sd">            Specify axis along which rotation is ignored. If None, no axis is ignored.</span>
+<span class="sd">            0 for x-axis, 1 for y-axis, 2 for z-axis.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        1 if error is below all provided thresholds.  0 if error is above one provided</span>
+<span class="sd">        threshold.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">position_threshold</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">position_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">position_gt</span> <span class="o">-</span> <span class="n">position_prediction</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">position_error</span> <span class="o">&gt;</span> <span class="n">position_threshold</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">degree_threshold</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">rad_threshold</span> <span class="o">=</span> <span class="n">degree_threshold</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">180.0</span>
+        <span class="k">if</span> <span class="n">rotational_symmetry_axis</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+            <span class="n">p</span><span class="p">[</span><span class="n">rotational_symmetry_axis</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+            <span class="n">p1</span> <span class="o">=</span> <span class="n">orientation_gt</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+            <span class="n">p2</span> <span class="o">=</span> <span class="n">orientation_prediction</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+            <span class="n">rad_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="n">p1</span> <span class="o">@</span> <span class="n">p2</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rad_error</span> <span class="o">=</span> <span class="p">(</span><span class="n">orientation_gt</span> <span class="o">*</span> <span class="n">orientation_prediction</span><span class="o">.</span><span class="n">inv</span><span class="p">())</span><span class="o">.</span><span class="n">magnitude</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">rad_error</span> <span class="o">&gt;</span> <span class="n">rad_threshold</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">iou_3d_threshold</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">rotational_symmetry_axis</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">max_iou</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">):</span>
+                <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+                <span class="n">p</span><span class="p">[</span><span class="n">rotational_symmetry_axis</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+                <span class="n">p</span> <span class="o">*=</span> <span class="n">r</span>
+                <span class="n">sym_rot</span> <span class="o">=</span> <span class="n">Rotation</span><span class="o">.</span><span class="n">from_rotvec</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+                <span class="n">iou</span> <span class="o">=</span> <span class="n">iou_3d</span><span class="p">(</span>
+                    <span class="n">position_gt</span><span class="p">,</span>
+                    <span class="n">orientation_gt</span><span class="p">,</span>
+                    <span class="n">extent_gt</span><span class="p">,</span>
+                    <span class="n">position_prediction</span><span class="p">,</span>
+                    <span class="n">orientation_prediction</span> <span class="o">*</span> <span class="n">sym_rot</span><span class="p">,</span>
+                    <span class="n">extent_prediction</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">max_iou</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">iou</span><span class="p">,</span> <span class="n">max_iou</span><span class="p">)</span>
+            <span class="n">iou</span> <span class="o">=</span> <span class="n">max_iou</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">iou</span> <span class="o">=</span> <span class="n">iou_3d</span><span class="p">(</span>
+                <span class="n">position_gt</span><span class="p">,</span>
+                <span class="n">orientation_gt</span><span class="p">,</span>
+                <span class="n">extent_gt</span><span class="p">,</span>
+                <span class="n">position_prediction</span><span class="p">,</span>
+                <span class="n">orientation_prediction</span><span class="p">,</span>
+                <span class="n">extent_prediction</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">iou</span> <span class="o">&lt;</span> <span class="n">iou_3d_threshold</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">fscore_threshold</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fscore</span> <span class="o">=</span> <span class="n">reconstruction_fscore</span><span class="p">(</span><span class="n">points_gt</span><span class="p">,</span> <span class="n">points_prediction</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">fscore</span> <span class="o">&lt;</span> <span class="n">fscore_threshold</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="mi">1</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="cpas_toolbox.metrics.mean_accuracy" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">mean_accuracy</span>
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">mean_accuracy</span><span class="p">(</span>
+    <span class="n">points_gt</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">points_rec</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">p_norm</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">normalize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Compute accuracy metric.</p>
+<p>Accuracy metric is the same as asymmetric chamfer distance from rec to gt.</p>
+<p>See, for example, Occupancy Networks Learning 3D Reconstruction in Function Space,
+Mescheder et al., 2019.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>points_gt</code></td>
+          <td class="doc-param-details">
+            <p>set of true points, expected shape (N,3)</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>points_rec</code></td>
+          <td class="doc-param-details">
+            <p>set of reconstructed points, expected shape (M,3)</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>p_norm</code></td>
+          <td class="doc-param-details">
+            <p>which Minkowski p-norm is used for distance and nearest neighbor query</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>int</code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>2</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>normalize</code></td>
+          <td class="doc-param-details">
+            <p>whether to divide result by Euclidean extent of points_gt</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>bool</code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>False</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>RETURNS</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+              <span class="doc-returns-annotation">
+                  <code>float</code>
+              </span>
+          </td>
+          <td class="doc-returns-details">
+            <p>Arithmetic mean of p-norm from reconstructed points to closest (in p-norm)</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+              <span class="doc-returns-annotation">
+                  <code>float</code>
+              </span>
+          </td>
+          <td class="doc-returns-details">
+            <p>ground truth points.</p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cpas_toolbox/metrics.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">mean_accuracy</span><span class="p">(</span>
+    <span class="n">points_gt</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">points_rec</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">p_norm</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">normalize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Compute accuracy metric.</span>
+
+<span class="sd">    Accuracy metric is the same as asymmetric chamfer distance from rec to gt.</span>
+
+<span class="sd">    See, for example, Occupancy Networks Learning 3D Reconstruction in Function Space,</span>
+<span class="sd">    Mescheder et al., 2019.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        points_gt: set of true points, expected shape (N,3)</span>
+<span class="sd">        points_rec: set of reconstructed points, expected shape (M,3)</span>
+<span class="sd">        p_norm: which Minkowski p-norm is used for distance and nearest neighbor query</span>
+<span class="sd">        normalize: whether to divide result by Euclidean extent of points_gt</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Arithmetic mean of p-norm from reconstructed points to closest (in p-norm)</span>
+<span class="sd">        ground truth points.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">kd_tree</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">spatial</span><span class="o">.</span><span class="n">KDTree</span><span class="p">(</span><span class="n">points_gt</span><span class="p">)</span>
+    <span class="n">d</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">kd_tree</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">points_rec</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p_norm</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">normalize</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">/</span> <span class="n">extent</span><span class="p">(</span><span class="n">points_gt</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="cpas_toolbox.metrics.mean_completeness" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">mean_completeness</span>
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">mean_completeness</span><span class="p">(</span>
+    <span class="n">points_gt</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">points_rec</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">p_norm</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">normalize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Compute completeness metric.</p>
+<p>Completeness metric is the same as asymmetric chamfer distance from gt to rec.</p>
+<p>See, for example, Occupancy Networks Learning 3D Reconstruction in Function Space,
+Mescheder et al., 2019.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>points_gt</code></td>
+          <td class="doc-param-details">
+            <p>set of true points, expected shape (N,3)</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>points_rec</code></td>
+          <td class="doc-param-details">
+            <p>set of reconstructed points, expected shape (M,3)</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>p_norm</code></td>
+          <td class="doc-param-details">
+            <p>which Minkowski p-norm is used for distance and nearest neighbor query</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>int</code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>2</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>normalize</code></td>
+          <td class="doc-param-details">
+            <p>whether to divide result by Euclidean extent of points_gt</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>bool</code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>False</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>RETURNS</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+              <span class="doc-returns-annotation">
+                  <code>float</code>
+              </span>
+          </td>
+          <td class="doc-returns-details">
+            <p>Arithmetic mean of p-norm from ground truth points to closest (in p-norm)</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+              <span class="doc-returns-annotation">
+                  <code>float</code>
+              </span>
+          </td>
+          <td class="doc-returns-details">
+            <p>reconstructed points.</p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cpas_toolbox/metrics.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">mean_completeness</span><span class="p">(</span>
+    <span class="n">points_gt</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">points_rec</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">p_norm</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">normalize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Compute completeness metric.</span>
+
+<span class="sd">    Completeness metric is the same as asymmetric chamfer distance from gt to rec.</span>
+
+<span class="sd">    See, for example, Occupancy Networks Learning 3D Reconstruction in Function Space,</span>
+<span class="sd">    Mescheder et al., 2019.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        points_gt: set of true points, expected shape (N,3)</span>
+<span class="sd">        points_rec: set of reconstructed points, expected shape (M,3)</span>
+<span class="sd">        p_norm: which Minkowski p-norm is used for distance and nearest neighbor query</span>
+<span class="sd">        normalize: whether to divide result by Euclidean extent of points_gt</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Arithmetic mean of p-norm from ground truth points to closest (in p-norm)</span>
+<span class="sd">        reconstructed points.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">kd_tree</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">spatial</span><span class="o">.</span><span class="n">KDTree</span><span class="p">(</span><span class="n">points_rec</span><span class="p">)</span>
+    <span class="n">d</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">kd_tree</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">points_gt</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p_norm</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">normalize</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">/</span> <span class="n">extent</span><span class="p">(</span><span class="n">points_gt</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="cpas_toolbox.metrics.symmetric_chamfer" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">symmetric_chamfer</span>
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">symmetric_chamfer</span><span class="p">(</span>
+    <span class="n">points_gt</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">points_rec</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">p_norm</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">normalize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Compute symmetric chamfer distance.</p>
+<p>There are various slightly different definitions for the chamfer distance.</p>
+<p>Note that completeness and accuracy are themselves sometimes referred to as
+chamfer distances, with symmetric chamfer distance being the combination of the two.</p>
+<p>Chamfer L1 in the literature (see, for example, Occupancy Networks Learning 3D
+Reconstruction in Function Space, Mescheder et al., 2019) refers to using
+arithmetic mean (note that this is actually differently scaled from L1) when
+combining accuracy and completeness.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>points_gt</code></td>
+          <td class="doc-param-details">
+            <p>set of true points, expected shape (N,3)</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>points_rec</code></td>
+          <td class="doc-param-details">
+            <p>set of reconstructed points, expected shape (M,3)</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>p_norm</code></td>
+          <td class="doc-param-details">
+            <p>which Minkowski p-norm is used for distance and nearest neighbor query</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>int</code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>2</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>normalize</code></td>
+          <td class="doc-param-details">
+            <p>whether to divide result by Euclidean extent of points_gt</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>bool</code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>False</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>RETURNS</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+              <span class="doc-returns-annotation">
+                  <code>float</code>
+              </span>
+          </td>
+          <td class="doc-returns-details">
+            <p>Arithmetic mean of accuracy and completeness metrics using the specified p-norm.</p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cpas_toolbox/metrics.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">symmetric_chamfer</span><span class="p">(</span>
+    <span class="n">points_gt</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">points_rec</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">p_norm</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">normalize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Compute symmetric chamfer distance.</span>
+
+<span class="sd">    There are various slightly different definitions for the chamfer distance.</span>
+
+<span class="sd">    Note that completeness and accuracy are themselves sometimes referred to as</span>
+<span class="sd">    chamfer distances, with symmetric chamfer distance being the combination of the two.</span>
+
+<span class="sd">    Chamfer L1 in the literature (see, for example, Occupancy Networks Learning 3D</span>
+<span class="sd">    Reconstruction in Function Space, Mescheder et al., 2019) refers to using</span>
+<span class="sd">    arithmetic mean (note that this is actually differently scaled from L1) when</span>
+<span class="sd">    combining accuracy and completeness.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        points_gt: set of true points, expected shape (N,3)</span>
+<span class="sd">        points_rec: set of reconstructed points, expected shape (M,3)</span>
+<span class="sd">        p_norm: which Minkowski p-norm is used for distance and nearest neighbor query</span>
+<span class="sd">        normalize: whether to divide result by Euclidean extent of points_gt</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Arithmetic mean of accuracy and completeness metrics using the specified p-norm.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">mean_completeness</span><span class="p">(</span><span class="n">points_gt</span><span class="p">,</span> <span class="n">points_rec</span><span class="p">,</span> <span class="n">p_norm</span><span class="o">=</span><span class="n">p_norm</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="n">normalize</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">mean_accuracy</span><span class="p">(</span><span class="n">points_gt</span><span class="p">,</span> <span class="n">points_rec</span><span class="p">,</span> <span class="n">p_norm</span><span class="o">=</span><span class="n">p_norm</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="n">normalize</span><span class="p">)</span>
+    <span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="cpas_toolbox.metrics.completeness_thresh" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">completeness_thresh</span>
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">completeness_thresh</span><span class="p">(</span>
+    <span class="n">points_gt</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">points_rec</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">p_norm</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">normalize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Compute thresholded completion metric.</p>
+<p>See FroDO: From Detections to 3D Objects, Rünz et al., 2020.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>points_gt</code></td>
+          <td class="doc-param-details">
+            <p>set of true points, expected shape (N,3)</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>points_rec</code></td>
+          <td class="doc-param-details">
+            <p>set of reconstructed points, expected shape (M,3)</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>threshold</code></td>
+          <td class="doc-param-details">
+            <p>distance threshold to count a point as correct</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>float</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>p_norm</code></td>
+          <td class="doc-param-details">
+            <p>which Minkowski p-norm is used for distance and nearest neighbor query</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>int</code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>2</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>normalize</code></td>
+          <td class="doc-param-details">
+            <p>whether to divide distances by Euclidean extent of points_gt</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>bool</code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>False</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>RETURNS</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+              <span class="doc-returns-annotation">
+                  <code>float</code>
+              </span>
+          </td>
+          <td class="doc-returns-details">
+            <p>Ratio of ground truth points with closest reconstructed point closer than</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+              <span class="doc-returns-annotation">
+                  <code>float</code>
+              </span>
+          </td>
+          <td class="doc-returns-details">
+            <p>threshold (in p-norm).</p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cpas_toolbox/metrics.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">completeness_thresh</span><span class="p">(</span>
+    <span class="n">points_gt</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">points_rec</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">p_norm</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">normalize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Compute thresholded completion metric.</span>
+
+<span class="sd">    See FroDO: From Detections to 3D Objects, Rünz et al., 2020.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        points_gt: set of true points, expected shape (N,3)</span>
+<span class="sd">        points_rec: set of reconstructed points, expected shape (M,3)</span>
+<span class="sd">        threshold: distance threshold to count a point as correct</span>
+<span class="sd">        p_norm: which Minkowski p-norm is used for distance and nearest neighbor query</span>
+<span class="sd">        normalize: whether to divide distances by Euclidean extent of points_gt</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Ratio of ground truth points with closest reconstructed point closer than</span>
+<span class="sd">        threshold (in p-norm).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">kd_tree</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">spatial</span><span class="o">.</span><span class="n">KDTree</span><span class="p">(</span><span class="n">points_rec</span><span class="p">)</span>
+    <span class="n">d</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">kd_tree</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">points_gt</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p_norm</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">normalize</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">d</span> <span class="o">/</span> <span class="n">extent</span><span class="p">(</span><span class="n">points_gt</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">threshold</span><span class="p">)</span> <span class="o">/</span> <span class="n">points_gt</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">d</span> <span class="o">&lt;</span> <span class="n">threshold</span><span class="p">)</span> <span class="o">/</span> <span class="n">points_gt</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="cpas_toolbox.metrics.accuracy_thresh" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">accuracy_thresh</span>
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">accuracy_thresh</span><span class="p">(</span>
+    <span class="n">points_gt</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">points_rec</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">p_norm</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">normalize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Compute thresholded accuracy metric.</p>
+<p>See FroDO: From Detections to 3D Objects, Rünz et al., 2020.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>points_gt</code></td>
+          <td class="doc-param-details">
+            <p>set of true points, expected shape (N,3)</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>points_rec</code></td>
+          <td class="doc-param-details">
+            <p>set of reconstructed points, expected shape (M,3)</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>threshold</code></td>
+          <td class="doc-param-details">
+            <p>distance threshold to count a point as correct</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>float</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>p_norm</code></td>
+          <td class="doc-param-details">
+            <p>which Minkowski p-norm is used for distance and nearest neighbor query</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>int</code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>2</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>normalize</code></td>
+          <td class="doc-param-details">
+            <p>whether to divide distances by Euclidean extent of points_gt</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>bool</code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>False</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>RETURNS</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+              <span class="doc-returns-annotation">
+                  <code>float</code>
+              </span>
+          </td>
+          <td class="doc-returns-details">
+            <p>Ratio of reconstructed points with closest ground truth point closer than</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+              <span class="doc-returns-annotation">
+                  <code>float</code>
+              </span>
+          </td>
+          <td class="doc-returns-details">
+            <p>threshold (in p-norm).</p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cpas_toolbox/metrics.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">accuracy_thresh</span><span class="p">(</span>
+    <span class="n">points_gt</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">points_rec</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">p_norm</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">normalize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Compute thresholded accuracy metric.</span>
+
+<span class="sd">    See FroDO: From Detections to 3D Objects, Rünz et al., 2020.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        points_gt: set of true points, expected shape (N,3)</span>
+<span class="sd">        points_rec: set of reconstructed points, expected shape (M,3)</span>
+<span class="sd">        threshold: distance threshold to count a point as correct</span>
+<span class="sd">        p_norm: which Minkowski p-norm is used for distance and nearest neighbor query</span>
+<span class="sd">        normalize: whether to divide distances by Euclidean extent of points_gt</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Ratio of reconstructed points with closest ground truth point closer than</span>
+<span class="sd">        threshold (in p-norm).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">kd_tree</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">spatial</span><span class="o">.</span><span class="n">KDTree</span><span class="p">(</span><span class="n">points_gt</span><span class="p">)</span>
+    <span class="n">d</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">kd_tree</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">points_rec</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p_norm</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">normalize</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">d</span> <span class="o">/</span> <span class="n">extent</span><span class="p">(</span><span class="n">points_gt</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">threshold</span><span class="p">)</span> <span class="o">/</span> <span class="n">points_rec</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">d</span> <span class="o">&lt;</span> <span class="n">threshold</span><span class="p">)</span> <span class="o">/</span> <span class="n">points_rec</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="cpas_toolbox.metrics.reconstruction_fscore" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">reconstruction_fscore</span>
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">reconstruction_fscore</span><span class="p">(</span>
+    <span class="n">points_gt</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">points_rec</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">p_norm</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">normalize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Compute reconstruction fscore.</p>
+<p>See What Do Single-View 3D Reconstruction Networks Learn, Tatarchenko, 2019</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>points_gt</code></td>
+          <td class="doc-param-details">
+            <p>set of true points, expected shape (N,3)</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>points_rec</code></td>
+          <td class="doc-param-details">
+            <p>set of reconstructed points, expected shape (M,3)</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>threshold</code></td>
+          <td class="doc-param-details">
+            <p>distance threshold to count a point as correct</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>float</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>p_norm</code></td>
+          <td class="doc-param-details">
+            <p>which Minkowski p-norm is used for distance and nearest neighbor query</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>int</code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>2</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>normalize</code></td>
+          <td class="doc-param-details">
+            <p>whether to divide distances by Euclidean extent of points_gt</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>bool</code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>False</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>RETURNS</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+              <span class="doc-returns-annotation">
+                  <code>float</code>
+              </span>
+          </td>
+          <td class="doc-returns-details">
+            <p>Harmonic mean of precision (thresholded accuracy) and recall (thresholded</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+              <span class="doc-returns-annotation">
+                  <code>float</code>
+              </span>
+          </td>
+          <td class="doc-returns-details">
+            <p>completeness).</p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cpas_toolbox/metrics.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">reconstruction_fscore</span><span class="p">(</span>
+    <span class="n">points_gt</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">points_rec</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">p_norm</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">normalize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Compute reconstruction fscore.</span>
+
+<span class="sd">    See What Do Single-View 3D Reconstruction Networks Learn, Tatarchenko, 2019</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        points_gt: set of true points, expected shape (N,3)</span>
+<span class="sd">        points_rec: set of reconstructed points, expected shape (M,3)</span>
+<span class="sd">        threshold: distance threshold to count a point as correct</span>
+<span class="sd">        p_norm: which Minkowski p-norm is used for distance and nearest neighbor query</span>
+<span class="sd">        normalize: whether to divide distances by Euclidean extent of points_gt</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Harmonic mean of precision (thresholded accuracy) and recall (thresholded</span>
+<span class="sd">        completeness).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">recall</span> <span class="o">=</span> <span class="n">completeness_thresh</span><span class="p">(</span>
+        <span class="n">points_gt</span><span class="p">,</span> <span class="n">points_rec</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">p_norm</span><span class="o">=</span><span class="n">p_norm</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="n">normalize</span>
+    <span class="p">)</span>
+    <span class="n">precision</span> <span class="o">=</span> <span class="n">accuracy_thresh</span><span class="p">(</span>
+        <span class="n">points_gt</span><span class="p">,</span> <span class="n">points_rec</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">p_norm</span><span class="o">=</span><span class="n">p_norm</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="n">normalize</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">recall</span> <span class="o">&lt;</span> <span class="mf">1e-7</span> <span class="ow">or</span> <span class="n">precision</span> <span class="o">&lt;</span> <span class="mf">1e-7</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">recall</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">precision</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="cpas_toolbox.metrics.extent" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">extent</span>
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">extent</span><span class="p">(</span><span class="n">points</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Compute largest Euclidean distance between any two points.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>points_gt</code></td>
+          <td class="doc-param-details">
+            <p>set of true</p>
+            <p>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>p_norm</code></td>
+          <td class="doc-param-details">
+            <p>which Minkowski p-norm is used for distance and nearest neighbor query</p>
+            <p>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>RETURNS</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+              <span class="doc-returns-annotation">
+                  <code>float</code>
+              </span>
+          </td>
+          <td class="doc-returns-details">
+            <p>Ratio of reconstructed points with closest ground truth point closer than</p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+              <span class="doc-returns-annotation">
+                  <code>float</code>
+              </span>
+          </td>
+          <td class="doc-returns-details">
+            <p>threshold (in p-norm).</p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cpas_toolbox/metrics.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">extent</span><span class="p">(</span><span class="n">points</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Compute largest Euclidean distance between any two points.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        points_gt: set of true</span>
+<span class="sd">        p_norm: which Minkowski p-norm is used for distance and nearest neighbor query</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Ratio of reconstructed points with closest ground truth point closer than</span>
+<span class="sd">        threshold (in p-norm).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">hull</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">spatial</span><span class="o">.</span><span class="n">ConvexHull</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">scipy</span><span class="o">.</span><span class="n">spatial</span><span class="o">.</span><span class="n">qhull</span><span class="o">.</span><span class="n">QhullError</span><span class="p">:</span>
+        <span class="c1"># fallback to brute force distance matrix</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">spatial</span><span class="o">.</span><span class="n">distance_matrix</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">points</span><span class="p">))</span>
+
+    <span class="c1"># this is wasteful, if too slow implement rotating caliper method</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span>
+        <span class="n">scipy</span><span class="o">.</span><span class="n">spatial</span><span class="o">.</span><span class="n">distance_matrix</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">hull</span><span class="o">.</span><span class="n">vertices</span><span class="p">],</span> <span class="n">points</span><span class="p">[</span><span class="n">hull</span><span class="o">.</span><span class="n">vertices</span><span class="p">])</span>
+    <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="cpas_toolbox.metrics.iou_3d_sampling" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">iou_3d_sampling</span>
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">iou_3d_sampling</span><span class="p">(</span>
+    <span class="n">p1</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">r1</span><span class="p">:</span> <span class="n">Rotation</span><span class="p">,</span>
+    <span class="n">e1</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">p2</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">r2</span><span class="p">:</span> <span class="n">Rotation</span><span class="p">,</span>
+    <span class="n">e2</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">num_points</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Compute 3D IoU of oriented bounding boxes by sampling the smaller bounding box.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>p1</code></td>
+          <td class="doc-param-details">
+            <p>Center position of first bounding box, shape (3,).</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>r1</code></td>
+          <td class="doc-param-details">
+            <p>Orientation of first bounding box.
+This is the rotation that rotates points from bounding box to camera frame.</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="scipy.spatial.transform.Rotation">Rotation</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>e1</code></td>
+          <td class="doc-param-details">
+            <p>Extents (i.e., side lengths) of first bounding box, shape (3,).</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>p2</code></td>
+          <td class="doc-param-details">
+            <p>Center position of second bounding box, shape (3,).</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>r2</code></td>
+          <td class="doc-param-details">
+            <p>Orientation of second bounding box.
+This is the rotation that rotates points from bounding box to camera frame.</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="scipy.spatial.transform.Rotation">Rotation</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>e2</code></td>
+          <td class="doc-param-details">
+            <p>Extents (i.e., side lengths) of second bounding box, shape (3,).</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>num_points</code></td>
+          <td class="doc-param-details">
+            <p>Number of points to sample in smaller bounding box.</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>int</code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>10000</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>RETURNS</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+              <span class="doc-returns-annotation">
+                  <code>float</code>
+              </span>
+          </td>
+          <td class="doc-returns-details">
+            <p>Approximate intersection-over-union for the two oriented bounding boxes.</p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cpas_toolbox/metrics.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span>
+<span class="normal">324</span>
+<span class="normal">325</span>
+<span class="normal">326</span>
+<span class="normal">327</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span>
+<span class="normal">332</span>
+<span class="normal">333</span>
+<span class="normal">334</span>
+<span class="normal">335</span>
+<span class="normal">336</span>
+<span class="normal">337</span>
+<span class="normal">338</span>
+<span class="normal">339</span>
+<span class="normal">340</span>
+<span class="normal">341</span>
+<span class="normal">342</span>
+<span class="normal">343</span>
+<span class="normal">344</span>
+<span class="normal">345</span>
+<span class="normal">346</span>
+<span class="normal">347</span>
+<span class="normal">348</span>
+<span class="normal">349</span>
+<span class="normal">350</span>
+<span class="normal">351</span>
+<span class="normal">352</span>
+<span class="normal">353</span>
+<span class="normal">354</span>
+<span class="normal">355</span>
+<span class="normal">356</span>
+<span class="normal">357</span>
+<span class="normal">358</span>
+<span class="normal">359</span>
+<span class="normal">360</span>
+<span class="normal">361</span>
+<span class="normal">362</span>
+<span class="normal">363</span>
+<span class="normal">364</span>
+<span class="normal">365</span>
+<span class="normal">366</span>
+<span class="normal">367</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">iou_3d_sampling</span><span class="p">(</span>
+    <span class="n">p1</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">r1</span><span class="p">:</span> <span class="n">Rotation</span><span class="p">,</span>
+    <span class="n">e1</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">p2</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">r2</span><span class="p">:</span> <span class="n">Rotation</span><span class="p">,</span>
+    <span class="n">e2</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">num_points</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Compute 3D IoU of oriented bounding boxes by sampling the smaller bounding box.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        p1: Center position of first bounding box, shape (3,).</span>
+<span class="sd">        r1: Orientation of first bounding box.</span>
+<span class="sd">            This is the rotation that rotates points from bounding box to camera frame.</span>
+<span class="sd">        e1: Extents (i.e., side lengths) of first bounding box, shape (3,).</span>
+<span class="sd">        p2: Center position of second bounding box, shape (3,).</span>
+<span class="sd">        r2: Orientation of second bounding box.</span>
+<span class="sd">            This is the rotation that rotates points from bounding box to camera frame.</span>
+<span class="sd">        e2: Extents (i.e., side lengths) of second bounding box, shape (3,).</span>
+<span class="sd">        num_points: Number of points to sample in smaller bounding box.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Approximate intersection-over-union for the two oriented bounding boxes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># sample smaller volume to estimate intersection</span>
+    <span class="n">vol_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">e1</span><span class="p">)</span>
+    <span class="n">vol_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">e2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">vol_1</span> <span class="o">&lt;</span> <span class="n">vol_2</span><span class="p">:</span>
+        <span class="n">points_1_in_1</span> <span class="o">=</span> <span class="n">e1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">num_points</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-</span> <span class="n">e1</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">points_1_in_w</span> <span class="o">=</span> <span class="n">r1</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">points_1_in_1</span><span class="p">)</span> <span class="o">+</span> <span class="n">p1</span>
+        <span class="n">points_1_in_2</span> <span class="o">=</span> <span class="n">r2</span><span class="o">.</span><span class="n">inv</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">points_1_in_w</span> <span class="o">-</span> <span class="n">p2</span><span class="p">)</span>
+        <span class="n">ratio_1_in_2</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">points_1_in_2</span> <span class="o">&lt;</span> <span class="n">e2</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="o">-</span><span class="n">e2</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">&lt;</span> <span class="n">points_1_in_2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="o">/</span> <span class="n">num_points</span>
+        <span class="p">)</span>
+        <span class="n">intersection</span> <span class="o">=</span> <span class="n">ratio_1_in_2</span> <span class="o">*</span> <span class="n">vol_1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">points_2_in_2</span> <span class="o">=</span> <span class="n">e2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">num_points</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-</span> <span class="n">e2</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">points_2_in_w</span> <span class="o">=</span> <span class="n">r2</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">points_2_in_2</span><span class="p">)</span> <span class="o">+</span> <span class="n">p2</span>
+        <span class="n">points_2_in_1</span> <span class="o">=</span> <span class="n">r1</span><span class="o">.</span><span class="n">inv</span><span class="p">()</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">points_2_in_w</span> <span class="o">-</span> <span class="n">p1</span><span class="p">)</span>
+        <span class="n">ratio_2_in_1</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">points_2_in_1</span> <span class="o">&lt;</span> <span class="n">e1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="o">-</span><span class="n">e1</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">&lt;</span> <span class="n">points_2_in_1</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="o">/</span> <span class="n">num_points</span>
+        <span class="p">)</span>
+        <span class="n">intersection</span> <span class="o">=</span> <span class="n">ratio_2_in_1</span> <span class="o">*</span> <span class="n">vol_2</span>
+
+    <span class="n">union</span> <span class="o">=</span> <span class="n">vol_1</span> <span class="o">+</span> <span class="n">vol_2</span> <span class="o">-</span> <span class="n">intersection</span>
+
+    <span class="k">return</span> <span class="n">intersection</span> <span class="o">/</span> <span class="n">union</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="cpas_toolbox.metrics.iou_3d" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">iou_3d</span>
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">iou_3d</span><span class="p">(</span>
+    <span class="n">p1</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">r1</span><span class="p">:</span> <span class="n">Rotation</span><span class="p">,</span>
+    <span class="n">e1</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">p2</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">r2</span><span class="p">:</span> <span class="n">Rotation</span><span class="p">,</span>
+    <span class="n">e2</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Compute 3D IoU of oriented bounding boxes analytically.</p>
+<p>Code partly based on https://github.com/google-research-datasets/Objectron/.
+Implementation uses HalfSpace intersection instead of Sutherland-Hodgman algorithm.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>p1</code></td>
+          <td class="doc-param-details">
+            <p>Center position of first bounding box, shape (3,).</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>r1</code></td>
+          <td class="doc-param-details">
+            <p>Orientation of first bounding box.
+This is the rotation that rotates points from bounding box to camera frame.</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="scipy.spatial.transform.Rotation">Rotation</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>e1</code></td>
+          <td class="doc-param-details">
+            <p>Extents (i.e., side lengths) of first bounding box, shape (3,).</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>p2</code></td>
+          <td class="doc-param-details">
+            <p>Center position of second bounding box, shape (3,).</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>r2</code></td>
+          <td class="doc-param-details">
+            <p>Orientation of second bounding box.
+This is the rotation that rotates points from bounding box to camera frame.</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="scipy.spatial.transform.Rotation">Rotation</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>e2</code></td>
+          <td class="doc-param-details">
+            <p>Extents (i.e., side lengths) of second bounding box, shape (3,).</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>RETURNS</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+              <span class="doc-returns-annotation">
+                  <code>float</code>
+              </span>
+          </td>
+          <td class="doc-returns-details">
+            <p>Accurate intersection-over-union for the two oriented bounding boxes.</p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cpas_toolbox/metrics.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">370</span>
+<span class="normal">371</span>
+<span class="normal">372</span>
+<span class="normal">373</span>
+<span class="normal">374</span>
+<span class="normal">375</span>
+<span class="normal">376</span>
+<span class="normal">377</span>
+<span class="normal">378</span>
+<span class="normal">379</span>
+<span class="normal">380</span>
+<span class="normal">381</span>
+<span class="normal">382</span>
+<span class="normal">383</span>
+<span class="normal">384</span>
+<span class="normal">385</span>
+<span class="normal">386</span>
+<span class="normal">387</span>
+<span class="normal">388</span>
+<span class="normal">389</span>
+<span class="normal">390</span>
+<span class="normal">391</span>
+<span class="normal">392</span>
+<span class="normal">393</span>
+<span class="normal">394</span>
+<span class="normal">395</span>
+<span class="normal">396</span>
+<span class="normal">397</span>
+<span class="normal">398</span>
+<span class="normal">399</span>
+<span class="normal">400</span>
+<span class="normal">401</span>
+<span class="normal">402</span>
+<span class="normal">403</span>
+<span class="normal">404</span>
+<span class="normal">405</span>
+<span class="normal">406</span>
+<span class="normal">407</span>
+<span class="normal">408</span>
+<span class="normal">409</span>
+<span class="normal">410</span>
+<span class="normal">411</span>
+<span class="normal">412</span>
+<span class="normal">413</span>
+<span class="normal">414</span>
+<span class="normal">415</span>
+<span class="normal">416</span>
+<span class="normal">417</span>
+<span class="normal">418</span>
+<span class="normal">419</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">iou_3d</span><span class="p">(</span>
+    <span class="n">p1</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">r1</span><span class="p">:</span> <span class="n">Rotation</span><span class="p">,</span>
+    <span class="n">e1</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">p2</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">r2</span><span class="p">:</span> <span class="n">Rotation</span><span class="p">,</span>
+    <span class="n">e2</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Compute 3D IoU of oriented bounding boxes analytically.</span>
+
+<span class="sd">    Code partly based on https://github.com/google-research-datasets/Objectron/.</span>
+<span class="sd">    Implementation uses HalfSpace intersection instead of Sutherland-Hodgman algorithm.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        p1: Center position of first bounding box, shape (3,).</span>
+<span class="sd">        r1: Orientation of first bounding box.</span>
+<span class="sd">            This is the rotation that rotates points from bounding box to camera frame.</span>
+<span class="sd">        e1: Extents (i.e., side lengths) of first bounding box, shape (3,).</span>
+<span class="sd">        p2: Center position of second bounding box, shape (3,).</span>
+<span class="sd">        r2: Orientation of second bounding box.</span>
+<span class="sd">            This is the rotation that rotates points from bounding box to camera frame.</span>
+<span class="sd">        e2: Extents (i.e., side lengths) of second bounding box, shape (3,).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Accurate intersection-over-union for the two oriented bounding boxes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># create halfspaces</span>
+    <span class="n">halfspaces</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="n">halfspaces</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">r1</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">halfspaces</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">halfspaces</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">@</span> <span class="p">(</span><span class="n">r1</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">e1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">p1</span><span class="p">)</span>
+    <span class="n">halfspaces</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">halfspaces</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">halfspaces</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">halfspaces</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">@</span> <span class="p">(</span><span class="n">r1</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="o">-</span><span class="n">e1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">p1</span><span class="p">)</span>
+    <span class="n">halfspaces</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">r2</span><span class="o">.</span><span class="n">as_matrix</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">halfspaces</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">halfspaces</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">@</span> <span class="p">(</span><span class="n">r2</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">e2</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">p2</span><span class="p">)</span>
+    <span class="n">halfspaces</span><span class="p">[</span><span class="mi">9</span><span class="p">:</span><span class="mi">12</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">halfspaces</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">halfspaces</span><span class="p">[</span><span class="mi">9</span><span class="p">:</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">halfspaces</span><span class="p">[</span><span class="mi">9</span><span class="p">:</span><span class="mi">12</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">@</span> <span class="p">(</span><span class="n">r2</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="o">-</span><span class="n">e2</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">p2</span><span class="p">)</span>
+
+    <span class="c1"># try to find point inside both bounding boxes</span>
+    <span class="n">inside_point</span> <span class="o">=</span> <span class="n">_find_inside_point</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">r1</span><span class="p">,</span> <span class="n">e1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">e2</span><span class="p">,</span> <span class="n">halfspaces</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">inside_point</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="c1"># create halfspace intersection and compute IoU</span>
+    <span class="n">hs</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">spatial</span><span class="o">.</span><span class="n">HalfspaceIntersection</span><span class="p">(</span><span class="n">halfspaces</span><span class="p">,</span> <span class="n">inside_point</span><span class="p">)</span>
+    <span class="n">ch</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">spatial</span><span class="o">.</span><span class="n">ConvexHull</span><span class="p">(</span><span class="n">hs</span><span class="o">.</span><span class="n">intersections</span><span class="p">)</span>
+    <span class="n">intersection</span> <span class="o">=</span> <span class="n">ch</span><span class="o">.</span><span class="n">volume</span>
+    <span class="n">vol_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">e1</span><span class="p">)</span>
+    <span class="n">vol_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">e2</span><span class="p">)</span>
+    <span class="n">union</span> <span class="o">=</span> <span class="n">vol_1</span> <span class="o">+</span> <span class="n">vol_2</span> <span class="o">-</span> <span class="n">intersection</span>
+    <span class="k">return</span> <span class="n">intersection</span> <span class="o">/</span> <span class="n">union</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
 
 
 

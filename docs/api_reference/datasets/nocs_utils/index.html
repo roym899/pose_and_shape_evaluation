@@ -359,6 +359,26 @@
     nocs_utils
   </a>
   
+    <nav class="md-nav" aria-label="nocs_utils">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.nocs_utils.PoseEstimationError" class="md-nav__link">
+    PoseEstimationError
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.nocs_utils.estimate_similarity_transform" class="md-nav__link">
+    estimate_similarity_transform()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -599,6 +619,26 @@
     nocs_utils
   </a>
   
+    <nav class="md-nav" aria-label="nocs_utils">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.nocs_utils.PoseEstimationError" class="md-nav__link">
+    PoseEstimationError
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.datasets.nocs_utils.estimate_similarity_transform" class="md-nav__link">
+    estimate_similarity_transform()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -655,6 +695,340 @@ evaluation function for typical metrics on the NOCS datasets.</p>
 
 
 
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="cpas_toolbox.datasets.nocs_utils.PoseEstimationError" class="doc doc-heading">
+        <span class="doc doc-object-name doc-class-name">PoseEstimationError</span>
+
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+      <p class="doc doc-class-bases">
+        Bases: <code>Exception</code></p>
+
+  
+      <p>Error if pose estimation encountered an error.</p>
+
+
+        <details class="quote">
+          <summary>Source code in <code>cpas_toolbox/datasets/nocs_utils.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">PoseEstimationError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Error if pose estimation encountered an error.&quot;&quot;&quot;</span>
+
+    <span class="k">pass</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="cpas_toolbox.datasets.nocs_utils.estimate_similarity_transform" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">estimate_similarity_transform</span>
+
+
+</h3>
+<div class="highlight"><pre><span></span><code><span class="n">estimate_similarity_transform</span><span class="p">(</span>
+    <span class="n">source</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Estimate similarity transform from source to target from point correspondences.</p>
+<p>Source and target are pairwise correponding pointsets, i.e., they include same
+number of points and the first point of source corresponds to the first point of
+target. RANSAC is used for outlier-robust estimation.</p>
+<p>A similarity transform is estimated (i.e., isotropic scale, rotation and
+translation) that transforms source points onto the target points.</p>
+<p>Note that the returned values fulfill the following equations
+    transform @ source_points = scale * rotation_matrix @ source_points + position
+when ignoring homogeneous coordinate for left-hand side.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>source</code></td>
+          <td class="doc-param-details">
+            <p>Source points that will be transformed, shape (N,3).</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>target</code></td>
+          <td class="doc-param-details">
+            <p>Target points to which source will be aligned to, shape (N,3).</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>verbose</code></td>
+          <td class="doc-param-details">
+            <p>If true additional information will be printed.</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code>bool</code>
+                </span>
+                <span class="doc-param-default">
+                  <b>DEFAULT:</b> 
+                    <code>False</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>RETURNS</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+              <code>position</code>
+          </td>
+          <td class="doc-returns-details">
+            <p>Translation to translate source to target, shape (3,).</p>
+              <p>
+                <span class="doc-returns-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+                </span>
+              </p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+              <code>rotation_matrix</code>
+          </td>
+          <td class="doc-returns-details">
+            <p>Rotation to rotate source to target, shape (3,3).</p>
+              <p>
+                <span class="doc-returns-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+                </span>
+              </p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+              <code>scale</code>
+          </td>
+          <td class="doc-returns-details">
+            <p>Scaling factor along each axis, to scale source to target.</p>
+              <p>
+                <span class="doc-returns-annotation">
+                  <b>TYPE:</b>
+                    <code>float</code>
+                </span>
+              </p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+              <code>transform</code>
+          </td>
+          <td class="doc-returns-details">
+            <p>Homogeneous transformation matrix, shape (4,4).</p>
+              <p>
+                <span class="doc-returns-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="numpy">np</span>.<span title="numpy.ndarray">ndarray</span></code>
+                </span>
+              </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cpas_toolbox/datasets/nocs_utils.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">estimate_similarity_transform</span><span class="p">(</span>
+    <span class="n">source</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Estimate similarity transform from source to target from point correspondences.</span>
+
+<span class="sd">    Source and target are pairwise correponding pointsets, i.e., they include same</span>
+<span class="sd">    number of points and the first point of source corresponds to the first point of</span>
+<span class="sd">    target. RANSAC is used for outlier-robust estimation.</span>
+
+<span class="sd">    A similarity transform is estimated (i.e., isotropic scale, rotation and</span>
+<span class="sd">    translation) that transforms source points onto the target points.</span>
+
+<span class="sd">    Note that the returned values fulfill the following equations</span>
+<span class="sd">        transform @ source_points = scale * rotation_matrix @ source_points + position</span>
+<span class="sd">    when ignoring homogeneous coordinate for left-hand side.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        source: Source points that will be transformed, shape (N,3).</span>
+<span class="sd">        target: Target points to which source will be aligned to, shape (N,3).</span>
+<span class="sd">        verbose: If true additional information will be printed.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        position (np.ndarray): Translation to translate source to target, shape (3,).</span>
+<span class="sd">        rotation_matrix (np.ndarray): Rotation to rotate source to target, shape (3,3).</span>
+<span class="sd">        scale (float):</span>
+<span class="sd">            Scaling factor along each axis, to scale source to target.</span>
+<span class="sd">        transform (np.ndarray): Homogeneous transformation matrix, shape (4,4).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">source</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">5</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">target</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pose estimation failed. Not enough point correspondences: &quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">source</span><span class="p">))</span>
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+    <span class="c1"># make points homogeneous</span>
+    <span class="n">source_hom</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">source</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="n">source</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">])]))</span>  <span class="c1"># 4,N</span>
+    <span class="n">target_hom</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">target</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="n">source</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">])]))</span>  <span class="c1"># 4,N</span>
+
+    <span class="c1"># Auto-parameter selection based on source-target heuristics</span>
+    <span class="n">target_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>  <span class="c1"># mean distance from origin</span>
+    <span class="n">source_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">ratio_ts</span> <span class="o">=</span> <span class="n">target_norm</span> <span class="o">/</span> <span class="n">source_norm</span>
+    <span class="n">ratio_st</span> <span class="o">=</span> <span class="n">source_norm</span> <span class="o">/</span> <span class="n">target_norm</span>
+    <span class="n">pass_t</span> <span class="o">=</span> <span class="n">ratio_st</span> <span class="k">if</span> <span class="p">(</span><span class="n">ratio_st</span> <span class="o">&gt;</span> <span class="n">ratio_ts</span><span class="p">)</span> <span class="k">else</span> <span class="n">ratio_ts</span>
+    <span class="n">pass_t</span> <span class="o">*=</span> <span class="mf">0.01</span>  <span class="c1"># tighter bound</span>
+    <span class="n">stop_t</span> <span class="o">=</span> <span class="n">pass_t</span> <span class="o">/</span> <span class="mi">100</span>
+    <span class="n">n_iter</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pass threshold: &quot;</span><span class="p">,</span> <span class="n">pass_t</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Stop threshold: &quot;</span><span class="p">,</span> <span class="n">stop_t</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of iterations: &quot;</span><span class="p">,</span> <span class="n">n_iter</span><span class="p">)</span>
+
+    <span class="n">source_inliers_hom</span><span class="p">,</span> <span class="n">target_inliers_hom</span><span class="p">,</span> <span class="n">best_inlier_ratio</span> <span class="o">=</span> <span class="n">_get_ransac_inliers</span><span class="p">(</span>
+        <span class="n">source_hom</span><span class="p">,</span>
+        <span class="n">target_hom</span><span class="p">,</span>
+        <span class="n">max_iterations</span><span class="o">=</span><span class="n">n_iter</span><span class="p">,</span>
+        <span class="n">pass_threshold</span><span class="o">=</span><span class="n">pass_t</span><span class="p">,</span>
+        <span class="n">stop_threshold</span><span class="o">=</span><span class="n">stop_t</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">best_inlier_ratio</span> <span class="o">&lt;</span> <span class="mf">0.1</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pose estimation failed. Small inlier ratio: &quot;</span><span class="p">,</span> <span class="n">best_inlier_ratio</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+    <span class="n">scales</span><span class="p">,</span> <span class="n">rotation_matrix</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">out_transform</span> <span class="o">=</span> <span class="n">_estimate_similarity_umeyama</span><span class="p">(</span>
+        <span class="n">source_inliers_hom</span><span class="p">,</span> <span class="n">target_inliers_hom</span>
+    <span class="p">)</span>
+    <span class="n">scale</span> <span class="o">=</span> <span class="n">scales</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;BestInlierRatio:&quot;</span><span class="p">,</span> <span class="n">best_inlier_ratio</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Rotation:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">rotation_matrix</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Position:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">position</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Scales:&quot;</span><span class="p">,</span> <span class="n">scales</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">position</span><span class="p">,</span> <span class="n">rotation_matrix</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">out_transform</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
 
 
 
