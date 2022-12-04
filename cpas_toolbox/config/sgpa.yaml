@@ -1,0 +1,13 @@
+name: SGPA
+method_type: cpas_toolbox.cpas_methods.sgpa.SGPA
+config_dict:
+  num_categories: 6
+  num_shape_points: 1024 
+  num_input_points: 1024
+  num_structure_points: 256
+  image_size: 192
+  model: ~/.cpas_toolbox/models/sgpa/real.pth
+  model_url: https://drive.google.com/u/0/uc?id=1drBp3naBrNdazah1zTdgydjchE-LysdI&export=download
+  mean_shape: ~/.cpas_toolbox/models/sgpa/mean_points_emb.npy
+  mean_shape_url: https://github.com/ck-kai/SGPA/raw/master/assets/mean_points_emb.npy
+  device: cuda
