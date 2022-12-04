@@ -696,8 +696,7 @@ evaluation function for typical metrics on the NOCS datasets.</p>
 <details class="aligning-code-by-srinath-sridhar">
   <summary>Aligning code by Srinath Sridhar</summary>
   <p>https://raw.githubusercontent.com/hughw19/NOCS_CVPR2019/master/aligning.py</p>
-</details>      <p>Evaluation code by ... TODO</p>
-
+</details>
   
 
   <div class="doc doc-children">
@@ -730,10 +729,10 @@ evaluation function for typical metrics on the NOCS datasets.</p>
 
         <details class="quote">
           <summary>Source code in <code>cpas_toolbox/datasets/nocs_utils.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">248</span>
-<span class="normal">249</span>
-<span class="normal">250</span>
-<span class="normal">251</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">PoseEstimationError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">PoseEstimationError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Error if pose estimation encountered an error.&quot;&quot;&quot;</span>
 
     <span class="k">pass</span>
@@ -891,7 +890,9 @@ when ignoring homogeneous coordinate for left-hand side.</p>
 
       <details class="quote">
         <summary>Source code in <code>cpas_toolbox/datasets/nocs_utils.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">14</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
 <span class="normal">15</span>
 <span class="normal">16</span>
 <span class="normal">17</span>
@@ -962,9 +963,7 @@ when ignoring homogeneous coordinate for left-hand side.</p>
 <span class="normal">82</span>
 <span class="normal">83</span>
 <span class="normal">84</span>
-<span class="normal">85</span>
-<span class="normal">86</span>
-<span class="normal">87</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">estimate_similarity_transform</span><span class="p">(</span>
+<span class="normal">85</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">estimate_similarity_transform</span><span class="p">(</span>
     <span class="n">source</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Estimate similarity transform from source to target from point correspondences.</span>
