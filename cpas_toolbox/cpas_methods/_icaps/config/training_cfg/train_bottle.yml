@@ -1,0 +1,8 @@
+CODE_DIM: 128
+CAPACITY: 1
+GPU_ID: 0
+TRAIN:
+  OBJECTS_CTG: 'bottle'
+  SCALE_MIN: 0.9
+  SCALE_MAX: 1.1
+  RENDER_DIST: !!python/tuple [4.0]

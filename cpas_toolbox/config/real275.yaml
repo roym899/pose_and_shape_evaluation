@@ -1,11 +1,12 @@
 # Standalone config to use with evaluate.py
 config:
   methods:
-    sgpa: ./sgpa.yaml
-    crnet: ./crnet.yaml
-    spd: ./spd.yaml
-    cass: ./cass.yaml
-    asmnet: ./asmnet.yaml
+    icaps: ./icaps.yaml
+    # sgpa: ./sgpa.yaml
+    # crnet: ./crnet.yaml
+    # spd: ./spd.yaml
+    # cass: ./cass.yaml
+    # asmnet: ./asmnet.yaml
 
 dataset_config:
   name: REAL275

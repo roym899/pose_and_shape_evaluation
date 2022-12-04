@@ -1,0 +1,39 @@
+GPU_ID: 0
+TEST:
+  OBJECTS: !!python/tuple [
+    'laptop',
+                           ]
+PF:
+  USE_DEPTH: True
+  UV_NOISE: 10.0
+  Z_NOISE: 0.02
+  ROT_NOISE: 0.05
+  INIT_UV_NOISE: 30
+  INIT_Z_RANGE: !!python/tuple [0.2, 2.0]
+  INIT_ROT_WT_VAR: 0.075
+  TRANS_WT_VAR: 0.05
+  ROT_WT_VAR: 0.05
+  N_INIT: 300
+  N_PROCESS: 100
+  FU: 591.0125
+  FV: 590.16775
+  U0: 322.525
+  V0: 244.11084
+  W: 640.0
+  H: 480.0
+  VISUALIZE: True
+  SAVE_DIR: './results/exp60/laptop/'
+  TRACK_OBJ: 'laptop'
+  N_E_ROT: 300
+  WT_RESHAPE_VAR: 0.075
+  MOTION_T_FACTOR: 0.0
+  MOTION_R_FACTOR: 0.0
+  ROT_RANGE: 0.2
+  ROT_GAUSSIAN_KERNEL_STD: 5
+  ROT_VAR: 0.05
+  DEPTH_DELTA: 0.02
+  DEPTH_TAU: 0.02
+  DEPTH_STD: 0.1
+  SCALE_PRIOR: 0.4
+  UV_NOISE_PRIOR: 10.0
+  Z_NOISE_PRIOR: 0.02
