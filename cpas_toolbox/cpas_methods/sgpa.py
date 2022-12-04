@@ -214,7 +214,6 @@ class SGPA(CPASMethod):
         ).astype(np.int64)
 
         # Move inputs to device and convert to right shape
-        # TODO what to unsqueeze?
         color_input = color_input.unsqueeze(0).to(self._device)
         points = torch.cuda.FloatTensor(points).unsqueeze(0).to(self._device)
         point_indices = torch.LongTensor(point_indices).unsqueeze(0).to(self._device)

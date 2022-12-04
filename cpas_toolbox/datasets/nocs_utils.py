@@ -5,8 +5,6 @@ evaluation function for typical metrics on the NOCS datasets.
 
 Aligning code by Srinath Sridhar:
     https://raw.githubusercontent.com/hughw19/NOCS_CVPR2019/master/aligning.py
-
-Evaluation code by ... TODO
 """
 import numpy as np
 
