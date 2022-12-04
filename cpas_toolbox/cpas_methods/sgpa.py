@@ -68,10 +68,10 @@ class SGPA(CPASMethod):
     }
 
     def __init__(self, config: Config, camera: camera_utils.Camera) -> None:
-        """Initialize and load CRNet model.
+        """Initialize and load SGPA model.
 
         Args:
-            config: CRNet configuration. See CRNet.Config for more information.
+            config: SGPA configuration. See SGPA.Config for more information.
             camera: Camera used for the input image.
         """
         config = yoco.load_config(config, current_dict=SGPA.default_config)
@@ -102,7 +102,7 @@ class SGPA(CPASMethod):
         if not os.path.exists(self._model_path) or not os.path.exists(
             self._mean_shape_path
         ):
-            print("CRNet model weights not found, do you want to download to ")
+            print("SGPA model weights not found, do you want to download to ")
             print("  ", self._model_path)
             print("  ", self._mean_shape_path)
             while True:
@@ -111,7 +111,7 @@ class SGPA(CPASMethod):
                     self._download_weights()
                     break
                 elif decision == "n":
-                    print("CRNet model weights not found. Aborting.")
+                    print("SGPA model weights not found. Aborting.")
                     exit(0)
 
     def _download_weights(self) -> None:
@@ -223,7 +223,7 @@ class SGPA(CPASMethod):
             torch.FloatTensor(mean_shape_pointset).unsqueeze(0).to(self._device)
         )
 
-        # Call CRNet
+        # Call SGPA
         _, assign_matrix, deltas = self._sgpa(
             points,
             color_input,
