@@ -548,6 +548,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpas_methods/icaps/" class="md-nav__link">
+        icaps.py
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -1718,7 +1732,9 @@ and is saved to
 <span class="normal">923</span>
 <span class="normal">924</span>
 <span class="normal">925</span>
-<span class="normal">926</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">NOCSDataset</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span>
+<span class="normal">926</span>
+<span class="normal">927</span>
+<span class="normal">928</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">NOCSDataset</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Dataset class for NOCS dataset.</span>
 
 <span class="sd">    CAMERA* and REAL* are training sets.</span>
@@ -1841,13 +1857,13 @@ and is saved to
 <span class="sd">                with default_dict. See NOCSDataset.Config for supported keys.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">config</span> <span class="o">=</span> <span class="n">yoco</span><span class="o">.</span><span class="n">load_config</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">current_dict</span><span class="o">=</span><span class="n">NOCSDataset</span><span class="o">.</span><span class="n">default_config</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;root_dir&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;root_dir&quot;</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_split</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;split&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_dirs</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_camera_convention</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;camera_convention&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_split_camera</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">,</span> <span class="s2">&quot;csap_toolbox&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="s2">&quot;csap_toolbox&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_preprocess_path</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess_dataset</span><span class="p">()</span>
@@ -1861,9 +1877,9 @@ and is saved to
 
     <span class="k">def</span> <span class="nf">_check_dirs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">directories</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">,</span> <span class="s2">&quot;gts&quot;</span><span class="p">),</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="s2">&quot;gts&quot;</span><span class="p">),</span>
         <span class="p">]</span>
-        <span class="c1"># required folders</span>
+        <span class="c1"># required directories</span>
         <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span> <span class="k">for</span> <span class="n">directory</span> <span class="ow">in</span> <span class="n">directories</span><span class="p">):</span>
             <span class="k">pass</span>
         <span class="k">else</span><span class="p">:</span>
@@ -1871,7 +1887,7 @@ and is saved to
                 <span class="sa">f</span><span class="s2">&quot;NOCS dataset (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_split</span><span class="si">}</span><span class="s2"> split) not found, do you want to download&quot;</span>
                 <span class="s2">&quot; it into the following directory:&quot;</span>
             <span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">)</span>
             <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
                 <span class="n">decision</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;(Y/n) &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
                 <span class="k">if</span> <span class="n">decision</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">decision</span> <span class="o">==</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>
@@ -1887,20 +1903,20 @@ and is saved to
 
         <span class="c1"># gts only available for real test and camera val</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;real_test&quot;</span><span class="p">,</span> <span class="s2">&quot;camera_val&quot;</span><span class="p">]:</span>
-            <span class="n">dirs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">,</span> <span class="s2">&quot;gts&quot;</span><span class="p">))</span>
+            <span class="n">dirs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="s2">&quot;gts&quot;</span><span class="p">))</span>
 
-        <span class="n">dirs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">,</span> <span class="s2">&quot;obj_models&quot;</span><span class="p">))</span>
+        <span class="n">dirs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="s2">&quot;obj_models&quot;</span><span class="p">))</span>
 
         <span class="c1"># full depths for CAMERA</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;camera_val&quot;</span><span class="p">,</span> <span class="s2">&quot;camera_train&quot;</span><span class="p">]:</span>
-            <span class="n">dirs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">,</span> <span class="s2">&quot;camera_full_depths&quot;</span><span class="p">))</span>
+            <span class="n">dirs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="s2">&quot;camera_full_depths&quot;</span><span class="p">))</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span> <span class="o">==</span> <span class="s2">&quot;camera_train&quot;</span><span class="p">:</span>
-            <span class="n">dirs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">,</span> <span class="s2">&quot;train&quot;</span><span class="p">))</span>
+            <span class="n">dirs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="s2">&quot;train&quot;</span><span class="p">))</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span> <span class="o">==</span> <span class="s2">&quot;camera_val&quot;</span><span class="p">:</span>
-            <span class="n">dirs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">,</span> <span class="s2">&quot;val&quot;</span><span class="p">))</span>
+            <span class="n">dirs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="s2">&quot;val&quot;</span><span class="p">))</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;real_train&quot;</span><span class="p">,</span> <span class="s2">&quot;real_test&quot;</span><span class="p">]:</span>
-            <span class="n">dirs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span><span class="p">))</span>
+            <span class="n">dirs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Specified split </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_split</span><span class="si">}</span><span class="s2"> is not supported.&quot;</span><span class="p">)</span>
 
@@ -2033,19 +2049,19 @@ and is saved to
 
 <span class="sd">        Some png files have jpg extension. This function fixes these models.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">glob_pattern</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">,</span> <span class="s2">&quot;**&quot;</span><span class="p">,</span> <span class="s2">&quot;*.jpg&quot;</span><span class="p">)</span>
+        <span class="n">glob_pattern</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="s2">&quot;**&quot;</span><span class="p">,</span> <span class="s2">&quot;*.jpg&quot;</span><span class="p">)</span>
         <span class="n">files</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="n">glob_pattern</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">filepath</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
             <span class="n">what</span> <span class="o">=</span> <span class="n">imghdr</span><span class="o">.</span><span class="n">what</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">what</span> <span class="o">==</span> <span class="s2">&quot;png&quot;</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fixing: &quot;</span><span class="p">,</span> <span class="n">filepath</span><span class="p">)</span>
-                <span class="n">folder</span><span class="p">,</span> <span class="n">problematic_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+                <span class="n">obj_dir_path</span><span class="p">,</span> <span class="n">problematic_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
                 <span class="n">name</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">problematic_filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
                 <span class="n">fixed_filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;fixed_</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.png&quot;</span>
-                <span class="n">fixed_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">fixed_filename</span><span class="p">)</span>
+                <span class="n">fixed_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">obj_dir_path</span><span class="p">,</span> <span class="n">fixed_filename</span><span class="p">)</span>
 
-                <span class="n">mtl_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="s2">&quot;model.mtl&quot;</span><span class="p">)</span>
-                <span class="n">bu_mtl_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="s2">&quot;model.mtl.old&quot;</span><span class="p">)</span>
+                <span class="n">mtl_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">obj_dir_path</span><span class="p">,</span> <span class="s2">&quot;model.mtl&quot;</span><span class="p">)</span>
+                <span class="n">bu_mtl_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">obj_dir_path</span><span class="p">,</span> <span class="s2">&quot;model.mtl.old&quot;</span><span class="p">)</span>
                 <span class="n">copyfile</span><span class="p">(</span><span class="n">mtl_filepath</span><span class="p">,</span> <span class="n">bu_mtl_filepath</span><span class="p">)</span>
 
                 <span class="n">copyfile</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">fixed_filepath</span><span class="p">)</span>
@@ -2151,19 +2167,21 @@ and is saved to
     <span class="k">def</span> <span class="nf">_get_color_files</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Return list of paths of color images of the selected split.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span> <span class="o">==</span> <span class="s2">&quot;camera_train&quot;</span><span class="p">:</span>
-            <span class="n">glob_pattern</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">,</span> <span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="s2">&quot;**&quot;</span><span class="p">,</span> <span class="s2">&quot;*_color.png&quot;</span><span class="p">)</span>
+            <span class="n">glob_pattern</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="s2">&quot;**&quot;</span><span class="p">,</span> <span class="s2">&quot;*_color.png&quot;</span>
+            <span class="p">)</span>
             <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">glob_pattern</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span> <span class="o">==</span> <span class="s2">&quot;camera_val&quot;</span><span class="p">:</span>
-            <span class="n">glob_pattern</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">,</span> <span class="s2">&quot;val&quot;</span><span class="p">,</span> <span class="s2">&quot;**&quot;</span><span class="p">,</span> <span class="s2">&quot;*_color.png&quot;</span><span class="p">)</span>
+            <span class="n">glob_pattern</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="s2">&quot;val&quot;</span><span class="p">,</span> <span class="s2">&quot;**&quot;</span><span class="p">,</span> <span class="s2">&quot;*_color.png&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">glob_pattern</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span> <span class="o">==</span> <span class="s2">&quot;real_train&quot;</span><span class="p">:</span>
             <span class="n">glob_pattern</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">,</span> <span class="s2">&quot;real_train&quot;</span><span class="p">,</span> <span class="s2">&quot;**&quot;</span><span class="p">,</span> <span class="s2">&quot;*_color.png&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="s2">&quot;real_train&quot;</span><span class="p">,</span> <span class="s2">&quot;**&quot;</span><span class="p">,</span> <span class="s2">&quot;*_color.png&quot;</span>
             <span class="p">)</span>
             <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">glob_pattern</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span> <span class="o">==</span> <span class="s2">&quot;real_test&quot;</span><span class="p">:</span>
             <span class="n">glob_pattern</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">,</span> <span class="s2">&quot;real_test&quot;</span><span class="p">,</span> <span class="s2">&quot;**&quot;</span><span class="p">,</span> <span class="s2">&quot;*_color.png&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="s2">&quot;real_test&quot;</span><span class="p">,</span> <span class="s2">&quot;**&quot;</span><span class="p">,</span> <span class="s2">&quot;*_color.png&quot;</span>
             <span class="p">)</span>
             <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">glob_pattern</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
@@ -2377,9 +2395,9 @@ and is saved to
 <span class="sd">        Return None if split does not have ground truth information.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span> <span class="o">==</span> <span class="s2">&quot;real_test&quot;</span><span class="p">:</span>
-            <span class="n">gts_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">,</span> <span class="s2">&quot;gts&quot;</span><span class="p">,</span> <span class="s2">&quot;real_test&quot;</span><span class="p">)</span>
+            <span class="n">gts_dir_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="s2">&quot;gts&quot;</span><span class="p">,</span> <span class="s2">&quot;real_test&quot;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span> <span class="o">==</span> <span class="s2">&quot;camera_val&quot;</span><span class="p">:</span>
-            <span class="n">gts_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">,</span> <span class="s2">&quot;gts&quot;</span><span class="p">,</span> <span class="s2">&quot;val&quot;</span><span class="p">)</span>
+            <span class="n">gts_dir_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="s2">&quot;gts&quot;</span><span class="p">,</span> <span class="s2">&quot;val&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
 
@@ -2387,7 +2405,7 @@ and is saved to
         <span class="n">split_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">sep</span><span class="p">)</span>
         <span class="n">number</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">14</span><span class="p">:</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
         <span class="n">gts_filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;results_</span><span class="si">{</span><span class="n">split_path</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">split_path</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">number</span><span class="si">}</span><span class="s2">.pkl&quot;</span>
-        <span class="n">gts_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">gts_folder</span><span class="p">,</span> <span class="n">gts_filename</span><span class="p">)</span>
+        <span class="n">gts_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">gts_dir_path</span><span class="p">,</span> <span class="n">gts_filename</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">gts_path</span>
 
     <span class="k">def</span> <span class="nf">_get_obj_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">meta_row</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -2396,7 +2414,7 @@ and is saved to
             <span class="n">synset_id</span> <span class="o">=</span> <span class="n">meta_row</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
             <span class="n">object_id</span> <span class="o">=</span> <span class="n">meta_row</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
             <span class="n">obj_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span>
                 <span class="s2">&quot;obj_models&quot;</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_split</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;camera_&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
                 <span class="n">synset_id</span><span class="p">,</span>
@@ -2406,7 +2424,7 @@ and is saved to
         <span class="k">elif</span> <span class="s2">&quot;real&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span><span class="p">:</span>  <span class="c1"># REAL mesh</span>
             <span class="n">object_id</span> <span class="o">=</span> <span class="n">meta_row</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
             <span class="n">obj_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">,</span> <span class="s2">&quot;obj_models&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span><span class="p">,</span> <span class="n">object_id</span> <span class="o">+</span> <span class="s2">&quot;.obj&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="s2">&quot;obj_models&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span><span class="p">,</span> <span class="n">object_id</span> <span class="o">+</span> <span class="s2">&quot;.obj&quot;</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Specified split </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_split</span><span class="si">}</span><span class="s2"> is not supported.&quot;</span><span class="p">)</span>
@@ -3026,13 +3044,13 @@ with default_dict. See NOCSDataset.Config for supported keys.</p>
 <span class="sd">            with default_dict. See NOCSDataset.Config for supported keys.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">config</span> <span class="o">=</span> <span class="n">yoco</span><span class="o">.</span><span class="n">load_config</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">current_dict</span><span class="o">=</span><span class="n">NOCSDataset</span><span class="o">.</span><span class="n">default_config</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;root_dir&quot;</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;root_dir&quot;</span><span class="p">])</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_split</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;split&quot;</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_check_dirs</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_camera_convention</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;camera_convention&quot;</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_split_camera</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">,</span> <span class="s2">&quot;csap_toolbox&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="s2">&quot;csap_toolbox&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span>
     <span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_preprocess_path</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess_dataset</span><span class="p">()</span>
@@ -3216,9 +3234,7 @@ with default_dict. See NOCSDataset.Config for supported keys.</p>
 
       <details class="quote">
         <summary>Source code in <code>cpas_toolbox/datasets/nocs_dataset.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">913</span>
-<span class="normal">914</span>
-<span class="normal">915</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">915</span>
 <span class="normal">916</span>
 <span class="normal">917</span>
 <span class="normal">918</span>
@@ -3229,7 +3245,9 @@ with default_dict. See NOCSDataset.Config for supported keys.</p>
 <span class="normal">923</span>
 <span class="normal">924</span>
 <span class="normal">925</span>
-<span class="normal">926</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">load_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="p">:</span>
+<span class="normal">926</span>
+<span class="normal">927</span>
+<span class="normal">928</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">load_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Load an object mesh and adjust its object frame convention.&quot;&quot;&quot;</span>
     <span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">object_path</span><span class="p">)</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_x_axis</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -3278,10 +3296,10 @@ with default_dict. See NOCSDataset.Config for supported keys.</p>
 
         <details class="quote">
           <summary>Source code in <code>cpas_toolbox/datasets/nocs_dataset.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">929</span>
-<span class="normal">930</span>
-<span class="normal">931</span>
-<span class="normal">932</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ObjectError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">931</span>
+<span class="normal">932</span>
+<span class="normal">933</span>
+<span class="normal">934</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ObjectError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Error if something with the mesh is wrong.&quot;&quot;&quot;</span>
 
     <span class="k">pass</span>

@@ -532,6 +532,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cpas_methods/icaps/" class="md-nav__link">
+        icaps.py
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -1229,7 +1243,7 @@
             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataset_name</span><span class="si">}</span><span class="s2">_eval_</span><span class="si">{</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;run_name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">_&quot;</span>
             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">_%H-%M-%S&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_out_folder</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;out_folder&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_out_dir_path</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;out_dir&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_metrics</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;metrics&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_num_gt_points</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;num_gt_points&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_vis_camera_json</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;vis_camera_json&quot;</span><span class="p">]</span>
@@ -1325,11 +1339,11 @@
                     <span class="n">render_options_json</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_render_options_json</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_store_visualization</span><span class="p">:</span>
-                <span class="n">out_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_out_folder</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_name</span><span class="p">,</span> <span class="s2">&quot;visualization&quot;</span>
+                <span class="n">vis_dir_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_out_dir_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_name</span><span class="p">,</span> <span class="s2">&quot;visualization&quot;</span>
                 <span class="p">)</span>
-                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out_folder</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-                <span class="n">vis_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_folder</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="s2">06</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">method_name</span><span class="si">}</span><span class="s2">.jpg&quot;</span><span class="p">)</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">vis_dir_path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">vis_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">vis_dir_path</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="s2">06</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">method_name</span><span class="si">}</span><span class="s2">.jpg&quot;</span><span class="p">)</span>
                 <span class="n">visualize_estimation</span><span class="p">(</span>
                     <span class="n">color_image</span><span class="o">=</span><span class="n">sample</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">],</span>
                     <span class="n">depth_image</span><span class="o">=</span><span class="n">sample</span><span class="p">[</span><span class="s2">&quot;depth&quot;</span><span class="p">],</span>
@@ -1341,7 +1355,7 @@
                     <span class="n">camera</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_cam</span><span class="p">,</span>
                     <span class="n">vis_camera_json</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_vis_camera_json</span><span class="p">,</span>
                     <span class="n">render_options_json</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_render_options_json</span><span class="p">,</span>
-                    <span class="n">vis_path</span><span class="o">=</span><span class="n">vis_path</span><span class="p">,</span>
+                    <span class="n">vis_file_path</span><span class="o">=</span><span class="n">vis_file_path</span><span class="p">,</span>
                 <span class="p">)</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_eval_prediction</span><span class="p">(</span><span class="n">prediction</span><span class="p">,</span> <span class="n">sample</span><span class="p">)</span>
@@ -1519,9 +1533,9 @@
 
 <span class="sd">        Also writes results to disk and create plot if applicable.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">out_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_out_folder</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_name</span><span class="p">)</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out_folder</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">yaml_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_folder</span><span class="p">,</span> <span class="s2">&quot;results.yaml&quot;</span><span class="p">)</span>
+        <span class="n">results_dir_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_out_dir_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_name</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">results_dir_path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">yaml_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">results_dir_path</span><span class="p">,</span> <span class="s2">&quot;results.yaml&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_results_dict</span><span class="p">[</span><span class="n">method_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_runtime_results_dict</span><span class="p">[</span><span class="n">method_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
@@ -1540,7 +1554,7 @@
                     <span class="n">metric_name</span><span class="p">,</span>
                     <span class="n">metric_dict</span><span class="p">,</span>
                     <span class="n">correct_percentage</span><span class="p">,</span>
-                    <span class="n">out_folder</span><span class="p">,</span>
+                    <span class="n">results_dir_path</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="k">elif</span> <span class="s2">&quot;pointwise_f&quot;</span> <span class="ow">in</span> <span class="n">metric_dict</span><span class="p">:</span>  <span class="c1"># pointwise reconstruction metrics</span>
                 <span class="n">counts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metric_data</span><span class="p">[</span><span class="n">metric_name</span><span class="p">][</span><span class="s2">&quot;counts&quot;</span><span class="p">]</span>
@@ -1563,8 +1577,8 @@
             <span class="s2">&quot;results&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_results_dict</span><span class="p">,</span>
             <span class="s2">&quot;runtime_results&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runtime_results_dict</span><span class="p">,</span>
         <span class="p">}</span>
-        <span class="n">yoco</span><span class="o">.</span><span class="n">save_config_to_file</span><span class="p">(</span><span class="n">yaml_path</span><span class="p">,</span> <span class="n">results_dict</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Results saved to: </span><span class="si">{</span><span class="n">yaml_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">yoco</span><span class="o">.</span><span class="n">save_config_to_file</span><span class="p">(</span><span class="n">yaml_file_path</span><span class="p">,</span> <span class="n">results_dict</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Results saved to: </span><span class="si">{</span><span class="n">yaml_file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_create_metric_plot</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -1572,7 +1586,7 @@
         <span class="n">metric_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">metric_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
         <span class="n">correct_percentage</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
-        <span class="n">out_folder</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">out_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Create metric plot if applicable.</span>
 
@@ -1608,14 +1622,14 @@
                 <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;all&quot;</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_values</span><span class="p">,</span> <span class="n">y_values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
 
-        <span class="n">figure_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_folder</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">method_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">metric_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">figure_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">method_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">metric_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">threshold_key</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Correct&quot;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
 
-        <span class="n">tikzplotlib</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">figure_path</span> <span class="o">+</span> <span class="s2">&quot;.tex&quot;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">figure_path</span> <span class="o">+</span> <span class="s2">&quot;.png&quot;</span><span class="p">)</span>
+        <span class="n">tikzplotlib</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">figure_file_path</span> <span class="o">+</span> <span class="s2">&quot;.tex&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">figure_file_path</span> <span class="o">+</span> <span class="s2">&quot;.png&quot;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1733,7 +1747,7 @@
     <span class="n">reconstructed_mesh</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">vis_camera_json</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">render_options_json</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">vis_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">vis_file_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
@@ -1883,7 +1897,7 @@ No render options will be applied if None.</p>
           </td>
         </tr>
         <tr>
-          <td><code>vis_path</code></td>
+          <td><code>vis_file_path</code></td>
           <td class="doc-param-details">
             <p>If not None, the image will be rendered off screen and saved at the
 specified path.</p>
@@ -2073,7 +2087,7 @@ specified path.</p>
     <span class="n">reconstructed_mesh</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">vis_camera_json</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">render_options_json</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">vis_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">vis_file_path</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Visualize prediction and ask for confirmation.</span>
 
@@ -2096,7 +2110,7 @@ specified path.</p>
 <span class="sd">            Path to open3d camera options json file that will be applied.</span>
 <span class="sd">            Generated by pressing p in desired view.</span>
 <span class="sd">            No render options will be applied if None.</span>
-<span class="sd">        vis_path:</span>
+<span class="sd">        vis_file_path:</span>
 <span class="sd">            If not None, the image will be rendered off screen and saved at the</span>
 <span class="sd">            specified path.</span>
 
@@ -2179,7 +2193,7 @@ specified path.</p>
         <span class="n">width</span> <span class="o">=</span> <span class="mi">800</span>
         <span class="n">height</span> <span class="o">=</span> <span class="mi">600</span>
         <span class="n">vis_camera</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">vis</span><span class="o">.</span><span class="n">create_window</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="p">(</span><span class="n">vis_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">))</span>
+    <span class="n">vis</span><span class="o">.</span><span class="n">create_window</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span> <span class="n">visible</span><span class="o">=</span><span class="p">(</span><span class="n">vis_file_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">))</span>
 
     <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">o3d_geometries</span><span class="p">:</span>
         <span class="n">vis</span><span class="o">.</span><span class="n">add_geometry</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
@@ -2192,10 +2206,10 @@ specified path.</p>
         <span class="n">render_option</span> <span class="o">=</span> <span class="n">vis</span><span class="o">.</span><span class="n">get_render_option</span><span class="p">()</span>
         <span class="n">render_option</span><span class="o">.</span><span class="n">load_from_json</span><span class="p">(</span><span class="n">render_options_json</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">vis_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">vis_file_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">vis</span><span class="o">.</span><span class="n">poll_events</span><span class="p">()</span>
         <span class="n">vis</span><span class="o">.</span><span class="n">update_renderer</span><span class="p">()</span>
-        <span class="n">vis</span><span class="o">.</span><span class="n">capture_screen_image</span><span class="p">(</span><span class="n">vis_path</span><span class="p">,</span> <span class="n">do_render</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">vis</span><span class="o">.</span><span class="n">capture_screen_image</span><span class="p">(</span><span class="n">vis_file_path</span><span class="p">,</span> <span class="n">do_render</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">vis</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
@@ -2241,7 +2255,7 @@ specified path.</p>
         <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Pose and shape estimation evaluation on REAL275 data&quot;</span>
     <span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--config&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--out_folder&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--out_dir&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="n">resolved_args</span> <span class="o">=</span> <span class="n">_resolve_config_args</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
 

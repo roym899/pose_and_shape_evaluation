@@ -527,6 +527,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../icaps/" class="md-nav__link">
+        icaps.py
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -998,26 +1012,52 @@ https://github.com/mentian/object-deformnet</p>
 <span class="normal">255</span>
 <span class="normal">256</span>
 <span class="normal">257</span>
-<span class="normal">258</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">SPD</span><span class="p">(</span><span class="n">CPASMethod</span><span class="p">):</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">SPD</span><span class="p">(</span><span class="n">CPASMethod</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Wrapper class for Shape Prior Deformation (SPD).&quot;&quot;&quot;</span>
 
     <span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Configuration dictionary for SPD.</span>
 
 <span class="sd">        Attributes:</span>
-<span class="sd">            model: Path to model.</span>
+<span class="sd">            model_file: Path to model.</span>
+<span class="sd">            mean_shape_file: Path to mean shape file.</span>
 <span class="sd">            num_categories: Number of categories used by model.</span>
 <span class="sd">            num_shape_points: Number of points in shape prior.</span>
+<span class="sd">            num_input_points: Number of input points.</span>
+<span class="sd">            image_size: Size of image crop.</span>
 <span class="sd">            device: Device string for the model.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">model</span><span class="p">:</span> <span class="nb">str</span>
+        <span class="n">model_file</span><span class="p">:</span> <span class="nb">str</span>
+        <span class="n">mean_shape_file</span><span class="p">:</span> <span class="nb">str</span>
         <span class="n">num_categories</span><span class="p">:</span> <span class="nb">int</span>
+        <span class="n">num_shape_points</span><span class="p">:</span> <span class="nb">int</span>
+        <span class="n">num_input_points</span><span class="p">:</span> <span class="nb">int</span>
+        <span class="n">image_size</span><span class="p">:</span> <span class="nb">int</span>
+        <span class="n">device</span><span class="p">:</span> <span class="nb">str</span>
 
     <span class="n">default_config</span><span class="p">:</span> <span class="n">Config</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;model_file&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;mean_shape_file&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
         <span class="s2">&quot;num_categories&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
         <span class="s2">&quot;num_shape_points&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;num_input_points&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;image_size&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="s2">&quot;cuda&quot;</span><span class="p">,</span>
     <span class="p">}</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="n">camera_utils</span><span class="o">.</span><span class="n">Camera</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1033,26 +1073,26 @@ https://github.com/mentian/object-deformnet</p>
 
     <span class="k">def</span> <span class="nf">_parse_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;device&quot;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_model_path</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_path</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;mean_shape&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model_file_path</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;model_file&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_file_path</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;mean_shape_file&quot;</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_paths</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_spd_net</span> <span class="o">=</span> <span class="n">spd</span><span class="o">.</span><span class="n">DeformNet</span><span class="p">(</span>
             <span class="n">config</span><span class="p">[</span><span class="s2">&quot;num_categories&quot;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;num_shape_points&quot;</span><span class="p">]</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_spd_net</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_spd_net</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_path</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_spd_net</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_file_path</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_spd_net</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_pointsets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_pointsets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_file_path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_num_input_points</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;num_input_points&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_image_size</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;image_size&quot;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_check_paths</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_path</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_path</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_file_path</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_file_path</span>
         <span class="p">):</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;SPD model weights not found, do you want to download to &quot;</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model_path</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_path</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model_file_path</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_file_path</span><span class="p">)</span>
             <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
                 <span class="n">decision</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;(Y/n) &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
                 <span class="k">if</span> <span class="n">decision</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">decision</span> <span class="o">==</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>
@@ -1063,30 +1103,32 @@ https://github.com/mentian/object-deformnet</p>
                     <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_download_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_path</span><span class="p">):</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_path</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="n">download_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_path</span><span class="p">)</span>
-            <span class="n">zip_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">download_folder</span><span class="p">,</span> <span class="s2">&quot;temp.zip&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_file_path</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_file_path</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">download_dir_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_file_path</span><span class="p">)</span>
+            <span class="n">zip_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">download_dir_path</span><span class="p">,</span> <span class="s2">&quot;temp.zip&quot;</span><span class="p">)</span>
             <span class="n">utils</span><span class="o">.</span><span class="n">download</span><span class="p">(</span>
                 <span class="s2">&quot;https://drive.google.com/u/0/uc?id=1p72NdY4Bie_sra9U8zoUNI4fTrQZdbnc&amp;&quot;</span>
                 <span class="s2">&quot;export=download&quot;</span><span class="p">,</span>
                 <span class="n">zip_path</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="n">z</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">zip_path</span><span class="p">)</span>
-            <span class="n">z</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="s2">&quot;deformnet_eval/real/model_50.pth&quot;</span><span class="p">,</span> <span class="n">download_folder</span><span class="p">)</span>
+            <span class="n">z</span><span class="o">.</span><span class="n">extract</span><span class="p">(</span><span class="s2">&quot;deformnet_eval/real/model_50.pth&quot;</span><span class="p">,</span> <span class="n">download_dir_path</span><span class="p">)</span>
             <span class="n">z</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
             <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">zip_path</span><span class="p">)</span>
             <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span>
-                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">download_folder</span><span class="p">,</span> <span class="s2">&quot;deformnet_eval&quot;</span><span class="p">,</span> <span class="s2">&quot;real&quot;</span><span class="p">,</span> <span class="s2">&quot;model_50.pth&quot;</span><span class="p">),</span>
-                <span class="n">download_folder</span><span class="p">,</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="n">download_dir_path</span><span class="p">,</span> <span class="s2">&quot;deformnet_eval&quot;</span><span class="p">,</span> <span class="s2">&quot;real&quot;</span><span class="p">,</span> <span class="s2">&quot;model_50.pth&quot;</span>
+                <span class="p">),</span>
+                <span class="n">download_dir_path</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">download_folder</span><span class="p">,</span> <span class="s2">&quot;deformnet_eval&quot;</span><span class="p">))</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_path</span><span class="p">):</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_path</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">download_dir_path</span><span class="p">,</span> <span class="s2">&quot;deformnet_eval&quot;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_file_path</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_file_path</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">utils</span><span class="o">.</span><span class="n">download</span><span class="p">(</span>
                 <span class="s2">&quot;https://github.com/mentian/object-deformnet/raw/master/assets/&quot;</span>
                 <span class="s2">&quot;mean_points_emb.npy&quot;</span><span class="p">,</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_path</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_file_path</span><span class="p">,</span>
             <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">inference</span><span class="p">(</span>
@@ -1271,9 +1313,21 @@ https://github.com/mentian/object-deformnet</p>
     </thead>
     <tbody>
         <tr>
-          <td><code>model</code></td>
+          <td><code>model_file</code></td>
           <td class="doc-attribute-details">
             <p>Path to model.</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code>str</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>mean_shape_file</code></td>
+          <td class="doc-attribute-details">
+            <p>Path to mean shape file.</p>
             <p>
                 <span class="doc-attribute-annotation">
                   <b>TYPE:</b>
@@ -1307,13 +1361,37 @@ https://github.com/mentian/object-deformnet</p>
           </td>
         </tr>
         <tr>
+          <td><code>num_input_points</code></td>
+          <td class="doc-attribute-details">
+            <p>Number of input points.</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code>int</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>image_size</code></td>
+          <td class="doc-attribute-details">
+            <p>Size of image crop.</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code>int</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
           <td><code>device</code></td>
           <td class="doc-attribute-details">
             <p>Device string for the model.</p>
             <p>
                 <span class="doc-attribute-annotation">
                   <b>TYPE:</b>
-                    <code>int</code>
+                    <code>str</code>
                 </span>
             </p>
           </td>
@@ -1335,18 +1413,34 @@ https://github.com/mentian/object-deformnet</p>
 <span class="normal">38</span>
 <span class="normal">39</span>
 <span class="normal">40</span>
-<span class="normal">41</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Configuration dictionary for SPD.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        model: Path to model.</span>
+<span class="sd">        model_file: Path to model.</span>
+<span class="sd">        mean_shape_file: Path to mean shape file.</span>
 <span class="sd">        num_categories: Number of categories used by model.</span>
 <span class="sd">        num_shape_points: Number of points in shape prior.</span>
+<span class="sd">        num_input_points: Number of input points.</span>
+<span class="sd">        image_size: Size of image crop.</span>
 <span class="sd">        device: Device string for the model.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">model</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">model_file</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">mean_shape_file</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">num_categories</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">num_shape_points</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">num_input_points</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">image_size</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">device</span><span class="p">:</span> <span class="nb">str</span>
 </code></pre></div></td></tr></table></div>
         </details>
 
@@ -1424,16 +1518,16 @@ https://github.com/mentian/object-deformnet</p>
 
       <details class="quote">
         <summary>Source code in <code>cpas_toolbox/cpas_methods/spd.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
-<span class="normal">58</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="n">camera_utils</span><span class="o">.</span><span class="n">Camera</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="n">camera_utils</span><span class="o">.</span><span class="n">Camera</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Initialize and load SPD model.</span>
 
 <span class="sd">    Args:</span>
@@ -1473,21 +1567,7 @@ https://github.com/mentian/object-deformnet</p>
 
       <details class="quote">
         <summary>Source code in <code>cpas_toolbox/cpas_methods/spd.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">118</span>
-<span class="normal">119</span>
-<span class="normal">120</span>
-<span class="normal">121</span>
-<span class="normal">122</span>
-<span class="normal">123</span>
-<span class="normal">124</span>
-<span class="normal">125</span>
-<span class="normal">126</span>
-<span class="normal">127</span>
-<span class="normal">128</span>
-<span class="normal">129</span>
-<span class="normal">130</span>
-<span class="normal">131</span>
-<span class="normal">132</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">132</span>
 <span class="normal">133</span>
 <span class="normal">134</span>
 <span class="normal">135</span>
@@ -1613,7 +1693,21 @@ https://github.com/mentian/object-deformnet</p>
 <span class="normal">255</span>
 <span class="normal">256</span>
 <span class="normal">257</span>
-<span class="normal">258</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">inference</span><span class="p">(</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">inference</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">color_image</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
     <span class="n">depth_image</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>

@@ -1,0 +1,1960 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://roym899.github.io/pose_and_shape_evaluation/api_reference/cpas_methods/icaps/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>icaps.py - Categorical Pose and Shape Evaluation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.975780f9.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.2505c338.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../../css/mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="None" data-md-color-accent="None">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cpas_toolbox.cpas_methods.icaps" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Categorical Pose and Shape Evaluation" class="md-header__button md-logo" aria-label="Categorical Pose and Shape Evaluation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Categorical Pose and Shape Evaluation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              icaps.py
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/roym899/pose_and_shape_evaluation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    roym899/pose_and_shape_evaluation
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Categorical Pose and Shape Evaluation" class="md-nav__button md-logo" aria-label="Categorical Pose and Shape Evaluation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Categorical Pose and Shape Evaluation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/roym899/pose_and_shape_evaluation" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    roym899/pose_and_shape_evaluation
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Getting started
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../data_preparation/" class="md-nav__link">
+        Data preparation
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../evaluate/" class="md-nav__link">
+        evaluate.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_2">
+          datasets
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="datasets" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          datasets
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../datasets/nocs_dataset/" class="md-nav__link">
+        nocs_dataset.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../datasets/nocs_utils/" class="md-nav__link">
+        nocs_utils.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../datasets/redwood_dataset/" class="md-nav__link">
+        redwood_dataset.py
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_3">
+          cpas_methods
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="cpas_methods" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          cpas_methods
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cass/" class="md-nav__link">
+        cass.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spd/" class="md-nav__link">
+        spd.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crnet/" class="md-nav__link">
+        crnet.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../asmnet/" class="md-nav__link">
+        asmnet.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sgpa/" class="md-nav__link">
+        sgpa.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          icaps.py
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        icaps.py
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cpas_toolbox.cpas_methods.icaps" class="md-nav__link">
+    icaps
+  </a>
+  
+    <nav class="md-nav" aria-label="icaps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.cpas_methods.icaps.ICaps" class="md-nav__link">
+    ICaps
+  </a>
+  
+    <nav class="md-nav" aria-label="ICaps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.cpas_methods.icaps.ICaps.Config" class="md-nav__link">
+    Config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.cpas_methods.icaps.ICaps.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.cpas_methods.icaps.ICaps.inference" class="md-nav__link">
+    inference()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../metrics/" class="md-nav__link">
+        metrics.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpas_method/" class="md-nav__link">
+        cpas_method.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../camera_utils/" class="md-nav__link">
+        camera_utils.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pointset_utils/" class="md-nav__link">
+        pointset_utils.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../quaternion_utils/" class="md-nav__link">
+        quaternion_utils.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../utils/" class="md-nav__link">
+        utils.py
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cpas_toolbox.cpas_methods.icaps" class="md-nav__link">
+    icaps
+  </a>
+  
+    <nav class="md-nav" aria-label="icaps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.cpas_methods.icaps.ICaps" class="md-nav__link">
+    ICaps
+  </a>
+  
+    <nav class="md-nav" aria-label="ICaps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.cpas_methods.icaps.ICaps.Config" class="md-nav__link">
+    Config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.cpas_methods.icaps.ICaps.__init__" class="md-nav__link">
+    __init__()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cpas_toolbox.cpas_methods.icaps.ICaps.inference" class="md-nav__link">
+    inference()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/roym899/pose_and_shape_evaluation/edit/master/docs/api_reference/cpas_methods/icaps.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+  <h1>icaps.py</h1>
+
+<div class="doc doc-object doc-module">
+
+
+
+<h2 id="cpas_toolbox.cpas_methods.icaps" class="doc doc-heading">
+          <span class="doc doc-object-name doc-module-name">cpas_toolbox.cpas_methods.icaps</span>
+
+
+</h2>
+
+  <div class="doc doc-contents first">
+  
+      <p>This module defines iCaps interface.</p>
+<p>Method is described in iCaps Iterative Category-Level Object Pose and Shape Estimation,
+Deng, 2022.</p>
+<p>Implementation based on https://github.com/aerogjy/iCaps</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h3 id="cpas_toolbox.cpas_methods.icaps.ICaps" class="doc doc-heading">
+        <span class="doc doc-object-name doc-class-name">ICaps</span>
+
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+      <p class="doc doc-class-bases">
+        Bases: <code><a class="autorefs autorefs-internal" title="cpas_toolbox.cpas_method.CPASMethod" href="../../cpas_method/#cpas_toolbox.cpas_method.CPASMethod">CPASMethod</a></code></p>
+
+  
+      <p>Wrapper class for iCaps.</p>
+
+
+        <details class="quote">
+          <summary>Source code in <code>cpas_toolbox/cpas_methods/icaps.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ICaps</span><span class="p">(</span><span class="n">CPASMethod</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Wrapper class for iCaps.&quot;&quot;&quot;</span>
+
+    <span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Configuration dictionary for iCaps.</span>
+
+<span class="sd">        Attributes:</span>
+<span class="sd">            pf_config_dir:</span>
+<span class="sd">                Particle filter configuration directory for iCaps. Must contain one yml</span>
+<span class="sd">                file for each supported category_str.</span>
+<span class="sd">            deepsdf_checkpoint_dir: Directory containing DeepSDF checkpoints.</span>
+<span class="sd">            latentnet_checkpoint_dir: Directory containing LatentNet checkpoints.</span>
+<span class="sd">            aae_checkpoint_dir: Directory containing auto-encoder checkpoints.</span>
+<span class="sd">            checkpoints_url:</span>
+<span class="sd">                URL to download checkpoints from if checkpoint directories are empty or</span>
+<span class="sd">                do not exist yet (assumed to be tar file).</span>
+<span class="sd">            categories:</span>
+<span class="sd">                List of category strings. Each category requires corresponding</span>
+<span class="sd">                directories in each checkpoint dir.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">pf_config_dir</span><span class="p">:</span> <span class="nb">str</span>
+        <span class="n">deepsdf_checkpoint_dir</span><span class="p">:</span> <span class="nb">str</span>
+        <span class="n">latentnet_checkpoint_dir</span><span class="p">:</span> <span class="nb">str</span>
+        <span class="n">aae_checkpoint_dir</span><span class="p">:</span> <span class="nb">str</span>
+        <span class="n">checkpoints_url</span><span class="p">:</span> <span class="nb">str</span>
+        <span class="n">categories</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+
+    <span class="n">default_config</span><span class="p">:</span> <span class="n">Config</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;pf_config_dir&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;deepsdf_checkpoint_dir&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;latentnet_checkpoint_dir&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;aae_checkpoint_dir&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;checkpoints_url&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;categories&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;bottle&quot;</span><span class="p">,</span> <span class="s2">&quot;bowl&quot;</span><span class="p">,</span> <span class="s2">&quot;camera&quot;</span><span class="p">,</span> <span class="s2">&quot;can&quot;</span><span class="p">,</span> <span class="s2">&quot;laptop&quot;</span><span class="p">,</span> <span class="s2">&quot;mug&quot;</span><span class="p">],</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="n">camera_utils</span><span class="o">.</span><span class="n">Camera</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Initialize and load ICaps models.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            config: iCaps configuration. See ICaps.Config for more information.</span>
+<span class="sd">            camera: Camera used for the input image.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">yoco</span><span class="o">.</span><span class="n">load_config</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">current_dict</span><span class="o">=</span><span class="n">ICaps</span><span class="o">.</span><span class="n">default_config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parse_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span> <span class="o">=</span> <span class="n">camera</span>
+
+    <span class="k">def</span> <span class="nf">_parse_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_num_points</span> <span class="o">=</span> <span class="mi">10000</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_category_strs</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;categories&quot;</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_checkpoints_url</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;checkpoints_url&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pose_rbpfs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">pf_cfg_dir_path</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span>
+            <span class="n">config</span><span class="p">[</span><span class="s2">&quot;pf_config_dir&quot;</span><span class="p">],</span>
+            <span class="n">search_paths</span><span class="o">=</span><span class="p">[</span>
+                <span class="s2">&quot;.&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;~/.cpas_toolbox&quot;</span><span class="p">,</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">&quot;config&quot;</span><span class="p">),</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span>
+            <span class="p">],</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_deepsdf_ckp_dir_path</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span>
+            <span class="n">config</span><span class="p">[</span><span class="s2">&quot;deepsdf_checkpoint_dir&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_latentnet_ckp_dir_path</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span>
+            <span class="n">config</span><span class="p">[</span><span class="s2">&quot;latentnet_checkpoint_dir&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_aae_ckp_dir_path</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;aae_checkpoint_dir&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_paths</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">category_str</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_category_strs</span><span class="p">:</span>
+            <span class="n">full_ckpt_dir_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_aae_ckp_dir_path</span><span class="p">,</span> <span class="n">category_str</span><span class="p">)</span>
+            <span class="n">train_cfg_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">full_ckpt_dir_path</span><span class="p">,</span> <span class="s2">&quot;config.yml&quot;</span><span class="p">)</span>
+            <span class="n">icaps</span><span class="o">.</span><span class="n">icaps_config</span><span class="o">.</span><span class="n">cfg_from_file</span><span class="p">(</span><span class="n">train_cfg_file</span><span class="p">)</span>
+            <span class="n">test_cfg_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pf_cfg_dir_path</span><span class="p">,</span> <span class="n">category_str</span> <span class="o">+</span> <span class="s2">&quot;.yml&quot;</span><span class="p">)</span>
+            <span class="n">icaps</span><span class="o">.</span><span class="n">icaps_config</span><span class="o">.</span><span class="n">cfg_from_file</span><span class="p">(</span><span class="n">test_cfg_file</span><span class="p">)</span>
+            <span class="n">obj_list</span> <span class="o">=</span> <span class="n">icaps</span><span class="o">.</span><span class="n">icaps_config</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">OBJECTS</span>
+            <span class="n">cfg_list</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">cfg_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">icaps</span><span class="o">.</span><span class="n">icaps_config</span><span class="o">.</span><span class="n">cfg</span><span class="p">))</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pose_rbpfs</span><span class="p">[</span><span class="n">category_str</span><span class="p">]</span> <span class="o">=</span> <span class="n">icaps</span><span class="o">.</span><span class="n">PoseRBPF</span><span class="p">(</span>
+                <span class="n">obj_list</span><span class="p">,</span>
+                <span class="n">cfg_list</span><span class="p">,</span>
+                <span class="n">full_ckpt_dir_path</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_deepsdf_ckp_dir_path</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_latentnet_ckp_dir_path</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pose_rbpfs</span><span class="p">[</span><span class="n">category_str</span><span class="p">]</span><span class="o">.</span><span class="n">set_target_obj</span><span class="p">(</span>
+                <span class="n">icaps</span><span class="o">.</span><span class="n">icaps_config</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">OBJECTS</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_check_paths</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">path_exists</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_aae_ckp_dir_path</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_deepsdf_ckp_dir_path</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_latentnet_ckp_dir_path</span><span class="p">,</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">path_exists</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;iCaps model weights not found, do you want to download to &quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aae_ckp_dir_path</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deepsdf_ckp_dir_path</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_latentnet_ckp_dir_path</span><span class="p">)</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">decision</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;(Y/n) &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">decision</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">decision</span> <span class="o">==</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_download_weights</span><span class="p">()</span>
+                    <span class="k">break</span>
+                <span class="k">elif</span> <span class="n">decision</span> <span class="o">==</span> <span class="s2">&quot;n&quot;</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;iCaps model weights not found. Aborting.&quot;</span><span class="p">)</span>
+                    <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_download_weights</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">dl_dir_path</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
+        <span class="n">tar_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dl_dir_path</span><span class="p">,</span> <span class="s2">&quot;temp&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_checkpoints_url</span><span class="p">,</span> <span class="n">tar_file_path</span><span class="p">)</span>
+        <span class="n">utils</span><span class="o">.</span><span class="n">download</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_checkpoints_url</span><span class="p">,</span>
+            <span class="n">tar_file_path</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">tar_file</span> <span class="o">=</span> <span class="n">tarfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">tar_file_path</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Extracting weights... (this might take a while)&quot;</span><span class="p">)</span>
+        <span class="n">tar_file</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">dl_dir_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_latentnet_ckp_dir_path</span><span class="p">):</span>
+            <span class="n">src_dir_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dl_dir_path</span><span class="p">,</span> <span class="s2">&quot;checkpoints&quot;</span><span class="p">,</span> <span class="s2">&quot;latentnet_ckpts&quot;</span><span class="p">)</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">src_dir_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_latentnet_ckp_dir_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_deepsdf_ckp_dir_path</span><span class="p">):</span>
+            <span class="n">src_dir_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dl_dir_path</span><span class="p">,</span> <span class="s2">&quot;checkpoints&quot;</span><span class="p">,</span> <span class="s2">&quot;deepsdf_ckpts&quot;</span><span class="p">)</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">src_dir_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deepsdf_ckp_dir_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_aae_ckp_dir_path</span><span class="p">):</span>
+            <span class="n">src_dir_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dl_dir_path</span><span class="p">,</span> <span class="s2">&quot;checkpoints&quot;</span><span class="p">,</span> <span class="s2">&quot;aae_ckpts&quot;</span><span class="p">)</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">src_dir_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aae_ckp_dir_path</span><span class="p">)</span>
+            <span class="c1"># normalize names</span>
+            <span class="k">for</span> <span class="n">category_str</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_category_strs</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">aae_category_dir</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_aae_ckp_dir_path</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">category_str</span> <span class="ow">in</span> <span class="n">aae_category_dir</span><span class="p">:</span>
+                        <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+                            <span class="n">aae_category_dir</span><span class="p">,</span>
+                            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_aae_ckp_dir_path</span><span class="p">,</span> <span class="n">category_str</span><span class="p">),</span>
+                        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">inference</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">color_image</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">depth_image</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">instance_mask</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+        <span class="n">category_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PredictionDict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;See MethodWrapper.inference.</span>
+
+<span class="sd">        Based on icaps.pose_rbpf.pose_rbps.PoseRBPF.run_nocs_dataset</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># prepare data as expected by iCaps functions (same as nocs_real_dataset)</span>
+        <span class="n">color_image</span> <span class="o">=</span> <span class="n">color_image</span> <span class="o">*</span> <span class="mi">255</span>  <span class="c1"># see icaps.datasets.nocs_real_dataset l71</span>
+        <span class="n">depth_image</span> <span class="o">=</span> <span class="n">depth_image</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># (...)nocs_real_dataset l79</span>
+        <span class="n">instance_mask</span> <span class="o">=</span> <span class="n">instance_mask</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>  <span class="c1"># (...)nocs_real_dataset l100</span>
+        <span class="n">intrinsics</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">fx</span><span class="p">,</span> <span class="n">fy</span><span class="p">,</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span><span class="o">.</span><span class="n">get_pinhole_camera_parameters</span><span class="p">(</span><span class="n">pixel_center</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+        <span class="n">intrinsics</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">fx</span>
+        <span class="n">intrinsics</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">fy</span>
+        <span class="n">intrinsics</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">cx</span>
+        <span class="n">intrinsics</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">cy</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">instance_mask</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[:,</span> <span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="n">y1</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">instance_mask</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[:,</span> <span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="n">x2</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">instance_mask</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[:,</span> <span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="n">y2</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">instance_mask</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[:,</span> <span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+        <span class="n">bbox</span> <span class="o">=</span> <span class="p">[</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">]</span>
+
+        <span class="c1"># from here follow icaps.pose_rbpf.pose_rbps.PoseRBPF.run_nocs_dataset</span>
+        <span class="n">pose_rbpf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pose_rbpfs</span><span class="p">[</span><span class="n">category_str</span><span class="p">]</span>
+        <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>  <span class="c1"># like init but without loading models</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pose_rbpfs</span><span class="p">[</span><span class="n">category_str</span><span class="p">]</span><span class="o">.</span><span class="n">set_target_obj</span><span class="p">(</span><span class="n">category_str</span><span class="p">)</span>
+
+        <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">data_intrinsics</span> <span class="o">=</span> <span class="n">intrinsics</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">intrinsics</span> <span class="o">=</span> <span class="n">intrinsics</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">target_obj_cfg</span><span class="o">.</span><span class="n">PF</span><span class="o">.</span><span class="n">FU</span> <span class="o">=</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">intrinsics</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">target_obj_cfg</span><span class="o">.</span><span class="n">PF</span><span class="o">.</span><span class="n">FV</span> <span class="o">=</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">intrinsics</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">target_obj_cfg</span><span class="o">.</span><span class="n">PF</span><span class="o">.</span><span class="n">U0</span> <span class="o">=</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">intrinsics</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">target_obj_cfg</span><span class="o">.</span><span class="n">PF</span><span class="o">.</span><span class="n">V0</span> <span class="o">=</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">intrinsics</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+
+        <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">data_with_est_center</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">data_with_gt</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># should this be False now?</span>
+
+        <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">mask_raw</span> <span class="o">=</span> <span class="n">instance_mask</span><span class="p">[:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">mask</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">ndimage</span><span class="o">.</span><span class="n">binary_erosion</span><span class="p">(</span>
+            <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">mask_raw</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">2</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">pose_rbpf</span><span class="o">.</span><span class="n">mask_raw</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+        <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">prior_uv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">prior_uv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+
+        <span class="c1"># what is this ??</span>
+        <span class="k">if</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">aae_full</span><span class="o">.</span><span class="n">angle_diff</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">aae_full</span><span class="o">.</span><span class="n">angle_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+
+        <span class="k">if</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">target_obj_cfg</span><span class="o">.</span><span class="n">PF</span><span class="o">.</span><span class="n">USE_DEPTH</span><span class="p">:</span>
+            <span class="n">depth_data</span> <span class="o">=</span> <span class="n">depth_image</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">depth_data</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">initialize_poserbpf</span><span class="p">(</span>
+                <span class="n">color_image</span><span class="p">,</span>
+                <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">data_intrinsics</span><span class="p">,</span>
+                <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">prior_uv</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span>
+                <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">target_obj_cfg</span><span class="o">.</span><span class="n">PF</span><span class="o">.</span><span class="n">N_INIT</span><span class="p">,</span>
+                <span class="n">scale_prior</span><span class="o">=</span><span class="n">pose_rbpf</span><span class="o">.</span><span class="n">target_obj_cfg</span><span class="o">.</span><span class="n">PF</span><span class="o">.</span><span class="n">SCALE_PRIOR</span><span class="p">,</span>
+                <span class="n">depth</span><span class="o">=</span><span class="n">depth_data</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">process_poserbpf</span><span class="p">(</span>
+                <span class="n">color_image</span><span class="p">,</span>
+                <span class="n">intrinsics</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+                <span class="n">depth</span><span class="o">=</span><span class="n">depth_data</span><span class="p">,</span>
+                <span class="n">run_deep_sdf</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="c1"># 3 * 50 iters by default</span>
+            <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">refine_pose_and_shape</span><span class="p">(</span><span class="n">depth_data</span><span class="p">,</span> <span class="n">intrinsics</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+
+            <span class="n">position_cv</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">pose_rbpf</span><span class="o">.</span><span class="n">rbpf</span><span class="o">.</span><span class="n">trans_bar</span><span class="p">)</span>
+            <span class="n">orientation_q</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
+                <span class="n">Rotation</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">pose_rbpf</span><span class="o">.</span><span class="n">rbpf</span><span class="o">.</span><span class="n">rot_bar</span><span class="p">)</span><span class="o">.</span><span class="n">as_quat</span><span class="p">()</span>
+            <span class="p">)</span>
+
+            <span class="c1"># NOCS Object -&gt; ShapeNet Object convention</span>
+            <span class="n">obj_fix</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
+                <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)]</span>
+            <span class="p">)</span>  <span class="c1"># CASS object to ShapeNet object</span>
+            <span class="n">orientation_q</span> <span class="o">=</span> <span class="n">quaternion_utils</span><span class="o">.</span><span class="n">quaternion_multiply</span><span class="p">(</span><span class="n">orientation_q</span><span class="p">,</span> <span class="n">obj_fix</span><span class="p">)</span>
+
+            <span class="n">orientation_cv</span> <span class="o">=</span> <span class="n">orientation_q</span>
+            <span class="n">extents</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+
+            <span class="n">point_set</span> <span class="o">=</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">evaluator</span><span class="o">.</span><span class="n">latent_vec_to_points</span><span class="p">(</span>
+                <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">latent_vec_refine</span><span class="p">,</span>
+                <span class="n">N</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
+                <span class="n">num_points</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_points</span><span class="p">,</span>
+                <span class="n">silent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">point_set</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">point_set</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]])</span>  <span class="c1"># failed / no isosurface</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">point_set</span> <span class="o">*=</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">size_est</span> <span class="o">/</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">ratio</span>
+
+            <span class="n">reconstructed_points</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">point_set</span><span class="p">)</span>
+
+            <span class="n">extents</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">reconstructed_points</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">extents</span> <span class="o">*=</span> <span class="mf">2.0</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">&quot;position&quot;</span><span class="p">:</span> <span class="n">position_cv</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">(),</span>
+                <span class="s2">&quot;orientation&quot;</span><span class="p">:</span> <span class="n">orientation_cv</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">(),</span>
+                <span class="s2">&quot;extents&quot;</span><span class="p">:</span> <span class="n">extents</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">(),</span>
+                <span class="s2">&quot;reconstructed_pointcloud&quot;</span><span class="p">:</span> <span class="n">reconstructed_points</span><span class="p">,</span>
+                <span class="s2">&quot;reconstructed_mesh&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># TODO if time</span>
+            <span class="p">}</span>
+        <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;===PROBLEM DETECTED WITH ICAPS, RETURNING NO PREDICTION INSTEAD===&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s2">&quot;position&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]),</span>
+                <span class="s2">&quot;orientation&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]),</span>
+                <span class="s2">&quot;extents&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]),</span>
+                <span class="s2">&quot;reconstructed_pointcloud&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]]),</span>
+                <span class="s2">&quot;reconstructed_mesh&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># TODO if time</span>
+            <span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h4 id="cpas_toolbox.cpas_methods.icaps.ICaps.Config" class="doc doc-heading">
+        <span class="doc doc-object-name doc-class-name">Config</span>
+
+
+</h4>
+
+
+  <div class="doc doc-contents ">
+      <p class="doc doc-class-bases">
+        Bases: <code><span title="typing.TypedDict">TypedDict</span></code></p>
+
+  
+      <p>Configuration dictionary for iCaps.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>ATTRIBUTE</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>pf_config_dir</code></td>
+          <td class="doc-attribute-details">
+            <p>Particle filter configuration directory for iCaps. Must contain one yml
+file for each supported category_str.</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code>str</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>deepsdf_checkpoint_dir</code></td>
+          <td class="doc-attribute-details">
+            <p>Directory containing DeepSDF checkpoints.</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code>str</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>latentnet_checkpoint_dir</code></td>
+          <td class="doc-attribute-details">
+            <p>Directory containing LatentNet checkpoints.</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code>str</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>aae_checkpoint_dir</code></td>
+          <td class="doc-attribute-details">
+            <p>Directory containing auto-encoder checkpoints.</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code>str</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>checkpoints_url</code></td>
+          <td class="doc-attribute-details">
+            <p>URL to download checkpoints from if checkpoint directories are empty or
+do not exist yet (assumed to be tar file).</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code>str</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>categories</code></td>
+          <td class="doc-attribute-details">
+            <p>List of category strings. Each category requires corresponding
+directories in each checkpoint dir.</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code><span title="typing.List">List</span>[str]</code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+        <details class="quote">
+          <summary>Source code in <code>cpas_toolbox/cpas_methods/icaps.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Configuration dictionary for iCaps.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        pf_config_dir:</span>
+<span class="sd">            Particle filter configuration directory for iCaps. Must contain one yml</span>
+<span class="sd">            file for each supported category_str.</span>
+<span class="sd">        deepsdf_checkpoint_dir: Directory containing DeepSDF checkpoints.</span>
+<span class="sd">        latentnet_checkpoint_dir: Directory containing LatentNet checkpoints.</span>
+<span class="sd">        aae_checkpoint_dir: Directory containing auto-encoder checkpoints.</span>
+<span class="sd">        checkpoints_url:</span>
+<span class="sd">            URL to download checkpoints from if checkpoint directories are empty or</span>
+<span class="sd">            do not exist yet (assumed to be tar file).</span>
+<span class="sd">        categories:</span>
+<span class="sd">            List of category strings. Each category requires corresponding</span>
+<span class="sd">            directories in each checkpoint dir.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">pf_config_dir</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">deepsdf_checkpoint_dir</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">latentnet_checkpoint_dir</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">aae_checkpoint_dir</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">checkpoints_url</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">categories</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="cpas_toolbox.cpas_methods.icaps.ICaps.__init__" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">__init__</span>
+
+
+</h4>
+<div class="highlight"><pre><span></span><code><span class="fm">__init__</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="n">camera_utils</span><span class="o">.</span><span class="n">Camera</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>Initialize and load ICaps models.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th><b>PARAMETER</b></th>
+        <th><b>DESCRIPTION</b></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>config</code></td>
+          <td class="doc-param-details">
+            <p>iCaps configuration. See ICaps.Config for more information.</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><a class="autorefs autorefs-internal" title="cpas_toolbox.cpas_methods.icaps.ICaps.Config" href="#cpas_toolbox.cpas_methods.icaps.ICaps.Config">Config</a></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td><code>camera</code></td>
+          <td class="doc-param-details">
+            <p>Camera used for the input image.</p>
+            <p>
+                <span class="doc-param-annotation">
+                  <b>TYPE:</b>
+                    <code><a class="autorefs autorefs-internal" title="cpas_toolbox.camera_utils" href="../../camera_utils/#cpas_toolbox.camera_utils">camera_utils</a>.<a class="autorefs autorefs-internal" title="cpas_toolbox.camera_utils.Camera" href="../../camera_utils/#cpas_toolbox.camera_utils.Camera">Camera</a></code>
+                </span>
+            </p>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>cpas_toolbox/cpas_methods/icaps.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="n">camera_utils</span><span class="o">.</span><span class="n">Camera</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Initialize and load ICaps models.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        config: iCaps configuration. See ICaps.Config for more information.</span>
+<span class="sd">        camera: Camera used for the input image.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">yoco</span><span class="o">.</span><span class="n">load_config</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">current_dict</span><span class="o">=</span><span class="n">ICaps</span><span class="o">.</span><span class="n">default_config</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_parse_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span> <span class="o">=</span> <span class="n">camera</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h4 id="cpas_toolbox.cpas_methods.icaps.ICaps.inference" class="doc doc-heading">
+        <span class="doc doc-object-name doc-function-name">inference</span>
+
+
+</h4>
+<div class="highlight"><pre><span></span><code><span class="n">inference</span><span class="p">(</span>
+    <span class="n">color_image</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">depth_image</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">instance_mask</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">category_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PredictionDict</span>
+</code></pre></div>
+
+  <div class="doc doc-contents ">
+  
+      <p>See MethodWrapper.inference.</p>
+<p>Based on icaps.pose_rbpf.pose_rbps.PoseRBPF.run_nocs_dataset</p>
+
+      <details class="quote">
+        <summary>Source code in <code>cpas_toolbox/cpas_methods/icaps.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span>
+<span class="normal">187</span>
+<span class="normal">188</span>
+<span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span>
+<span class="normal">204</span>
+<span class="normal">205</span>
+<span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
+<span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">inference</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">color_image</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">depth_image</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">instance_mask</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">category_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PredictionDict</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;See MethodWrapper.inference.</span>
+
+<span class="sd">    Based on icaps.pose_rbpf.pose_rbps.PoseRBPF.run_nocs_dataset</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># prepare data as expected by iCaps functions (same as nocs_real_dataset)</span>
+    <span class="n">color_image</span> <span class="o">=</span> <span class="n">color_image</span> <span class="o">*</span> <span class="mi">255</span>  <span class="c1"># see icaps.datasets.nocs_real_dataset l71</span>
+    <span class="n">depth_image</span> <span class="o">=</span> <span class="n">depth_image</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># (...)nocs_real_dataset l79</span>
+    <span class="n">instance_mask</span> <span class="o">=</span> <span class="n">instance_mask</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>  <span class="c1"># (...)nocs_real_dataset l100</span>
+    <span class="n">intrinsics</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">fx</span><span class="p">,</span> <span class="n">fy</span><span class="p">,</span> <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span><span class="o">.</span><span class="n">get_pinhole_camera_parameters</span><span class="p">(</span><span class="n">pixel_center</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">intrinsics</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">fx</span>
+    <span class="n">intrinsics</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">fy</span>
+    <span class="n">intrinsics</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">cx</span>
+    <span class="n">intrinsics</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">cy</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">instance_mask</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[:,</span> <span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+    <span class="n">y1</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">instance_mask</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[:,</span> <span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">instance_mask</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[:,</span> <span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+    <span class="n">y2</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">instance_mask</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[:,</span> <span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+    <span class="n">bbox</span> <span class="o">=</span> <span class="p">[</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">]</span>
+
+    <span class="c1"># from here follow icaps.pose_rbpf.pose_rbps.PoseRBPF.run_nocs_dataset</span>
+    <span class="n">pose_rbpf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pose_rbpfs</span><span class="p">[</span><span class="n">category_str</span><span class="p">]</span>
+    <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>  <span class="c1"># like init but without loading models</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_pose_rbpfs</span><span class="p">[</span><span class="n">category_str</span><span class="p">]</span><span class="o">.</span><span class="n">set_target_obj</span><span class="p">(</span><span class="n">category_str</span><span class="p">)</span>
+
+    <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">data_intrinsics</span> <span class="o">=</span> <span class="n">intrinsics</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">intrinsics</span> <span class="o">=</span> <span class="n">intrinsics</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">target_obj_cfg</span><span class="o">.</span><span class="n">PF</span><span class="o">.</span><span class="n">FU</span> <span class="o">=</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">intrinsics</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">target_obj_cfg</span><span class="o">.</span><span class="n">PF</span><span class="o">.</span><span class="n">FV</span> <span class="o">=</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">intrinsics</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">target_obj_cfg</span><span class="o">.</span><span class="n">PF</span><span class="o">.</span><span class="n">U0</span> <span class="o">=</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">intrinsics</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+    <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">target_obj_cfg</span><span class="o">.</span><span class="n">PF</span><span class="o">.</span><span class="n">V0</span> <span class="o">=</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">intrinsics</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+
+    <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">data_with_est_center</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">data_with_gt</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># should this be False now?</span>
+
+    <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">mask_raw</span> <span class="o">=</span> <span class="n">instance_mask</span><span class="p">[:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">mask</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">ndimage</span><span class="o">.</span><span class="n">binary_erosion</span><span class="p">(</span>
+        <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">mask_raw</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">2</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">pose_rbpf</span><span class="o">.</span><span class="n">mask_raw</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+    <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">prior_uv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">prior_uv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+
+    <span class="c1"># what is this ??</span>
+    <span class="k">if</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">aae_full</span><span class="o">.</span><span class="n">angle_diff</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">aae_full</span><span class="o">.</span><span class="n">angle_diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+
+    <span class="k">if</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">target_obj_cfg</span><span class="o">.</span><span class="n">PF</span><span class="o">.</span><span class="n">USE_DEPTH</span><span class="p">:</span>
+        <span class="n">depth_data</span> <span class="o">=</span> <span class="n">depth_image</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">depth_data</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">initialize_poserbpf</span><span class="p">(</span>
+            <span class="n">color_image</span><span class="p">,</span>
+            <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">data_intrinsics</span><span class="p">,</span>
+            <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">prior_uv</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span>
+            <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">target_obj_cfg</span><span class="o">.</span><span class="n">PF</span><span class="o">.</span><span class="n">N_INIT</span><span class="p">,</span>
+            <span class="n">scale_prior</span><span class="o">=</span><span class="n">pose_rbpf</span><span class="o">.</span><span class="n">target_obj_cfg</span><span class="o">.</span><span class="n">PF</span><span class="o">.</span><span class="n">SCALE_PRIOR</span><span class="p">,</span>
+            <span class="n">depth</span><span class="o">=</span><span class="n">depth_data</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">process_poserbpf</span><span class="p">(</span>
+            <span class="n">color_image</span><span class="p">,</span>
+            <span class="n">intrinsics</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+            <span class="n">depth</span><span class="o">=</span><span class="n">depth_data</span><span class="p">,</span>
+            <span class="n">run_deep_sdf</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># 3 * 50 iters by default</span>
+        <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">refine_pose_and_shape</span><span class="p">(</span><span class="n">depth_data</span><span class="p">,</span> <span class="n">intrinsics</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+
+        <span class="n">position_cv</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">pose_rbpf</span><span class="o">.</span><span class="n">rbpf</span><span class="o">.</span><span class="n">trans_bar</span><span class="p">)</span>
+        <span class="n">orientation_q</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
+            <span class="n">Rotation</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">pose_rbpf</span><span class="o">.</span><span class="n">rbpf</span><span class="o">.</span><span class="n">rot_bar</span><span class="p">)</span><span class="o">.</span><span class="n">as_quat</span><span class="p">()</span>
+        <span class="p">)</span>
+
+        <span class="c1"># NOCS Object -&gt; ShapeNet Object convention</span>
+        <span class="n">obj_fix</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
+            <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)]</span>
+        <span class="p">)</span>  <span class="c1"># CASS object to ShapeNet object</span>
+        <span class="n">orientation_q</span> <span class="o">=</span> <span class="n">quaternion_utils</span><span class="o">.</span><span class="n">quaternion_multiply</span><span class="p">(</span><span class="n">orientation_q</span><span class="p">,</span> <span class="n">obj_fix</span><span class="p">)</span>
+
+        <span class="n">orientation_cv</span> <span class="o">=</span> <span class="n">orientation_q</span>
+        <span class="n">extents</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+
+        <span class="n">point_set</span> <span class="o">=</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">evaluator</span><span class="o">.</span><span class="n">latent_vec_to_points</span><span class="p">(</span>
+            <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">latent_vec_refine</span><span class="p">,</span>
+            <span class="n">N</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
+            <span class="n">num_points</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_points</span><span class="p">,</span>
+            <span class="n">silent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">point_set</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">point_set</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]])</span>  <span class="c1"># failed / no isosurface</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">point_set</span> <span class="o">*=</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">size_est</span> <span class="o">/</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">ratio</span>
+
+        <span class="n">reconstructed_points</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">point_set</span><span class="p">)</span>
+
+        <span class="n">extents</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">reconstructed_points</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">extents</span> <span class="o">*=</span> <span class="mf">2.0</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;position&quot;</span><span class="p">:</span> <span class="n">position_cv</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">(),</span>
+            <span class="s2">&quot;orientation&quot;</span><span class="p">:</span> <span class="n">orientation_cv</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">(),</span>
+            <span class="s2">&quot;extents&quot;</span><span class="p">:</span> <span class="n">extents</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">(),</span>
+            <span class="s2">&quot;reconstructed_pointcloud&quot;</span><span class="p">:</span> <span class="n">reconstructed_points</span><span class="p">,</span>
+            <span class="s2">&quot;reconstructed_mesh&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># TODO if time</span>
+        <span class="p">}</span>
+    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;===PROBLEM DETECTED WITH ICAPS, RETURNING NO PREDICTION INSTEAD===&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;position&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]),</span>
+            <span class="s2">&quot;orientation&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]),</span>
+            <span class="s2">&quot;extents&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]),</span>
+            <span class="s2">&quot;reconstructed_pointcloud&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]]),</span>
+            <span class="s2">&quot;reconstructed_mesh&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># TODO if time</span>
+        <span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../sgpa/" class="md-footer__link md-footer__link--prev" aria-label="Previous: sgpa.py" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              sgpa.py
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../metrics/" class="md-footer__link md-footer__link--next" aria-label="Next: metrics.py" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              metrics.py
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      
+    
+    
+  </body>
+</html>

@@ -548,6 +548,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cpas_methods/icaps/" class="md-nav__link">
+        icaps.py
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -1245,7 +1259,9 @@ http://redwood-data.org/3dscan/index.html</p>
 <span class="normal">451</span>
 <span class="normal">452</span>
 <span class="normal">453</span>
-<span class="normal">454</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">AnnotatedRedwoodDataset</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span>
+<span class="normal">454</span>
+<span class="normal">455</span>
+<span class="normal">456</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">AnnotatedRedwoodDataset</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Dataset class for annotated Redwood dataset.</span>
 
 <span class="sd">    Data can be found here:</span>
@@ -1353,8 +1369,8 @@ http://redwood-data.org/3dscan/index.html</p>
         <span class="n">config</span> <span class="o">=</span> <span class="n">yoco</span><span class="o">.</span><span class="n">load_config</span><span class="p">(</span>
             <span class="n">config</span><span class="p">,</span> <span class="n">current_dict</span><span class="o">=</span><span class="n">AnnotatedRedwoodDataset</span><span class="o">.</span><span class="n">default_config</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;root_dir&quot;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;ann_dir&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;root_dir&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir_path</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;ann_dir&quot;</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_dirs</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_camera_convention</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;camera_convention&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_mask_pointcloud</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;mask_pointcloud&quot;</span><span class="p">]</span>
@@ -1369,15 +1385,15 @@ http://redwood-data.org/3dscan/index.html</p>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_check_dirs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir_path</span><span class="p">):</span>
             <span class="k">pass</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span>
                 <span class="s2">&quot;REDWOOD75 dataset not found, do you want to download it into the &quot;</span>
                 <span class="s2">&quot;following directories:&quot;</span>
             <span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir_path</span><span class="p">)</span>
             <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
                 <span class="n">decision</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;(Y/n) &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
                 <span class="k">if</span> <span class="n">decision</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">decision</span> <span class="o">==</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>
@@ -1389,40 +1405,42 @@ http://redwood-data.org/3dscan/index.html</p>
 
     <span class="k">def</span> <span class="nf">_download_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># Download anns</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir</span><span class="p">):</span>
-            <span class="n">zip_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir</span><span class="p">,</span> <span class="s2">&quot;redwood75.zip&quot;</span><span class="p">)</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir_path</span><span class="p">):</span>
+            <span class="n">zip_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir_path</span><span class="p">,</span> <span class="s2">&quot;redwood75.zip&quot;</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir_path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">url</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="s2">&quot;https://drive.google.com/u/0/uc?id=1PMvIblsXWDxEJykVwhUk_QEjy4_bmDU&quot;</span>
                 <span class="s2">&quot;-&amp;export=download&quot;</span>
             <span class="p">)</span>
             <span class="n">utils</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">zip_path</span><span class="p">)</span>
             <span class="n">z</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">zip_path</span><span class="p">)</span>
-            <span class="n">z</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir</span><span class="p">,</span> <span class="s2">&quot;..&quot;</span><span class="p">))</span>
+            <span class="n">z</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir_path</span><span class="p">,</span> <span class="s2">&quot;..&quot;</span><span class="p">))</span>
             <span class="n">z</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
             <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">zip_path</span><span class="p">)</span>
 
-        <span class="n">ann_json</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir</span><span class="p">,</span> <span class="s2">&quot;annotations.json&quot;</span><span class="p">)</span>
+        <span class="n">ann_json</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir_path</span><span class="p">,</span> <span class="s2">&quot;annotations.json&quot;</span><span class="p">)</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ann_json</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">anns_dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
         <span class="n">baseurl</span> <span class="o">=</span> <span class="s2">&quot;https://s3.us-west-1.wasabisys.com/redwood-3dscan/rgbd/&quot;</span>
         <span class="k">for</span> <span class="n">seq_id</span> <span class="ow">in</span> <span class="n">anns_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-            <span class="n">download_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">,</span> <span class="n">anns_dict</span><span class="p">[</span><span class="n">seq_id</span><span class="p">][</span><span class="s2">&quot;category&quot;</span><span class="p">])</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">download_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="n">zip_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">download_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">seq_id</span><span class="si">}</span><span class="s2">.zip&quot;</span><span class="p">)</span>
+            <span class="n">download_dir_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="n">anns_dict</span><span class="p">[</span><span class="n">seq_id</span><span class="p">][</span><span class="s2">&quot;category&quot;</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">download_dir_path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">zip_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">download_dir_path</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">seq_id</span><span class="si">}</span><span class="s2">.zip&quot;</span><span class="p">)</span>
             <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">zip_path</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="n">utils</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">baseurl</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">seq_id</span><span class="si">}</span><span class="s2">.zip&quot;</span><span class="p">,</span> <span class="n">zip_path</span><span class="p">)</span>
             <span class="n">z</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">zip_path</span><span class="p">)</span>
-            <span class="n">out_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">download_dir</span><span class="p">,</span> <span class="s2">&quot;rgbd&quot;</span><span class="p">,</span> <span class="n">seq_id</span><span class="p">)</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out_folder</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="n">z</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">out_folder</span><span class="p">)</span>
+            <span class="n">seq_dir_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">download_dir_path</span><span class="p">,</span> <span class="s2">&quot;rgbd&quot;</span><span class="p">,</span> <span class="n">seq_id</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">seq_dir_path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">z</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">seq_dir_path</span><span class="p">)</span>
             <span class="n">z</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
             <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">zip_path</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_load_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Load annotations into memory.&quot;&quot;&quot;</span>
-        <span class="n">ann_json</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir</span><span class="p">,</span> <span class="s2">&quot;annotations.json&quot;</span><span class="p">)</span>
+        <span class="n">ann_json</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir_path</span><span class="p">,</span> <span class="s2">&quot;annotations.json&quot;</span><span class="p">)</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ann_json</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">anns_dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_raw_samples</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1441,13 +1459,13 @@ http://redwood-data.org/3dscan/index.html</p>
         <span class="n">rgb_filename</span> <span class="o">=</span> <span class="n">annotation_dict</span><span class="p">[</span><span class="s2">&quot;rgb_file&quot;</span><span class="p">]</span>
         <span class="n">depth_filename</span> <span class="o">=</span> <span class="n">annotation_dict</span><span class="p">[</span><span class="s2">&quot;depth_file&quot;</span><span class="p">]</span>
         <span class="n">mesh_filename</span> <span class="o">=</span> <span class="n">sequence_dict</span><span class="p">[</span><span class="s2">&quot;mesh&quot;</span><span class="p">]</span>
-        <span class="n">mesh_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir</span><span class="p">,</span> <span class="n">mesh_filename</span><span class="p">)</span>
+        <span class="n">mesh_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir_path</span><span class="p">,</span> <span class="n">mesh_filename</span><span class="p">)</span>
         <span class="n">category_str</span> <span class="o">=</span> <span class="n">sequence_dict</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span>
         <span class="n">color_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">,</span> <span class="n">category_str</span><span class="p">,</span> <span class="s2">&quot;rgbd&quot;</span><span class="p">,</span> <span class="n">seq_id</span><span class="p">,</span> <span class="s2">&quot;rgb&quot;</span><span class="p">,</span> <span class="n">rgb_filename</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="n">category_str</span><span class="p">,</span> <span class="s2">&quot;rgbd&quot;</span><span class="p">,</span> <span class="n">seq_id</span><span class="p">,</span> <span class="s2">&quot;rgb&quot;</span><span class="p">,</span> <span class="n">rgb_filename</span>
         <span class="p">)</span>
         <span class="n">depth_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span><span class="p">,</span> <span class="n">category_str</span><span class="p">,</span> <span class="s2">&quot;rgbd&quot;</span><span class="p">,</span> <span class="n">seq_id</span><span class="p">,</span> <span class="s2">&quot;depth&quot;</span><span class="p">,</span> <span class="n">depth_filename</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="n">category_str</span><span class="p">,</span> <span class="s2">&quot;rgbd&quot;</span><span class="p">,</span> <span class="n">seq_id</span><span class="p">,</span> <span class="s2">&quot;depth&quot;</span><span class="p">,</span> <span class="n">depth_filename</span>
         <span class="p">)</span>
         <span class="n">extents</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">sequence_dict</span><span class="p">[</span><span class="s2">&quot;scale&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="mi">2</span>
         <span class="k">return</span> <span class="p">{</span>
@@ -2085,8 +2103,8 @@ with default_dict. See AnnotatedRedwoodDataset.Config for keys.</p>
     <span class="n">config</span> <span class="o">=</span> <span class="n">yoco</span><span class="o">.</span><span class="n">load_config</span><span class="p">(</span>
         <span class="n">config</span><span class="p">,</span> <span class="n">current_dict</span><span class="o">=</span><span class="n">AnnotatedRedwoodDataset</span><span class="o">.</span><span class="n">default_config</span>
     <span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;root_dir&quot;</span><span class="p">])</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;ann_dir&quot;</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;root_dir&quot;</span><span class="p">])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_ann_dir_path</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">resolve_path</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;ann_dir&quot;</span><span class="p">])</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_check_dirs</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_camera_convention</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;camera_convention&quot;</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_mask_pointcloud</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;mask_pointcloud&quot;</span><span class="p">]</span>
@@ -2123,9 +2141,9 @@ with default_dict. See AnnotatedRedwoodDataset.Config for keys.</p>
 
       <details class="quote">
         <summary>Source code in <code>cpas_toolbox/datasets/redwood_dataset.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">238</span>
-<span class="normal">239</span>
-<span class="normal">240</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Return number of sample in dataset.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_raw_samples</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -2208,9 +2226,7 @@ with default_dict. See AnnotatedRedwoodDataset.Config for keys.</p>
 
       <details class="quote">
         <summary>Source code in <code>cpas_toolbox/datasets/redwood_dataset.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">242</span>
-<span class="normal">243</span>
-<span class="normal">244</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">244</span>
 <span class="normal">245</span>
 <span class="normal">246</span>
 <span class="normal">247</span>
@@ -2279,7 +2295,9 @@ with default_dict. See AnnotatedRedwoodDataset.Config for keys.</p>
 <span class="normal">310</span>
 <span class="normal">311</span>
 <span class="normal">312</span>
-<span class="normal">313</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Return a sample of the dataset.</span>
 
 <span class="sd">    Args:</span>
@@ -2375,9 +2393,7 @@ with default_dict. See AnnotatedRedwoodDataset.Config for keys.</p>
 
       <details class="quote">
         <summary>Source code in <code>cpas_toolbox/datasets/redwood_dataset.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">441</span>
-<span class="normal">442</span>
-<span class="normal">443</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">443</span>
 <span class="normal">444</span>
 <span class="normal">445</span>
 <span class="normal">446</span>
@@ -2388,7 +2404,9 @@ with default_dict. See AnnotatedRedwoodDataset.Config for keys.</p>
 <span class="normal">451</span>
 <span class="normal">452</span>
 <span class="normal">453</span>
-<span class="normal">454</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">load_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="p">:</span>
+<span class="normal">454</span>
+<span class="normal">455</span>
+<span class="normal">456</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">load_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Load an object mesh and adjust its object frame convention.&quot;&quot;&quot;</span>
     <span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">object_path</span><span class="p">)</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_x_axis</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -2437,10 +2455,10 @@ with default_dict. See AnnotatedRedwoodDataset.Config for keys.</p>
 
         <details class="quote">
           <summary>Source code in <code>cpas_toolbox/datasets/redwood_dataset.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">457</span>
-<span class="normal">458</span>
-<span class="normal">459</span>
-<span class="normal">460</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ObjectError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">459</span>
+<span class="normal">460</span>
+<span class="normal">461</span>
+<span class="normal">462</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ObjectError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Error if something with the mesh is wrong.&quot;&quot;&quot;</span>
 
     <span class="k">pass</span>

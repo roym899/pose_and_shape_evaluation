@@ -501,6 +501,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="api_reference/cpas_methods/icaps/" class="md-nav__link">
+        icaps.py
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -674,13 +688,13 @@
 <p>to install the latest release of the toolbox. There is no need to download any additional weights or datasets. Upon first usage the evaluation script will ask to download the weights if they are not available at the expected path.</p>
 <h2 id="evaluation-of-baseline-methods">Evaluation of baseline methods</h2>
 <p>To reproduce the REAL275 benchmark run:</p>
-<pre><code class="language-bash">python -m cpas_toolbox.evaluate --config real275.yaml --out_folder ./results/
+<pre><code class="language-bash">python -m cpas_toolbox.evaluate --config real275.yaml --out_dir ./results/
 </code></pre>
 <p>To reproduce the REDWOOD75 benchmark run:</p>
-<pre><code class="language-bash">python -m cpas_toolbox.evaluate --config redwood75.yaml --out_folder ./results/
+<pre><code class="language-bash">python -m cpas_toolbox.evaluate --config redwood75.yaml --out_dir ./results/
 </code></pre>
 <p>We can overwrite settings of the configuration via the command-line. For example, </p>
-<pre><code class="language-bash">python -m cpas_toolbox.evaluate --config redwood75.yaml --out_folder ./results/ --visualize_gt True --visualize_prediction True
+<pre><code class="language-bash">python -m cpas_toolbox.evaluate --config redwood75.yaml --out_dir ./results/ --visualize_gt True --visualize_prediction True
 </code></pre>
 <p>enables interactive visualization of ground truth and predictions. Alternatively, you could specify <code>--store_visualization True</code> to save the visualization of every prediction in the results directory.</p>
 <h2 id="citation">Citation</h2>
