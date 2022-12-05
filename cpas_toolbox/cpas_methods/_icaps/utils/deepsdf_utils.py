@@ -6,7 +6,6 @@ import numpy as np
 import numpy.ma as ma
 import torch
 
-# from ..pose_rbpf.render_wrapper import *
 from ..datasets.nocs_real_dataset import *
 from ..deep_sdf.deep_sdf_decoder import *
 from ..deep_sdf.deepsdf_optim import *

@@ -1,10 +1,8 @@
 import copy
 import os
-import time
 
 import numpy as np
 import torch
-from scipy import ndimage
 from transforms3d import euler, quaternions
 
 from ..deep_sdf import deepsdf_optim
@@ -12,7 +10,6 @@ from ..deep_sdf.evaluator import Evaluator
 from ..models import aae_models, pointnet2_msg
 from ..pointnet2.pointnet2 import pointnet2_utils
 from ..utils import decoder_utils, deepsdf_utils, poserbpf_utils
-from ..utils.compute_farthest_distance_numba import get_bbox_dist
 from . import particle_filter
 
 NPOINTS = 4873
@@ -131,15 +128,10 @@ class PoseRBPF:
         self.est_bbox_weights = np.zeros((self.cfg_list[0].PF.N_PROCESS,))
 
         # for logging
-        self.log_err_t = []
-        self.log_err_tx = []
-        self.log_err_ty = []
-        self.log_err_tz = []
         self.log_err_rx = []
         self.log_err_ry = []
         self.log_err_rz = []
         self.log_err_r = []
-        self.log_err_t_star = []
         self.log_err_r_star = []
         self.log_max_sim = []
         self.log_dir = "./"
@@ -304,15 +296,10 @@ class PoseRBPF:
         self.est_bbox_weights = np.zeros((self.cfg_list[0].PF.N_PROCESS,))
 
         # for logging
-        self.log_err_t = []
-        self.log_err_tx = []
-        self.log_err_ty = []
-        self.log_err_tz = []
         self.log_err_rx = []
         self.log_err_ry = []
         self.log_err_rz = []
         self.log_err_r = []
-        self.log_err_t_star = []
         self.log_err_r_star = []
         self.log_max_sim = []
         self.log_dir = "./"
@@ -370,7 +357,7 @@ class PoseRBPF:
 
         # points_obj_norm = self.points_gt
         # Transform from Nocs object frame to ShapeNet object frame
-        rotm_obj2shapenet = euler.euler2mat(0.0, np.pi / 2.0, 0.0)
+        # rotm_obj2shapenet = euler.euler2mat(0.0, np.pi / 2.0, 0.0)
         # points_obj_shapenet = np.dot(rotm_obj2shapenet, points_obj_norm.T).T
         # points_obj_shapenet = np.float32(points_obj_shapenet)
         # self.points_c = torch.from_numpy(points_obj_shapenet)
@@ -440,15 +427,10 @@ class PoseRBPF:
         self.est_bbox_weights = np.zeros((self.target_obj_cfg.PF.N_PROCESS,))
 
         # for logging
-        self.log_err_t = []
-        self.log_err_tx = []
-        self.log_err_ty = []
-        self.log_err_tz = []
         self.log_err_rx = []
         self.log_err_ry = []
         self.log_err_rz = []
         self.log_err_r = []
-        self.log_err_t_star = []
         self.log_err_r_star = []
         self.log_max_sim = []
         self.log_dir = "./"
@@ -555,7 +537,7 @@ class PoseRBPF:
         points_np = deepsdf_utils.depth2pc(
             depth_np, depth_np.shape[0], depth_np.shape[1], intrinsics
         )  # n x 4
-        points_c = torch.from_numpy(points_np).cuda()
+        # points_c = torch.from_numpy(points_np).cuda()
         T_init = np.eye(4, dtype=np.float32)
         T_init[:3, :3] = self.rbpf.rot_bar
         T_init[:3, 3] = self.rbpf.trans_bar

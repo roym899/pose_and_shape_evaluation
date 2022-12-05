@@ -13,8 +13,6 @@ from transforms3d.quaternions import *
 
 from ..config.config import cfg
 
-# from ycb_render.ycb_renderer import *
-
 
 def printProgressBar(
     iteration, total, prefix="", suffix="", decimals=1, length=100, fill="*"

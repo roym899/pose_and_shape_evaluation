@@ -1,24 +1,22 @@
+import os
+from collections import OrderedDict
+from decimal import *
+
+import matplotlib.pyplot as plt
 import numpy as np
 import torch
 import torch.nn as nn
-import torch.nn.init as init
 import torch.nn.functional as F
+import torch.nn.init as init
 import torch.optim as optim
 import torch.utils.data
-from torch.autograd import Variable
-import os
-import datetime
-import re
-import matplotlib.pyplot as plt
-import time
-from transforms3d.quaternions import *
-from ycb_render.ycb_renderer import *
-from decimal import *
-import cv2
 from config.config import cfg
-from collections import OrderedDict
+from transforms3d.quaternions import *
 
-def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, length = 100, fill = '*'):
+
+def printProgressBar(
+    iteration, total, prefix="", suffix="", decimals=1, length=100, fill="*"
+):
     """
     Call in a loop to create terminal progress bar
     @params:
@@ -32,11 +30,12 @@ def printProgressBar (iteration, total, prefix = '', suffix = '', decimals = 1, 
     """
     percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
     filledLength = int(length * iteration // total)
-    bar = fill * filledLength + '-' * (length - filledLength)
-    print('\r%s |%s| %s%% %s \n' % (prefix, bar, percent, suffix))
+    bar = fill * filledLength + "-" * (length - filledLength)
+    print("\r%s |%s| %s%% %s \n" % (prefix, bar, percent, suffix))
     # # Print New Line on Complete
     # if iteration == total:
     #     print()
+
 
 def isSubstring(s1, s2):
     M = len(s1)
@@ -48,13 +47,14 @@ def isSubstring(s1, s2):
         # For current index i,
         # check for pattern match
         for j in range(M):
-            if (s2[i + j] != s1[j]):
+            if s2[i + j] != s1[j]:
                 break
 
         if j + 1 == M:
             return i
 
     return -1
+
 
 class encoder_depth(nn.Module):
     def __init__(self, capacity=1, code_dim=128):
@@ -88,20 +88,27 @@ class encoder_depth(nn.Module):
         out = self.fc(out)
         return out
 
+
 class decoder_depth(nn.Module):
     def __init__(self, capacity=1, code_dim=128):
         super(decoder_depth, self).__init__()
         self.layer1 = nn.Sequential(
-            nn.ConvTranspose2d(256 * capacity, 128 * capacity, 5, 2, padding=2, output_padding=1),
-            nn.ReLU()
+            nn.ConvTranspose2d(
+                256 * capacity, 128 * capacity, 5, 2, padding=2, output_padding=1
+            ),
+            nn.ReLU(),
         )
         self.layer2 = nn.Sequential(
-            nn.ConvTranspose2d(128 * capacity, 128 * capacity, 5, 2, padding=2, output_padding=1),
-            nn.ReLU()
+            nn.ConvTranspose2d(
+                128 * capacity, 128 * capacity, 5, 2, padding=2, output_padding=1
+            ),
+            nn.ReLU(),
         )
         self.layer3 = nn.Sequential(
-            nn.ConvTranspose2d(128 * capacity, 64 * capacity, 5, 2, padding=2, output_padding=1),
-            nn.ReLU()
+            nn.ConvTranspose2d(
+                128 * capacity, 64 * capacity, 5, 2, padding=2, output_padding=1
+            ),
+            nn.ReLU(),
         )
 
         self.layer4 = nn.Sequential(
@@ -123,12 +130,13 @@ class decoder_depth(nn.Module):
         out = self.layer4(out)
         return out
 
+
 def weights_init(m):
     classname = m.__class__.__name__
-    if classname.find('Conv') != -1:
+    if classname.find("Conv") != -1:
         init.xavier_uniform_(m.weight)
         init.constant_(m.bias, 0.0)
-    elif classname.find('Linear') != -1:
+    elif classname.find("Linear") != -1:
         init.xavier_uniform_(m.weight)
         init.constant_(m.bias, 0.0)
 
@@ -155,20 +163,21 @@ class BootstrapedMSEloss(nn.Module):
     def forward(self, pred, target):
         assert pred.dim() == target.dim(), "inconsistent dimensions"
         batch_size = pred.size(0)
-        diff = torch.sum((target - pred)**2, 1)
+        diff = torch.sum((target - pred) ** 2, 1)
         diff = diff.view(batch_size, -1)
         diff = torch.topk(diff, self.b, dim=1)
         self.loss = diff[0].mean()
         return self.loss
 
+
 class AAE(nn.Module):
     def __init__(self, object_names, capacity=1, code_dim=128, model_path=None):
         super(AAE, self).__init__()
         # dir
-        if not os.path.exists('./checkpoints'):
-            os.mkdir('./checkpoints')
+        if not os.path.exists("./checkpoints"):
+            os.mkdir("./checkpoints")
 
-        self.model_dir = './checkpoints'
+        self.model_dir = "./checkpoints"
 
         self.object_names = object_names
         self.code_dim = code_dim
@@ -179,9 +188,9 @@ class AAE(nn.Module):
         self.encoder.apply(weights_init)
         self.decoder.apply(weights_init)
 
-        self.optimizer = optim.Adam(list(self.encoder.parameters()) + \
-                                    list(self.decoder.parameters()),
-                                    lr=0.0002)
+        self.optimizer = optim.Adam(
+            list(self.encoder.parameters()) + list(self.decoder.parameters()), lr=0.0002
+        )
 
         self.model_path = model_path
 
@@ -190,7 +199,7 @@ class AAE(nn.Module):
         self.Cos_loss = nn.CosineEmbeddingLoss()
 
         # GPU
-        self.use_GPU = (torch.cuda.device_count() > 0)
+        self.use_GPU = torch.cuda.device_count() > 0
 
         if self.use_GPU:
             self.encoder = self.encoder.cuda()
@@ -206,11 +215,11 @@ class AAE(nn.Module):
     def load_ckpt_weights(self, state_dict):
         new_state_dict = OrderedDict()
         for k, v in state_dict.items():
-            m_idx = isSubstring('module', str(k))
+            m_idx = isSubstring("module", str(k))
             if m_idx == -1:
                 name = k
             else:
-                name = k[:m_idx] + k[m_idx+7:]
+                name = k[:m_idx] + k[m_idx + 7 :]
 
             new_state_dict[name] = v
 
@@ -221,8 +230,10 @@ class AAE(nn.Module):
     def compute_codebook(self, code_dataset, save_dir, code_dim=128, save=True):
         assert self.weights_loaded, "need to load pretrained weights!"
         codebook_batch_size = 1000
-        code_generator = torch.utils.data.DataLoader(code_dataset, batch_size=codebook_batch_size, shuffle=False, num_workers=0)
-        print('code book size {}'.format(len(code_dataset)))
+        code_generator = torch.utils.data.DataLoader(
+            code_dataset, batch_size=codebook_batch_size, shuffle=False, num_workers=0
+        )
+        print("code book size {}".format(len(code_dataset)))
         step = 0
         self.encoder.eval()
 
@@ -239,15 +250,21 @@ class AAE(nn.Module):
 
             print(code.size())
 
-            codebook_cpt[step * codebook_batch_size:step * codebook_batch_size + code.size(0), :] = code
-            codepose_cpt[step * codebook_batch_size:step * codebook_batch_size + code.size(0), :] = poses.squeeze(1)
+            codebook_cpt[
+                step * codebook_batch_size : step * codebook_batch_size + code.size(0),
+                :,
+            ] = code
+            codepose_cpt[
+                step * codebook_batch_size : step * codebook_batch_size + code.size(0),
+                :,
+            ] = poses.squeeze(1)
 
             step += 1
-            print('finished {}/{}'.format(step, len(code_generator)))
+            print("finished {}/{}".format(step, len(code_generator)))
 
         if save:
             torch.save((codebook_cpt, codepose_cpt), save_dir)
-            print('code book is saved to {}'.format(save_dir))
+            print("code book is saved to {}".format(save_dir))
 
     # forward passing
     # normalized depth -> reconstruction + code
@@ -263,7 +280,9 @@ class AAE(nn.Module):
         :return: pose retrieved from the codebook (batch size x 7(trans+rot), e.g. 64x7)
                 code retrieved from codebook (batch size x code size, e.g. 64x128)
         """
-        assert codebook.size(0) > 0 and codepose.size(0) == codebook.size(0), "codebook is empty"
+        assert codebook.size(0) > 0 and codepose.size(0) == codebook.size(
+            0
+        ), "codebook is empty"
         distance_matrix = pairwise_cosine_distances(code, codebook)
         best_match = torch.argmax(distance_matrix, dim=1).cpu().numpy()
         code_recovered = codebook[best_match, :].cuda()
@@ -289,10 +308,10 @@ class AAE(nn.Module):
         return pairwise_cosine_distances(code, codebook)
 
     def pairwise_distances(self, x, y=None):
-        x_norm = (x ** 2).sum(1).view(-1, 1)
+        x_norm = (x**2).sum(1).view(-1, 1)
         if y is not None:
             y_t = torch.transpose(y, 0, 1)
-            y_norm = (y ** 2).sum(1).view(1, -1)
+            y_norm = (y**2).sum(1).view(1, -1)
         else:
             y_t = torch.transpose(x, 0, 1)
             y_norm = x_norm.view(1, -1)
@@ -317,14 +336,16 @@ class AAE(nn.Module):
         return code_retrival, pose_retrival
 
     # todo: check if this doesn't crash for batch size > 1
-    def match_codebook_topk(self, code, codebook, codepose, k = 5):
+    def match_codebook_topk(self, code, codebook, codepose, k=5):
         """
         compare the code with the codebook and retrieve the topk pose
         :param code: code from encoder (batch size x code size, e.g. 64x128)
         :return: pose retrieved from the codebook (batch size x 7(trans+rot), e.g. 64x7)
                 code retrieved from codebook (batch size x code size, e.g. 64x128)
         """
-        assert codebook.size(0) > 0 and codepose.size(0) == codebook.size(0), "codebook is empty"
+        assert codebook.size(0) > 0 and codepose.size(0) == codebook.size(
+            0
+        ), "codebook is empty"
         distance_matrix = pairwise_cosine_distances(code, codebook)
         code_distance, best_match = torch.topk(distance_matrix, k, dim=1)
         code_distance = code_distance.detach().cpu().numpy()
@@ -343,7 +364,7 @@ class AAE(nn.Module):
             _, d_angle = quat2axangle(q_diff)
             if d_angle > np.pi:
                 d_angle = d_angle - 2 * np.pi
-                d_angle = - d_angle
+                d_angle = -d_angle
             self.angle_diff = np.append(self.angle_diff, d_angle / np.pi * 180)
             error_batch = np.append(error_batch, d_angle / np.pi * 180)
             if self.angle_diff[-1] > self.max_angle_error:
@@ -351,7 +372,3 @@ class AAE(nn.Module):
                 self.max_angle_error_idx = q
                 update_image = True
         return update_image, error_batch
-
-
-
-
