@@ -28,5 +28,4 @@ _C = load(
     extra_cflags=extra_cflags,
     extra_cuda_cflags=extra_cflags,
     sources=sources,
-    verbose=True,
 )
