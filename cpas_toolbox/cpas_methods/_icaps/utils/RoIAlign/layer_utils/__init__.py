@@ -6,15 +6,15 @@ from torch.utils.cpp_extension import CUDA_HOME, load
 
 directory = os.path.dirname(__file__)
 
-extensions_dir = os.path.join(directory, "csrc")
+extensions_dir_path = os.path.join(directory, "csrc")
 
-sources = glob.glob(os.path.join(extensions_dir, "*.cpp"))
-sources += glob.glob(os.path.join(extensions_dir, "cpu", "*.cpp"))
+sources = glob.glob(os.path.join(extensions_dir_path, "*.cpp"))
+sources += glob.glob(os.path.join(extensions_dir_path, "cpu", "*.cpp"))
 
 extra_cflags = []
 
 if torch.cuda.is_available() and CUDA_HOME is not None:
-    sources += glob.glob(os.path.join(extensions_dir, "cuda", "*.cu"))
+    sources += glob.glob(os.path.join(extensions_dir_path, "cuda", "*.cu"))
     extra_cflags += [
         "-DWITH_CUDA=1" "-DCUDA_HAS_FP16=1",
         "-D__CUDA_NO_HALF_OPERATORS__",

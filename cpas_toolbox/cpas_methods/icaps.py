@@ -10,7 +10,7 @@ import os
 import shutil
 import tarfile
 import tempfile
-from typing import TypedDict
+from typing import List, TypedDict
 
 import numpy as np
 import scipy
@@ -31,29 +31,34 @@ class ICaps(CPASMethod):
         """Configuration dictionary for iCaps.
 
         Attributes:
-            pf_config_folder:
-                Particle filter configuration folder for iCaps. Must contain one yml
+            pf_config_dir:
+                Particle filter configuration directory for iCaps. Must contain one yml
                 file for each supported category_str.
-            deepsdf_checkpoint_folder: Folder containing DeepSDF checkpoints.
-            latentnet_checkpoint_folder: Folder containing LatentNet checkpoints.
-            aae_checkpoint_folder: Folder containing auto-encoder checkpoints.
+            deepsdf_checkpoint_dir: Directory containing DeepSDF checkpoints.
+            latentnet_checkpoint_dir: Directory containing LatentNet checkpoints.
+            aae_checkpoint_dir: Directory containing auto-encoder checkpoints.
             checkpoints_url:
-                URL to download checkpoints from if checkpoint folders are empty or do
-                not exist yet (assumed to be tar file).
+                URL to download checkpoints from if checkpoint directories are empty or
+                do not exist yet (assumed to be tar file).
+            categories:
+                List of category strings. Each category requires corresponding
+                directories in each checkpoint dir.
         """
 
-        pf_config_folder: str
-        deepsdf_checkpoint_folder: str
-        latentnet_checkpoint_folder: str
-        aae_checkpoint_folder: str
+        pf_config_dir: str
+        deepsdf_checkpoint_dir: str
+        latentnet_checkpoint_dir: str
+        aae_checkpoint_dir: str
         checkpoints_url: str
+        categories: List[str]
 
     default_config: Config = {
-        "pf_config_folder": None,
-        "deepsdf_checkpoint_folder": None,
-        "latentnet_checkpoint_folder": None,
-        "aae_checkpoint_folder": None,
+        "pf_config_dir": None,
+        "deepsdf_checkpoint_dir": None,
+        "latentnet_checkpoint_dir": None,
+        "aae_checkpoint_dir": None,
         "checkpoints_url": None,
+        "categories": ["bottle", "bowl", "camera", "can", "laptop", "mug"],
     }
 
     def __init__(self, config: Config, camera: camera_utils.Camera) -> None:
@@ -69,12 +74,12 @@ class ICaps(CPASMethod):
 
     def _parse_config(self, config: Config) -> None:
         self._num_points = 10000
-        self._category_strs = ["bottle", "camera", "laptop", "bowl", "can", "mug"]
+        self._category_strs = config["categories"]
 
         self._checkpoints_url = config["checkpoints_url"]
         self._pose_rbpfs = {}
-        pf_cfg_folder = utils.resolve_path(
-            config["pf_config_folder"],
+        pf_cfg_dir_path = utils.resolve_path(
+            config["pf_config_dir"],
             search_paths=[
                 ".",
                 "~/.cpas_toolbox",
@@ -82,20 +87,20 @@ class ICaps(CPASMethod):
                 os.path.dirname(__file__),
             ],
         )
-        self._deepsdf_ckp_folder = utils.resolve_path(
-            config["deepsdf_checkpoint_folder"]
+        self._deepsdf_ckp_dir_path = utils.resolve_path(
+            config["deepsdf_checkpoint_dir"]
         )
-        self._latentnet_ckp_folder = utils.resolve_path(
-            config["latentnet_checkpoint_folder"]
+        self._latentnet_ckp_dir_path = utils.resolve_path(
+            config["latentnet_checkpoint_dir"]
         )
-        self._aae_ckp_folder = utils.resolve_path(config["aae_checkpoint_folder"])
+        self._aae_ckp_dir_path = utils.resolve_path(config["aae_checkpoint_dir"])
         self._check_paths()
 
         for category_str in self._category_strs:
-            full_ckpt_folder = os.path.join(self._aae_ckp_folder, category_str)
-            train_cfg_file = os.path.join(full_ckpt_folder, "config.yml")
+            full_ckpt_dir_path = os.path.join(self._aae_ckp_dir_path, category_str)
+            train_cfg_file = os.path.join(full_ckpt_dir_path, "config.yml")
             icaps.icaps_config.cfg_from_file(train_cfg_file)
-            test_cfg_file = os.path.join(pf_cfg_folder, category_str + ".yml")
+            test_cfg_file = os.path.join(pf_cfg_dir_path, category_str + ".yml")
             icaps.icaps_config.cfg_from_file(test_cfg_file)
             obj_list = icaps.icaps_config.cfg.TEST.OBJECTS
             cfg_list = []
@@ -104,9 +109,9 @@ class ICaps(CPASMethod):
             self._pose_rbpfs[category_str] = icaps.PoseRBPF(
                 obj_list,
                 cfg_list,
-                full_ckpt_folder,
-                self._deepsdf_ckp_folder,
-                self._latentnet_ckp_folder,
+                full_ckpt_dir_path,
+                self._deepsdf_ckp_dir_path,
+                self._latentnet_ckp_dir_path,
             )
             self._pose_rbpfs[category_str].set_target_obj(
                 icaps.icaps_config.cfg.TEST.OBJECTS[0]
@@ -116,16 +121,16 @@ class ICaps(CPASMethod):
         path_exists = (
             os.path.exists(p)
             for p in [
-                self._aae_ckp_folder,
-                self._deepsdf_ckp_folder,
-                self._latentnet_ckp_folder,
+                self._aae_ckp_dir_path,
+                self._deepsdf_ckp_dir_path,
+                self._latentnet_ckp_dir_path,
             ]
         )
         if not all(path_exists):
             print("iCaps model weights not found, do you want to download to ")
-            print("  ", self._aae_ckp_folder)
-            print("  ", self._deepsdf_ckp_folder)
-            print("  ", self._latentnet_ckp_folder)
+            print("  ", self._aae_ckp_dir_path)
+            print("  ", self._deepsdf_ckp_dir_path)
+            print("  ", self._latentnet_ckp_dir_path)
             while True:
                 decision = input("(Y/n) ").lower()
                 if decision == "" or decision == "y":
@@ -136,8 +141,8 @@ class ICaps(CPASMethod):
                     exit(0)
 
     def _download_weights(self) -> None:
-        download_dir_path = tempfile.mkdtemp()
-        tar_file_path = os.path.join(download_dir_path, "temp")
+        dl_dir_path = tempfile.mkdtemp()
+        tar_file_path = os.path.join(dl_dir_path, "temp")
         print(self._checkpoints_url, tar_file_path)
         utils.download(
             self._checkpoints_url,
@@ -145,23 +150,23 @@ class ICaps(CPASMethod):
         )
         tar_file = tarfile.open(tar_file_path)
         print("Extracting weights... (this might take a while)")
-        tar_file.extractall(download_dir_path)
-        if not os.path.exists(self._latentnet_ckp_folder):
-            src_dir = os.path.join(download_dir_path, "checkpoints", "latentnet_ckpts")
-            shutil.move(src_dir, self._latentnet_ckp_folder)
-        if not os.path.exists(self._deepsdf_ckp_folder):
-            src_dir = os.path.join(download_dir_path, "checkpoints", "deepsdf_ckpts")
-            shutil.move(src_dir, self._deepsdf_ckp_folder)
-        if not os.path.exists(self._aae_ckp_folder):
-            src_dir = os.path.join(download_dir_path, "checkpoints", "aae_ckpts")
-            shutil.move(src_dir, self._aae_ckp_folder)
+        tar_file.extractall(dl_dir_path)
+        if not os.path.exists(self._latentnet_ckp_dir_path):
+            src_dir_path = os.path.join(dl_dir_path, "checkpoints", "latentnet_ckpts")
+            shutil.move(src_dir_path, self._latentnet_ckp_dir_path)
+        if not os.path.exists(self._deepsdf_ckp_dir_path):
+            src_dir_path = os.path.join(dl_dir_path, "checkpoints", "deepsdf_ckpts")
+            shutil.move(src_dir_path, self._deepsdf_ckp_dir_path)
+        if not os.path.exists(self._aae_ckp_dir_path):
+            src_dir_path = os.path.join(dl_dir_path, "checkpoints", "aae_ckpts")
+            shutil.move(src_dir_path, self._aae_ckp_dir_path)
             # normalize names
             for category_str in self._category_strs:
-                for aae_category_dir in os.listdir(self._aae_ckp_folder):
+                for aae_category_dir in os.listdir(self._aae_ckp_dir_path):
                     if category_str in aae_category_dir:
                         os.rename(
                             aae_category_dir,
-                            os.path.join(self._aae_ckp_folder, category_str),
+                            os.path.join(self._aae_ckp_dir_path, category_str),
                         )
 
     def inference(

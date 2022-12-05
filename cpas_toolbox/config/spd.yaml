@@ -5,6 +5,6 @@ config_dict:
   num_shape_points: 1024 
   num_input_points: 1024
   image_size: 192
-  model: ~/.cpas_toolbox/models/spd/model_50.pth
-  mean_shape: ~/.cpas_toolbox/models/spd/mean_points_emb.npy
+  model_file: ~/.cpas_toolbox/models/spd/model_50.pth
+  mean_shape_file: ~/.cpas_toolbox/models/spd/mean_points_emb.npy
   device: cuda

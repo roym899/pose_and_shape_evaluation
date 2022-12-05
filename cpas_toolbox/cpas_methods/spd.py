@@ -31,19 +31,31 @@ class SPD(CPASMethod):
         """Configuration dictionary for SPD.
 
         Attributes:
-            model: Path to model.
+            model_file: Path to model.
+            mean_shape_file: Path to mean shape file.
             num_categories: Number of categories used by model.
             num_shape_points: Number of points in shape prior.
+            num_input_points: Number of input points.
+            image_size: Size of image crop.
             device: Device string for the model.
         """
 
-        model: str
+        model_file: str
+        mean_shape_file: str
         num_categories: int
+        num_shape_points: int
+        num_input_points: int
+        image_size: int
+        device: str
 
     default_config: Config = {
-        "model": None,
+        "model_file": None,
+        "mean_shape_file": None,
         "num_categories": None,
         "num_shape_points": None,
+        "num_input_points": None,
+        "image_size": None,
+        "device": "cuda",
     }
 
     def __init__(self, config: Config, camera: camera_utils.Camera) -> None:
@@ -59,26 +71,26 @@ class SPD(CPASMethod):
 
     def _parse_config(self, config: Config) -> None:
         self._device = config["device"]
-        self._model_path = utils.resolve_path(config["model"])
-        self._mean_shape_path = utils.resolve_path(config["mean_shape"])
+        self._model_file_path = utils.resolve_path(config["model_file"])
+        self._mean_shape_file_path = utils.resolve_path(config["mean_shape_file"])
         self._check_paths()
         self._spd_net = spd.DeformNet(
             config["num_categories"], config["num_shape_points"]
         )
         self._spd_net.to(self._device)
-        self._spd_net.load_state_dict(torch.load(self._model_path))
+        self._spd_net.load_state_dict(torch.load(self._model_file_path))
         self._spd_net.eval()
-        self._mean_shape_pointsets = np.load(self._mean_shape_path)
+        self._mean_shape_pointsets = np.load(self._mean_shape_file_path)
         self._num_input_points = config["num_input_points"]
         self._image_size = config["image_size"]
 
     def _check_paths(self) -> None:
-        if not os.path.exists(self._model_path) or not os.path.exists(
-            self._mean_shape_path
+        if not os.path.exists(self._model_file_path) or not os.path.exists(
+            self._mean_shape_file_path
         ):
             print("SPD model weights not found, do you want to download to ")
-            print("  ", self._model_path)
-            print("  ", self._mean_shape_path)
+            print("  ", self._model_file_path)
+            print("  ", self._mean_shape_file_path)
             while True:
                 decision = input("(Y/n) ").lower()
                 if decision == "" or decision == "y":
@@ -89,30 +101,32 @@ class SPD(CPASMethod):
                     exit(0)
 
     def _download_weights(self) -> None:
-        if not os.path.exists(self._model_path):
-            os.makedirs(os.path.dirname(self._model_path), exist_ok=True)
-            download_folder = os.path.dirname(self._model_path)
-            zip_path = os.path.join(download_folder, "temp.zip")
+        if not os.path.exists(self._model_file_path):
+            os.makedirs(os.path.dirname(self._model_file_path), exist_ok=True)
+            download_dir_path = os.path.dirname(self._model_file_path)
+            zip_path = os.path.join(download_dir_path, "temp.zip")
             utils.download(
                 "https://drive.google.com/u/0/uc?id=1p72NdY4Bie_sra9U8zoUNI4fTrQZdbnc&"
                 "export=download",
                 zip_path,
             )
             z = zipfile.ZipFile(zip_path)
-            z.extract("deformnet_eval/real/model_50.pth", download_folder)
+            z.extract("deformnet_eval/real/model_50.pth", download_dir_path)
             z.close()
             os.remove(zip_path)
             shutil.move(
-                os.path.join(download_folder, "deformnet_eval", "real", "model_50.pth"),
-                download_folder,
+                os.path.join(
+                    download_dir_path, "deformnet_eval", "real", "model_50.pth"
+                ),
+                download_dir_path,
             )
-            shutil.rmtree(os.path.join(download_folder, "deformnet_eval"))
-        if not os.path.exists(self._mean_shape_path):
-            os.makedirs(os.path.dirname(self._mean_shape_path), exist_ok=True)
+            shutil.rmtree(os.path.join(download_dir_path, "deformnet_eval"))
+        if not os.path.exists(self._mean_shape_file_path):
+            os.makedirs(os.path.dirname(self._mean_shape_file_path), exist_ok=True)
             utils.download(
                 "https://github.com/mentian/object-deformnet/raw/master/assets/"
                 "mean_points_emb.npy",
-                self._mean_shape_path,
+                self._mean_shape_file_path,
             )
 
     def inference(

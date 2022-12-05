@@ -128,8 +128,8 @@ class AnnotatedRedwoodDataset(torch.utils.data.Dataset):
         config = yoco.load_config(
             config, current_dict=AnnotatedRedwoodDataset.default_config
         )
-        self._root_dir = utils.resolve_path(config["root_dir"])
-        self._ann_dir = utils.resolve_path(config["ann_dir"])
+        self._root_dir_path = utils.resolve_path(config["root_dir"])
+        self._ann_dir_path = utils.resolve_path(config["ann_dir"])
         self._check_dirs()
         self._camera_convention = config["camera_convention"]
         self._mask_pointcloud = config["mask_pointcloud"]
@@ -144,15 +144,15 @@ class AnnotatedRedwoodDataset(torch.utils.data.Dataset):
         )
 
     def _check_dirs(self) -> None:
-        if os.path.exists(self._root_dir) and os.path.exists(self._ann_dir):
+        if os.path.exists(self._root_dir_path) and os.path.exists(self._ann_dir_path):
             pass
         else:
             print(
                 "REDWOOD75 dataset not found, do you want to download it into the "
                 "following directories:"
             )
-            print("  ", self._root_dir)
-            print("  ", self._ann_dir)
+            print("  ", self._root_dir_path)
+            print("  ", self._ann_dir_path)
             while True:
                 decision = input("(Y/n) ").lower()
                 if decision == "" or decision == "y":
@@ -164,40 +164,42 @@ class AnnotatedRedwoodDataset(torch.utils.data.Dataset):
 
     def _download_dataset(self) -> None:
         # Download anns
-        if not os.path.exists(self._ann_dir):
-            zip_path = os.path.join(self._ann_dir, "redwood75.zip")
-            os.makedirs(self._ann_dir, exist_ok=True)
+        if not os.path.exists(self._ann_dir_path):
+            zip_path = os.path.join(self._ann_dir_path, "redwood75.zip")
+            os.makedirs(self._ann_dir_path, exist_ok=True)
             url = (
                 "https://drive.google.com/u/0/uc?id=1PMvIblsXWDxEJykVwhUk_QEjy4_bmDU"
                 "-&export=download"
             )
             utils.download(url, zip_path)
             z = zipfile.ZipFile(zip_path)
-            z.extractall(os.path.join(self._ann_dir, ".."))
+            z.extractall(os.path.join(self._ann_dir_path, ".."))
             z.close()
             os.remove(zip_path)
 
-        ann_json = os.path.join(self._ann_dir, "annotations.json")
+        ann_json = os.path.join(self._ann_dir_path, "annotations.json")
         with open(ann_json, "r") as f:
             anns_dict = json.load(f)
 
         baseurl = "https://s3.us-west-1.wasabisys.com/redwood-3dscan/rgbd/"
         for seq_id in anns_dict.keys():
-            download_dir = os.path.join(self._root_dir, anns_dict[seq_id]["category"])
-            os.makedirs(download_dir, exist_ok=True)
-            zip_path = os.path.join(download_dir, f"{seq_id}.zip")
+            download_dir_path = os.path.join(
+                self._root_dir_path, anns_dict[seq_id]["category"]
+            )
+            os.makedirs(download_dir_path, exist_ok=True)
+            zip_path = os.path.join(download_dir_path, f"{seq_id}.zip")
             os.makedirs(os.path.dirname(zip_path), exist_ok=True)
             utils.download(baseurl + f"{seq_id}.zip", zip_path)
             z = zipfile.ZipFile(zip_path)
-            out_folder = os.path.join(download_dir, "rgbd", seq_id)
-            os.makedirs(out_folder, exist_ok=True)
-            z.extractall(out_folder)
+            seq_dir_path = os.path.join(download_dir_path, "rgbd", seq_id)
+            os.makedirs(seq_dir_path, exist_ok=True)
+            z.extractall(seq_dir_path)
             z.close()
             os.remove(zip_path)
 
     def _load_annotations(self) -> None:
         """Load annotations into memory."""
-        ann_json = os.path.join(self._ann_dir, "annotations.json")
+        ann_json = os.path.join(self._ann_dir_path, "annotations.json")
         with open(ann_json, "r") as f:
             anns_dict = json.load(f)
         self._raw_samples = []
@@ -216,13 +218,13 @@ class AnnotatedRedwoodDataset(torch.utils.data.Dataset):
         rgb_filename = annotation_dict["rgb_file"]
         depth_filename = annotation_dict["depth_file"]
         mesh_filename = sequence_dict["mesh"]
-        mesh_path = os.path.join(self._ann_dir, mesh_filename)
+        mesh_path = os.path.join(self._ann_dir_path, mesh_filename)
         category_str = sequence_dict["category"]
         color_path = os.path.join(
-            self._root_dir, category_str, "rgbd", seq_id, "rgb", rgb_filename
+            self._root_dir_path, category_str, "rgbd", seq_id, "rgb", rgb_filename
         )
         depth_path = os.path.join(
-            self._root_dir, category_str, "rgbd", seq_id, "depth", depth_filename
+            self._root_dir_path, category_str, "rgbd", seq_id, "depth", depth_filename
         )
         extents = torch.tensor(sequence_dict["scale"]) * 2
         return {

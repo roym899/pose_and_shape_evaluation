@@ -20,7 +20,7 @@ dataset_config:
     remap_x_axis: -z
 
 # See https://github.com/hughw19/NOCS_CVPR2019/blob/master/detect_eval.py for camera
-# intrinsics (seems to be different from info.txt in the dataset folder).
+# intrinsics (seems to be different from info.txt in the dataset dir).
 camera:
   width: 640
   height: 480

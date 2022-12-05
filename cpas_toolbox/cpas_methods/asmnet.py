@@ -7,6 +7,7 @@ Implementation based on https://github.com/sakizuki/asm-net
 import copy
 import os
 import shutil
+import tempfile
 import zipfile
 from typing import List, TypedDict
 
@@ -31,19 +32,21 @@ class ASMNet(CPASMethod):
         Attributes:
             model: Path to model.
             device: Device string for the model.
-            models_folder:
-                Path to folder containing model parameters.
-                Must contain the following folder structure:
-                    {models_folder}/{category_0}/model.pth
+            models_dir:
+                Path to directory containing model parameters.
+                Must contain the following directory structure:
+                    {models_dir}/{category_0}/model.pth
                     ...
-            asm_params_folder:
-                Path to folder containing ASM parameters.
-                Must contain the following folder structure:
-                    {asm_params_folder}/{category_0}/train/info.npz
+            asm_params_dir:
+                Path to direactory containing ASM parameters.
+                Must contain the following directory structure:
+                    {asm_params_directory}/{category_0}/train/info.npz
                     ...
+            weights_url:
+                URL to download model and ASM params from if they do not exist yet.
             categories:
-                List of categories. Each category requires corresponding folder with
-                model.pth and info.npz. See models_folder and asm_params_folder.
+                List of categories. Each category requires corresponding directory with
+                model.pth and info.npz. See models_dir and asm_params_dir.
             num_points: Number of input points.
             deformation_dimension: Number of deformation parameters.
             use_mean_shape:
@@ -52,8 +55,9 @@ class ASMNet(CPASMethod):
             use_icp: Whether to use ICP to refine the pose.
         """
 
-        models_folder: str
-        asm_params_folder: str
+        models_dir: str
+        asm_params_dir: str
+        weights_url: str
         device: str
         categories: List[str]
         num_points: int
@@ -62,8 +66,9 @@ class ASMNet(CPASMethod):
         use_icp: bool
 
     default_config: Config = {
-        "model_params_folder": None,
-        "asm_params_folder": None,
+        "model_params_dir": None,
+        "asm_params_dir": None,
+        "weights_url": None,
         "device": "cuda",
         "categories": [],
         "num_points": 800,
@@ -85,15 +90,16 @@ class ASMNet(CPASMethod):
 
     def _parse_config(self, config: Config) -> None:
         self._device = config["device"]
-        self._weights_folder = utils.resolve_path(config["models_folder"])
-        self._asm_params_folder = utils.resolve_path(config["asm_params_folder"])
+        self._weights_dir_path = utils.resolve_path(config["models_dir"])
+        self._asm_params_dir_path = utils.resolve_path(config["asm_params_dir"])
+        self._weights_url = config["weights_url"]
         self._check_paths()
         synset_names = ["placeholder"] + config["categories"]  # first will be ignored
         self._asmds = asmnet.cr6d_utils.load_asmds(
-            self._asm_params_folder, synset_names
+            self._asm_params_dir_path, synset_names
         )
         self._models = asmnet.cr6d_utils.load_models_release(
-            self._weights_folder,
+            self._weights_dir_path,
             synset_names,
             config["deformation_dimension"],
             config["num_points"],
@@ -104,12 +110,12 @@ class ASMNet(CPASMethod):
         self._use_icp = config["use_icp"]
 
     def _check_paths(self) -> None:
-        if not os.path.exists(self._weights_folder) or not os.path.exists(
-            self._asm_params_folder
+        if not os.path.exists(self._weights_dir_path) or not os.path.exists(
+            self._asm_params_dir_path
         ):
             print("ASM-Net model weights not found, do you want to download to ")
-            print("  ", self._weights_folder)
-            print("  ", self._asm_params_folder)
+            print("  ", self._weights_dir_path)
+            print("  ", self._asm_params_dir_path)
             while True:
                 decision = input("(Y/n) ").lower()
                 if decision == "" or decision == "y":
@@ -120,33 +126,34 @@ class ASMNet(CPASMethod):
                     exit(0)
 
     def _download_weights(self) -> None:
-        download_folder = "./"
-        zip_path = os.path.join(download_folder, "asmnetweights.zip")
+        download_dir_path = tempfile.mkdtemp()
+        zip_file_path = os.path.join(download_dir_path, "asmnetweights.zip")
         utils.download(
-            "https://drive.google.com/u/0/uc?id=1fxc9UoRhfTsoV3ZML3Mx_mc79904zpcx"
-            "&export=download",
-            zip_path,
+            self._weights_url,
+            zip_file_path,
         )
-        z = zipfile.ZipFile(zip_path)
-        z.extractall(download_folder)
-        z.close()
-        os.remove(zip_path)
+        zip_file = zipfile.ZipFile(zip_file_path)
+        zip_file.extractall(download_dir_path)
+        zip_file.close()
+        os.remove(zip_file_path)
 
-        if not os.path.exists(self._asm_params_folder):
-            os.makedirs(self._asm_params_folder, exist_ok=True)
-            source_dir = os.path.join(download_folder, "params", "asm_params")
-            file_names = os.listdir(source_dir)
+        if not os.path.exists(self._asm_params_dir_path):
+            os.makedirs(self._asm_params_dir_path, exist_ok=True)
+            source_dir_path = os.path.join(download_dir_path, "params", "asm_params")
+            file_names = os.listdir(source_dir_path)
             for fn in file_names:
-                shutil.move(os.path.join(source_dir, fn), self._asm_params_folder)
+                shutil.move(
+                    os.path.join(source_dir_path, fn), self._asm_params_dir_path
+                )
 
-        if not os.path.exists(self._weights_folder):
-            os.makedirs(self._weights_folder, exist_ok=True)
-            source_dir = os.path.join(download_folder, "params", "weights")
-            file_names = os.listdir(source_dir)
+        if not os.path.exists(self._weights_dir_path):
+            os.makedirs(self._weights_dir_path, exist_ok=True)
+            source_dir_path = os.path.join(download_dir_path, "params", "weights")
+            file_names = os.listdir(source_dir_path)
             for fn in file_names:
-                shutil.move(os.path.join(source_dir, fn), self._weights_folder)
+                shutil.move(os.path.join(source_dir_path, fn), self._weights_dir_path)
 
-        shutil.rmtree(os.path.join(download_folder, "params"))
+        shutil.rmtree(os.path.join(download_dir_path, "params"))
 
     def inference(
         self,
