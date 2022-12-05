@@ -1,0 +1,18 @@
+name: SDFEst
+method_type: cpas_toolbox.cpas_methods.sdfest.SDFEst
+config_dict:
+  sdfest_default_config_file: estimation/configs/default.yaml
+  sdfest_category_config_files:
+    bottle: estimation/configs/models/bottle.yaml
+    bowl: estimation/configs/models/bowl.yaml
+    laptop: estimation/configs/models/laptop.yaml
+    can: estimation/configs/models/can.yaml
+    camera: estimation/configs/models/camera.yaml
+    mug: estimation/configs/models/mug.yaml
+
+  threshold: 0.005
+  device: cuda
+  num_points: 10000  # samples from mesh to generate pointcloud
+
+  max_iterations: 50
+  visualize_optimization: False
