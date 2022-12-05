@@ -1,8 +1,9 @@
 name: ASMNet
 method_type: cpas_toolbox.cpas_methods.asmnet.ASMNet
 config_dict:
-  models_folder: ~/.cpas_toolbox/models/asmnet/weights/
-  asm_params_folder: ~/.cpas_toolbox/models/asmnet/asm_params/
+  models_dir: ~/.cpas_toolbox/models/asmnet/weights/
+  asm_params_dir: ~/.cpas_toolbox/models/asmnet/asm_params/
+  weights_url: https://drive.google.com/u/0/uc?id=1fxc9UoRhfTsoV3ZML3Mx_mc79904zpcx&export=download
   categories: ["bottle", "bowl", "camera", "can", "laptop", "mug"]
   deformation_dimension: 3
   num_points: 800

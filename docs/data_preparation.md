@@ -9,7 +9,7 @@ The default directories can be found in the configuration file for the respectiv
 ## REAL275
 For download links check the [NOCS repository](https://github.com/hughw19/NOCS_CVPR2019).
 
-The expected folder structure for REAL275 evaluation is as follows:
+The expected directory structure for REAL275 evaluation is as follows:
 ```
     {root_dir}/real_test/...
     {root_dir}/gts/...
@@ -21,7 +21,7 @@ An additional directory `{root_dir}/csap_toolbox/` will be created to store prep
 To download the raw data check the [redwood-data website](http://redwood-data.org/3dscan/dataset.html).
 You can download the REDWOOD75 annotations [here](https://drive.google.com/file/d/1PMvIblsXWDxEJykVwhUk_QEjy4_bmDU-/view?usp=sharing). Only the Redwood sequences ids contained in this file are required for evaluation.
 
-The expected folder structure for REDWOOD75 evaluation is as follows:
+The expected directory structure for REDWOOD75 evaluation is as follows:
 ```
     {root_dir}/bottle/rgbd/00049/depth/*.png
     {root_dir}/bottle/rgbd/...

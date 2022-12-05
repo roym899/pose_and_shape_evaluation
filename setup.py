@@ -6,19 +6,25 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 install_requires = [
+    "easydict",  # required by iCaps
+    "filterpy",  # required by iCaps
     "gdown",
     "matplotlib",
     "ninja",
+    "numba",  # required by iCaps
     "numpy",
     "open3d",
     "opencv-python-headless",
     "Pillow",
+    "plyfile",  # required by iCaps
     "requests",
     "scipy",
+    "scikit-image",
     "tikzplotlib",
+    "tqdm",
     "torch",
     "torchvision",
-    "tqdm",
+    "transforms3d",  # required by iCaps
     "trimesh",
     "yoco",
 ]

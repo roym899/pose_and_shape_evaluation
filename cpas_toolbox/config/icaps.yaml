@@ -1,0 +1,9 @@
+name: iCaps
+method_type: cpas_toolbox.cpas_methods.icaps.ICaps
+config_dict:
+  checkpoints_url: https://drive.google.com/u/0/uc?id=1AvLMnHssLOpmWkDuWGsUvFNIfGjBC-ok&export=download
+  pf_config_dir: _icaps/config/pf_cfgs
+  deepsdf_checkpoint_dir: ~/.cpas_toolbox/models/icaps/deepsdf_ckpts/
+  latentnet_checkpoint_dir: ~/.cpas_toolbox/models/icaps/latentnet_ckpts/
+  aae_checkpoint_dir: ~/.cpas_toolbox/models/icaps/aae_ckpts/
+  categories: ["bottle", "bowl", "camera", "can", "laptop", "mug"]

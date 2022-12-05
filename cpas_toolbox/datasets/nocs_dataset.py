@@ -153,13 +153,13 @@ class NOCSDataset(torch.utils.data.Dataset):
                 with default_dict. See NOCSDataset.Config for supported keys.
         """
         config = yoco.load_config(config, current_dict=NOCSDataset.default_config)
-        self._root_dir = utils.resolve_path(config["root_dir"])
+        self._root_dir_path = utils.resolve_path(config["root_dir"])
         self._split = config["split"]
         self._check_dirs()
         self._camera_convention = config["camera_convention"]
         self._camera = self._get_split_camera()
         self._preprocess_path = os.path.join(
-            self._root_dir, "csap_toolbox", self._split
+            self._root_dir_path, "csap_toolbox", self._split
         )
         if not os.path.isdir(self._preprocess_path):
             self._preprocess_dataset()
@@ -173,9 +173,9 @@ class NOCSDataset(torch.utils.data.Dataset):
 
     def _check_dirs(self) -> None:
         directories = [
-            os.path.join(self._root_dir, "gts"),
+            os.path.join(self._root_dir_path, "gts"),
         ]
-        # required folders
+        # required directories
         if all(os.path.exists(directory) for directory in directories):
             pass
         else:
@@ -183,7 +183,7 @@ class NOCSDataset(torch.utils.data.Dataset):
                 f"NOCS dataset ({self._split} split) not found, do you want to download"
                 " it into the following directory:"
             )
-            print("  ", self._root_dir)
+            print("  ", self._root_dir_path)
             while True:
                 decision = input("(Y/n) ").lower()
                 if decision == "" or decision == "y":
@@ -199,20 +199,20 @@ class NOCSDataset(torch.utils.data.Dataset):
 
         # gts only available for real test and camera val
         if self._split in ["real_test", "camera_val"]:
-            dirs.append(os.path.join(self._root_dir, "gts"))
+            dirs.append(os.path.join(self._root_dir_path, "gts"))
 
-        dirs.append(os.path.join(self._root_dir, "obj_models"))
+        dirs.append(os.path.join(self._root_dir_path, "obj_models"))
 
         # full depths for CAMERA
         if self._split in ["camera_val", "camera_train"]:
-            dirs.append(os.path.join(self._root_dir, "camera_full_depths"))
+            dirs.append(os.path.join(self._root_dir_path, "camera_full_depths"))
 
         if self._split == "camera_train":
-            dirs.append(os.path.join(self._root_dir, "train"))
+            dirs.append(os.path.join(self._root_dir_path, "train"))
         elif self._split == "camera_val":
-            dirs.append(os.path.join(self._root_dir, "val"))
+            dirs.append(os.path.join(self._root_dir_path, "val"))
         elif self._split in ["real_train", "real_test"]:
-            dirs.append(os.path.join(self._root_dir, self._split))
+            dirs.append(os.path.join(self._root_dir_path, self._split))
         else:
             raise ValueError(f"Specified split {self._split} is not supported.")
 
@@ -345,19 +345,19 @@ class NOCSDataset(torch.utils.data.Dataset):
 
         Some png files have jpg extension. This function fixes these models.
         """
-        glob_pattern = os.path.join(self._root_dir, "**", "*.jpg")
+        glob_pattern = os.path.join(self._root_dir_path, "**", "*.jpg")
         files = glob(glob_pattern, recursive=True)
         for filepath in files:
             what = imghdr.what(filepath)
             if what == "png":
                 print("Fixing: ", filepath)
-                folder, problematic_filename = os.path.split(filepath)
+                obj_dir_path, problematic_filename = os.path.split(filepath)
                 name, _ = problematic_filename.split(".")
                 fixed_filename = f"fixed_{name}.png"
-                fixed_filepath = os.path.join(folder, fixed_filename)
+                fixed_filepath = os.path.join(obj_dir_path, fixed_filename)
 
-                mtl_filepath = os.path.join(folder, "model.mtl")
-                bu_mtl_filepath = os.path.join(folder, "model.mtl.old")
+                mtl_filepath = os.path.join(obj_dir_path, "model.mtl")
+                bu_mtl_filepath = os.path.join(obj_dir_path, "model.mtl.old")
                 copyfile(mtl_filepath, bu_mtl_filepath)
 
                 copyfile(filepath, fixed_filepath)
@@ -463,19 +463,21 @@ class NOCSDataset(torch.utils.data.Dataset):
     def _get_color_files(self) -> list:
         """Return list of paths of color images of the selected split."""
         if self._split == "camera_train":
-            glob_pattern = os.path.join(self._root_dir, "train", "**", "*_color.png")
+            glob_pattern = os.path.join(
+                self._root_dir_path, "train", "**", "*_color.png"
+            )
             return sorted(glob(glob_pattern, recursive=True))
         elif self._split == "camera_val":
-            glob_pattern = os.path.join(self._root_dir, "val", "**", "*_color.png")
+            glob_pattern = os.path.join(self._root_dir_path, "val", "**", "*_color.png")
             return sorted(glob(glob_pattern, recursive=True))
         elif self._split == "real_train":
             glob_pattern = os.path.join(
-                self._root_dir, "real_train", "**", "*_color.png"
+                self._root_dir_path, "real_train", "**", "*_color.png"
             )
             return sorted(glob(glob_pattern, recursive=True))
         elif self._split == "real_test":
             glob_pattern = os.path.join(
-                self._root_dir, "real_test", "**", "*_color.png"
+                self._root_dir_path, "real_test", "**", "*_color.png"
             )
             return sorted(glob(glob_pattern, recursive=True))
         else:
@@ -689,9 +691,9 @@ class NOCSDataset(torch.utils.data.Dataset):
         Return None if split does not have ground truth information.
         """
         if self._split == "real_test":
-            gts_folder = os.path.join(self._root_dir, "gts", "real_test")
+            gts_dir_path = os.path.join(self._root_dir_path, "gts", "real_test")
         elif self._split == "camera_val":
-            gts_folder = os.path.join(self._root_dir, "gts", "val")
+            gts_dir_path = os.path.join(self._root_dir_path, "gts", "val")
         else:
             return None
 
@@ -699,7 +701,7 @@ class NOCSDataset(torch.utils.data.Dataset):
         split_path = path.split(os.sep)
         number = path[-14:-10]
         gts_filename = f"results_{split_path[-3]}_{split_path[-2]}_{number}.pkl"
-        gts_path = os.path.join(gts_folder, gts_filename)
+        gts_path = os.path.join(gts_dir_path, gts_filename)
         return gts_path
 
     def _get_obj_path(self, meta_row: pd.Series) -> str:
@@ -708,7 +710,7 @@ class NOCSDataset(torch.utils.data.Dataset):
             synset_id = meta_row.iloc[2]
             object_id = meta_row.iloc[3]
             obj_path = os.path.join(
-                self._root_dir,
+                self._root_dir_path,
                 "obj_models",
                 self._split.replace("camera_", ""),
                 synset_id,
@@ -718,7 +720,7 @@ class NOCSDataset(torch.utils.data.Dataset):
         elif "real" in self._split:  # REAL mesh
             object_id = meta_row.iloc[2]
             obj_path = os.path.join(
-                self._root_dir, "obj_models", self._split, object_id + ".obj"
+                self._root_dir_path, "obj_models", self._split, object_id + ".obj"
             )
         else:
             raise ValueError(f"Specified split {self._split} is not supported.")
