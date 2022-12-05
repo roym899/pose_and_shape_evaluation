@@ -14,7 +14,6 @@ sources += glob.glob(os.path.join(extensions_dir, "cpu", "*.cpp"))
 extra_cflags = []
 
 if torch.cuda.is_available() and CUDA_HOME is not None:
-    print("CUDA available")
     sources += glob.glob(os.path.join(extensions_dir, "cuda", "*.cu"))
     extra_cflags += [
         "-DWITH_CUDA=1" "-DCUDA_HAS_FP16=1",

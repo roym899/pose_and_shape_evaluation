@@ -69,15 +69,7 @@ class ICaps(CPASMethod):
 
     def _parse_config(self, config: Config) -> None:
         self._num_points = 10000
-        # TODO fix this
-        self._category_str_to_ckpt_folder = {
-            "bottle": "bottle20200608T172228_default",
-            "bowl": "bowl20200603T175721_default",
-            "camera": "camera20200603T175729_default",
-            "can": "can20200605T201536_default",
-            "laptop": "laptop20200605T205824_default",
-            "mug": "mug20200529T111737_default",
-        }
+        self._category_strs = ["bottle", "camera", "laptop", "bowl", "can", "mug"]
 
         self._checkpoints_url = config["checkpoints_url"]
         self._pose_rbpfs = {}
@@ -99,11 +91,8 @@ class ICaps(CPASMethod):
         self._aae_ckp_folder = utils.resolve_path(config["aae_checkpoint_folder"])
         self._check_paths()
 
-        for (
-            category_str,
-            aae_category_folder,
-        ) in self._category_str_to_ckpt_folder.items():
-            full_ckpt_folder = os.path.join(self._aae_ckp_folder, aae_category_folder)
+        for category_str in self._category_strs:
+            full_ckpt_folder = os.path.join(self._aae_ckp_folder, category_str)
             train_cfg_file = os.path.join(full_ckpt_folder, "config.yml")
             icaps.icaps_config.cfg_from_file(train_cfg_file)
             test_cfg_file = os.path.join(pf_cfg_folder, category_str + ".yml")
@@ -166,6 +155,14 @@ class ICaps(CPASMethod):
         if not os.path.exists(self._aae_ckp_folder):
             src_dir = os.path.join(download_dir_path, "checkpoints", "aae_ckpts")
             shutil.move(src_dir, self._aae_ckp_folder)
+            # normalize names
+            for category_str in self._category_strs:
+                for aae_category_dir in os.listdir(self._aae_ckp_folder):
+                    if category_str in aae_category_dir:
+                        os.rename(
+                            aae_category_dir,
+                            os.path.join(self._aae_ckp_folder, category_str),
+                        )
 
     def inference(
         self,
