@@ -3,6 +3,6 @@ method_type: cpas_toolbox.cpas_methods.icaps.ICaps
 config_dict:
   checkpoints_url: https://drive.google.com/u/0/uc?id=1AvLMnHssLOpmWkDuWGsUvFNIfGjBC-ok&export=download
   pf_config_folder: _icaps/config/pf_cfgs
-  deepsdf_checkpoint_folder: ~/.cpas_toolbox/models/icaps/checkpoints/deepsdf_ckpts/
-  latentnet_checkpoint_folder: ~/.cpas_toolbox/models/icaps/checkpoints/latentnet_ckpts/
-  aae_checkpoint_folder: ~/.cpas_toolbox/models/icaps/checkpoints/aae_ckpts/
+  deepsdf_checkpoint_folder: ~/.cpas_toolbox/models/icaps/deepsdf_ckpts/
+  latentnet_checkpoint_folder: ~/.cpas_toolbox/models/icaps/latentnet_ckpts/
+  aae_checkpoint_folder: ~/.cpas_toolbox/models/icaps/aae_ckpts/

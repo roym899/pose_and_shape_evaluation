@@ -7,7 +7,9 @@ Implementation based on https://github.com/aerogjy/iCaps
 """
 import copy
 import os
+import shutil
 import tarfile
+import tempfile
 from typing import TypedDict
 
 import numpy as np
@@ -67,6 +69,7 @@ class ICaps(CPASMethod):
 
     def _parse_config(self, config: Config) -> None:
         self._num_points = 10000
+        # TODO fix this
         self._category_str_to_ckpt_folder = {
             "bottle": "bottle20200608T172228_default",
             "bowl": "bowl20200603T175721_default",
@@ -87,15 +90,20 @@ class ICaps(CPASMethod):
                 os.path.dirname(__file__),
             ],
         )
-        deepsdf_ckp_folder = utils.resolve_path(config["deepsdf_checkpoint_folder"])
-        latentnet_ckp_folder = utils.resolve_path(config["latentnet_checkpoint_folder"])
-        aae_ckp_folder = utils.resolve_path(config["aae_checkpoint_folder"])
+        self._deepsdf_ckp_folder = utils.resolve_path(
+            config["deepsdf_checkpoint_folder"]
+        )
+        self._latentnet_ckp_folder = utils.resolve_path(
+            config["latentnet_checkpoint_folder"]
+        )
+        self._aae_ckp_folder = utils.resolve_path(config["aae_checkpoint_folder"])
+        self._check_paths()
 
         for (
             category_str,
             aae_category_folder,
         ) in self._category_str_to_ckpt_folder.items():
-            full_ckpt_folder = os.path.join(aae_ckp_folder, aae_category_folder)
+            full_ckpt_folder = os.path.join(self._aae_ckp_folder, aae_category_folder)
             train_cfg_file = os.path.join(full_ckpt_folder, "config.yml")
             icaps.icaps_config.cfg_from_file(train_cfg_file)
             test_cfg_file = os.path.join(pf_cfg_folder, category_str + ".yml")
@@ -108,21 +116,27 @@ class ICaps(CPASMethod):
                 obj_list,
                 cfg_list,
                 full_ckpt_folder,
-                deepsdf_ckp_folder,
-                latentnet_ckp_folder,
+                self._deepsdf_ckp_folder,
+                self._latentnet_ckp_folder,
             )
             self._pose_rbpfs[category_str].set_target_obj(
                 icaps.icaps_config.cfg.TEST.OBJECTS[0]
             )
 
     def _check_paths(self) -> None:
-        # TODO fix this
-        if not os.path.exists(self._weights_folder) or not os.path.exists(
-            self._asm_params_folder
-        ):
+        path_exists = (
+            os.path.exists(p)
+            for p in [
+                self._aae_ckp_folder,
+                self._deepsdf_ckp_folder,
+                self._latentnet_ckp_folder,
+            ]
+        )
+        if not all(path_exists):
             print("iCaps model weights not found, do you want to download to ")
-            print("  ", self._weights_folder)
-            print("  ", self._asm_params_folder)
+            print("  ", self._aae_ckp_folder)
+            print("  ", self._deepsdf_ckp_folder)
+            print("  ", self._latentnet_ckp_folder)
             while True:
                 decision = input("(Y/n) ").lower()
                 if decision == "" or decision == "y":
@@ -133,31 +147,25 @@ class ICaps(CPASMethod):
                     exit(0)
 
     def _download_weights(self) -> None:
-        # TODO fix this
-        if not os.path.exists(self._model_path):
-            os.makedirs(os.path.dirname(self._model_path), exist_ok=True)
-            download_folder = os.path.dirname(self._model_path)
-            zip_path = os.path.join(download_folder, "temp.zip")
-            utils.download(
-                self._checkpoints_url,
-                zip_path,
-            )
-            z = zipfile.ZipFile(zip_path)
-            z.extract("deformnet_eval/real/model_50.pth", download_folder)
-            z.close()
-            os.remove(zip_path)
-            shutil.move(
-                os.path.join(download_folder, "deformnet_eval", "real", "model_50.pth"),
-                download_folder,
-            )
-            shutil.rmtree(os.path.join(download_folder, "deformnet_eval"))
-        if not os.path.exists(self._mean_shape_path):
-            os.makedirs(os.path.dirname(self._mean_shape_path), exist_ok=True)
-            utils.download(
-                "https://github.com/mentian/object-deformnet/raw/master/assets/"
-                "mean_points_emb.npy",
-                self._mean_shape_path,
-            )
+        download_dir_path = tempfile.mkdtemp()
+        tar_file_path = os.path.join(download_dir_path, "temp")
+        print(self._checkpoints_url, tar_file_path)
+        utils.download(
+            self._checkpoints_url,
+            tar_file_path,
+        )
+        tar_file = tarfile.open(tar_file_path)
+        print("Extracting weights... (this might take a while)")
+        tar_file.extractall(download_dir_path)
+        if not os.path.exists(self._latentnet_ckp_folder):
+            src_dir = os.path.join(download_dir_path, "checkpoints", "latentnet_ckpts")
+            shutil.move(src_dir, self._latentnet_ckp_folder)
+        if not os.path.exists(self._deepsdf_ckp_folder):
+            src_dir = os.path.join(download_dir_path, "checkpoints", "deepsdf_ckpts")
+            shutil.move(src_dir, self._deepsdf_ckp_folder)
+        if not os.path.exists(self._aae_ckp_folder):
+            src_dir = os.path.join(download_dir_path, "checkpoints", "aae_ckpts")
+            shutil.move(src_dir, self._aae_ckp_folder)
 
     def inference(
         self,
