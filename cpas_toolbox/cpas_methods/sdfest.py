@@ -1,12 +1,12 @@
-"""This module defines SPD interface.
+"""This module defines SDFEst interface.
 
-Method is described in Shape Prior Deformation for Categorical 6D Object Pose and Size
-Estimation, Tian, 2020.
+Method is described in SDFEst: Categorical Pose and Shape Estimation of Objects From
+RGB-D Using Signed Distance Fields, Bruns, 2022.
+
 
 Implementation based on
 https://github.com/roym899/sdfest/
 """
-import copy
 from typing import TypedDict
 
 import numpy as np
@@ -25,12 +25,22 @@ class SDFEst(CPASMethod):
     class Config(TypedDict):
         """Configuration dictionary for SDFEst.
 
+        All keys supported by SDFPipeline are supported and will overwrite config
+        contained in sdfest_... files. The keys specified here are used by this
+        script only.
+
+        The two keys sdfest_..._config_files  will be parsed with SDFEst install
+        directory as part of the search paths. This allows to use the default config
+        that comes with SDFEst installation.
+
         Attributes:
-            sdfest_default_config_file
-            sdfest_category_config_files
-            device
-            num_points
-            prior
+            sdfest_default_config_file: Default configuration file loaded first.
+            sdfest_category_config_files: Per-category configuration file loaded second.
+            device: Device used for computation.
+            num_points: Numbner of points extracted from mesh.
+            prior: Prior distribution to modify orientation distribution.
+            visualize_optimization:
+                Whether to show additional optimization visualization.
         """
 
     default_config: Config = {
