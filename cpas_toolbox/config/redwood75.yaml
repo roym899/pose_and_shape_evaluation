@@ -1,5 +1,6 @@
 config:
   methods:
+    icaps: ./icaps.yaml
     sgpa: ./sgpa.yaml
     crnet: ./crnet.yaml
     cass: ./cass.yaml
