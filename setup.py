@@ -20,6 +20,7 @@ install_requires = [
     "requests",
     "scipy",
     "scikit-image",
+    "sdfest",
     "tikzplotlib",
     "tqdm",
     "torch",

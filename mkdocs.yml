@@ -44,6 +44,7 @@ nav:
       - asmnet.py: api_reference/cpas_methods/asmnet.md
       - sgpa.py: api_reference/cpas_methods/sgpa.md
       - icaps.py: api_reference/cpas_methods/icaps.md
+      - sdfest.py: api_reference/cpas_methods/sdfest.md
     - metrics.py: api_reference/metrics.md
     - cpas_method.py: api_reference/cpas_method.md
     - camera_utils.py: api_reference/camera_utils.md
