@@ -1,0 +1,12 @@
+name: DPDN
+method_type: cpas_toolbox.cpas_methods.dpdn.DPDN
+config_dict:
+  num_categories: 6
+  num_shape_points: 1024 
+  num_input_points: 1024
+  image_size: 192
+  model: ~/.cpas_toolbox/models/dpdn/supervised.pth
+  model_url: https://drive.google.com/u/0/uc?id=1hWkbH4Z0RXQeYLxC_kOINxdTnDLtm9SX&export=download
+  mean_shape: ~/.cpas_toolbox/models/dpdn/mean_shapes.npy
+  mean_shape_url: https://github.com/JiehongLin/Self-DPDN/raw/main/data/mean_shapes.npy
+  device: cuda
