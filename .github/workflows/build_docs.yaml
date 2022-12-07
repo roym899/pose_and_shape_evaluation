@@ -2,6 +2,9 @@
 
 name: Docs
 
+env:
+  SKLEARN_ALLOW_DEPRECATED_SKLEARN_PACKAGE_INSTALL: True
+
 on:
   push:
     branches: [ main ]

@@ -9,7 +9,7 @@ install_requires = [
     "easydict",  # required by iCaps
     "filterpy",  # required by iCaps
     "gdown",
-    "matplotlib",
+    "matplotlib<3.6",  # see https://github.com/texworld/tikzplotlib/pull/558
     "ninja",
     "numba",  # required by iCaps
     "numpy",
