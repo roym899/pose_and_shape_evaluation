@@ -234,7 +234,6 @@ class ResNet(nn.Module):
 def resnet18(pretrained=False):
     model = ResNet(BasicBlock, [2, 2, 2, 2])
     if pretrained:
-        print("loading pretrained mdl.")
         model.load_state_dict(
             model_zoo.load_url(model_urls["resnet18"], model_dir=resnet_ptr_mdl_p)
         )
@@ -244,7 +243,6 @@ def resnet18(pretrained=False):
 def resnet34(pretrained=False):
     model = ResNet(BasicBlock, [3, 4, 6, 3])
     if pretrained:
-        print("loading pretrained mdl.")
         model.load_state_dict(
             model_zoo.load_url(model_urls["resnet34"], model_dir=resnet_ptr_mdl_p)
         )
@@ -254,7 +252,6 @@ def resnet34(pretrained=False):
 def resnet50(pretrained=False):
     model = ResNet(Bottleneck, [3, 4, 6, 3])
     if pretrained:
-        print("loading pretrained mdl.")
         model.load_state_dict(
             model_zoo.load_url(model_urls["resnet50"], model_dir=resnet_ptr_mdl_p)
         )
@@ -264,7 +261,6 @@ def resnet50(pretrained=False):
 def resnet101(pretrained=False):
     model = ResNet(Bottleneck, [3, 4, 23, 3])
     if pretrained:
-        print("loading pretrained mdl.")
         model.load_state_dict(
             model_zoo.load_url(model_urls["resnet101"], model_dir=resnet_ptr_mdl_p)
         )
@@ -274,7 +270,6 @@ def resnet101(pretrained=False):
 def resnet152(pretrained=False):
     model = ResNet(Bottleneck, [3, 8, 36, 3])
     if pretrained:
-        print("loading pretrained mdl.")
         model.load_state_dict(
             model_zoo.load_url(model_urls["resnet152"], model_dir=resnet_ptr_mdl_p)
         )

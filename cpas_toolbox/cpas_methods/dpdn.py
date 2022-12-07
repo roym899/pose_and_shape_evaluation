@@ -12,8 +12,10 @@ import tempfile
 import zipfile
 from typing import TypedDict
 
+import cv2
 import numpy as np
 import torch
+import torchvision.transforms.functional as TF
 import yoco
 from scipy.spatial.transform import Rotation
 
@@ -146,13 +148,104 @@ class DPDN(CPASMethod):
 
         Based on https://github.com/JiehongLin/Self-DPDN/blob/main/test.py
         """
-        exit()
+        category_str_to_id = {
+            "bottle": 0,
+            "bowl": 1,
+            "camera": 2,
+            "can": 3,
+            "laptop": 4,
+            "mug": 5,
+        }
+        category_id = category_str_to_id[category_str]
+        mean_shape_pointset = self._mean_shape_pointsets[category_id]
+
+        input_dict = {}
+
+        # Get bounding box
+        x1 = min(instance_mask.nonzero()[:, 1]).item()
+        y1 = min(instance_mask.nonzero()[:, 0]).item()
+        x2 = max(instance_mask.nonzero()[:, 1]).item()
+        y2 = max(instance_mask.nonzero()[:, 0]).item()
+        rmin, rmax, cmin, cmax = dpdn.get_bbox([y1, x1, y2, x2])
+
+        # Prepare image crop
+        color_input = color_image[rmin:rmax, cmin:cmax, :].numpy()
+        color_input = cv2.resize(
+            color_input,
+            (self._image_size, self._image_size),
+            interpolation=cv2.INTER_LINEAR,
+        )
+        color_input = TF.normalize(
+            TF.to_tensor(color_input),  # (H, W, C) -> (C, H, W), RGB
+            mean=[0.485, 0.456, 0.406],
+            std=[0.229, 0.224, 0.225],
+        )
+        input_dict["rgb"] = color_input.unsqueeze(0).to(self._device)
+
+        # Prepare point indices
+        mask = (depth_image != 0) * instance_mask
+        cropped_mask = mask[rmin:rmax, cmin:cmax]
+        cropped_mask_indices = cropped_mask.numpy().flatten().nonzero()[0]
+        if len(cropped_mask_indices) <= self._num_input_points:
+            indices = np.random.choice(len(cropped_mask_indices), self.sample_num)
+        else:
+            indices = np.random.choice(
+                len(cropped_mask_indices), self._num_input_points, replace=False
+            )
+        chosen_cropped_indices = cropped_mask_indices[indices]
+
+        # adjust indices for resizing of color image
+        crop_w = rmax - rmin
+        ratio = self._image_size / crop_w
+        col_idx = chosen_cropped_indices % crop_w
+        row_idx = chosen_cropped_indices // crop_w
+        final_cropped_indices = (
+            np.floor(row_idx * ratio) * self._image_size + np.floor(col_idx * ratio)
+        ).astype(np.int64)
+        input_dict["choose"] = (
+            torch.LongTensor(final_cropped_indices).unsqueeze(0).to(self._device)
+        )
+
+        # Prepare input points
+        fx, fy, cx, cy, _ = self._camera.get_pinhole_camera_parameters(pixel_center=0.0)
+        width = self._camera.width
+        height = self._camera.height
+        depth_image_np = depth_image.numpy()
+        depth_image_np = dpdn.fill_missing(depth_image_np * 1000.0, 1000.0, 1) / 1000.0
+
+        xmap = np.array([[i for i in range(width)] for _ in range(height)])
+        ymap = np.array([[j for _ in range(width)] for j in range(height)])
+        pts2 = depth_image_np.copy()
+        pts0 = (xmap - cx) * pts2 / fx
+        pts1 = (ymap - cy) * pts2 / fy
+        pts_map = np.stack([pts0, pts1, pts2])
+        pts_map = np.transpose(pts_map, (1, 2, 0)).astype(np.float32)
+        cropped_pts_map = pts_map[rmin:rmax, cmin:cmax, :]
+        input_points = cropped_pts_map.reshape((-1, 3))[chosen_cropped_indices, :]
+        input_dict["pts"] = (
+            torch.FloatTensor(input_points).unsqueeze(0).to(self._device)
+        )
+
+        # Prepare prior
+        input_dict["prior"] = (
+            torch.FloatTensor(mean_shape_pointset).unsqueeze(0).to(self._device)
+        )
+
+        # Prepare category id
+        input_dict["category_label"] = torch.cuda.LongTensor([category_id]).to(
+            self._device
+        )
 
         # Call DPDN
-        assign_matrix, deltas = self._dpdn(
-            points,
-            color_input,
-            point_indices,
-            category_id,
-            mean_shape_pointset,
-        )
+        outputs = self._dpdn(input_dict)
+
+        # Convert outputs to expected format
+        breakpoint()
+
+        return {
+            "position": outputs["pred_translation"],
+            "orientation": outputs["pred_rotation"],
+            "extents": outputs["pred_size"],
+            "reconstructed_pointcloud": outputs["qv"],
+            "reconstructed_mesh": None,
+        }

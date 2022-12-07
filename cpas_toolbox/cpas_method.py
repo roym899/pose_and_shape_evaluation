@@ -27,12 +27,12 @@ class PredictionDict(TypedDict):
             Orientation of object in camera frame. OpenCV convention.
             Scalar-last quaternion, shape (4,).
         extents:
-            Bounding box side lengths., shape (3,).
+            Bounding box side lengths, shape (3,).
         reconstructed_pointcloud:
-            Reconstructed pointcloud in object frame.
+            Metrically-scaled reconstructed pointcloud in object frame.
             None if method does not perform reconstruction.
         reconstructed_mesh:
-            Reconstructed mesh in object frame.
+            Metrically-scaled reconstructed mesh in object frame.
             None if method does not perform reconstruction.
     """
 
