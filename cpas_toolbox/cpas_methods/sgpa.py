@@ -37,7 +37,7 @@ class SGPA(CPASMethod):
             model: File path for model weights.
             model_url: URL to download model weights if file is not found.
             mean_shape: File path for mean shape file.
-            mean_shape_url: URL to download mean shape file if
+            mean_shape_url: URL to download mean shape file if it is not found.
             device: Device string for the model.
         """
 
