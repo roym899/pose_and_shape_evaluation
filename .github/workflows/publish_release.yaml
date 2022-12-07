@@ -1,5 +1,8 @@
 name: PyPI Release
 
+env:
+  SKLEARN_ALLOW_DEPRECATED_SKLEARN_PACKAGE_INSTALL: True
+
 on: 
   release:
     types: [published]
