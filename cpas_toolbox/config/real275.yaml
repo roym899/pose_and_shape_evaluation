@@ -1,6 +1,7 @@
 # Standalone config to use with evaluate.py
 config:
   methods:
+    dpdn: ./dpdn.yaml
     sdfest: ./sdfest.yaml
     icaps: ./icaps.yaml
     sgpa: ./sgpa.yaml

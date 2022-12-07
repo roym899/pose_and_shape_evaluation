@@ -240,12 +240,31 @@ class DPDN(CPASMethod):
         outputs = self._dpdn(input_dict)
 
         # Convert outputs to expected format
-        breakpoint()
+        position = outputs["pred_translation"][0].detach().cpu()
+
+        orientation_mat = outputs["pred_rotation"][0].detach().cpu()
+        orientation = Rotation.from_matrix(orientation_mat.detach().numpy())
+        orientation_q = torch.FloatTensor(orientation.as_quat())
+        extents = outputs["pred_size"][0].detach().cpu()
+
+        # NOCS Object -> ShapeNet Object convention
+        obj_fix = torch.tensor([0.0, -1 / np.sqrt(2.0), 0.0, 1 / np.sqrt(2.0)])
+        orientation_q = quaternion_utils.quaternion_multiply(orientation_q, obj_fix)
+        reconstructed_points = outputs["pred_qv"][0].detach().cpu()
+        reconstructed_points = quaternion_utils.quaternion_apply(
+            quaternion_utils.quaternion_invert(obj_fix),
+            reconstructed_points,
+        )
+        extents = torch.FloatTensor([extents[2], extents[1], extents[0]])
+        scale = torch.linalg.norm(extents)
+        reconstructed_points *= scale
+
+        # TODO seems like pose of mug and points don't quite match?
 
         return {
-            "position": outputs["pred_translation"],
-            "orientation": outputs["pred_rotation"],
-            "extents": outputs["pred_size"],
-            "reconstructed_pointcloud": outputs["qv"],
+            "position": position,
+            "orientation": orientation_q,
+            "extents": extents,
+            "reconstructed_pointcloud": reconstructed_points,
             "reconstructed_mesh": None,
         }
