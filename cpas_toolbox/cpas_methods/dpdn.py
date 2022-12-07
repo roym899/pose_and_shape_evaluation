@@ -1,10 +1,10 @@
 """This module defines DPDN interface.
 
-Method is described in * Category-Level 6D Object Pose and Size Estimation using
+Method is described in Category-Level 6D Object Pose and Size Estimation using
 Self-Supervised Deep Prior Deformation Networks, Lin, 2022.
 
 Implementation based on
-https://github.com/JiehongLin/Self-DPDN
+[https://github.com/JiehongLin/Self-DPDN](https://github.com/JiehongLin/Self-DPDN).
 """
 import os
 import shutil
