@@ -246,20 +246,27 @@ class DPDN(CPASMethod):
         orientation = Rotation.from_matrix(orientation_mat.detach().numpy())
         orientation_q = torch.FloatTensor(orientation.as_quat())
         extents = outputs["pred_size"][0].detach().cpu()
+        reconstructed_points = outputs["pred_qv"][0].detach().cpu()
+        scale = torch.linalg.norm(extents)
+        reconstructed_points *= scale
+
+        # Recenter for mug category
+        # TODO not really sure if this is correct, but seems to give best results
+        if category_str == "mug":  # undo mug translation
+            x_offset = (
+                self._mean_shape_pointsets[5].max(axis=0)[0]
+                + self._mean_shape_pointsets[5].min(axis=0)[0]
+            ) / 2 * scale
+            reconstructed_points[:, 0] -= x_offset
 
         # NOCS Object -> ShapeNet Object convention
         obj_fix = torch.tensor([0.0, -1 / np.sqrt(2.0), 0.0, 1 / np.sqrt(2.0)])
         orientation_q = quaternion_utils.quaternion_multiply(orientation_q, obj_fix)
-        reconstructed_points = outputs["pred_qv"][0].detach().cpu()
         reconstructed_points = quaternion_utils.quaternion_apply(
             quaternion_utils.quaternion_invert(obj_fix),
             reconstructed_points,
         )
         extents = torch.FloatTensor([extents[2], extents[1], extents[0]])
-        scale = torch.linalg.norm(extents)
-        reconstructed_points *= scale
-
-        # TODO seems like pose of mug and points don't quite match?
 
         return {
             "position": position,

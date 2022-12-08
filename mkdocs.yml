@@ -46,6 +46,7 @@ nav:
       - icaps.py: api_reference/cpas_methods/icaps.md
       - sdfest.py: api_reference/cpas_methods/sdfest.md
       - dpdn.py: api_reference/cpas_methods/dpdn.md
+      - rbppose.py: api_reference/cpas_methods/rbppose.md
     - metrics.py: api_reference/metrics.md
     - cpas_method.py: api_reference/cpas_method.md
     - camera_utils.py: api_reference/camera_utils.md
