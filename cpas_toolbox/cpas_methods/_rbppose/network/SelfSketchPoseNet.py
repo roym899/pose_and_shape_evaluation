@@ -25,25 +25,11 @@ class SelfSketchPoseNet(nn.Module):
         obj_id,
         camK,
         mean_shape,
-        gt_R=None,
-        gt_t=None,
-        gt_s_delta=None,
-        gt_2D=None,
-        sym=None,
-        aug_bb=None,
-        aug_rt_t=None,
-        aug_rt_r=None,
-        def_mask=None,
-        model_point=None,
-        nocs_scale=None,
-        do_loss=False,
         rgb=None,
-        depth_normalize=None,
-        gt_mask=None,
         shape_prior=None,
-        nocs_coord=None,
-        logger=None,
-        batch_num=None,
+        def_mask=None,
+        gt_2D=None,
+        depth_normalize=None,
     ):
         output_dict = {}
         if FLAGS.use_seman_feat:
@@ -71,7 +57,7 @@ class SelfSketchPoseNet(nn.Module):
         sketch = torch.rand([bs, 6, H, W], device=depth.device)
 
         PC, PC_sk, PC_seman, PC_nocs = Sketch2Pc(
-            sketch, def_mask, depth, camK, gt_2D, seman_feature, nocs_coord
+            sketch, def_mask, depth, camK, gt_2D, seman_feature
         )
         is_data_valid = True
 
@@ -79,10 +65,7 @@ class SelfSketchPoseNet(nn.Module):
             return output_dict, None
 
         if PC.isnan().any():
-            if logger is not None:
-                logger.warning("nan detect in point cloud!!")
-            else:
-                print("nan detect in point cloud!!")
+            print("nan detect in point cloud!!")
             return output_dict, None
 
         PC = PC.detach()
@@ -109,10 +92,7 @@ class SelfSketchPoseNet(nn.Module):
         output_dict["recon_model"] = shape_prior + deform_field
 
         if Pred_T.isnan().any() or p_green_R.isnan().any() or p_red_R.isnan().any():
-            if logger is not None:
-                logger.warning("nan detect in trans / rot!!")
-            else:
-                print("nan detect in trans / rot!!")
+            print("nan detect in trans / rot!!")
             return output_dict, None
 
         if not FLAGS.use_point_conf_for_vote:

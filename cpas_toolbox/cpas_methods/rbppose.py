@@ -132,4 +132,101 @@ class RBPPose(CPASMethod):
 
         Based on https://github.com/lolrudy/RBP_Pose/blob/master/evaluation/evaluate.py
         """
+        category_str_to_id = {
+            "bottle": 0,
+            "bowl": 1,
+            "camera": 2,
+            "can": 3,
+            "laptop": 4,
+            "mug": 5,
+        }
+        category_id = category_str_to_id[category_str]
+
+        # Handle camera information
+        fx, fy, cx, cy, _ = self._camera.get_pinhole_camera_parameters(0)
+        width = self._camera.width
+        height = self._camera.height
+        camera_matrix = np.array([[fx, 0, cx], [0, fy, cy], [0, 0, 1]])
+        camera_matrix = torch.FloatTensor(camera_matrix).unsqueeze(0).to(self._device)
+
+        # Prepare RGB crop (not used by default config)
+        rgb_cv = color_image.numpy()[:, :, ::-1]  # BGR
+        x1 = min(instance_mask.nonzero()[:, 1]).item()
+        y1 = min(instance_mask.nonzero()[:, 0]).item()
+        x2 = max(instance_mask.nonzero()[:, 1]).item()
+        y2 = max(instance_mask.nonzero()[:, 0]).item()
+        rmin, rmax, cmin, cmax = rbppose.get_bbox([y1, x1, y2, x2])
+        cx = 0.5 * (cmin + cmax)
+        cy = 0.5 * (rmin + rmax)
+        bbox_center = np.array([cx, cy])  # (w/2, h/2)
+        scale = min(max(cmax - cmin, rmax - rmin), max(height, width))
+        rgb_crop = rbppose.crop_resize_by_warp_affine(
+            rgb_cv,
+            bbox_center,
+            scale,
+            rbppose.FLAGS.img_size,
+            interpolation=cv2.INTER_NEAREST,
+        ).transpose(2, 0, 1)
+        rgb_crop = torch.FloatTensor(rgb_crop).unsqueeze(0).to(self._device)
+
+        # Prepare depth crop (expected in mm)
+        depth_cv = depth_image.numpy() * 1000
+        depth_crop = rbppose.crop_resize_by_warp_affine(
+            depth_cv,
+            bbox_center,
+            scale,
+            rbppose.FLAGS.img_size,
+            interpolation=cv2.INTER_NEAREST,
+        )
+        depth_crop = torch.FloatTensor(depth_crop)[None, None].to(self._device)
+
+        # Prepare category
+        category_input = torch.LongTensor([category_id]).to(self._device)
+
+        # Prepare ROI Mask
+        mask_np = instance_mask.float().numpy()
+        roi_mask = rbppose.crop_resize_by_warp_affine(
+            mask_np,
+            bbox_center,
+            scale,
+            rbppose.FLAGS.img_size,
+            interpolation=cv2.INTER_NEAREST,
+        )
+        roi_mask = torch.FloatTensor(roi_mask)[None, None].to(self._device)
+
+        # Prepare mean shape (size?)
+        mean_shape = rbppose.get_mean_shape(category_str) / 1000.0
+        mean_shape = torch.FloatTensor(mean_shape).unsqueeze(0).to(self._device)
+
+        # Prepare shape prior
+        mean_shape_pointset = self._mean_shape_pointsets[category_id]
+        shape_prior = (
+            torch.FloatTensor(mean_shape_pointset).unsqueeze(0).to(self._device)
+        )
+
+        # Prepare 2D coordinates
+        coord_2d = rbppose.get_2d_coord_np(width, height).transpose(1, 2, 0)
+        roi_coord_2d = rbppose.crop_resize_by_warp_affine(
+            coord_2d,
+            bbox_center,
+            scale,
+            rbppose.FLAGS.img_size,
+            interpolation=cv2.INTER_NEAREST,
+        ).transpose(2, 0, 1)
+        roi_coord_2d = torch.FloatTensor(roi_coord_2d).unsqueeze(0).to(self._device)
+
+        output_dict = self._net(
+            rgb=rgb_crop,
+            depth=depth_crop,
+            obj_id=category_input,
+            camK=camera_matrix,
+            def_mask=roi_mask,
+            mean_shape=mean_shape,
+            shape_prior=shape_prior,
+            gt_2D=roi_coord_2d,
+        )
+        breakpoint()
+
+        # TODO convert output
         exit()
+        return {}

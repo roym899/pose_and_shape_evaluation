@@ -4,5 +4,5 @@ config_dict:
   model: ~/.cpas_toolbox/models/rbp/model_149.pth
   model_url: https://drive.google.com/u/0/uc?id=1XQDLrmvlB6qvv26OZo0R_TZf34w1kX7U&export=download
   mean_shape: ~/.cpas_toolbox/models/rbp/mean_shapes.npy
-  mean_shape_url: https://drive.google.com/u/0/uc?id=1p72NdY4Bie_sra9U8zoUNI4fTrQZdbnc&export=download
+  mean_shape_url: https://github.com/ck-kai/SGPA/raw/master/assets/mean_points_emb.npy
   device: cuda
