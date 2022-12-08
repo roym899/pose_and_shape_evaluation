@@ -8,15 +8,11 @@ Implementation based on
 """
 import copy
 import os
-import shutil
-import tempfile
-import zipfile
 from typing import TypedDict
 
 import cv2
 import numpy as np
 import torch
-import torchvision.transforms.functional as TF
 import yoco
 from scipy.spatial.transform import Rotation
 
@@ -251,9 +247,13 @@ class RBPPose(CPASMethod):
         # Recenter for mug category
         if category_str == "mug":  # undo mug translation
             x_offset = (
-                self._mean_shape_pointsets[5].max(axis=0)[0]
-                + self._mean_shape_pointsets[5].min(axis=0)[0]
-            ) / 2 * scale
+                (
+                    self._mean_shape_pointsets[5].max(axis=0)[0]
+                    + self._mean_shape_pointsets[5].min(axis=0)[0]
+                )
+                / 2
+                * scale
+            )
             reconstructed_points[:, 0] -= x_offset
             position += quaternion_utils.quaternion_apply(
                 orientation_q, torch.FloatTensor([x_offset, 0, 0])
