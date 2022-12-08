@@ -569,6 +569,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rbppose/" class="md-nav__link">
+        rbppose.py
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -1078,7 +1092,7 @@ Object Pose Estimation, Chen, 2021.</p>
 <span class="sd">            model: File path for model weights.</span>
 <span class="sd">            model_url: URL to download model weights if file is not found.</span>
 <span class="sd">            mean_shape: File path for mean shape file.</span>
-<span class="sd">            mean_shape_url: URL to download mean shape file if</span>
+<span class="sd">            mean_shape_url: URL to download mean shape file if it is not found.</span>
 <span class="sd">            device: Device string for the model.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -1289,6 +1303,17 @@ Object Pose Estimation, Chen, 2021.</p>
 
         <span class="n">reconstructed_points</span> <span class="o">=</span> <span class="n">inst_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span> <span class="o">*</span> <span class="n">scale</span>
 
+        <span class="c1"># Recenter for mug category</span>
+        <span class="k">if</span> <span class="n">category_str</span> <span class="o">==</span> <span class="s2">&quot;mug&quot;</span><span class="p">:</span>  <span class="c1"># undo mug translation</span>
+            <span class="n">x_offset</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_pointsets</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_pointsets</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">scale</span>
+            <span class="n">reconstructed_points</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-=</span> <span class="n">x_offset</span>
+            <span class="n">position</span> <span class="o">+=</span> <span class="n">quaternion_utils</span><span class="o">.</span><span class="n">quaternion_apply</span><span class="p">(</span>
+                <span class="n">orientation_q</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">([</span><span class="n">x_offset</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
         <span class="c1"># NOCS Object -&gt; ShapeNet Object convention</span>
         <span class="n">obj_fix</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)])</span>
         <span class="n">orientation_q</span> <span class="o">=</span> <span class="n">quaternion_utils</span><span class="o">.</span><span class="n">quaternion_multiply</span><span class="p">(</span><span class="n">orientation_q</span><span class="p">,</span> <span class="n">obj_fix</span><span class="p">)</span>
@@ -1298,17 +1323,6 @@ Object Pose Estimation, Chen, 2021.</p>
         <span class="p">)</span>
         <span class="n">extents</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">reconstructed_points</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">extents</span> <span class="o">*=</span> <span class="mf">2.0</span>
-
-        <span class="c1"># Recenter for mug category</span>
-        <span class="k">if</span> <span class="n">category_str</span> <span class="o">==</span> <span class="s2">&quot;mug&quot;</span><span class="p">:</span>  <span class="c1"># undo mug translation</span>
-            <span class="n">tbb_center</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="n">reconstructed_points</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">reconstructed_points</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
-            <span class="n">reconstructed_points</span> <span class="o">-=</span> <span class="n">tbb_center</span>
-            <span class="n">extents</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">reconstructed_points</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">position</span> <span class="o">+=</span> <span class="n">quaternion_utils</span><span class="o">.</span><span class="n">quaternion_apply</span><span class="p">(</span>
-                <span class="n">orientation_q</span><span class="p">,</span> <span class="n">tbb_center</span>
-            <span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
 
         <span class="k">return</span> <span class="p">{</span>
             <span class="s2">&quot;position&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">position</span><span class="p">),</span>
@@ -1468,7 +1482,7 @@ Object Pose Estimation, Chen, 2021.</p>
         <tr>
           <td><code>mean_shape_url</code></td>
           <td class="doc-attribute-details">
-            <p>URL to download mean shape file if</p>
+            <p>URL to download mean shape file if it is not found.</p>
             <p>
                 <span class="doc-attribute-annotation">
                   <b>TYPE:</b>
@@ -1535,7 +1549,7 @@ Object Pose Estimation, Chen, 2021.</p>
 <span class="sd">        model: File path for model weights.</span>
 <span class="sd">        model_url: URL to download model weights if file is not found.</span>
 <span class="sd">        mean_shape: File path for mean shape file.</span>
-<span class="sd">        mean_shape_url: URL to download mean shape file if</span>
+<span class="sd">        mean_shape_url: URL to download mean shape file if it is not found.</span>
 <span class="sd">        device: Device string for the model.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -1943,6 +1957,17 @@ Object Pose Estimation, Chen, 2021.</p>
 
     <span class="n">reconstructed_points</span> <span class="o">=</span> <span class="n">inst_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span> <span class="o">*</span> <span class="n">scale</span>
 
+    <span class="c1"># Recenter for mug category</span>
+    <span class="k">if</span> <span class="n">category_str</span> <span class="o">==</span> <span class="s2">&quot;mug&quot;</span><span class="p">:</span>  <span class="c1"># undo mug translation</span>
+        <span class="n">x_offset</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_pointsets</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_pointsets</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">scale</span>
+        <span class="n">reconstructed_points</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-=</span> <span class="n">x_offset</span>
+        <span class="n">position</span> <span class="o">+=</span> <span class="n">quaternion_utils</span><span class="o">.</span><span class="n">quaternion_apply</span><span class="p">(</span>
+            <span class="n">orientation_q</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">([</span><span class="n">x_offset</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
     <span class="c1"># NOCS Object -&gt; ShapeNet Object convention</span>
     <span class="n">obj_fix</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)])</span>
     <span class="n">orientation_q</span> <span class="o">=</span> <span class="n">quaternion_utils</span><span class="o">.</span><span class="n">quaternion_multiply</span><span class="p">(</span><span class="n">orientation_q</span><span class="p">,</span> <span class="n">obj_fix</span><span class="p">)</span>
@@ -1952,17 +1977,6 @@ Object Pose Estimation, Chen, 2021.</p>
     <span class="p">)</span>
     <span class="n">extents</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">reconstructed_points</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">extents</span> <span class="o">*=</span> <span class="mf">2.0</span>
-
-    <span class="c1"># Recenter for mug category</span>
-    <span class="k">if</span> <span class="n">category_str</span> <span class="o">==</span> <span class="s2">&quot;mug&quot;</span><span class="p">:</span>  <span class="c1"># undo mug translation</span>
-        <span class="n">tbb_center</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">reconstructed_points</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">reconstructed_points</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
-        <span class="n">reconstructed_points</span> <span class="o">-=</span> <span class="n">tbb_center</span>
-        <span class="n">extents</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">reconstructed_points</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">position</span> <span class="o">+=</span> <span class="n">quaternion_utils</span><span class="o">.</span><span class="n">quaternion_apply</span><span class="p">(</span>
-            <span class="n">orientation_q</span><span class="p">,</span> <span class="n">tbb_center</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
 
     <span class="k">return</span> <span class="p">{</span>
         <span class="s2">&quot;position&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">position</span><span class="p">),</span>
