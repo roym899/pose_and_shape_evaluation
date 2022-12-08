@@ -53,7 +53,7 @@ class NOCSDataset(torch.utils.data.Dataset):
 
     Necessary preprocessing of this data is performed during first initialization per
     and is saved to
-        {root_dir}/csap_toolbox/...
+        {root_dir}/cpas_toolbox/...
     """
 
     num_categories = 7
@@ -159,7 +159,7 @@ class NOCSDataset(torch.utils.data.Dataset):
         self._camera_convention = config["camera_convention"]
         self._camera = self._get_split_camera()
         self._preprocess_path = os.path.join(
-            self._root_dir_path, "csap_toolbox", self._split
+            self._root_dir_path, "cpas_toolbox", self._split
         )
         if not os.path.isdir(self._preprocess_path):
             self._preprocess_dataset()
@@ -304,7 +304,7 @@ class NOCSDataset(torch.utils.data.Dataset):
         One file per sample, which currently means per valid object mask will be
         created.
 
-        Preprocessing will be stored on disk to {root_dir}/csap_toolbox/...
+        Preprocessing will be stored on disk to {root_dir}/cpas_toolbox/...
         This function will not store the preprocessing, so it still has to be loaded
         afterwards.
         """
