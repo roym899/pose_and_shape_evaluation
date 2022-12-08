@@ -48,6 +48,7 @@ class NOCSDataset(torch.utils.data.Dataset):
         {root_dir}/camera_composed_depth/...
         {root_dir}/val/...
         {root_dir}/train/...
+        {root_dir}/fixed_real_test_obj_models/...
     Which is easily obtained by downloading all the provided files and extracting them
     into the same directory.
 
@@ -172,9 +173,8 @@ class NOCSDataset(torch.utils.data.Dataset):
         self._orientation_repr = config["orientation_repr"]
 
     def _check_dirs(self) -> None:
-        directories = [
-            os.path.join(self._root_dir_path, "gts"),
-        ]
+        directories = self._get_dirs()
+
         # required directories
         if all(os.path.exists(directory) for directory in directories):
             pass
@@ -202,6 +202,10 @@ class NOCSDataset(torch.utils.data.Dataset):
             dirs.append(os.path.join(self._root_dir_path, "gts"))
 
         dirs.append(os.path.join(self._root_dir_path, "obj_models"))
+
+        # Fixed object model, need to be downloaded separately
+        if self._split == "real_test":
+            dirs.append(os.path.join(self._root_dir_path, "fixed_real_test_obj_models"))
 
         # full depths for CAMERA
         if self._split in ["camera_val", "camera_train"]:
@@ -263,6 +267,13 @@ class NOCSDataset(torch.utils.data.Dataset):
                 zip_path = os.path.join(download_dir, "real_test.zip")
                 utils.download(
                     "http://download.cs.stanford.edu/orion/nocs/real_test.zip", zip_path
+                )
+            elif identifier == "fixed_real_test_obj_models":
+                zip_path = os.path.join(download_dir, "fixed_real_test_obj_models.zip")
+                utils.download(
+                    "https://github.com/roym899/pose_and_shape_evaluation/releases/"
+                    "download/fixed_real_test_obj_models.zip",
+                    zip_path,
                 )
             else:
                 raise ValueError(f"Downloading dir {missing_dir} unsupported.")
@@ -717,7 +728,14 @@ class NOCSDataset(torch.utils.data.Dataset):
                 object_id,
                 "model.obj",
             )
-        elif "real" in self._split:  # REAL mesh
+        elif "real_test" in self._split:  # Fixed REAL test meshes
+            object_id = meta_row.iloc[2]
+            obj_path = os.path.join(
+                self._root_dir_path,
+                "fixed_real_test_obj_models",
+                object_id + ".obj",
+            )
+        elif "real_train" in self._split:  # REAL train mesh (not complete)
             object_id = meta_row.iloc[2]
             obj_path = os.path.join(
                 self._root_dir_path, "obj_models", self._split, object_id + ".obj"
