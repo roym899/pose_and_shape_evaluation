@@ -21,6 +21,31 @@ def setup_logger(logger_name, log_file, level=logging.INFO):
     return logger
 
 
+def get_sym_info(c):
+    #  sym_info  c0 : face classfication  c1, c2, c3:Three view symmetry, correspond to xy, xz, yz respectively
+    # c0: 0 no symmetry 1 axis symmetry 2 two reflection planes 3 unimplemented type
+    #  Y axis points upwards, x axis pass through the handle, z axis otherwise
+    #
+    # for specific defination, see sketch_loss
+    if c == "bottle":
+        sym = np.array([1, 1, 0, 1], dtype=np.int)
+    elif c == "bowl":
+        sym = np.array([1, 1, 0, 1], dtype=np.int)
+    elif c == "camera":
+        sym = np.array([0, 0, 0, 0], dtype=np.int)
+    elif c == "can":
+        sym = np.array([1, 1, 1, 1], dtype=np.int)
+    elif c == "laptop":
+        sym = np.array([0, 1, 0, 0], dtype=np.int)
+    elif c == "mug":
+        sym = np.array(
+            [0, 1, 0, 0], dtype=np.int
+        )  # for mug, we currently mark it as no symmetry
+    else:
+        sym = np.array([0, 0, 0, 0], dtype=np.int)
+    return sym
+
+
 def get_mean_shape(c):
     if c == "bottle":
         unitx = 87

@@ -225,8 +225,53 @@ class RBPPose(CPASMethod):
             shape_prior=shape_prior,
             gt_2D=roi_coord_2d,
         )
-        breakpoint()
 
-        # TODO convert output
-        exit()
-        return {}
+        p_green_R_vec = output_dict["p_green_R"].detach().cpu()
+        p_red_R_vec = output_dict["p_red_R"].detach().cpu()
+        p_T = output_dict["Pred_T"].detach().cpu()
+        f_green_R = output_dict["f_green_R"].detach().cpu()
+        f_red_R = output_dict["f_red_R"].detach().cpu()
+        sym = torch.FloatTensor(rbppose.get_sym_info(category_str)).unsqueeze(0)
+        pred_RT = rbppose.generate_RT(
+            [p_green_R_vec, p_red_R_vec],
+            [f_green_R, f_red_R],
+            p_T,
+            mode="vec",
+            sym=sym,
+        )[0]
+        position = output_dict["Pred_T"][0].detach().cpu()
+        orientation_mat = pred_RT[:3, :3].detach().cpu()
+        orientation = Rotation.from_matrix(orientation_mat.numpy())
+        orientation_q = torch.FloatTensor(orientation.as_quat())
+        extents = output_dict["Pred_s"][0].detach().cpu()
+        scale = torch.linalg.norm(extents)
+        reconstructed_points = output_dict["recon_model"][0].detach().cpu()
+        reconstructed_points *= scale
+
+        # Recenter for mug category
+        if category_str == "mug":  # undo mug translation
+            x_offset = (
+                self._mean_shape_pointsets[5].max(axis=0)[0]
+                + self._mean_shape_pointsets[5].min(axis=0)[0]
+            ) / 2 * scale
+            reconstructed_points[:, 0] -= x_offset
+            position += quaternion_utils.quaternion_apply(
+                orientation_q, torch.FloatTensor([x_offset, 0, 0])
+            ).numpy()
+
+        # NOCS Object -> ShapeNet Object convention
+        obj_fix = torch.tensor([0.0, -1 / np.sqrt(2.0), 0.0, 1 / np.sqrt(2.0)])
+        orientation_q = quaternion_utils.quaternion_multiply(orientation_q, obj_fix)
+        reconstructed_points = quaternion_utils.quaternion_apply(
+            quaternion_utils.quaternion_invert(obj_fix),
+            reconstructed_points,
+        )
+        extents = torch.FloatTensor([extents[2], extents[1], extents[0]])
+
+        return {
+            "position": position,
+            "orientation": orientation_q,
+            "extents": extents,
+            "reconstructed_pointcloud": reconstructed_points,
+            "reconstructed_mesh": None,
+        }

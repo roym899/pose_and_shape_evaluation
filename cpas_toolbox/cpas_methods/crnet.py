@@ -223,6 +223,17 @@ class CRNet(CPASMethod):
 
         reconstructed_points = inst_shape[0].detach().cpu() * scale
 
+        # Recenter for mug category
+        if category_str == "mug":  # undo mug translation
+            x_offset = (
+                self._mean_shape_pointsets[5].max(axis=0)[0]
+                + self._mean_shape_pointsets[5].min(axis=0)[0]
+            ) / 2 * scale
+            reconstructed_points[:, 0] -= x_offset
+            position += quaternion_utils.quaternion_apply(
+                orientation_q, torch.FloatTensor([x_offset, 0, 0])
+            ).numpy()
+
         # NOCS Object -> ShapeNet Object convention
         obj_fix = torch.tensor([0.0, -1 / np.sqrt(2.0), 0.0, 1 / np.sqrt(2.0)])
         orientation_q = quaternion_utils.quaternion_multiply(orientation_q, obj_fix)
@@ -232,17 +243,6 @@ class CRNet(CPASMethod):
         )
         extents, _ = reconstructed_points.abs().max(dim=0)
         extents *= 2.0
-
-        # Recenter for mug category
-        if category_str == "mug":  # undo mug translation
-            tbb_center = (
-                reconstructed_points.max(dim=0)[0] + reconstructed_points.min(dim=0)[0]
-            ) / 2
-            reconstructed_points -= tbb_center
-            extents = 2 * reconstructed_points.abs().max(dim=0)[0]
-            position += quaternion_utils.quaternion_apply(
-                orientation_q, tbb_center
-            ).numpy()
 
         return {
             "position": torch.Tensor(position),

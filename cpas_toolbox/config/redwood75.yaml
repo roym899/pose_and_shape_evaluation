@@ -1,5 +1,6 @@
 config:
   methods:
+    rbp: ./rbppose.yaml
     dpdn: ./dpdn.yaml
     sdfest: ./sdfest.yaml
     icaps: ./icaps.yaml
