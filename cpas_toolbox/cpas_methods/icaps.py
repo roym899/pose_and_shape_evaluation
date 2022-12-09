@@ -13,6 +13,7 @@ import tempfile
 from typing import List, TypedDict
 
 import numpy as np
+import open3d as o3d
 import scipy
 import torch
 import yoco
@@ -261,16 +262,24 @@ class ICaps(CPASMethod):
             orientation_cv = orientation_q
             extents = torch.tensor([0.5, 0.5, 0.5])
 
+            mesh_dir_path = tempfile.mkdtemp()
+            mesh_file_path = os.path.join(mesh_dir_path, "mesh.ply")
             point_set = pose_rbpf.evaluator.latent_vec_to_points(
                 pose_rbpf.latent_vec_refine,
                 N=64,
                 num_points=self._num_points,
                 silent=True,
+                fname=mesh_file_path,
             )
+
             if point_set is None:
                 point_set = torch.tensor([[0.0, 0.0, 0.0]])  # failed / no isosurface
+                reconstructed_mesh = None
             else:
-                point_set *= pose_rbpf.size_est / pose_rbpf.ratio
+                scale = pose_rbpf.size_est / pose_rbpf.ratio
+                point_set *= scale
+                reconstructed_mesh = o3d.io.read_triangle_mesh(mesh_file_path)
+                reconstructed_mesh.scale(scale.item(), np.array([0, 0, 0]))
 
             reconstructed_points = torch.tensor(point_set)
 
@@ -281,9 +290,9 @@ class ICaps(CPASMethod):
                 "orientation": orientation_cv.detach().cpu(),
                 "extents": extents.detach().cpu(),
                 "reconstructed_pointcloud": reconstructed_points,
-                "reconstructed_mesh": None,  # TODO if time
+                "reconstructed_mesh": reconstructed_mesh,
             }
-        except KeyboardInterrupt:
+        except:
             print("===PROBLEM DETECTED WITH ICAPS, RETURNING NO PREDICTION INSTEAD===")
             return {
                 "position": torch.tensor([0.0, 0.0, 0.0]),
