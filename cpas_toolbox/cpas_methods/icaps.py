@@ -271,12 +271,15 @@ class ICaps(CPASMethod):
                 silent=True,
                 fname=mesh_file_path,
             )
-            reconstructed_mesh = o3d.io.read_triangle_mesh(mesh_file_path)
 
             if point_set is None:
                 point_set = torch.tensor([[0.0, 0.0, 0.0]])  # failed / no isosurface
+                reconstructed_mesh = None
             else:
-                point_set *= pose_rbpf.size_est / pose_rbpf.ratio
+                scale = pose_rbpf.size_est / pose_rbpf.ratio
+                point_set *= scale
+                reconstructed_mesh = o3d.io.read_triangle_mesh(mesh_file_path)
+                reconstructed_mesh.scale(scale.item(), np.array([0, 0, 0]))
 
             reconstructed_points = torch.tensor(point_set)
 
@@ -289,7 +292,7 @@ class ICaps(CPASMethod):
                 "reconstructed_pointcloud": reconstructed_points,
                 "reconstructed_mesh": reconstructed_mesh,
             }
-        except KeyboardInterrupt:
+        except:
             print("===PROBLEM DETECTED WITH ICAPS, RETURNING NO PREDICTION INSTEAD===")
             return {
                 "position": torch.tensor([0.0, 0.0, 0.0]),
