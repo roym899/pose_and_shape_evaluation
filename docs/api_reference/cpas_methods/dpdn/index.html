@@ -1072,7 +1072,13 @@ Self-Supervised Deep Prior Deformation Networks, Lin, 2022.</p>
 <span class="normal">274</span>
 <span class="normal">275</span>
 <span class="normal">276</span>
-<span class="normal">277</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">DPDN</span><span class="p">(</span><span class="n">CPASMethod</span><span class="p">):</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">DPDN</span><span class="p">(</span><span class="n">CPASMethod</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Wrapper class for DPDN.&quot;&quot;&quot;</span>
 
     <span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
@@ -1234,7 +1240,9 @@ Self-Supervised Deep Prior Deformation Networks, Lin, 2022.</p>
         <span class="n">cropped_mask</span> <span class="o">=</span> <span class="n">mask</span><span class="p">[</span><span class="n">rmin</span><span class="p">:</span><span class="n">rmax</span><span class="p">,</span> <span class="n">cmin</span><span class="p">:</span><span class="n">cmax</span><span class="p">]</span>
         <span class="n">cropped_mask_indices</span> <span class="o">=</span> <span class="n">cropped_mask</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cropped_mask_indices</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_input_points</span><span class="p">:</span>
-            <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cropped_mask_indices</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_num</span><span class="p">)</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">cropped_mask_indices</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_input_points</span>
+            <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span>
                 <span class="nb">len</span><span class="p">(</span><span class="n">cropped_mask_indices</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_input_points</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span>
@@ -1301,9 +1309,13 @@ Self-Supervised Deep Prior Deformation Networks, Lin, 2022.</p>
         <span class="c1"># TODO not really sure if this is correct, but seems to give best results</span>
         <span class="k">if</span> <span class="n">category_str</span> <span class="o">==</span> <span class="s2">&quot;mug&quot;</span><span class="p">:</span>  <span class="c1"># undo mug translation</span>
             <span class="n">x_offset</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_pointsets</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-                <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_pointsets</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">scale</span>
+                <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_pointsets</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_pointsets</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="p">)</span>
+                <span class="o">/</span> <span class="mi">2</span>
+                <span class="o">*</span> <span class="n">scale</span>
+            <span class="p">)</span>
             <span class="n">reconstructed_points</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-=</span> <span class="n">x_offset</span>
 
         <span class="c1"># NOCS Object -&gt; ShapeNet Object convention</span>
@@ -1716,7 +1728,13 @@ Self-Supervised Deep Prior Deformation Networks, Lin, 2022.</p>
 <span class="normal">274</span>
 <span class="normal">275</span>
 <span class="normal">276</span>
-<span class="normal">277</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">inference</span><span class="p">(</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">inference</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">color_image</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
     <span class="n">depth_image</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
@@ -1766,7 +1784,9 @@ Self-Supervised Deep Prior Deformation Networks, Lin, 2022.</p>
     <span class="n">cropped_mask</span> <span class="o">=</span> <span class="n">mask</span><span class="p">[</span><span class="n">rmin</span><span class="p">:</span><span class="n">rmax</span><span class="p">,</span> <span class="n">cmin</span><span class="p">:</span><span class="n">cmax</span><span class="p">]</span>
     <span class="n">cropped_mask_indices</span> <span class="o">=</span> <span class="n">cropped_mask</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cropped_mask_indices</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_input_points</span><span class="p">:</span>
-        <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cropped_mask_indices</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_num</span><span class="p">)</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">cropped_mask_indices</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_input_points</span>
+        <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span>
             <span class="nb">len</span><span class="p">(</span><span class="n">cropped_mask_indices</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_input_points</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span>
@@ -1833,9 +1853,13 @@ Self-Supervised Deep Prior Deformation Networks, Lin, 2022.</p>
     <span class="c1"># TODO not really sure if this is correct, but seems to give best results</span>
     <span class="k">if</span> <span class="n">category_str</span> <span class="o">==</span> <span class="s2">&quot;mug&quot;</span><span class="p">:</span>  <span class="c1"># undo mug translation</span>
         <span class="n">x_offset</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_pointsets</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_pointsets</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">scale</span>
+            <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_pointsets</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mean_shape_pointsets</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="o">/</span> <span class="mi">2</span>
+            <span class="o">*</span> <span class="n">scale</span>
+        <span class="p">)</span>
         <span class="n">reconstructed_points</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-=</span> <span class="n">x_offset</span>
 
     <span class="c1"># NOCS Object -&gt; ShapeNet Object convention</span>

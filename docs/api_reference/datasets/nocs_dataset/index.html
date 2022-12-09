@@ -871,12 +871,13 @@ https://github.com/hughw19/NOCS_CVPR2019/tree/master</p>
 {root_dir}/obj_models/...
 {root_dir}/camera_composed_depth/...
 {root_dir}/val/...
-{root_dir}/train/...</p>
+{root_dir}/train/...
+{root_dir}/fixed_real_test_obj_models/...</p>
 </details>      <p>Which is easily obtained by downloading all the provided files and extracting them
 into the same directory.</p>
 <p>Necessary preprocessing of this data is performed during first initialization per
 and is saved to
-    {root_dir}/csap_toolbox/...</p>
+    {root_dir}/cpas_toolbox/...</p>
 
 
         <details class="quote">
@@ -1776,7 +1777,25 @@ and is saved to
 <span class="normal">925</span>
 <span class="normal">926</span>
 <span class="normal">927</span>
-<span class="normal">928</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">NOCSDataset</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span>
+<span class="normal">928</span>
+<span class="normal">929</span>
+<span class="normal">930</span>
+<span class="normal">931</span>
+<span class="normal">932</span>
+<span class="normal">933</span>
+<span class="normal">934</span>
+<span class="normal">935</span>
+<span class="normal">936</span>
+<span class="normal">937</span>
+<span class="normal">938</span>
+<span class="normal">939</span>
+<span class="normal">940</span>
+<span class="normal">941</span>
+<span class="normal">942</span>
+<span class="normal">943</span>
+<span class="normal">944</span>
+<span class="normal">945</span>
+<span class="normal">946</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">NOCSDataset</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Dataset class for NOCS dataset.</span>
 
 <span class="sd">    CAMERA* and REAL* are training sets.</span>
@@ -1794,12 +1813,13 @@ and is saved to
 <span class="sd">        {root_dir}/camera_composed_depth/...</span>
 <span class="sd">        {root_dir}/val/...</span>
 <span class="sd">        {root_dir}/train/...</span>
+<span class="sd">        {root_dir}/fixed_real_test_obj_models/...</span>
 <span class="sd">    Which is easily obtained by downloading all the provided files and extracting them</span>
 <span class="sd">    into the same directory.</span>
 
 <span class="sd">    Necessary preprocessing of this data is performed during first initialization per</span>
 <span class="sd">    and is saved to</span>
-<span class="sd">        {root_dir}/csap_toolbox/...</span>
+<span class="sd">        {root_dir}/cpas_toolbox/...</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">num_categories</span> <span class="o">=</span> <span class="mi">7</span>
@@ -1905,7 +1925,7 @@ and is saved to
         <span class="bp">self</span><span class="o">.</span><span class="n">_camera_convention</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;camera_convention&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_split_camera</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="s2">&quot;csap_toolbox&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="s2">&quot;cpas_toolbox&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_preprocess_path</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess_dataset</span><span class="p">()</span>
@@ -1918,9 +1938,8 @@ and is saved to
         <span class="bp">self</span><span class="o">.</span><span class="n">_orientation_repr</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;orientation_repr&quot;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_check_dirs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">directories</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="s2">&quot;gts&quot;</span><span class="p">),</span>
-        <span class="p">]</span>
+        <span class="n">directories</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_dirs</span><span class="p">()</span>
+
         <span class="c1"># required directories</span>
         <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span> <span class="k">for</span> <span class="n">directory</span> <span class="ow">in</span> <span class="n">directories</span><span class="p">):</span>
             <span class="k">pass</span>
@@ -1948,6 +1967,10 @@ and is saved to
             <span class="n">dirs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="s2">&quot;gts&quot;</span><span class="p">))</span>
 
         <span class="n">dirs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="s2">&quot;obj_models&quot;</span><span class="p">))</span>
+
+        <span class="c1"># Fixed object model, need to be downloaded separately</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span> <span class="o">==</span> <span class="s2">&quot;real_test&quot;</span><span class="p">:</span>
+            <span class="n">dirs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="s2">&quot;fixed_real_test_obj_models&quot;</span><span class="p">))</span>
 
         <span class="c1"># full depths for CAMERA</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;camera_val&quot;</span><span class="p">,</span> <span class="s2">&quot;camera_train&quot;</span><span class="p">]:</span>
@@ -2010,6 +2033,13 @@ and is saved to
                 <span class="n">utils</span><span class="o">.</span><span class="n">download</span><span class="p">(</span>
                     <span class="s2">&quot;http://download.cs.stanford.edu/orion/nocs/real_test.zip&quot;</span><span class="p">,</span> <span class="n">zip_path</span>
                 <span class="p">)</span>
+            <span class="k">elif</span> <span class="n">identifier</span> <span class="o">==</span> <span class="s2">&quot;fixed_real_test_obj_models&quot;</span><span class="p">:</span>
+                <span class="n">zip_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">download_dir</span><span class="p">,</span> <span class="s2">&quot;fixed_real_test_obj_models.zip&quot;</span><span class="p">)</span>
+                <span class="n">utils</span><span class="o">.</span><span class="n">download</span><span class="p">(</span>
+                    <span class="s2">&quot;https://drive.google.com/u/0/uc?id=1grAWfmWRm4gDmZnLRf9KF7-_eHX&quot;</span>
+                    <span class="s2">&quot;-12BO&amp;export=download&quot;</span><span class="p">,</span>
+                    <span class="n">zip_path</span><span class="p">,</span>
+                <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Downloading dir </span><span class="si">{</span><span class="n">missing_dir</span><span class="si">}</span><span class="s2"> unsupported.&quot;</span><span class="p">)</span>
             <span class="n">z</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">zip_path</span><span class="p">)</span>
@@ -2050,7 +2080,7 @@ and is saved to
 <span class="sd">        One file per sample, which currently means per valid object mask will be</span>
 <span class="sd">        created.</span>
 
-<span class="sd">        Preprocessing will be stored on disk to {root_dir}/csap_toolbox/...</span>
+<span class="sd">        Preprocessing will be stored on disk to {root_dir}/cpas_toolbox/...</span>
 <span class="sd">        This function will not store the preprocessing, so it still has to be loaded</span>
 <span class="sd">        afterwards.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -2463,7 +2493,14 @@ and is saved to
                 <span class="n">object_id</span><span class="p">,</span>
                 <span class="s2">&quot;model.obj&quot;</span><span class="p">,</span>
             <span class="p">)</span>
-        <span class="k">elif</span> <span class="s2">&quot;real&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span><span class="p">:</span>  <span class="c1"># REAL mesh</span>
+        <span class="k">elif</span> <span class="s2">&quot;real_test&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span><span class="p">:</span>  <span class="c1"># Fixed REAL test meshes</span>
+            <span class="n">object_id</span> <span class="o">=</span> <span class="n">meta_row</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">obj_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span>
+                <span class="s2">&quot;fixed_real_test_obj_models&quot;</span><span class="p">,</span>
+                <span class="n">object_id</span> <span class="o">+</span> <span class="s2">&quot;.obj&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="s2">&quot;real_train&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span><span class="p">:</span>  <span class="c1"># REAL train mesh (not complete)</span>
             <span class="n">object_id</span> <span class="o">=</span> <span class="n">meta_row</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
             <span class="n">obj_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="s2">&quot;obj_models&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span><span class="p">,</span> <span class="n">object_id</span> <span class="o">+</span> <span class="s2">&quot;.obj&quot;</span>
@@ -2863,8 +2900,7 @@ See NOCSDataset.category_id_to_str for admissible category strings.</p>
 
         <details class="quote">
           <summary>Source code in <code>cpas_toolbox/datasets/nocs_dataset.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 71</span>
-<span class="normal"> 72</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 72</span>
 <span class="normal"> 73</span>
 <span class="normal"> 74</span>
 <span class="normal"> 75</span>
@@ -2921,7 +2957,8 @@ See NOCSDataset.category_id_to_str for admissible category strings.</p>
 <span class="normal">126</span>
 <span class="normal">127</span>
 <span class="normal">128</span>
-<span class="normal">129</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="normal">129</span>
+<span class="normal">130</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Configuration dictionary for NOCSDataset.</span>
 
 <span class="sd">    Attributes:</span>
@@ -3046,8 +3083,7 @@ with default_dict. See NOCSDataset.Config for supported keys.</p>
 
       <details class="quote">
         <summary>Source code in <code>cpas_toolbox/datasets/nocs_dataset.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">144</span>
-<span class="normal">145</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">145</span>
 <span class="normal">146</span>
 <span class="normal">147</span>
 <span class="normal">148</span>
@@ -3074,7 +3110,8 @@ with default_dict. See NOCSDataset.Config for supported keys.</p>
 <span class="normal">169</span>
 <span class="normal">170</span>
 <span class="normal">171</span>
-<span class="normal">172</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">172</span>
+<span class="normal">173</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -3092,7 +3129,7 @@ with default_dict. See NOCSDataset.Config for supported keys.</p>
     <span class="bp">self</span><span class="o">.</span><span class="n">_camera_convention</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;camera_convention&quot;</span><span class="p">]</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_split_camera</span><span class="p">()</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="s2">&quot;csap_toolbox&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="s2">&quot;cpas_toolbox&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span>
     <span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_preprocess_path</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess_dataset</span><span class="p">()</span>
@@ -3127,9 +3164,9 @@ with default_dict. See NOCSDataset.Config for supported keys.</p>
 
       <details class="quote">
         <summary>Source code in <code>cpas_toolbox/datasets/nocs_dataset.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">274</span>
-<span class="normal">275</span>
-<span class="normal">276</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Return number of sample in dataset.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sample_files</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
@@ -3209,18 +3246,7 @@ with default_dict. See NOCSDataset.Config for supported keys.</p>
 
       <details class="quote">
         <summary>Source code in <code>cpas_toolbox/datasets/nocs_dataset.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">278</span>
-<span class="normal">279</span>
-<span class="normal">280</span>
-<span class="normal">281</span>
-<span class="normal">282</span>
-<span class="normal">283</span>
-<span class="normal">284</span>
-<span class="normal">285</span>
-<span class="normal">286</span>
-<span class="normal">287</span>
-<span class="normal">288</span>
-<span class="normal">289</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">289</span>
 <span class="normal">290</span>
 <span class="normal">291</span>
 <span class="normal">292</span>
@@ -3230,7 +3256,18 @@ with default_dict. See NOCSDataset.Config for supported keys.</p>
 <span class="normal">296</span>
 <span class="normal">297</span>
 <span class="normal">298</span>
-<span class="normal">299</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Return a sample of the dataset.</span>
 
 <span class="sd">    Args:</span>
@@ -3276,20 +3313,20 @@ with default_dict. See NOCSDataset.Config for supported keys.</p>
 
       <details class="quote">
         <summary>Source code in <code>cpas_toolbox/datasets/nocs_dataset.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">915</span>
-<span class="normal">916</span>
-<span class="normal">917</span>
-<span class="normal">918</span>
-<span class="normal">919</span>
-<span class="normal">920</span>
-<span class="normal">921</span>
-<span class="normal">922</span>
-<span class="normal">923</span>
-<span class="normal">924</span>
-<span class="normal">925</span>
-<span class="normal">926</span>
-<span class="normal">927</span>
-<span class="normal">928</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">load_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="p">:</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">933</span>
+<span class="normal">934</span>
+<span class="normal">935</span>
+<span class="normal">936</span>
+<span class="normal">937</span>
+<span class="normal">938</span>
+<span class="normal">939</span>
+<span class="normal">940</span>
+<span class="normal">941</span>
+<span class="normal">942</span>
+<span class="normal">943</span>
+<span class="normal">944</span>
+<span class="normal">945</span>
+<span class="normal">946</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">load_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Load an object mesh and adjust its object frame convention.&quot;&quot;&quot;</span>
     <span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">object_path</span><span class="p">)</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_x_axis</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -3338,10 +3375,10 @@ with default_dict. See NOCSDataset.Config for supported keys.</p>
 
         <details class="quote">
           <summary>Source code in <code>cpas_toolbox/datasets/nocs_dataset.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">931</span>
-<span class="normal">932</span>
-<span class="normal">933</span>
-<span class="normal">934</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ObjectError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">949</span>
+<span class="normal">950</span>
+<span class="normal">951</span>
+<span class="normal">952</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ObjectError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Error if something with the mesh is wrong.&quot;&quot;&quot;</span>
 
     <span class="k">pass</span>
