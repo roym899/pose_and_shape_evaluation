@@ -15,7 +15,7 @@ The expected directory structure for REAL275 evaluation is as follows:
     {root_dir}/gts/...
     {root_dir}/obj_models/...
 ```
-An additional directory `{root_dir}/csap_toolbox/` will be created to store preprocessed files. By default `{root_dir}` will be `data/nocs/` (i.e., relative to the current working directory, when executing the evaluation script), but it can be modified.
+An additional directory `{root_dir}/cpas_toolbox/` will be created to store preprocessed files. By default `{root_dir}` will be `data/nocs/` (i.e., relative to the current working directory, when executing the evaluation script), but it can be modified.
 
 ## REDWOOD75
 To download the raw data check the [redwood-data website](http://redwood-data.org/3dscan/dataset.html).

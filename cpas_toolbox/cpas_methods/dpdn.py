@@ -187,7 +187,9 @@ class DPDN(CPASMethod):
         cropped_mask = mask[rmin:rmax, cmin:cmax]
         cropped_mask_indices = cropped_mask.numpy().flatten().nonzero()[0]
         if len(cropped_mask_indices) <= self._num_input_points:
-            indices = np.random.choice(len(cropped_mask_indices), self.sample_num)
+            indices = np.random.choice(
+                len(cropped_mask_indices), self._num_input_points
+            )
         else:
             indices = np.random.choice(
                 len(cropped_mask_indices), self._num_input_points, replace=False
@@ -254,9 +256,13 @@ class DPDN(CPASMethod):
         # TODO not really sure if this is correct, but seems to give best results
         if category_str == "mug":  # undo mug translation
             x_offset = (
-                self._mean_shape_pointsets[5].max(axis=0)[0]
-                + self._mean_shape_pointsets[5].min(axis=0)[0]
-            ) / 2 * scale
+                (
+                    self._mean_shape_pointsets[5].max(axis=0)[0]
+                    + self._mean_shape_pointsets[5].min(axis=0)[0]
+                )
+                / 2
+                * scale
+            )
             reconstructed_points[:, 0] -= x_offset
 
         # NOCS Object -> ShapeNet Object convention
