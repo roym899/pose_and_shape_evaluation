@@ -822,8 +822,7 @@ Deng, 2022.</p>
 
         <details class="quote">
           <summary>Source code in <code>cpas_toolbox/cpas_methods/icaps.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 27</span>
-<span class="normal"> 28</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 28</span>
 <span class="normal"> 29</span>
 <span class="normal"> 30</span>
 <span class="normal"> 31</span>
@@ -1089,7 +1088,16 @@ Deng, 2022.</p>
 <span class="normal">291</span>
 <span class="normal">292</span>
 <span class="normal">293</span>
-<span class="normal">294</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ICaps</span><span class="p">(</span><span class="n">CPASMethod</span><span class="p">):</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ICaps</span><span class="p">(</span><span class="n">CPASMethod</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Wrapper class for iCaps.&quot;&quot;&quot;</span>
 
     <span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
@@ -1326,16 +1334,24 @@ Deng, 2022.</p>
             <span class="n">orientation_cv</span> <span class="o">=</span> <span class="n">orientation_q</span>
             <span class="n">extents</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
 
+            <span class="n">mesh_dir_path</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
+            <span class="n">mesh_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">mesh_dir_path</span><span class="p">,</span> <span class="s2">&quot;mesh.ply&quot;</span><span class="p">)</span>
             <span class="n">point_set</span> <span class="o">=</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">evaluator</span><span class="o">.</span><span class="n">latent_vec_to_points</span><span class="p">(</span>
                 <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">latent_vec_refine</span><span class="p">,</span>
                 <span class="n">N</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
                 <span class="n">num_points</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_points</span><span class="p">,</span>
                 <span class="n">silent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">fname</span><span class="o">=</span><span class="n">mesh_file_path</span><span class="p">,</span>
             <span class="p">)</span>
+
             <span class="k">if</span> <span class="n">point_set</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">point_set</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]])</span>  <span class="c1"># failed / no isosurface</span>
+                <span class="n">reconstructed_mesh</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">point_set</span> <span class="o">*=</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">size_est</span> <span class="o">/</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">ratio</span>
+                <span class="n">scale</span> <span class="o">=</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">size_est</span> <span class="o">/</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">ratio</span>
+                <span class="n">point_set</span> <span class="o">*=</span> <span class="n">scale</span>
+                <span class="n">reconstructed_mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">mesh_file_path</span><span class="p">)</span>
+                <span class="n">reconstructed_mesh</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">scale</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
 
             <span class="n">reconstructed_points</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">point_set</span><span class="p">)</span>
 
@@ -1346,9 +1362,9 @@ Deng, 2022.</p>
                 <span class="s2">&quot;orientation&quot;</span><span class="p">:</span> <span class="n">orientation_cv</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">(),</span>
                 <span class="s2">&quot;extents&quot;</span><span class="p">:</span> <span class="n">extents</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">(),</span>
                 <span class="s2">&quot;reconstructed_pointcloud&quot;</span><span class="p">:</span> <span class="n">reconstructed_points</span><span class="p">,</span>
-                <span class="s2">&quot;reconstructed_mesh&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># TODO if time</span>
+                <span class="s2">&quot;reconstructed_mesh&quot;</span><span class="p">:</span> <span class="n">reconstructed_mesh</span><span class="p">,</span>
             <span class="p">}</span>
-        <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+        <span class="k">except</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;===PROBLEM DETECTED WITH ICAPS, RETURNING NO PREDICTION INSTEAD===&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="p">{</span>
                 <span class="s2">&quot;position&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]),</span>
@@ -1478,8 +1494,7 @@ directories in each checkpoint dir.</p>
 
         <details class="quote">
           <summary>Source code in <code>cpas_toolbox/cpas_methods/icaps.py</code></summary>
-          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">30</span>
-<span class="normal">31</span>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">31</span>
 <span class="normal">32</span>
 <span class="normal">33</span>
 <span class="normal">34</span>
@@ -1501,7 +1516,8 @@ directories in each checkpoint dir.</p>
 <span class="normal">50</span>
 <span class="normal">51</span>
 <span class="normal">52</span>
-<span class="normal">53</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="normal">53</span>
+<span class="normal">54</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Configuration dictionary for iCaps.</span>
 
 <span class="sd">    Attributes:</span>
@@ -1602,8 +1618,7 @@ directories in each checkpoint dir.</p>
 
       <details class="quote">
         <summary>Source code in <code>cpas_toolbox/cpas_methods/icaps.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">64</span>
-<span class="normal">65</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">65</span>
 <span class="normal">66</span>
 <span class="normal">67</span>
 <span class="normal">68</span>
@@ -1611,7 +1626,8 @@ directories in each checkpoint dir.</p>
 <span class="normal">70</span>
 <span class="normal">71</span>
 <span class="normal">72</span>
-<span class="normal">73</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="n">camera_utils</span><span class="o">.</span><span class="n">Camera</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">73</span>
+<span class="normal">74</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="n">camera_utils</span><span class="o">.</span><span class="n">Camera</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Initialize and load ICaps models.</span>
 
 <span class="sd">    Args:</span>
@@ -1651,8 +1667,7 @@ directories in each checkpoint dir.</p>
 
       <details class="quote">
         <summary>Source code in <code>cpas_toolbox/cpas_methods/icaps.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">172</span>
-<span class="normal">173</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">173</span>
 <span class="normal">174</span>
 <span class="normal">175</span>
 <span class="normal">176</span>
@@ -1773,7 +1788,16 @@ directories in each checkpoint dir.</p>
 <span class="normal">291</span>
 <span class="normal">292</span>
 <span class="normal">293</span>
-<span class="normal">294</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">inference</span><span class="p">(</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">inference</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">color_image</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
     <span class="n">depth_image</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
@@ -1865,16 +1889,24 @@ directories in each checkpoint dir.</p>
         <span class="n">orientation_cv</span> <span class="o">=</span> <span class="n">orientation_q</span>
         <span class="n">extents</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
 
+        <span class="n">mesh_dir_path</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
+        <span class="n">mesh_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">mesh_dir_path</span><span class="p">,</span> <span class="s2">&quot;mesh.ply&quot;</span><span class="p">)</span>
         <span class="n">point_set</span> <span class="o">=</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">evaluator</span><span class="o">.</span><span class="n">latent_vec_to_points</span><span class="p">(</span>
             <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">latent_vec_refine</span><span class="p">,</span>
             <span class="n">N</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
             <span class="n">num_points</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_points</span><span class="p">,</span>
             <span class="n">silent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">fname</span><span class="o">=</span><span class="n">mesh_file_path</span><span class="p">,</span>
         <span class="p">)</span>
+
         <span class="k">if</span> <span class="n">point_set</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">point_set</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]])</span>  <span class="c1"># failed / no isosurface</span>
+            <span class="n">reconstructed_mesh</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">point_set</span> <span class="o">*=</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">size_est</span> <span class="o">/</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">ratio</span>
+            <span class="n">scale</span> <span class="o">=</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">size_est</span> <span class="o">/</span> <span class="n">pose_rbpf</span><span class="o">.</span><span class="n">ratio</span>
+            <span class="n">point_set</span> <span class="o">*=</span> <span class="n">scale</span>
+            <span class="n">reconstructed_mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">mesh_file_path</span><span class="p">)</span>
+            <span class="n">reconstructed_mesh</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">scale</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span>
 
         <span class="n">reconstructed_points</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">point_set</span><span class="p">)</span>
 
@@ -1885,9 +1917,9 @@ directories in each checkpoint dir.</p>
             <span class="s2">&quot;orientation&quot;</span><span class="p">:</span> <span class="n">orientation_cv</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">(),</span>
             <span class="s2">&quot;extents&quot;</span><span class="p">:</span> <span class="n">extents</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">(),</span>
             <span class="s2">&quot;reconstructed_pointcloud&quot;</span><span class="p">:</span> <span class="n">reconstructed_points</span><span class="p">,</span>
-            <span class="s2">&quot;reconstructed_mesh&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># TODO if time</span>
+            <span class="s2">&quot;reconstructed_mesh&quot;</span><span class="p">:</span> <span class="n">reconstructed_mesh</span><span class="p">,</span>
         <span class="p">}</span>
-    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+    <span class="k">except</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;===PROBLEM DETECTED WITH ICAPS, RETURNING NO PREDICTION INSTEAD===&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="s2">&quot;position&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]),</span>
