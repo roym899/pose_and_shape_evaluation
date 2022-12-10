@@ -55,8 +55,10 @@ class CASS(CPASMethod):
             num_points=config["num_points"], num_obj=config["num_objects"]
         )
         self._num_points = config["num_points"]
-        self._cass.load_state_dict(torch.load(self._model_path))
-        self._cass.to(config["device"])
+        self._cass.load_state_dict(
+            torch.load(self._model_path, map_location=self._device)
+        )
+        self._cass.to(self._device)
         self._cass.eval()
 
     def _check_paths(self) -> None:
