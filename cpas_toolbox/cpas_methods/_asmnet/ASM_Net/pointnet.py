@@ -5,14 +5,16 @@
 #
 
 from __future__ import print_function
+
 import os
+
+import numpy as np
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 import torch.nn.parallel
 import torch.utils.data
 from torch.autograd import Variable
-import numpy as np
-import torch.nn.functional as F
 
 if torch.cuda.is_available():
     import torch.backends.cudnn as cudnn
@@ -59,7 +61,7 @@ class STN3d(nn.Module):
             .repeat(batchsize, 1)
         )
         if x.is_cuda:
-            iden = iden.cuda()
+            iden = iden.to(x.device)
         x = x + iden
         x = x.view(-1, 3, 3)
         return x

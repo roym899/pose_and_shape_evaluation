@@ -1,15 +1,15 @@
-import os.path as osp
-import numpy as np
-import numpy.linalg as LA
 import copy
+import os.path as osp
 import random
 
+import numpy as np
+import numpy.linalg as LA
 import open3d as o3
 import torch
 
 from . import common3Dfunc as c3D
-from .asm_pcd import asm
 from .ASM_Net import pointnet
+from .asm_pcd import asm
 
 """
   Path setter
@@ -87,7 +87,7 @@ def load_models(root, dirname, n_epoch, synset_names, ddim, n_points, device):
 
         total_dim = ddim + 1  # deformation(ddim) + scale(1)
         model = pointnet.ASM_Net(k=total_dim, num_points=n_points)
-        model.load_state_dict(torch.load(path))
+        model.load_state_dict(torch.load(path, map_location=device))
         model.to(device)
         model.eval()
         models[synset_names[s + 1]] = model
@@ -114,7 +114,7 @@ def load_models_release(root, synset_names, ddim, n_points, device):
 
         total_dim = ddim + 1  # deformation(ddim) + scale(1)
         model = pointnet.ASM_Net(k=total_dim, num_points=n_points)
-        model.load_state_dict(torch.load(path))
+        model.load_state_dict(torch.load(path, map_location=device))
         model.to(device)
         model.eval()
         models[synset_names[s + 1]] = model
@@ -224,29 +224,27 @@ def get_model_scale(image_path, model_root):
     return np.asarray(sizes), np.asarray(class_ids), pcds
 
 
-def quaternion2rotationPT( q ):
-    """ Convert unit quaternion to rotation matrix
-    
+def quaternion2rotationPT(q):
+    """Convert unit quaternion to rotation matrix
+
     Args:
         q(torch.tensor): unit quaternion (N,4), scalar first
     Returns:
         torch.tensor: rotation matrix (N,3,3)
     """
-    r11 = (q[:,0]**2+q[:,1]**2-q[:,2]**2-q[:,3]**2).unsqueeze(0).T
-    r12 = (2.0*(q[:,1]*q[:,2]-q[:,0]*q[:,3])).unsqueeze(0).T
-    r13 = (2.0*(q[:,1]*q[:,3]+q[:,0]*q[:,2])).unsqueeze(0).T
+    r11 = (q[:, 0] ** 2 + q[:, 1] ** 2 - q[:, 2] ** 2 - q[:, 3] ** 2).unsqueeze(0).T
+    r12 = (2.0 * (q[:, 1] * q[:, 2] - q[:, 0] * q[:, 3])).unsqueeze(0).T
+    r13 = (2.0 * (q[:, 1] * q[:, 3] + q[:, 0] * q[:, 2])).unsqueeze(0).T
 
-    r21 = (2.0*(q[:,1]*q[:,2]+q[:,0]*q[:,3])).unsqueeze(0).T
-    r22 = (q[:,0]**2+q[:,2]**2-q[:,1]**2-q[:,3]**2).unsqueeze(0).T
-    r23 = (2.0*(q[:,2]*q[:,3]-q[:,0]*q[:,1])).unsqueeze(0).T
+    r21 = (2.0 * (q[:, 1] * q[:, 2] + q[:, 0] * q[:, 3])).unsqueeze(0).T
+    r22 = (q[:, 0] ** 2 + q[:, 2] ** 2 - q[:, 1] ** 2 - q[:, 3] ** 2).unsqueeze(0).T
+    r23 = (2.0 * (q[:, 2] * q[:, 3] - q[:, 0] * q[:, 1])).unsqueeze(0).T
 
-    r31 = (2.0*(q[:,1]*q[:,3]-q[:,0]*q[:,2])).unsqueeze(0).T
-    r32 = (2.0*(q[:,2]*q[:,3]+q[:,0]*q[:,1])).unsqueeze(0).T
-    r33 = (q[:,0]**2+q[:,3]**2-q[:,1]**2-q[:,2]**2).unsqueeze(0).T
-    
-    r = torch.cat( (r11,r12,r13,
-                r21,r22,r23,
-                r31,r32,r33), 1 )
-    r = torch.reshape( r, (q.shape[0],3,3))
-    
+    r31 = (2.0 * (q[:, 1] * q[:, 3] - q[:, 0] * q[:, 2])).unsqueeze(0).T
+    r32 = (2.0 * (q[:, 2] * q[:, 3] + q[:, 0] * q[:, 1])).unsqueeze(0).T
+    r33 = (q[:, 0] ** 2 + q[:, 3] ** 2 - q[:, 1] ** 2 - q[:, 2] ** 2).unsqueeze(0).T
+
+    r = torch.cat((r11, r12, r13, r21, r22, r23, r31, r32, r33), 1)
+    r = torch.reshape(r, (q.shape[0], 3, 3))
+
     return r
