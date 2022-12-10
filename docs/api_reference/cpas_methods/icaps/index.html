@@ -1376,7 +1376,7 @@ Deng, 2022.</p>
                 <span class="s2">&quot;reconstructed_pointcloud&quot;</span><span class="p">:</span> <span class="n">reconstructed_points</span><span class="p">,</span>
                 <span class="s2">&quot;reconstructed_mesh&quot;</span><span class="p">:</span> <span class="n">reconstructed_mesh</span><span class="p">,</span>
             <span class="p">}</span>
-        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">except</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;===PROBLEM DETECTED WITH ICAPS, RETURNING NO PREDICTION INSTEAD===&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="p">{</span>
                 <span class="s2">&quot;position&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]),</span>
@@ -1949,7 +1949,7 @@ directories in each checkpoint dir.</p>
             <span class="s2">&quot;reconstructed_pointcloud&quot;</span><span class="p">:</span> <span class="n">reconstructed_points</span><span class="p">,</span>
             <span class="s2">&quot;reconstructed_mesh&quot;</span><span class="p">:</span> <span class="n">reconstructed_mesh</span><span class="p">,</span>
         <span class="p">}</span>
-    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+    <span class="k">except</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;===PROBLEM DETECTED WITH ICAPS, RETURNING NO PREDICTION INSTEAD===&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="s2">&quot;position&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]),</span>
