@@ -298,7 +298,7 @@ class ICaps(CPASMethod):
                 "reconstructed_pointcloud": reconstructed_points,
                 "reconstructed_mesh": reconstructed_mesh,
             }
-        except KeyError:
+        except:
             print("===PROBLEM DETECTED WITH ICAPS, RETURNING NO PREDICTION INSTEAD===")
             return {
                 "position": torch.tensor([0.0, 0.0, 0.0]),
