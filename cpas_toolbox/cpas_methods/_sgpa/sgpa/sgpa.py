@@ -77,7 +77,9 @@ class SGPANet(nn.Module):
         bs, n_pts = points.size()[:2]
         nv = prior.size()[1]
         points = self.instance_geometry(points)
-        index = cat_id + torch.arange(bs, dtype=torch.long).cuda() * self.n_cat
+        index = (
+            cat_id + torch.arange(bs, dtype=torch.long).to(points.device) * self.n_cat
+        )
 
         out_img = self.psp(img)
         di = out_img.size()[1]

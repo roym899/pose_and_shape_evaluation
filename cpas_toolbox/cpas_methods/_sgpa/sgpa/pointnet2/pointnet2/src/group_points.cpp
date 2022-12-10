@@ -1,3 +1,4 @@
+#include <c10/cuda/CUDAGuard.h>
 #include <torch/serialize/tensor.h>
 #include <cuda.h>
 #include <cuda_runtime_api.h>
@@ -11,6 +12,7 @@
 
 int group_points_grad_wrapper_fast(int b, int c, int n, int npoints, int nsample, 
     at::Tensor grad_out_tensor, at::Tensor idx_tensor, at::Tensor grad_points_tensor) {
+    const at::cuda::OptionalCUDAGuard device_guard(device_of(idx_tensor));
 
     float *grad_points = grad_points_tensor.data<float>();
     const int *idx = idx_tensor.data<int>();
@@ -25,6 +27,7 @@ int group_points_grad_wrapper_fast(int b, int c, int n, int npoints, int nsample
 
 int group_points_wrapper_fast(int b, int c, int n, int npoints, int nsample, 
     at::Tensor points_tensor, at::Tensor idx_tensor, at::Tensor out_tensor) {
+    const at::cuda::OptionalCUDAGuard device_guard(device_of(points_tensor));
 
     const float *points = points_tensor.data<float>();
     const int *idx = idx_tensor.data<int>();

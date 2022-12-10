@@ -1,3 +1,4 @@
+#include <c10/cuda/CUDAGuard.h>
 #include <torch/serialize/tensor.h>
 #include <vector>
 // #include <THC/THC.h>
@@ -18,6 +19,7 @@
 
 int ball_query_wrapper_fast(int b, int n, int m, float radius, int nsample, 
     at::Tensor new_xyz_tensor, at::Tensor xyz_tensor, at::Tensor idx_tensor) {
+    const at::cuda::OptionalCUDAGuard device_guard(device_of(xyz_tensor));
     CHECK_INPUT(new_xyz_tensor);
     CHECK_INPUT(xyz_tensor);
     const float *new_xyz = new_xyz_tensor.data<float>();

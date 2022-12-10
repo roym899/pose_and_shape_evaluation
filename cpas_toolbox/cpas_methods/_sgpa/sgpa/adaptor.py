@@ -73,15 +73,3 @@ class PriorAdaptor(nn.Module):
         x = self.enricher(query, key, value).transpose(2, 1).contiguous()
 
         return x
-
-
-if __name__ == "__main__":
-
-    model = PriorAdaptor(emb_dims=128, n_heads=4).cuda()
-    key = torch.randn(2, 128, 1024).cuda()
-    query = torch.randn(2, 128, 1024).cuda()
-    value = torch.randn(2, 128, 1024).cuda()
-
-    embedding = model(query, key, value)
-
-    print(embedding.shape)

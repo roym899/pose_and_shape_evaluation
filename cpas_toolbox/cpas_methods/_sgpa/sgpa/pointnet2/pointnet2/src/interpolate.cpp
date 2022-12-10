@@ -1,3 +1,4 @@
+#include <c10/cuda/CUDAGuard.h>
 #include <torch/serialize/tensor.h>
 #include <vector>
 // #include <THC/THC.h>
@@ -14,6 +15,8 @@
 
 void three_nn_wrapper_fast(int b, int n, int m, at::Tensor unknown_tensor, 
     at::Tensor known_tensor, at::Tensor dist2_tensor, at::Tensor idx_tensor) {
+    const at::cuda::OptionalCUDAGuard device_guard(device_of(unknown_tensor));
+
     const float *unknown = unknown_tensor.data<float>();
     const float *known = known_tensor.data<float>();
     float *dist2 = dist2_tensor.data<float>();
@@ -29,6 +32,7 @@ void three_interpolate_wrapper_fast(int b, int c, int m, int n,
                          at::Tensor idx_tensor,
                          at::Tensor weight_tensor,
                          at::Tensor out_tensor) {
+    const at::cuda::OptionalCUDAGuard device_guard(device_of(points_tensor));
 
     const float *points = points_tensor.data<float>();
     const float *weight = weight_tensor.data<float>();
@@ -44,6 +48,7 @@ void three_interpolate_grad_wrapper_fast(int b, int c, int n, int m,
                             at::Tensor idx_tensor,
                             at::Tensor weight_tensor,
                             at::Tensor grad_points_tensor) {
+    const at::cuda::OptionalCUDAGuard device_guard(device_of(idx_tensor));
 
     const float *grad_out = grad_out_tensor.data<float>();
     const float *weight = weight_tensor.data<float>();
