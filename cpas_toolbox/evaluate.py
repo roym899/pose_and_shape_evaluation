@@ -1,22 +1,22 @@
 """Script to run pose and shape evaluation for different datasets and methods."""
 import argparse
 import os
-from datetime import datetime
-import time
-from typing import List, Optional, Tuple
 import random
 import sys
+import time
+from datetime import datetime
+from typing import List, Optional, Tuple
 
-from scipy.spatial.transform import Rotation
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 import open3d as o3d
 import tikzplotlib
 import torch
-from tqdm import tqdm
 import yoco
+from scipy.spatial.transform import Rotation
+from tqdm import tqdm
 
-from cpas_toolbox import metrics, pointset_utils, quaternion_utils, camera_utils, utils
+from cpas_toolbox import camera_utils, metrics, pointset_utils, quaternion_utils, utils
 from cpas_toolbox.cpas_method import CPASMethod, PredictionDict
 
 
@@ -594,7 +594,7 @@ def _resolve_config_args(args: List[str]) -> List[str]:
         arg = raw_arg
         if raw_arg == "--config":
             resolve = True
-        elif raw_arg.startswith == "--":
+        elif raw_arg.startswith("--"):
             resolve = False
         elif resolve:
             arg = utils.resolve_path(
