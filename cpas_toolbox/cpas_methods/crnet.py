@@ -67,7 +67,9 @@ class CRNet(CPASMethod):
         )
         self._crnet.cuda()
         self._crnet = torch.nn.DataParallel(self._crnet, device_ids=[self._device])
-        self._crnet.load_state_dict(torch.load(self._model_path, map_location="cuda"))
+        self._crnet.load_state_dict(
+            torch.load(self._model_path, map_location=self._device)
+        )
         self._crnet.eval()
         self._mean_shape_pointsets = np.load(self._mean_shape_path)
         self._num_input_points = config["num_input_points"]
@@ -226,9 +228,13 @@ class CRNet(CPASMethod):
         # Recenter for mug category
         if category_str == "mug":  # undo mug translation
             x_offset = (
-                self._mean_shape_pointsets[5].max(axis=0)[0]
-                + self._mean_shape_pointsets[5].min(axis=0)[0]
-            ) / 2 * scale
+                (
+                    self._mean_shape_pointsets[5].max(axis=0)[0]
+                    + self._mean_shape_pointsets[5].min(axis=0)[0]
+                )
+                / 2
+                * scale
+            )
             reconstructed_points[:, 0] -= x_offset
             position += quaternion_utils.quaternion_apply(
                 orientation_q, torch.FloatTensor([x_offset, 0, 0])

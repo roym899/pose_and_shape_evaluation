@@ -157,7 +157,9 @@ class DeformNet(nn.Module):
         assign_feat = inst_global
         assign_mat = self.assignment(assign_feat)
         assign_mat = assign_mat.view(-1, nv, n_pts).contiguous()
-        index = cat_id + torch.arange(bs, dtype=torch.long).cuda() * self.n_cat
+        index = (
+            cat_id + torch.arange(bs, dtype=torch.long).to(points.device) * self.n_cat
+        )
         assign_mat = torch.index_select(assign_mat, 0, index)
         assign_mat = assign_mat.permute(0, 2, 1).contiguous()
         # deformation field
@@ -176,7 +178,9 @@ class DeformNet(nn.Module):
         assign_feat0 = torch.cat([cat_global0, assign_feat], dim=1)
         assign_mat0 = self.assignment0(assign_feat0)
         assign_mat0 = assign_mat0.view(-1, nv, n_pts).contiguous()
-        index = cat_id + torch.arange(bs, dtype=torch.long).cuda() * self.n_cat
+        index = (
+            cat_id + torch.arange(bs, dtype=torch.long).to(points.device) * self.n_cat
+        )
         assign_mat0 = torch.index_select(assign_mat0, 0, index)
         assign_mat0 = assign_mat0.permute(0, 2, 1).contiguous()
         deform_feat0 = torch.cat([cat_global0, deform_feat], dim=1)
@@ -195,7 +199,9 @@ class DeformNet(nn.Module):
         assign_feat1 = torch.cat([cat_global1, assign_feat0], dim=1)
         assign_mat1 = self.assignment1(assign_feat1)
         assign_mat1 = assign_mat1.view(-1, nv, n_pts).contiguous()
-        index = cat_id + torch.arange(bs, dtype=torch.long).cuda() * self.n_cat
+        index = (
+            cat_id + torch.arange(bs, dtype=torch.long).to(points.device) * self.n_cat
+        )
         assign_mat1 = torch.index_select(assign_mat1, 0, index)
         assign_mat1 = assign_mat1.permute(0, 2, 1).contiguous()
         deform_feat1 = torch.cat([cat_global1, deform_feat0], dim=1)
