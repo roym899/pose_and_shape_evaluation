@@ -9,8 +9,11 @@ from ..utils.averageQuaternions import averageQuaternions
 
 
 class ParticleFilter:
-    def __init__(self, cfg_pf, n_particles=100, resample_method="systematic"):
+    def __init__(
+        self, cfg_pf, n_particles=100, resample_method="systematic", device="cuda"
+    ):
         # particles
+        self.device = device
         self.uv = np.zeros((n_particles, 3), dtype=float)
         self.uv[:, 2] = 1
         self.z = np.zeros((n_particles, 1), dtype=float)
@@ -19,7 +22,7 @@ class ParticleFilter:
         # rotation distribution
         # discretize the so3 into space with 5 degrees interval
         # elevation - azimuth - in plane rotation
-        self.rot = torch.ones((n_particles, 1, 37, 72, 72)).cuda().float()
+        self.rot = torch.ones((n_particles, 1, 37, 72, 72)).to(self.device).float()
 
         # for shifting the distribution with grid sample
         self.elevation_space = np.linspace(-1.0, 1.0, 37)
@@ -44,7 +47,7 @@ class ParticleFilter:
         self.rot_filter.weight.data = (
             torch.from_numpy(self.rot_gk3)
             .float()
-            .cuda()
+            .to(self.device)
             .expand(
                 1,
                 1,
@@ -113,7 +116,7 @@ class ParticleFilter:
         self.wt_vis = np.ones((cfg_pf.N_E_ROT, 1), dtype=np.float)
 
         # rotation distribution expectation
-        self.E_Rot = torch.ones((37 * 72 * 37,)).cuda().float()
+        self.E_Rot = torch.ones((37 * 72 * 37,)).to(self.device).float()
 
     def add_noise_rot(self):
         uni_v, uni_i = np.unique(self.resample_idx, return_inverse=True)

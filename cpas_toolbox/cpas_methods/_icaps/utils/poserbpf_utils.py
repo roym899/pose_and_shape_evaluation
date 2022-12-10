@@ -239,9 +239,17 @@ def back_project(uv, intrinsics, z):
 
 
 def trans_zoom_uvz_cuda(
-    image, uvs, zs, scales, pf_fu, pf_fv, target_distance=3.5, out_size=128
+    image,
+    uvs,
+    zs,
+    scales,
+    pf_fu,
+    pf_fv,
+    target_distance=3.5,
+    out_size=128,
+    device="cuda",
 ):
-    image = image.permute(2, 0, 1).float().unsqueeze(0).cuda()
+    image = image.permute(2, 0, 1).float().unsqueeze(0).to(device)
 
     bbox_u = (
         target_distance
@@ -252,7 +260,7 @@ def trans_zoom_uvz_cuda(
         / image.size(3)
         * scales
     )
-    bbox_u = torch.from_numpy(bbox_u).cuda().float().squeeze(1)
+    bbox_u = torch.from_numpy(bbox_u).to(device).float().squeeze(1)
     bbox_v = (
         target_distance
         * (1 / zs)
@@ -262,14 +270,14 @@ def trans_zoom_uvz_cuda(
         / image.size(2)
         * scales
     )
-    bbox_v = torch.from_numpy(bbox_v).cuda().float().squeeze(1)
+    bbox_v = torch.from_numpy(bbox_v).to(device).float().squeeze(1)
 
-    center_uvs = torch.from_numpy(uvs).cuda().float()
+    center_uvs = torch.from_numpy(uvs).to(device).float()
 
     center_uvs[:, 0] /= image.size(3)
     center_uvs[:, 1] /= image.size(2)
 
-    boxes = torch.zeros(center_uvs.size(0), 5).cuda()
+    boxes = torch.zeros(center_uvs.size(0), 5).to(device)
     boxes[:, 1] = (center_uvs[:, 0] - bbox_u / 2) * float(image.size(3))
     boxes[:, 2] = (center_uvs[:, 1] - bbox_v / 2) * float(image.size(2))
     boxes[:, 3] = (center_uvs[:, 0] + bbox_u / 2) * float(image.size(3))

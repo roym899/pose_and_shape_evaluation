@@ -12,6 +12,7 @@ def load_decoder(
     color_size=None,
     experiment_directory_color=None,
     parallel=True,
+    device="cuda",
 ):
     specs_filename = os.path.join(experiment_directory, "specs.json")
 
@@ -44,7 +45,8 @@ def load_decoder(
                     experiment_directory_color,
                     "ModelParameters",
                     str(checkpoint_num) + ".pth",
-                )
+                ),
+                map_location=device,
             )
             # since there is no prefix "module" in the saved decoder_color model, we add them
             from collections import OrderedDict
@@ -60,7 +62,8 @@ def load_decoder(
                     experiment_directory,
                     "ModelParameters",
                     str(checkpoint_num) + ".pth",
-                )
+                ),
+                map_location=device,
             )
 
         saved_model_epoch = saved_model_state["epoch"]

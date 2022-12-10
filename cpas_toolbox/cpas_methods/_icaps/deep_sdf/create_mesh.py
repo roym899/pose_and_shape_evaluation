@@ -49,7 +49,9 @@ def infer_samples(decoder, latent_vec, samples, max_batch=32**3):
 
     head = 0
     while head < num_samples:
-        sample_subset = samples[head : min(head + max_batch, num_samples), 0:3].cuda()
+        sample_subset = samples[head : min(head + max_batch, num_samples), 0:3].to(
+            latent_vec.device
+        )
         samples[head : min(head + max_batch, num_samples), 3] = (
             decode_sdf(decoder, latent_vec, sample_subset).squeeze(1).detach().cpu()
         )

@@ -44,6 +44,8 @@ class ICaps(CPASMethod):
             categories:
                 List of category strings. Each category requires corresponding
                 directories in each checkpoint dir.
+            device:
+                The device to use.
         """
 
         pf_config_dir: str
@@ -52,6 +54,7 @@ class ICaps(CPASMethod):
         aae_checkpoint_dir: str
         checkpoints_url: str
         categories: List[str]
+        device: str
 
     default_config: Config = {
         "pf_config_dir": None,
@@ -60,6 +63,7 @@ class ICaps(CPASMethod):
         "aae_checkpoint_dir": None,
         "checkpoints_url": None,
         "categories": ["bottle", "bowl", "camera", "can", "laptop", "mug"],
+        "device": "cuda",
     }
 
     def __init__(self, config: Config, camera: camera_utils.Camera) -> None:
@@ -74,6 +78,7 @@ class ICaps(CPASMethod):
         self._camera = camera
 
     def _parse_config(self, config: Config) -> None:
+        self._device = config["device"]
         self._num_points = 10000
         self._category_strs = config["categories"]
 
@@ -113,6 +118,7 @@ class ICaps(CPASMethod):
                 full_ckpt_dir_path,
                 self._deepsdf_ckp_dir_path,
                 self._latentnet_ckp_dir_path,
+                device=self._device,
             )
             self._pose_rbpfs[category_str].set_target_obj(
                 icaps.icaps_config.cfg.TEST.OBJECTS[0]
@@ -292,7 +298,7 @@ class ICaps(CPASMethod):
                 "reconstructed_pointcloud": reconstructed_points,
                 "reconstructed_mesh": reconstructed_mesh,
             }
-        except:
+        except KeyError:
             print("===PROBLEM DETECTED WITH ICAPS, RETURNING NO PREDICTION INSTEAD===")
             return {
                 "position": torch.tensor([0.0, 0.0, 0.0]),

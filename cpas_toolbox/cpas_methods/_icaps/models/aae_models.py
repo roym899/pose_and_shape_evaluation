@@ -171,12 +171,15 @@ class BootstrapedMSEloss(nn.Module):
 
 
 class AAE(nn.Module):
-    def __init__(self, object_names, capacity=1, code_dim=128, model_path=None):
+    def __init__(
+        self, object_names, capacity=1, code_dim=128, model_path=None, device="cuda"
+    ):
         super(AAE, self).__init__()
         # dir
         if not os.path.exists("./checkpoints"):
             os.mkdir("./checkpoints")
 
+        self.device = device
         self.model_dir = "./checkpoints"
 
         self.object_names = object_names
@@ -198,14 +201,10 @@ class AAE(nn.Module):
         self.L1_loss = torch.nn.L1Loss()
         self.Cos_loss = nn.CosineEmbeddingLoss()
 
-        # GPU
-        self.use_GPU = torch.cuda.device_count() > 0
-
-        if self.use_GPU:
-            self.encoder = self.encoder.cuda()
-            self.decoder = self.decoder.cuda()
-            self.B_loss = self.B_loss.cuda()
-            self.Cos_loss = self.Cos_loss.cuda()
+        self.encoder = self.encoder.to(self.device)
+        self.decoder = self.decoder.to(self.device)
+        self.B_loss = self.B_loss.to(self.device)
+        self.Cos_loss = self.Cos_loss.to(self.device)
 
         # CPU Rendering
         self.CPU_Render = False
@@ -237,14 +236,13 @@ class AAE(nn.Module):
         step = 0
         self.encoder.eval()
 
-        codebook_cpt = torch.zeros(len(code_dataset), code_dim).cuda()
-        codepose_cpt = torch.zeros(len(code_dataset), 7).cuda()
+        codebook_cpt = torch.zeros(len(code_dataset), code_dim).to(self.device)
+        codepose_cpt = torch.zeros(len(code_dataset), 7).to(self.device)
         for inputs in code_generator:
             poses, depth = inputs
 
-            if self.use_GPU:
-                poses = poses.cuda()
-                depth = depth.cuda()
+            poses = poses.to(self.device)
+            depth = depth.to(self.device)
 
             code = self.encoder.forward(depth).detach().view(depth.size(0), -1)
 
@@ -285,7 +283,7 @@ class AAE(nn.Module):
         ), "codebook is empty"
         distance_matrix = pairwise_cosine_distances(code, codebook)
         best_match = torch.argmax(distance_matrix, dim=1).cpu().numpy()
-        code_recovered = codebook[best_match, :].cuda()
+        code_recovered = codebook[best_match, :].to(self.device)
         pose_recovered = codepose[best_match, :]
         return pose_recovered, code_recovered
 
@@ -350,7 +348,7 @@ class AAE(nn.Module):
         code_distance, best_match = torch.topk(distance_matrix, k, dim=1)
         code_distance = code_distance.detach().cpu().numpy()
         best_match = best_match.detach().cpu().numpy()
-        code_recovered = codebook[best_match, :].cuda()
+        code_recovered = codebook[best_match, :].to(self.device)
         pose_recovered = codepose[best_match, :]
         return pose_recovered, code_recovered, code_distance[0]
 

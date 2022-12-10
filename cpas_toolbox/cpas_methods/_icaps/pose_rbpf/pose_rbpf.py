@@ -27,6 +27,7 @@ class PoseRBPF:
         model_dir="../category-level_models/",
         test_model_dir="../obj_models/real_test/",
         visualize=True,
+        device="cuda",
     ):
         """
 
@@ -35,6 +36,7 @@ class PoseRBPF:
         """
 
         self.visualize = visualize
+        self.device = device
 
         self.obj_list = obj_list
 
@@ -49,14 +51,16 @@ class PoseRBPF:
         for obj in self.obj_list:
             ckpt_file = "{}/ckpt_{}_0300.pth".format(ckpt_dir, obj)
             codebook_file = "{}/codebook_{}_0300.pth".format(ckpt_dir, obj)
-            self.aae_full = aae_models.AAE([obj], capacity=1, code_dim=128)
+            self.aae_full = aae_models.AAE(
+                [obj], capacity=1, code_dim=128, device=self.device
+            )
             self.aae_full.encoder.eval()
             self.aae_full.decoder.eval()
             for param in self.aae_full.encoder.parameters():
                 param.requires_grad = False
             for param in self.aae_full.decoder.parameters():
                 param.requires_grad = False
-            checkpoint = torch.load(ckpt_file)
+            checkpoint = torch.load(ckpt_file, map_location=self.device)
             self.aae_full.load_ckpt_weights(checkpoint["aae_state_dict"])
             self.aae_list.append(copy.deepcopy(self.aae_full.encoder))
             if not os.path.exists(codebook_file):
@@ -66,15 +70,18 @@ class PoseRBPF:
                     "Refer to original repo."
                 )
 
-            self.codebook_list.append(torch.load(codebook_file)[0])
+            self.codebook_list.append(
+                torch.load(codebook_file, map_location=self.device)[0]
+            )
             self.rbpf_codepose = (
-                torch.load(codebook_file)[1].cpu().numpy()
+                torch.load(codebook_file, map_location=self.device)[1].cpu().numpy()
             )  # all are identical
             idx_obj = self.obj_list.index(obj)
             self.rbpf_list.append(
                 particle_filter.ParticleFilter(
                     self.cfg_list[idx_obj].PF,
                     n_particles=self.cfg_list[idx_obj].PF.N_PROCESS,
+                    device=self.device,
                 )
             )
             self.rbpf_ok_list.append(False)
@@ -98,7 +105,9 @@ class PoseRBPF:
 
         # initialize the particle filters
         self.rbpf = particle_filter.ParticleFilter(
-            self.cfg_list[0].PF, n_particles=self.cfg_list[0].PF.N_PROCESS
+            self.cfg_list[0].PF,
+            n_particles=self.cfg_list[0].PF.N_PROCESS,
+            device=self.device,
         )
         self.rbpf_ok = False
 
@@ -167,17 +176,19 @@ class PoseRBPF:
 
         # deepsdf
         experiment_directory = "{}/{}s/".format(deepsdf_ckp_folder, obj_list[0])
-        self.decoder = decoder_utils.load_decoder(experiment_directory, 2000)
-        self.decoder = self.decoder.module.cuda()
+        self.decoder = decoder_utils.load_decoder(
+            experiment_directory, 2000, device=self.device
+        )
+        self.decoder = self.decoder.module.to(self.device)
         self.evaluator = Evaluator(self.decoder)
         latent_size = 256
         std_ = 0.01
         self.rand_tensor = torch.ones(1, latent_size).normal_(mean=0, std=std_)
-        self.latent_tensor = self.rand_tensor.float().cuda()
+        self.latent_tensor = self.rand_tensor.float().to(self.device)
         self.latent_tensor.requires_grad = False
         self.mask = None
         self.sdf_optim = deepsdf_optim.DeepSDFOptimizer(
-            self.decoder, optimize_shape=False
+            self.decoder, optimize_shape=False, device=self.device
         )
         # test_model_dir = "../obj_models/real_test/"
         # fn = "{}{}_vertices.txt".format(test_model_dir, test_instance)
@@ -206,10 +217,10 @@ class PoseRBPF:
             latentnet_ckp_folder, self.obj_list[0], self.obj_list[0]
         )
         # self.label_gt_path = "./latent_gt/{}_sfs.pth".format(test_instance)
-        pn_checkpoint = torch.load(ckpt_file_pn)
+        pn_checkpoint = torch.load(ckpt_file_pn, map_location=self.device)
         self.model = pointnet2_msg.get_model(input_channels=0)
         self.model.load_ckpt_weights(pn_checkpoint["aae_state_dict"])
-        self.model.cuda()
+        self.model.to(self.device)
         self.model.eval()
         for param in self.model.parameters():
             param.requires_grad = False
@@ -231,7 +242,7 @@ class PoseRBPF:
         #     self.points_gt.shape[0], self.points_gt.shape[1] + 1
         # )
         # self.points_gt_aug[:, :3] = self.points_gt
-        # self.points_gt_aug = self.points_gt_aug.cuda()
+        # self.points_gt_aug = self.points_gt_aug.to(self.device)
         self.fps = []
 
     def reset(self):
@@ -243,6 +254,7 @@ class PoseRBPF:
                 particle_filter.ParticleFilter(
                     self.cfg_list[idx_obj].PF,
                     n_particles=self.cfg_list[idx_obj].PF.N_PROCESS,
+                    device=self.device,
                 )
             )
             self.rbpf_ok_list.append(False)
@@ -266,7 +278,9 @@ class PoseRBPF:
 
         # initialize the particle filters
         self.rbpf = particle_filter.ParticleFilter(
-            self.cfg_list[0].PF, n_particles=self.cfg_list[0].PF.N_PROCESS
+            self.cfg_list[0].PF,
+            n_particles=self.cfg_list[0].PF.N_PROCESS,
+            device=self.device,
         )
         self.rbpf_ok = False
 
@@ -337,11 +351,11 @@ class PoseRBPF:
         latent_size = 256
         std_ = 0.01
         self.rand_tensor = torch.ones(1, latent_size).normal_(mean=0, std=std_)
-        self.latent_tensor = self.rand_tensor.float().cuda()
+        self.latent_tensor = self.rand_tensor.float().to(self.device)
         self.latent_tensor.requires_grad = False
         self.mask = None
         self.sdf_optim = deepsdf_optim.DeepSDFOptimizer(
-            self.decoder, optimize_shape=False
+            self.decoder, optimize_shape=False, device=self.device
         )
         # test_model_dir = "../obj_models/real_test/"
         # fn = "{}{}_vertices.txt".format(test_model_dir, test_instance)
@@ -365,21 +379,6 @@ class PoseRBPF:
         # partial point cloud observation
         self.points_o_partial = None
 
-        # pointnet++
-        # ckpt_file_pn = "{}/{}/ckpt_{}_0300.pth".format(
-        #     latentnet_ckp_folder, self.obj_list[0], self.obj_list[0]
-        # )
-        # self.label_gt_path = "./latent_gt/{}_sfs.pth".format(test_instance)
-        # pn_checkpoint = torch.load(ckpt_file_pn)
-        # self.model = get_model(input_channels=0)
-        # self.model.load_ckpt_weights(pn_checkpoint["aae_state_dict"])
-        # self.model.cuda()
-        # self.model.eval()
-        # for param in self.model.parameters():
-        #     param.requires_grad = False
-        # self.label_gt = torch.load(self.label_gt_path)[0, :, :].detach()
-        # self.label_gt.requires_grad = False
-
         self.loss_shape_refine = 10000
         self.loss_last = 10000
         self.dist_init = 0
@@ -396,7 +395,7 @@ class PoseRBPF:
         #     self.points_gt.shape[0], self.points_gt.shape[1] + 1
         # )
         # self.points_gt_aug[:, :3] = self.points_gt
-        # self.points_gt_aug = self.points_gt_aug.cuda()
+        # self.points_gt_aug = self.points_gt_aug.to(self.device)
         self.fps = []
 
     # specify the target object for tracking
@@ -537,14 +536,16 @@ class PoseRBPF:
         points_np = deepsdf_utils.depth2pc(
             depth_np, depth_np.shape[0], depth_np.shape[1], intrinsics
         )  # n x 4
-        # points_c = torch.from_numpy(points_np).cuda()
+        # points_c = torch.from_numpy(points_np).to(self.device)
         T_init = np.eye(4, dtype=np.float32)
         T_init[:3, :3] = self.rbpf.rot_bar
         T_init[:3, 3] = self.rbpf.trans_bar
         self.size_est = self.rbpf.scale_bar[0]
 
         if len(points_np) > 0:
-            self.sdf_optim.size_est = torch.tensor(self.size_est / self.ratio).cuda()
+            self.sdf_optim.size_est = torch.tensor(self.size_est / self.ratio).to(
+                self.device
+            )
             # with this
             points_choice = self.sample_points(points_np[:, :3])
             self.latent_vector_prediction_pn(
@@ -562,7 +563,7 @@ class PoseRBPF:
             latent_size = 256
             std_ = 0.01
             self.rand_tensor = torch.ones(1, latent_size).normal_(mean=0, std=std_)
-            self.latent_tensor = self.rand_tensor.float().cuda()
+            self.latent_tensor = self.rand_tensor.float().to(self.device)
             self.latent_vec_optim = self.latent_tensor.clone()
 
     def latent_vector_prediction_pn(self, points_choice, rot, trans):
@@ -582,7 +583,7 @@ class PoseRBPF:
         # visualize_depth_pc(points_obj_norm, points_obj_shapenet)
         self.points_o_partial = points_obj_shapenet * self.size_est
 
-        points_c = torch.from_numpy(points_obj_shapenet).cuda().unsqueeze(0)
+        points_c = torch.from_numpy(points_obj_shapenet).to(self.device).unsqueeze(0)
         pred_label = self.model(points_c)
         self.latent_tensor = pred_label.clone()
 
@@ -609,12 +610,15 @@ class PoseRBPF:
             self.target_obj_cfg.PF.FU,
             self.target_obj_cfg.PF.FV,
             render_dist,
+            device=self.device,
         ).detach()
 
         # normalize the depth
         n_particles = z.shape[0]
-        z_cuda = torch.from_numpy(z).float().cuda().unsqueeze(2).unsqueeze(3)
-        scale_cuda = torch.from_numpy(scale).float().cuda().unsqueeze(2).unsqueeze(3)
+        z_cuda = torch.from_numpy(z).float().to(self.device).unsqueeze(2).unsqueeze(3)
+        scale_cuda = (
+            torch.from_numpy(scale).float().to(self.device).unsqueeze(2).unsqueeze(3)
+        )
         images_roi_cuda = (images_roi_cuda - z_cuda) / scale_cuda + 0.5
         images_roi_cuda = torch.clamp(images_roi_cuda, 0, 1)
 
@@ -659,7 +663,7 @@ class PoseRBPF:
         )
 
         # evaluate with deepsdf
-        sdf_scores = torch.from_numpy(np.ones_like(z)).cuda().float()
+        sdf_scores = torch.from_numpy(np.ones_like(z)).to(self.device).float()
 
         if run_deep_sdf:
             distances = np.ones_like(z)
@@ -667,7 +671,7 @@ class PoseRBPF:
             points_np = deepsdf_utils.depth2pc(
                 depth_np, depth_np.shape[0], depth_np.shape[1], self.intrinsics
             )
-            points_c = torch.from_numpy(points_np).cuda()
+            points_c = torch.from_numpy(points_np).to(self.device)
             if len(points_c) > NP_THRESHOLD:
                 for i in range(self.rbpf.n_particles):
                     R = quaternions.quat2mat(self.rbpf_codepose[i_sims[i]][3:])
@@ -681,7 +685,9 @@ class PoseRBPF:
                     )
 
                 distances_temp = distances / np.min(distances)
-                distances_torch = torch.from_numpy(distances_temp).cuda().float()
+                distances_torch = (
+                    torch.from_numpy(distances_temp).to(self.device).float()
+                )
                 sdf_scores = mat2pdf(distances_torch, 1.0, 0.5)
                 pdf_matrix = torch.mul(pdf_matrix, sdf_scores)
 
@@ -769,15 +775,16 @@ class PoseRBPF:
             self.target_obj_cfg.PF.FU,
             self.target_obj_cfg.PF.FV,
             self.target_obj_cfg.TRAIN.RENDER_DIST[0],
+            device=self.device,
         ).detach()
 
         # normalize the depth
         z = np.expand_dims(self.rbpf.z_bar, 0)
-        z_cuda = torch.from_numpy(z).float().cuda().unsqueeze(2).unsqueeze(3)
+        z_cuda = torch.from_numpy(z).float().to(self.device).unsqueeze(2).unsqueeze(3)
         scale_cuda = (
             torch.from_numpy(np.expand_dims(self.rbpf.scale_bar, 0))
             .float()
-            .cuda()
+            .to(self.device)
             .unsqueeze(2)
             .unsqueeze(3)
         )
@@ -797,7 +804,7 @@ class PoseRBPF:
         points_np = deepsdf_utils.depth2pc(
             depth_np, depth_np.shape[0], depth_np.shape[1], intrinsics.numpy()[0]
         )
-        points_c = torch.from_numpy(points_np).cuda()
+        points_c = torch.from_numpy(points_np).to(self.device)
 
         if len(points_np) > NP_THRESHOLD:
             points_choice = self.sample_points(points_np[:, :3])
@@ -813,7 +820,7 @@ class PoseRBPF:
                             np.ones((points_choice.shape[0], 1), dtype=np.float32),
                         )
                     )
-                ).cuda()
+                ).to(self.device)
 
         else:
             print("NOT ENOUGH POINTS ON THE DEPTH IMAGE! SKIP REFINEMENT")
@@ -825,7 +832,9 @@ class PoseRBPF:
         T_co[:3, :3] = self.rbpf.rot_bar
         T_co[:3, 3] = self.rbpf.trans_bar
 
-        self.sdf_optim.size_est = torch.tensor(self.size_est / self.ratio).cuda()
+        self.sdf_optim.size_est = torch.tensor(self.size_est / self.ratio).to(
+            self.device
+        )
 
         T_co_opt, dist, _, size_est, loss_optim = self.sdf_optim.refine_pose(
             T_co, points_c, self.latent_tensor, steps=refine_steps, shape_only=False
@@ -859,7 +868,7 @@ class PoseRBPF:
             latent_size = 256
             std_ = 0.1
             rand_tensor = torch.ones(1, latent_size).normal_(mean=0, std=std_)
-            latent_tensor_rand = rand_tensor.float().cuda()
+            latent_tensor_rand = rand_tensor.float().to(self.device)
             latent_tensor_rand.requires_grad = False
             dist = self.sdf_optim.eval_latent_vector(
                 T_co_init, points_c, latent_tensor_rand
@@ -872,7 +881,10 @@ class PoseRBPF:
         if npoints < len(points_np):
             choice = (
                 pointnet2_utils.furthest_point_sample(
-                    torch.from_numpy(points_np).cuda().unsqueeze(0).contiguous(),
+                    torch.from_numpy(points_np)
+                    .to(self.device)
+                    .unsqueeze(0)
+                    .contiguous(),
                     npoints,
                 )
                 .cpu()
