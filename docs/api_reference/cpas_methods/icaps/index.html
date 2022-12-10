@@ -1097,7 +1097,13 @@ Deng, 2022.</p>
 <span class="normal">300</span>
 <span class="normal">301</span>
 <span class="normal">302</span>
-<span class="normal">303</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ICaps</span><span class="p">(</span><span class="n">CPASMethod</span><span class="p">):</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ICaps</span><span class="p">(</span><span class="n">CPASMethod</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Wrapper class for iCaps.&quot;&quot;&quot;</span>
 
     <span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
@@ -1116,6 +1122,8 @@ Deng, 2022.</p>
 <span class="sd">            categories:</span>
 <span class="sd">                List of category strings. Each category requires corresponding</span>
 <span class="sd">                directories in each checkpoint dir.</span>
+<span class="sd">            device:</span>
+<span class="sd">                The device to use.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">pf_config_dir</span><span class="p">:</span> <span class="nb">str</span>
@@ -1124,6 +1132,7 @@ Deng, 2022.</p>
         <span class="n">aae_checkpoint_dir</span><span class="p">:</span> <span class="nb">str</span>
         <span class="n">checkpoints_url</span><span class="p">:</span> <span class="nb">str</span>
         <span class="n">categories</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+        <span class="n">device</span><span class="p">:</span> <span class="nb">str</span>
 
     <span class="n">default_config</span><span class="p">:</span> <span class="n">Config</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;pf_config_dir&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
@@ -1132,6 +1141,7 @@ Deng, 2022.</p>
         <span class="s2">&quot;aae_checkpoint_dir&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
         <span class="s2">&quot;checkpoints_url&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
         <span class="s2">&quot;categories&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;bottle&quot;</span><span class="p">,</span> <span class="s2">&quot;bowl&quot;</span><span class="p">,</span> <span class="s2">&quot;camera&quot;</span><span class="p">,</span> <span class="s2">&quot;can&quot;</span><span class="p">,</span> <span class="s2">&quot;laptop&quot;</span><span class="p">,</span> <span class="s2">&quot;mug&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="s2">&quot;cuda&quot;</span><span class="p">,</span>
     <span class="p">}</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="n">camera_utils</span><span class="o">.</span><span class="n">Camera</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -1146,6 +1156,7 @@ Deng, 2022.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">_camera</span> <span class="o">=</span> <span class="n">camera</span>
 
     <span class="k">def</span> <span class="nf">_parse_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;device&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_num_points</span> <span class="o">=</span> <span class="mi">10000</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_category_strs</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;categories&quot;</span><span class="p">]</span>
 
@@ -1185,6 +1196,7 @@ Deng, 2022.</p>
                 <span class="n">full_ckpt_dir_path</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_deepsdf_ckp_dir_path</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_latentnet_ckp_dir_path</span><span class="p">,</span>
+                <span class="n">device</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_pose_rbpfs</span><span class="p">[</span><span class="n">category_str</span><span class="p">]</span><span class="o">.</span><span class="n">set_target_obj</span><span class="p">(</span>
                 <span class="n">icaps</span><span class="o">.</span><span class="n">icaps_config</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">TEST</span><span class="o">.</span><span class="n">OBJECTS</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -1364,7 +1376,7 @@ Deng, 2022.</p>
                 <span class="s2">&quot;reconstructed_pointcloud&quot;</span><span class="p">:</span> <span class="n">reconstructed_points</span><span class="p">,</span>
                 <span class="s2">&quot;reconstructed_mesh&quot;</span><span class="p">:</span> <span class="n">reconstructed_mesh</span><span class="p">,</span>
             <span class="p">}</span>
-        <span class="k">except</span><span class="p">:</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;===PROBLEM DETECTED WITH ICAPS, RETURNING NO PREDICTION INSTEAD===&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="p">{</span>
                 <span class="s2">&quot;position&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]),</span>
@@ -1488,6 +1500,18 @@ directories in each checkpoint dir.</p>
             </p>
           </td>
         </tr>
+        <tr>
+          <td><code>device</code></td>
+          <td class="doc-attribute-details">
+            <p>The device to use.</p>
+            <p>
+                <span class="doc-attribute-annotation">
+                  <b>TYPE:</b>
+                    <code>str</code>
+                </span>
+            </p>
+          </td>
+        </tr>
     </tbody>
   </table>
 
@@ -1517,7 +1541,10 @@ directories in each checkpoint dir.</p>
 <span class="normal">51</span>
 <span class="normal">52</span>
 <span class="normal">53</span>
-<span class="normal">54</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Configuration dictionary for iCaps.</span>
 
 <span class="sd">    Attributes:</span>
@@ -1533,6 +1560,8 @@ directories in each checkpoint dir.</p>
 <span class="sd">        categories:</span>
 <span class="sd">            List of category strings. Each category requires corresponding</span>
 <span class="sd">            directories in each checkpoint dir.</span>
+<span class="sd">        device:</span>
+<span class="sd">            The device to use.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">pf_config_dir</span><span class="p">:</span> <span class="nb">str</span>
@@ -1541,6 +1570,7 @@ directories in each checkpoint dir.</p>
     <span class="n">aae_checkpoint_dir</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">checkpoints_url</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">categories</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">device</span><span class="p">:</span> <span class="nb">str</span>
 </code></pre></div></td></tr></table></div>
         </details>
 
@@ -1618,16 +1648,16 @@ directories in each checkpoint dir.</p>
 
       <details class="quote">
         <summary>Source code in <code>cpas_toolbox/cpas_methods/icaps.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">69</span>
 <span class="normal">70</span>
 <span class="normal">71</span>
 <span class="normal">72</span>
 <span class="normal">73</span>
-<span class="normal">74</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="n">camera_utils</span><span class="o">.</span><span class="n">Camera</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span> <span class="n">camera</span><span class="p">:</span> <span class="n">camera_utils</span><span class="o">.</span><span class="n">Camera</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Initialize and load ICaps models.</span>
 
 <span class="sd">    Args:</span>
@@ -1667,13 +1697,7 @@ directories in each checkpoint dir.</p>
 
       <details class="quote">
         <summary>Source code in <code>cpas_toolbox/cpas_methods/icaps.py</code></summary>
-        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">173</span>
-<span class="normal">174</span>
-<span class="normal">175</span>
-<span class="normal">176</span>
-<span class="normal">177</span>
-<span class="normal">178</span>
-<span class="normal">179</span>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">179</span>
 <span class="normal">180</span>
 <span class="normal">181</span>
 <span class="normal">182</span>
@@ -1797,7 +1821,13 @@ directories in each checkpoint dir.</p>
 <span class="normal">300</span>
 <span class="normal">301</span>
 <span class="normal">302</span>
-<span class="normal">303</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">inference</span><span class="p">(</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">inference</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">color_image</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
     <span class="n">depth_image</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
@@ -1919,7 +1949,7 @@ directories in each checkpoint dir.</p>
             <span class="s2">&quot;reconstructed_pointcloud&quot;</span><span class="p">:</span> <span class="n">reconstructed_points</span><span class="p">,</span>
             <span class="s2">&quot;reconstructed_mesh&quot;</span><span class="p">:</span> <span class="n">reconstructed_mesh</span><span class="p">,</span>
         <span class="p">}</span>
-    <span class="k">except</span><span class="p">:</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;===PROBLEM DETECTED WITH ICAPS, RETURNING NO PREDICTION INSTEAD===&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="s2">&quot;position&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]),</span>
