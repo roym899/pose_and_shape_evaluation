@@ -78,7 +78,9 @@ class SPD(CPASMethod):
             config["num_categories"], config["num_shape_points"]
         )
         self._spd_net.to(self._device)
-        self._spd_net.load_state_dict(torch.load(self._model_file_path))
+        self._spd_net.load_state_dict(
+            torch.load(self._model_file_path, map_location=self._device)
+        )
         self._spd_net.eval()
         self._mean_shape_pointsets = np.load(self._mean_shape_file_path)
         self._num_input_points = config["num_input_points"]
@@ -245,9 +247,13 @@ class SPD(CPASMethod):
         # Recenter for mug category
         if category_str == "mug":  # undo mug translation
             x_offset = (
-                self._mean_shape_pointsets[5].max(axis=0)[0]
-                + self._mean_shape_pointsets[5].min(axis=0)[0]
-            ) / 2 * scale
+                (
+                    self._mean_shape_pointsets[5].max(axis=0)[0]
+                    + self._mean_shape_pointsets[5].min(axis=0)[0]
+                )
+                / 2
+                * scale
+            )
             reconstructed_points[:, 0] -= x_offset
             position += quaternion_utils.quaternion_apply(
                 orientation_q, torch.FloatTensor([x_offset, 0, 0])
