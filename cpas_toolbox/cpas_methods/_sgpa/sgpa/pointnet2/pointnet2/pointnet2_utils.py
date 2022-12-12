@@ -8,7 +8,7 @@ from torch.utils.cpp_extension import load
 
 directory = os.path.dirname(__file__)
 pointnet2 = load(
-    name="pointnet2_cuda",
+    name="pointnet2_sgpa",
     sources=[
         os.path.join(directory, "./src/pointnet2_api.cpp"),
         os.path.join(directory, "./src/ball_query.cpp"),
