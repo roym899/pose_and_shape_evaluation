@@ -79,7 +79,7 @@ class ICaps(CPASMethod):
 
     def _parse_config(self, config: Config) -> None:
         self._device = config["device"]
-        self._num_points = 10000
+        self._num_points = config["num_points"]
         self._category_strs = config["categories"]
 
         self._checkpoints_url = config["checkpoints_url"]
