@@ -66,6 +66,19 @@ class ICaps(CPASMethod):
         "device": "cuda",
     }
 
+    # This is to replace reliance on ground-truth mesh in iCaps
+    # Numbers computed from mean shapes used in SDF
+    # see: https://github.com/aerogjy/iCaps/issues/1
+
+    category_str_to_ratio = {
+        "bottle": 2.149,
+        "bowl": 2.7,
+        "camera": 2.328,
+        "can": 2.327,
+        "laptop": 2.076,
+        "mug": 2.199,
+    }
+
     def __init__(self, config: Config, camera: camera_utils.Camera) -> None:
         """Initialize and load ICaps models.
 
@@ -122,6 +135,9 @@ class ICaps(CPASMethod):
             )
             self._pose_rbpfs[category_str].set_target_obj(
                 icaps.icaps_config.cfg.TEST.OBJECTS[0]
+            )
+            self._pose_rbpfs[category_str].set_ratio(
+                self.category_str_to_ratio[category_str]
             )
 
     def _check_paths(self) -> None:

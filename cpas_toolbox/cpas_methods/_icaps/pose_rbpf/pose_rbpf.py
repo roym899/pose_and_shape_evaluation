@@ -15,7 +15,6 @@ from . import particle_filter
 NPOINTS = 4873
 NP_THRESHOLD = 0
 
-
 class PoseRBPF:
     def __init__(
         self,
@@ -199,8 +198,6 @@ class PoseRBPF:
         # self.size_gt_pn = get_bbox_dist(points)  # metric ground truth diagonal
         # self.size_est = self.size_gt_pn
         # self.ratio = self.size_gt_pn / self.size_gt
-        # self.sdf_optim.ratio = self.ratio * 1.0
-        self.ratio = 2.0  # ????
 
         # points_obj_norm = self.points_gt
         # Transform from Nocs object frame to ShapeNet object frame
@@ -244,6 +241,10 @@ class PoseRBPF:
         # self.points_gt_aug[:, :3] = self.points_gt
         # self.points_gt_aug = self.points_gt_aug.to(self.device)
         self.fps = []
+
+    def set_ratio(self, ratio):
+        self.ratio = ratio
+        self.sdf_optim.ratio = self.ratio * 1.0
 
     def reset(self):
         self.rbpf_list = []
@@ -366,8 +367,8 @@ class PoseRBPF:
         # self.size_gt_pn = get_bbox_dist(points)  # metric ground truth diagonal
         # self.size_est = self.size_gt_pn
         # self.ratio = self.size_gt_pn / self.size_gt
-        # self.sdf_optim.ratio = self.ratio * 1.0
-        self.ratio = 2.0  # ????
+        self.ratio = self.ratio
+        self.sdf_optim.ratio = self.ratio * 1.0
 
         # points_obj_norm = self.points_gt
         # Transform from Nocs object frame to ShapeNet object frame
