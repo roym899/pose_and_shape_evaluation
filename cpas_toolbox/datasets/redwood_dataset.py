@@ -138,6 +138,7 @@ class AnnotatedRedwoodDataset(torch.utils.data.Dataset):
         self._remap_y_axis = config["remap_y_axis"]
         self._remap_x_axis = config["remap_x_axis"]
         self._orientation_repr = config["orientation_repr"]
+        self._category_str = config["category_str"]
         self._load_annotations()
         self._camera = camera_utils.Camera(
             width=640, height=480, fx=525, fy=525, cx=319.5, cy=239.5
@@ -204,6 +205,11 @@ class AnnotatedRedwoodDataset(torch.utils.data.Dataset):
             anns_dict = json.load(f)
         self._raw_samples = []
         for seq_id, seq_anns in anns_dict.items():
+            if (
+                self._category_str is not None
+                and self._category_str != seq_anns["category"]
+            ):
+                continue
             for pose_ann in seq_anns["pose_anns"]:
                 self._raw_samples.append(
                     self._create_raw_sample(seq_id, seq_anns, pose_ann)
