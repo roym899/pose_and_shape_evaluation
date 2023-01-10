@@ -10,8 +10,14 @@
       
         <link rel="canonical" href="https://roym899.github.io/pose_and_shape_evaluation/api_reference/datasets/nocs_dataset/">
       
+      
+        <link rel="prev" href="../../evaluate/">
+      
+      
+        <link rel="next" href="../nocs_utils/">
+      
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.3">
     
     
       
@@ -19,11 +25,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.975780f9.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.6b71719e.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.2505c338.min.css">
-        
       
       
 
@@ -58,7 +63,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="None" data-md-color-accent="None">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
   
     
     
@@ -246,12 +251,13 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
       
       
       
-      
-        <label class="md-nav__link" for="__nav_3">
+        <label class="md-nav__link" for="__nav_3" tabindex="0" aria-expanded="true">
           API Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
@@ -288,12 +294,13 @@
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" checked>
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" checked>
       
       
       
-      
-        <label class="md-nav__link" for="__nav_3_2">
+        <label class="md-nav__link" for="__nav_3_2" tabindex="0" aria-expanded="true">
           datasets
           <span class="md-nav__icon md-icon"></span>
         </label>
@@ -461,12 +468,13 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
       
       
       
-      
-        <label class="md-nav__link" for="__nav_3_3">
+        <label class="md-nav__link" for="__nav_3_3" tabindex="0" aria-expanded="false">
           cpas_methods
           <span class="md-nav__icon md-icon"></span>
         </label>
@@ -807,10 +815,9 @@
                 
                   
 
-  <a href="https://github.com/roym899/pose_and_shape_evaluation/edit/master/docs/api_reference/datasets/nocs_dataset.md" title="Edit this page" class="md-content__button md-icon">
-    
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
-  </a>
+  
+  
+
 
 
   <h1>nocs_dataset.py</h1>
@@ -1796,7 +1803,7 @@ and is saved to
 <span class="normal">944</span>
 <span class="normal">945</span>
 <span class="normal">946</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">NOCSDataset</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Dataset class for NOCS dataset.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Dataset class for NOCS dataset.</span>
 
 <span class="sd">    CAMERA* and REAL* are training sets.</span>
 <span class="sd">    CAMERA25 and REAL275 are test data.</span>
@@ -1835,7 +1842,7 @@ and is saved to
     <span class="n">category_str_to_id</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">category_id_to_str</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
 
     <span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Configuration dictionary for NOCSDataset.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Configuration dictionary for NOCSDataset.</span>
 
 <span class="sd">        Attributes:</span>
 <span class="sd">            root_dir: See NOCSDataset docstring.</span>
@@ -1911,7 +1918,7 @@ and is saved to
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Initialize the dataset.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the dataset.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            config:</span>
@@ -1959,7 +1966,7 @@ and is saved to
                     <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_dirs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Return required list of directories for current split.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return required list of directories for current split.&quot;&quot;&quot;</span>
         <span class="n">dirs</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="c1"># gts only available for real test and camera val</span>
@@ -2048,11 +2055,11 @@ and is saved to
             <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">zip_path</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return number of sample in dataset.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return number of sample in dataset.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sample_files</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return a sample of the dataset.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a sample of the dataset.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            idx: Index of the instance.</span>
@@ -2075,7 +2082,7 @@ and is saved to
         <span class="k">return</span> <span class="n">sample</span>
 
     <span class="k">def</span> <span class="nf">_preprocess_dataset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Create preprocessing files for the current split.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create preprocessing files for the current split.</span>
 
 <span class="sd">        One file per sample, which currently means per valid object mask will be</span>
 <span class="sd">        created.</span>
@@ -2117,7 +2124,7 @@ and is saved to
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Finished preprocessing for </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_split</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[K</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_fix_obj_models</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Fix issues with fileextensions.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fix issues with fileextensions.</span>
 
 <span class="sd">        Some png files have jpg extension. This function fixes these models.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -2150,7 +2157,7 @@ and is saved to
             <span class="n">remaining_time_str</span> <span class="o">=</span> <span class="s2">&quot;N/A&quot;</span>
         <span class="nb">print</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;Preprocessing image: </span><span class="si">{</span><span class="n">image_id</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_color_paths</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
-            <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">image_id</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_color_paths</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="si">:</span><span class="s2">&gt;6.2f</span><span class="si">}</span><span class="s2">%&quot;</span>  <span class="c1"># progress percentage</span>
+            <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">image_id</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_color_paths</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">&gt;6.2f</span><span class="si">}</span><span class="s2">%&quot;</span>  <span class="c1"># progress percentage</span>
             <span class="sa">f</span><span class="s2">&quot; Remaining time: </span><span class="si">{</span><span class="n">remaining_time_str</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># remaining time</span>
             <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[K&quot;</span><span class="p">,</span>  <span class="c1"># clear until end of line</span>
             <span class="n">end</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\r</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># overwrite previous</span>
@@ -2237,7 +2244,7 @@ and is saved to
             <span class="n">gt_id</span> <span class="o">+=</span> <span class="mi">1</span>
 
     <span class="k">def</span> <span class="nf">_get_color_files</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return list of paths of color images of the selected split.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return list of paths of color images of the selected split.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span> <span class="o">==</span> <span class="s2">&quot;camera_train&quot;</span><span class="p">:</span>
             <span class="n">glob_pattern</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_root_dir_path</span><span class="p">,</span> <span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="s2">&quot;**&quot;</span><span class="p">,</span> <span class="s2">&quot;*_color.png&quot;</span>
@@ -2260,7 +2267,7 @@ and is saved to
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Specified split </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_split</span><span class="si">}</span><span class="s2"> is not supported.&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_get_sample_files</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">category_str</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return sorted list of sample file paths.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return sorted list of sample file paths.</span>
 
 <span class="sd">        Sample files are generated by NOCSDataset._preprocess_dataset.</span>
 
@@ -2289,7 +2296,7 @@ and is saved to
         <span class="k">return</span> <span class="n">filtered_sample_files</span>
 
     <span class="k">def</span> <span class="nf">_get_split_camera</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return camera information for selected split.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return camera information for selected split.&quot;&quot;&quot;</span>
         <span class="c1"># from: https://github.com/hughw19/NOCS_CVPR2019/blob/master/detect_eval.py</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;real_train&quot;</span><span class="p">,</span> <span class="s2">&quot;real_test&quot;</span><span class="p">]:</span>
             <span class="k">return</span> <span class="n">camera_utils</span><span class="o">.</span><span class="n">Camera</span><span class="p">(</span>
@@ -2315,7 +2322,7 @@ and is saved to
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Specified split </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_split</span><span class="si">}</span><span class="s2"> is not supported.&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_sample_from_sample_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sample_data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Create dictionary containing a single sample.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create dictionary containing a single sample.&quot;&quot;&quot;</span>
         <span class="n">color</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span>
             <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">sample_data</span><span class="p">[</span><span class="s2">&quot;color_path&quot;</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">/</span> <span class="mi">255</span>
         <span class="p">)</span>
@@ -2368,7 +2375,7 @@ and is saved to
         <span class="k">return</span> <span class="n">sample</span>
 
     <span class="k">def</span> <span class="nf">_depth_path_from_color_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return path to depth file from color filepath.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return path to depth file from color filepath.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;real_train&quot;</span><span class="p">,</span> <span class="s2">&quot;real_test&quot;</span><span class="p">]:</span>
             <span class="n">depth_path</span> <span class="o">=</span> <span class="n">color_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="s2">&quot;depth&quot;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;camera_train&quot;</span><span class="p">]:</span>
@@ -2382,24 +2389,24 @@ and is saved to
         <span class="k">return</span> <span class="n">depth_path</span>
 
     <span class="k">def</span> <span class="nf">_mask_path_from_color_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return path to mask file from color filepath.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return path to mask file from color filepath.&quot;&quot;&quot;</span>
         <span class="n">mask_path</span> <span class="o">=</span> <span class="n">color_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="s2">&quot;mask&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">mask_path</span>
 
     <span class="k">def</span> <span class="nf">_meta_path_from_color_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return path to meta file from color filepath.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return path to meta file from color filepath.&quot;&quot;&quot;</span>
         <span class="n">meta_path</span> <span class="o">=</span> <span class="n">color_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;color.png&quot;</span><span class="p">,</span> <span class="s2">&quot;meta.txt&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">meta_path</span>
 
     <span class="k">def</span> <span class="nf">_nocs_map_path_from_color_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return NOCS map filepath from color filepath.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return NOCS map filepath from color filepath.&quot;&quot;&quot;</span>
         <span class="n">nocs_map_path</span> <span class="o">=</span> <span class="n">color_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;color.png&quot;</span><span class="p">,</span> <span class="s2">&quot;coord.png&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">nocs_map_path</span>
 
     <span class="k">def</span> <span class="nf">_get_pose_and_scale</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">color_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">mask_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">gt_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">meta_row</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return position, orientation, scale and NOCS transform.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return position, orientation, scale and NOCS transform.</span>
 
 <span class="sd">        All of those follow OpenCV (x right, y down, z forward) convention.</span>
 
@@ -2462,7 +2469,7 @@ and is saved to
         <span class="k">return</span> <span class="n">position</span><span class="p">,</span> <span class="n">orientation_q</span><span class="p">,</span> <span class="n">extents</span><span class="p">,</span> <span class="n">nocs_transform</span>
 
     <span class="k">def</span> <span class="nf">_get_gts_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Return path to gts file from color filepath.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return path to gts file from color filepath.</span>
 
 <span class="sd">        Return None if split does not have ground truth information.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -2481,7 +2488,7 @@ and is saved to
         <span class="k">return</span> <span class="n">gts_path</span>
 
     <span class="k">def</span> <span class="nf">_get_obj_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">meta_row</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return path to object file from meta data row.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return path to object file from meta data row.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="s2">&quot;camera&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split</span><span class="p">:</span>  <span class="c1"># ShapeNet mesh</span>
             <span class="n">synset_id</span> <span class="o">=</span> <span class="n">meta_row</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
             <span class="n">object_id</span> <span class="o">=</span> <span class="n">meta_row</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
@@ -2510,7 +2517,7 @@ and is saved to
         <span class="k">return</span> <span class="n">obj_path</span>
 
     <span class="k">def</span> <span class="nf">_get_mesh_extents_from_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return maximum extent of bounding box from obj filepath.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return maximum extent of bounding box from obj filepath.</span>
 
 <span class="sd">        Note that this is normalized extent (with diagonal == 1) in the case of CAMERA</span>
 <span class="sd">        dataset, and unnormalized (i.e., metric) extent in the case of REAL dataset.</span>
@@ -2523,7 +2530,7 @@ and is saved to
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">extents</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_load_mask</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mask_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Load mask from mask filepath.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load mask from mask filepath.&quot;&quot;&quot;</span>
         <span class="n">mask_img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">mask_path</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">mask_img</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">mask_img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>  <span class="c1"># CAMERA masks are RGBA</span>
             <span class="n">instances_mask</span> <span class="o">=</span> <span class="n">mask_img</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># use first channel only</span>
@@ -2532,14 +2539,14 @@ and is saved to
         <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">instances_mask</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_load_depth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Load depth from depth filepath.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load depth from depth filepath.&quot;&quot;&quot;</span>
         <span class="n">depth</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span>
             <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">depth_path</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.001</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">depth</span>
 
     <span class="k">def</span> <span class="nf">_load_nocs_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nocs_map_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Load NOCS map from NOCS map filepath.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load NOCS map from NOCS map filepath.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            NOCS map where each channel corresponds to one dimension in NOCS.</span>
@@ -2554,7 +2561,7 @@ and is saved to
         <span class="k">return</span> <span class="n">nocs_map</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_estimate_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">mask_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Estimate pose and scale through ground truth NOCS map.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Estimate pose and scale through ground truth NOCS map.&quot;&quot;&quot;</span>
         <span class="n">position</span> <span class="o">=</span> <span class="n">rotation_matrix</span> <span class="o">=</span> <span class="n">scale</span> <span class="o">=</span> <span class="n">out_transform</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">depth_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_depth_path_from_color_path</span><span class="p">(</span><span class="n">color_path</span><span class="p">)</span>
         <span class="n">depth</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_depth</span><span class="p">(</span><span class="n">depth_path</span><span class="p">)</span>
@@ -2595,7 +2602,7 @@ and is saved to
         <span class="k">return</span> <span class="n">position</span><span class="p">,</span> <span class="n">rotation_matrix</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">out_transform</span>
 
     <span class="k">def</span> <span class="nf">_get_scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sample_data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">extents</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Return scale from stored sample data and extents.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return scale from stored sample data and extents.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scale_convention</span> <span class="o">==</span> <span class="s2">&quot;diagonal&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">sample_data</span><span class="p">[</span><span class="s2">&quot;nocs_scale&quot;</span><span class="p">]</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scale_convention</span> <span class="o">==</span> <span class="s2">&quot;max&quot;</span><span class="p">:</span>
@@ -2612,7 +2619,7 @@ and is saved to
     <span class="k">def</span> <span class="nf">_change_axis_convention</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">orientation_q</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">extents</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Adjust up-axis for orientation and extents.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Adjust up-axis for orientation and extents.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            Tuple of position, orienation_q and extents, with specified up-axis.</span>
@@ -2638,7 +2645,7 @@ and is saved to
         <span class="k">return</span> <span class="n">remapped_orientation_q</span><span class="p">,</span> <span class="n">remapped_extents</span>
 
     <span class="k">def</span> <span class="nf">_get_o2n_object_rotation_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Compute rotation matrix which rotates original to new object coordinates.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute rotation matrix which rotates original to new object coordinates.&quot;&quot;&quot;</span>
         <span class="n">rotation_o2n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>  <span class="c1"># original to new object convention</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="o">==</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span>
             <span class="n">rotation_o2n</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
@@ -2678,7 +2685,7 @@ and is saved to
         <span class="k">return</span> <span class="n">rotation_o2n</span>
 
     <span class="k">def</span> <span class="nf">_quat_to_orientation_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">quaternion</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Convert quaternion to selected orientation representation.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert quaternion to selected orientation representation.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            quaternion:</span>
@@ -2696,7 +2703,7 @@ and is saved to
             <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">load_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Load an object mesh and adjust its object frame convention.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load an object mesh and adjust its object frame convention.&quot;&quot;&quot;</span>
         <span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">object_path</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_x_axis</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">mesh</span>
@@ -2959,7 +2966,7 @@ See NOCSDataset.category_id_to_str for admissible category strings.</p>
 <span class="normal">128</span>
 <span class="normal">129</span>
 <span class="normal">130</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Configuration dictionary for NOCSDataset.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Configuration dictionary for NOCSDataset.</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        root_dir: See NOCSDataset docstring.</span>
@@ -3115,7 +3122,7 @@ with default_dict. See NOCSDataset.Config for supported keys.</p>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">config</span><span class="p">:</span> <span class="n">Config</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Initialize the dataset.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize the dataset.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        config:</span>
@@ -3167,7 +3174,7 @@ with default_dict. See NOCSDataset.Config for supported keys.</p>
         <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">285</span>
 <span class="normal">286</span>
 <span class="normal">287</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Return number of sample in dataset.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return number of sample in dataset.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sample_files</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
       </details>
@@ -3268,7 +3275,7 @@ with default_dict. See NOCSDataset.Config for supported keys.</p>
 <span class="normal">308</span>
 <span class="normal">309</span>
 <span class="normal">310</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Return a sample of the dataset.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a sample of the dataset.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        idx: Index of the instance.</span>
@@ -3327,7 +3334,7 @@ with default_dict. See NOCSDataset.Config for supported keys.</p>
 <span class="normal">944</span>
 <span class="normal">945</span>
 <span class="normal">946</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">load_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">TriangleMesh</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Load an object mesh and adjust its object frame convention.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load an object mesh and adjust its object frame convention.&quot;&quot;&quot;</span>
     <span class="n">mesh</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_triangle_mesh</span><span class="p">(</span><span class="n">object_path</span><span class="p">)</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_y_axis</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remap_x_axis</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">mesh</span>
@@ -3379,7 +3386,7 @@ with default_dict. See NOCSDataset.Config for supported keys.</p>
 <span class="normal">950</span>
 <span class="normal">951</span>
 <span class="normal">952</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">ObjectError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Error if something with the mesh is wrong.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Error if something with the mesh is wrong.&quot;&quot;&quot;</span>
 
     <span class="k">pass</span>
 </code></pre></div></td></tr></table></div>
@@ -3413,42 +3420,6 @@ with default_dict. See NOCSDataset.Config for supported keys.</p>
       
         <footer class="md-footer">
   
-    
-    <nav class="md-footer__inner md-grid" aria-label="Footer" >
-      
-        
-        <a href="../../evaluate/" class="md-footer__link md-footer__link--prev" aria-label="Previous: evaluate.py" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              evaluate.py
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="../nocs_utils/" class="md-footer__link md-footer__link--next" aria-label="Next: nocs_utils.py" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              nocs_utils.py
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
-  
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
@@ -3470,12 +3441,11 @@ with default_dict. See NOCSDataset.Config for supported keys.</p>
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.e5c33ebb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.ba449ae6.min.js"></script>
       
-    
     
   </body>
 </html>
