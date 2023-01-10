@@ -43,7 +43,16 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/roym899/pose_and_shape_evaluation",
     packages=setuptools.find_packages(),
-    package_data={"": ["config/*"]},
+    package_data={
+        "": [
+            "**/*.cpp",
+            "**/*.cu",
+            "**/*.json",
+            "**/*.h",
+            "**/*.yaml",
+            "**/*.yml",
+        ]
+    },
     install_requires=install_requires,
     classifiers=[
         "Programming Language :: Python :: 3",

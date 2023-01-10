@@ -8,7 +8,7 @@ from transforms3d import euler, quaternions
 from ..deep_sdf import deepsdf_optim
 from ..deep_sdf.evaluator import Evaluator
 from ..models import aae_models, pointnet2_msg
-from ..pointnet2.pointnet2 import pointnet2_utils
+from ..pointnet2 import pointnet2_utils
 from ..utils import decoder_utils, deepsdf_utils, poserbpf_utils
 from . import particle_filter
 

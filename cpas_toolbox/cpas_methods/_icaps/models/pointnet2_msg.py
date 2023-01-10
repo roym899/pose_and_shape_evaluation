@@ -3,8 +3,8 @@ from collections import OrderedDict
 import torch
 import torch.nn as nn
 
-from ..pointnet2.pointnet2 import pytorch_utils as pt_utils
-from ..pointnet2.pointnet2.pointnet2_modules import PointnetSAModuleMSG
+from ..pointnet2 import pytorch_utils as pt_utils
+from ..pointnet2.pointnet2_modules import PointnetSAModuleMSG
 
 
 def get_model(input_channels=0):

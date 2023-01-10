@@ -1,14 +1,14 @@
 config:
   methods:
-    rbppose: ./rbppose.yaml
-    dpdn: ./dpdn.yaml
-    sdfest: ./sdfest.yaml
-    icaps: ./icaps.yaml
-    sgpa: ./sgpa.yaml
-    crnet: ./crnet.yaml
     cass: ./cass.yaml
     spd: ./spd.yaml
+    crnet: ./crnet.yaml
+    sgpa: ./sgpa.yaml
     asmnet: ./asmnet.yaml
+    icaps: ./icaps.yaml
+    sdfest: ./sdfest.yaml
+    dpdn: ./dpdn.yaml
+    rbppose: ./rbppose.yaml
 
 dataset_config:
   name: REDWOOD75
