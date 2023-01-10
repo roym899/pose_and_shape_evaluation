@@ -298,23 +298,38 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="tutorial_evaluation/" class="md-nav__link">
+        Tutorial: Evaluate new method
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
     
     <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
       
       
       
-        <label class="md-nav__link" for="__nav_3" tabindex="0" aria-expanded="false">
+        <label class="md-nav__link" for="__nav_4" tabindex="0" aria-expanded="false">
           API Reference
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="API Reference" data-md-level="1">
-        <label class="md-nav__title" for="__nav_3">
+        <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           API Reference
         </label>
@@ -345,17 +360,17 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
       
       
       
-        <label class="md-nav__link" for="__nav_3_2" tabindex="0" aria-expanded="false">
+        <label class="md-nav__link" for="__nav_4_2" tabindex="0" aria-expanded="false">
           datasets
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="datasets" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_2">
+        <label class="md-nav__title" for="__nav_4_2">
           <span class="md-nav__icon md-icon"></span>
           datasets
         </label>
@@ -421,17 +436,17 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3_3" type="checkbox" id="__nav_3_3" >
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" >
       
       
       
-        <label class="md-nav__link" for="__nav_3_3" tabindex="0" aria-expanded="false">
+        <label class="md-nav__link" for="__nav_4_3" tabindex="0" aria-expanded="false">
           cpas_methods
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <nav class="md-nav" aria-label="cpas_methods" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_3">
+        <label class="md-nav__title" for="__nav_4_3">
           <span class="md-nav__icon md-icon"></span>
           cpas_methods
         </label>
@@ -726,33 +741,33 @@
 
 
 
-<h1 id="getting-started">Getting started</h1>
+<h1 id="getting-started">Getting started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h1>
 <p>CPAS Toolbox is a package for evaluation of categorical pose and shape estimation methods. It contains metrics, and wrappers for datasets and methods.</p>
-<h2 id="installation">Installation</h2>
-<p>Run</p>
-<pre><code class="language-bash">pip install cpas_toolbox
-</code></pre>
-<p>to install the latest release of the toolbox. There is no need to download any additional weights or datasets. Upon first usage the evaluation script will ask to download the weights if they are not available at the expected path.</p>
-<h2 id="evaluation-of-baseline-methods">Evaluation of baseline methods</h2>
-<p>To reproduce the REAL275 benchmark run:</p>
-<pre><code class="language-bash">python -m cpas_toolbox.evaluate --config real275.yaml --out_dir ./results/
-</code></pre>
-<p>To reproduce the REDWOOD75 benchmark run:</p>
-<pre><code class="language-bash">python -m cpas_toolbox.evaluate --config redwood75.yaml --out_dir ./results/
-</code></pre>
-<p>We can overwrite settings of the configuration via the command-line. For example, </p>
-<pre><code class="language-bash">python -m cpas_toolbox.evaluate --config redwood75.yaml --out_dir ./results/ --visualize_gt True --visualize_prediction True
-</code></pre>
-<p>enables interactive visualization of ground truth and predictions. Alternatively, you could specify <code>--store_visualization True</code> to save the visualization of every prediction in the results directory.</p>
-<h2 id="citation">Citation</h2>
-<p>If you find this library useful in your research, consider citing <a href="https://arxiv.org/abs/2202.10346">our publication</a>:</p>
-<pre><code>@article{bruns2022evaluation,
-  title={On the Evaluation of {RGB-D}-based Categorical Pose and Shape Estimation},
-  author={Bruns, Leonard and Jensfelt, Patric},
-  journal={arXiv preprint arXiv:2202.10346},
-  year={2022}
-}
-</code></pre>
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<p>Run
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>cpas_toolbox
+</code></pre></div>
+to install the latest release of the toolbox. There is no need to download any additional weights or datasets. Upon first usage the evaluation script will ask to download the weights if they are not available at the expected path.</p>
+<h2 id="evaluation-of-baseline-methods">Evaluation of baseline methods<a class="headerlink" href="#evaluation-of-baseline-methods" title="Permanent link">&para;</a></h2>
+<p>To reproduce the REAL275 benchmark run:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>python<span class="w"> </span>-m<span class="w"> </span>cpas_toolbox.evaluate<span class="w"> </span>--config<span class="w"> </span>real275.yaml<span class="w"> </span>all_baselines.yaml<span class="w"> </span>--out_dir<span class="w"> </span>./results/
+</code></pre></div>
+To reproduce the REDWOOD75 benchmark run:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>python<span class="w"> </span>-m<span class="w"> </span>cpas_toolbox.evaluate<span class="w"> </span>--config<span class="w"> </span>redwood75.yaml<span class="w"> </span>all_baselines.yaml<span class="w"> </span>--out_dir<span class="w"> </span>./results/
+</code></pre></div></p>
+<p>We can overwrite settings of the configuration via the command-line. For example, 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>python<span class="w"> </span>-m<span class="w"> </span>cpas_toolbox.evaluate<span class="w"> </span>--config<span class="w"> </span>redwood75.yaml<span class="w"> </span>all_baselines.yaml<span class="w"> </span>--out_dir<span class="w"> </span>./results/<span class="w"> </span>--visualize_gt<span class="w"> </span>True<span class="w"> </span>--visualize_prediction<span class="w"> </span>True
+</code></pre></div>
+enables interactive visualization of ground truth and predictions. Alternatively, you could specify <code>--store_visualization True</code> to save the visualization of every prediction in the results directory.</p>
+<h2 id="citation">Citation<a class="headerlink" href="#citation" title="Permanent link">&para;</a></h2>
+<p>If you find this library useful in your research, consider citing <a href="https://arxiv.org/abs/2202.10346">our publication</a>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>@article{bruns2022evaluation,
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  title={On the Evaluation of {RGB-D}-based Categorical Pose and Shape Estimation},
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  author={Bruns, Leonard and Jensfelt, Patric},
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>  journal={arXiv preprint arXiv:2202.10346},
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>  year={2022}
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>}
+</code></pre></div></p>
 
 
 

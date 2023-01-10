@@ -11,6 +11,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://roym899.github.io/pose_and_shape_evaluation/tutorial_evaluation/</loc>
+         <lastmod>2023-01-10</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://roym899.github.io/pose_and_shape_evaluation/api_reference/camera_utils/</loc>
          <lastmod>2023-01-10</lastmod>
          <changefreq>daily</changefreq>
