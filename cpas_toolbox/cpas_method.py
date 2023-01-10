@@ -16,6 +16,8 @@ else:
 import open3d as o3d
 import torch
 
+from cpas_toolbox import camera_utils
+
 
 class PredictionDict(TypedDict):
     """Pose and shape prediction.
@@ -45,6 +47,15 @@ class PredictionDict(TypedDict):
 
 class CPASMethod(ABC):
     """Interface class for categorical pose and shape estimation methods."""
+
+    def __init__(self, config: dict, camera: camera_utils.Camera) -> None:
+        """Initialize categorical pose and shape estimation method.
+
+        Args:
+            config: Method configuration dictionary.
+            camera: Camera used for the input image.
+        """
+        pass
 
     def inference(
         self,

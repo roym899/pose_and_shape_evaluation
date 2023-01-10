@@ -602,40 +602,23 @@ class Evaluator:
             self._eval_method(method_name, method_wrapper)
 
 
-def _resolve_config_args(args: List[str]) -> List[str]:
-    resolved_args = []
-    resolve = False
-    for raw_arg in args:
-        arg = raw_arg
-        if raw_arg == "--config":
-            resolve = True
-        elif raw_arg.startswith("--"):
-            resolve = False
-        elif resolve:
-            arg = utils.resolve_path(
-                raw_arg,
-                search_paths=[
-                    ".",
-                    "~/.cpas_toolbox",
-                    os.path.join(os.path.dirname(__file__), "config"),
-                    os.path.dirname(__file__),
-                ],
-            )
-        resolved_args.append(arg)
-    return resolved_args
-
-
 def main() -> None:
     """Entry point of the evaluation program."""
     parser = argparse.ArgumentParser(
         description="Pose and shape estimation evaluation on REAL275 data"
     )
-    parser.add_argument("--config", required=True)
+    parser.add_argument("--config", required=True, nargs="+")
     parser.add_argument("--out_dir", required=True)
 
-    resolved_args = _resolve_config_args(sys.argv[1:])
-
-    config = yoco.load_config_from_args(parser, resolved_args)
+    config = yoco.load_config_from_args(
+        parser,
+        search_paths=[
+            ".",
+            "~/.cpas_toolbox",
+            os.path.join(os.path.dirname(__file__), "config"),
+            os.path.dirname(__file__),
+        ],
+    )
 
     evaluator = Evaluator(config)
     evaluator.run()

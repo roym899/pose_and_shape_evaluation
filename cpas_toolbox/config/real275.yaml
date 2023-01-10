@@ -1,16 +1,4 @@
-# Standalone config to use with evaluate.py
-config:
-  methods:
-    cass: ./cass.yaml
-    spd: ./spd.yaml
-    crnet: ./crnet.yaml
-    sgpa: ./sgpa.yaml
-    asmnet: ./asmnet.yaml
-    icaps: ./icaps.yaml
-    sdfest: ./sdfest.yaml
-    dpdn: ./dpdn.yaml
-    rbppose: ./rbppose.yaml
-
+# Dataset config to use with evaluate.py
 dataset_config:
   name: REAL275
   type: cpas_toolbox.datasets.nocs_dataset.NOCSDataset
@@ -39,8 +27,8 @@ fast_eval: False  # only evaluate every 10th sample
 store_visualization: False
 run_name: ""
 num_gt_points: 10000
-vis_camera_json: ./real275_camera.json
-render_options_json: ./real275_renderoptions.json
+vis_camera_json: null
+render_options_json: null
 metrics:
   correct_position:
     position_thresholds: [0, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035, 0.04, 0.045, 0.05]

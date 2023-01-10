@@ -10,8 +10,18 @@ theme:
 extra_css:
   - css/mkdocstrings.css
 
+markdown_extensions:
+  - toc:
+      permalink: True
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
 plugins:
   - search
+  - autorefs
   - mkdocstrings:
       watch:
         - cpas_toolbox
@@ -31,6 +41,7 @@ plugins:
 nav:
   - Getting started: index.md
   - Data preparation: data_preparation.md
+  - "Tutorial: Evaluate new method": tutorial_evaluation.md
   - API Reference:
     - evaluate.py: api_reference/evaluate.md
     - datasets:

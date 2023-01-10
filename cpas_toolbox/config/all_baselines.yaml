@@ -1,0 +1,12 @@
+# All baselines
+config:
+  methods:
+    cass: ./cass.yaml
+    spd: ./spd.yaml
+    crnet: ./crnet.yaml
+    sgpa: ./sgpa.yaml
+    asmnet: ./asmnet.yaml
+    icaps: ./icaps.yaml
+    sdfest: ./sdfest.yaml
+    dpdn: ./dpdn.yaml
+    rbppose: ./rbppose.yaml

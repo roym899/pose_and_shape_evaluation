@@ -12,16 +12,16 @@ to install the latest release of the toolbox. There is no need to download any a
 ## Evaluation of baseline methods
 To reproduce the REAL275 benchmark run:
 ```bash
-python -m cpas_toolbox.evaluate --config real275.yaml --out_dir ./results/
+python -m cpas_toolbox.evaluate --config real275.yaml all_baselines.yaml --out_dir ./results/
 ```
 To reproduce the REDWOOD75 benchmark run:
 ```bash
-python -m cpas_toolbox.evaluate --config redwood75.yaml --out_dir ./results/
+python -m cpas_toolbox.evaluate --config redwood75.yaml all_baselines.yaml --out_dir ./results/
 ```
 
 We can overwrite settings of the configuration via the command-line. For example, 
 ```bash
-python -m cpas_toolbox.evaluate --config redwood75.yaml --out_dir ./results/ --visualize_gt True --visualize_prediction True
+python -m cpas_toolbox.evaluate --config redwood75.yaml all_baselines.yaml --out_dir ./results/ --visualize_gt True --visualize_prediction True
 ```
 enables interactive visualization of ground truth and predictions. Alternatively, you could specify `--store_visualization True` to save the visualization of every prediction in the results directory.
 
