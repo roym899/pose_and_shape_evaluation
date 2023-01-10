@@ -8,12 +8,12 @@ from .modules import ModifiedResnet, PointNet2MSG, PoseNet
 
 
 class Net(nn.Module):
-    def __init__(self, nclass=6, nprior=1024):
+    def __init__(self, nclass=6, nprior=1024, resnet_dir_path="./"):
         super(Net, self).__init__()
         self.nclass = nclass
         self.nprior = nprior
 
-        self.rgb_extractor = ModifiedResnet()
+        self.rgb_extractor = ModifiedResnet(resnet_dir_path=resnet_dir_path)
         self.pts_extractor = PointNet2MSG(
             radii_list=[[0.01, 0.02], [0.02, 0.04], [0.04, 0.08], [0.08, 0.16]]
         )

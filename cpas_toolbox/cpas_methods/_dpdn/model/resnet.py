@@ -8,9 +8,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.utils.model_zoo as model_zoo
 
-resnet_ptr_mdl_p = os.path.abspath(os.path.dirname(__file__))
-
-
 __all__ = ["ResNet", "resnet18", "resnet34", "resnet50", "resnet101", "resnet152"]
 
 
@@ -231,46 +228,46 @@ class ResNet(nn.Module):
         return x32s, x_3
 
 
-def resnet18(pretrained=False):
+def resnet18(pretrained=False, resnet_dir_path="./"):
     model = ResNet(BasicBlock, [2, 2, 2, 2])
     if pretrained:
         model.load_state_dict(
-            model_zoo.load_url(model_urls["resnet18"], model_dir=resnet_ptr_mdl_p)
+            model_zoo.load_url(model_urls["resnet18"], model_dir=resnet_dir_path)
         )
     return model
 
 
-def resnet34(pretrained=False):
+def resnet34(pretrained=False, resnet_dir_path="./"):
     model = ResNet(BasicBlock, [3, 4, 6, 3])
     if pretrained:
         model.load_state_dict(
-            model_zoo.load_url(model_urls["resnet34"], model_dir=resnet_ptr_mdl_p)
+            model_zoo.load_url(model_urls["resnet34"], model_dir=resnet_dir_path)
         )
     return model
 
 
-def resnet50(pretrained=False):
+def resnet50(pretrained=False, resnet_dir_path="./"):
     model = ResNet(Bottleneck, [3, 4, 6, 3])
     if pretrained:
         model.load_state_dict(
-            model_zoo.load_url(model_urls["resnet50"], model_dir=resnet_ptr_mdl_p)
+            model_zoo.load_url(model_urls["resnet50"], model_dir=resnet_dir_path)
         )
     return model
 
 
-def resnet101(pretrained=False):
+def resnet101(pretrained=False, resnet_dir_path="./"):
     model = ResNet(Bottleneck, [3, 4, 23, 3])
     if pretrained:
         model.load_state_dict(
-            model_zoo.load_url(model_urls["resnet101"], model_dir=resnet_ptr_mdl_p)
+            model_zoo.load_url(model_urls["resnet101"], model_dir=resnet_dir_path)
         )
     return model
 
 
-def resnet152(pretrained=False):
+def resnet152(pretrained=False, resnet_dir_path="./"):
     model = ResNet(Bottleneck, [3, 8, 36, 3])
     if pretrained:
         model.load_state_dict(
-            model_zoo.load_url(model_urls["resnet152"], model_dir=resnet_ptr_mdl_p)
+            model_zoo.load_url(model_urls["resnet152"], model_dir=resnet_dir_path)
         )
     return model

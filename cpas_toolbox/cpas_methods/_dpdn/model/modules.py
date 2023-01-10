@@ -50,10 +50,15 @@ class PSPUpsample(nn.Module):
 
 class Modified_PSPNet(nn.Module):
     def __init__(
-        self, sizes=(1, 2, 3, 6), psp_size=2048, backend="resnet18", pretrained=True
+        self,
+        sizes=(1, 2, 3, 6),
+        psp_size=2048,
+        backend="resnet18",
+        pretrained=True,
+        resnet_dir_path="./",
     ):
         super(Modified_PSPNet, self).__init__()
-        self.feats = getattr(resnet, backend)(pretrained)
+        self.feats = getattr(resnet, backend)(pretrained, resnet_dir_path)
         self.psp = PSPModule(psp_size, 1024, sizes)
         self.drop_1 = nn.Dropout2d(p=0.3)
 
@@ -227,28 +232,43 @@ class PoseSizeEstimator(nn.Module):
 # main modules
 
 modified_psp_models = {
-    "resnet18": lambda: Modified_PSPNet(
-        sizes=(1, 2, 3, 6), psp_size=512, backend="resnet18"
+    "resnet18": lambda resnet_dir_path: Modified_PSPNet(
+        sizes=(1, 2, 3, 6),
+        psp_size=512,
+        backend="resnet18",
+        resnet_dir_path=resnet_dir_path,
     ),
-    "resnet34": lambda: Modified_PSPNet(
-        sizes=(1, 2, 3, 6), psp_size=512, backend="resnet34"
+    "resnet34": lambda resnet_dir_path: Modified_PSPNet(
+        sizes=(1, 2, 3, 6),
+        psp_size=512,
+        backend="resnet34",
+        resnet_dir_path=resnet_dir_path,
     ),
-    "resnet50": lambda: Modified_PSPNet(
-        sizes=(1, 2, 3, 6), psp_size=2048, backend="resnet50"
+    "resnet50": lambda resnet_dir_path: Modified_PSPNet(
+        sizes=(1, 2, 3, 6),
+        psp_size=2048,
+        backend="resnet50",
+        resnet_dir_path=resnet_dir_path,
     ),
-    "resnet101": lambda: Modified_PSPNet(
-        sizes=(1, 2, 3, 6), psp_size=2048, backend="resnet101"
+    "resnet101": lambda resnet_dir_path: Modified_PSPNet(
+        sizes=(1, 2, 3, 6),
+        psp_size=2048,
+        backend="resnet101",
+        resnet_dir_path=resnet_dir_path,
     ),
-    "resnet152": lambda: Modified_PSPNet(
-        sizes=(1, 2, 3, 6), psp_size=2048, backend="resnet152"
+    "resnet152": lambda resnet_dir_path: Modified_PSPNet(
+        sizes=(1, 2, 3, 6),
+        psp_size=2048,
+        backend="resnet152",
+        resnet_dir_path=resnet_dir_path,
     ),
 }
 
 
 class ModifiedResnet(nn.Module):
-    def __init__(self):
+    def __init__(self, resnet_dir_path: str = "./"):
         super(ModifiedResnet, self).__init__()
-        self.model = modified_psp_models["resnet18".lower()]()
+        self.model = modified_psp_models["resnet18".lower()](resnet_dir_path)
 
     def forward(self, x):
         x = self.model(x)

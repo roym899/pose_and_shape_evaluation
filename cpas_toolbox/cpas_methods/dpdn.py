@@ -42,10 +42,12 @@ class DPDN(CPASMethod):
         num_categories: int
         num_shape_points: int
         num_input_points: int
+        image_size: int
         model: str
         model_url: str
         mean_shape: str
         mean_shape_url: str
+        resnet_dir: str
         device: str
 
     default_config: Config = {
@@ -58,6 +60,7 @@ class DPDN(CPASMethod):
         "model_url": None,
         "mean_shape": None,
         "mean_shape_url": None,
+        "resnet_dir": None,
         "device": "cuda",
     }
 
@@ -79,8 +82,11 @@ class DPDN(CPASMethod):
         self._mean_shape_file_path = utils.resolve_path(config["mean_shape"])
         self._mean_shape_url = config["mean_shape_url"]
         self._check_paths()
+        self._resnet_dir_path = utils.resolve_path(config["resnet_dir"])
 
-        self._dpdn = dpdn.Net(config["num_categories"], config["num_shape_points"])
+        self._dpdn = dpdn.Net(
+            config["num_categories"], config["num_shape_points"], self._resnet_dir_path
+        )
         self._dpdn = self._dpdn.to(self._device)
         checkpoint = torch.load(self._model_file_path, map_location=self._device)
         if "model" in checkpoint:
