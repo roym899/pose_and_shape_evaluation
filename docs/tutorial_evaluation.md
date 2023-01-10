@@ -22,7 +22,7 @@ class MyCPASMethod(CPASMethod):
             config: Method configuration dictionary.
             camera: Camera used for the input image.
         """
-        % save / convert camera as needed by inference
+        # save / convert camera as needed by inference
         pass
 
     def inference(
@@ -40,15 +40,15 @@ class MyCPASMethod(CPASMethod):
             instance_mask: Mask of object of interest. (H, W), bool.
             category_str: The category of the object.
         """
-        % Step 1
-        % convert color_image, depth_image, instance_mask, category_str
-        % to whatever convention your inference code expects
+        # Step 1
+        # convert color_image, depth_image, instance_mask, category_str
+        # to whatever convention your inference code expects
 
-        % Step 2
-        % run your inference code
+        # Step 2
+        # run your inference code
 
-        % Step 3
-        % convert output of your method to prediction dictionary
+        # Step 3
+        # convert output of your method to prediction dictionary
         pass
 ```
 
