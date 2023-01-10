@@ -777,7 +777,7 @@
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="sd">            config: Method configuration dictionary.</span>
 <a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="sd">            camera: Camera used for the input image.</span>
 <a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="sd">        &quot;&quot;&quot;</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        <span class="o">%</span> <span class="n">save</span> <span class="o">/</span> <span class="n">convert</span> <span class="n">camera</span> <span class="k">as</span> <span class="n">needed</span> <span class="n">by</span> <span class="n">inference</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        <span class="c1"># save / convert camera as needed by inference</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        <span class="k">pass</span>
 <a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
 <a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="k">def</span> <span class="nf">inference</span><span class="p">(</span>
@@ -795,15 +795,15 @@
 <a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="sd">            instance_mask: Mask of object of interest. (H, W), bool.</span>
 <a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="sd">            category_str: The category of the object.</span>
 <a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="sd">        &quot;&quot;&quot;</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>        <span class="o">%</span> <span class="n">Step</span> <span class="mi">1</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>        <span class="o">%</span> <span class="n">convert</span> <span class="n">color_image</span><span class="p">,</span> <span class="n">depth_image</span><span class="p">,</span> <span class="n">instance_mask</span><span class="p">,</span> <span class="n">category_str</span>
-<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>        <span class="o">%</span> <span class="n">to</span> <span class="n">whatever</span> <span class="n">convention</span> <span class="n">your</span> <span class="n">inference</span> <span class="n">code</span> <span class="n">expects</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>        <span class="c1"># Step 1</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>        <span class="c1"># convert color_image, depth_image, instance_mask, category_str</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>        <span class="c1"># to whatever convention your inference code expects</span>
 <a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>
-<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>        <span class="o">%</span> <span class="n">Step</span> <span class="mi">2</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>        <span class="o">%</span> <span class="n">run</span> <span class="n">your</span> <span class="n">inference</span> <span class="n">code</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>        <span class="c1"># Step 2</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>        <span class="c1"># run your inference code</span>
 <a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>
-<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>        <span class="o">%</span> <span class="n">Step</span> <span class="mi">3</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>        <span class="o">%</span> <span class="n">convert</span> <span class="n">output</span> <span class="n">of</span> <span class="n">your</span> <span class="n">method</span> <span class="n">to</span> <span class="n">prediction</span> <span class="n">dictionary</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>        <span class="c1"># Step 3</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>        <span class="c1"># convert output of your method to prediction dictionary</span>
 <a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>        <span class="k">pass</span>
 </code></pre></div>
 <h3 id="step-1-converting-the-input">Step 1: Converting the input<a class="headerlink" href="#step-1-converting-the-input" title="Permanent link">&para;</a></h3>
