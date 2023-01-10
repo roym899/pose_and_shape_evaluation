@@ -21,11 +21,11 @@ from cpas_toolbox.cpas_method import CPASMethod, PredictionDict
 
 
 def visualize_estimation(
-    color_image: torch.Tensor,
-    depth_image: torch.Tensor,
-    local_cv_position: torch.Tensor,
-    local_cv_orientation_q: torch.Tensor,
-    camera: camera_utils.Camera,
+    color_image: Optional[torch.Tensor] = None,
+    depth_image: Optional[torch.Tensor] = None,
+    camera: Optional[camera_utils.Camera] = None,
+    local_cv_position: Optional[torch.Tensor] = None,
+    local_cv_orientation_q: Optional[torch.Tensor] = None,
     instance_mask: Optional[torch.Tensor] = None,
     extents: Optional[torch.Tensor] = None,
     reconstructed_points: Optional[torch.Tensor] = None,
@@ -37,11 +37,18 @@ def visualize_estimation(
     """Visualize prediction and ask for confirmation.
 
     Args:
-        color_image: The unmasked color image. Shape (H,W,3), RGB, 0-1, float.
-        depth_image: The unmasked depth image. Shape (H,W), float (meters along z).
-        local_cv_position: The position in the OpenCV camera frame. Shape (3,).
+        color_image:
+            The unmasked color image. Not visualized if None.
+            Shape (H,W,3), RGB, 0-1, float.
+        depth_image:
+            The unmasked depth image visualized as a point set. Not visualized if None.
+            Shape (H,W), float (meters along z).
+        camera: Camera used to project depth image to point set.
+        local_cv_position:
+            The position in the OpenCV camera frame. Not visualized if None. Shape (3,).
         local_cv_orientation_q:
-            The orientation in the OpenCV camera frame.  Scalar last, shape (4,).
+            The orientation in the OpenCV camera frame. Not visualized if None.
+            Scalar last, shape (4,).
         extents: Extents of the bounding box. Not visualized if None. Shape (3,).
         instance_mask: The instance mask. No masking if None. Shape (H,W).
         reconstructed_points:
@@ -64,36 +71,44 @@ def visualize_estimation(
     """
     o3d_geometries = []
 
-    local_cv_position = local_cv_position.cpu().double().numpy()  # shape (3,)
-    local_cv_orientation_q = local_cv_orientation_q.cpu().double().numpy()  # shape (4,)
+    if depth_image is not None:
+        if instance_mask is not None:
+            valid_depth_mask = (depth_image != 0) * instance_mask
+        else:
+            valid_depth_mask = depth_image != 0
+        masked_pointset = pointset_utils.depth_to_pointcloud(
+            depth_image,
+            camera,
+            normalize=False,
+            mask=instance_mask,
+            convention="opencv",
+        )
+        o3d_points = o3d.geometry.PointCloud(
+            points=o3d.utility.Vector3dVector(masked_pointset.cpu().numpy())
+        )
 
-    if instance_mask is not None:
-        valid_depth_mask = (depth_image != 0) * instance_mask
-    else:
-        valid_depth_mask = depth_image != 0
-    pointset_colors = color_image[valid_depth_mask]
-    masked_pointset = pointset_utils.depth_to_pointcloud(
-        depth_image,
-        camera,
-        normalize=False,
-        mask=instance_mask,
-        convention="opencv",
-    )
-    o3d_points = o3d.geometry.PointCloud(
-        points=o3d.utility.Vector3dVector(masked_pointset.cpu().numpy())
-    )
-    o3d_points.colors = o3d.utility.Vector3dVector(pointset_colors.cpu().numpy())
-    o3d_geometries.append(o3d_points)
+        if color_image is not None:
+            pointset_colors = color_image[valid_depth_mask]
+            o3d_points.colors = o3d.utility.Vector3dVector(
+                pointset_colors.cpu().numpy()
+            )
+
+        o3d_geometries.append(o3d_points)
 
     # coordinate frame
-    local_cv_orientation_m = Rotation.from_quat(local_cv_orientation_q).as_matrix()
-    o3d_frame = o3d.geometry.TriangleMesh.create_coordinate_frame(size=0.1)
-    o3d_frame.rotate(
-        local_cv_orientation_m,
-        center=np.array([0.0, 0.0, 0.0])[:, None],
-    )
-    o3d_frame.translate(local_cv_position[:, None])
-    o3d_geometries.append(o3d_frame)
+    if local_cv_position is not None:
+        local_cv_position = local_cv_position.cpu().double().numpy()  # shape (3,)
+        local_cv_orientation_q = (
+            local_cv_orientation_q.cpu().double().numpy()
+        )  # shape (4,)
+        local_cv_orientation_m = Rotation.from_quat(local_cv_orientation_q).as_matrix()
+        o3d_frame = o3d.geometry.TriangleMesh.create_coordinate_frame(size=0.1)
+        o3d_frame.rotate(
+            local_cv_orientation_m,
+            center=np.array([0.0, 0.0, 0.0])[:, None],
+        )
+        o3d_frame.translate(local_cv_position[:, None])
+        o3d_geometries.append(o3d_frame)
 
     o3d_cam_frame = o3d.geometry.TriangleMesh.create_coordinate_frame(size=0.3)
     o3d_geometries.append(o3d_cam_frame)
@@ -107,7 +122,7 @@ def visualize_estimation(
         )
         o3d_geometries.append(o3d_obb)
 
-    if reconstructed_points is not None:
+    if reconstructed_points is not None and reconstructed_mesh is None:
         o3d_rec_points = o3d.geometry.PointCloud(
             points=o3d.utility.Vector3dVector(reconstructed_points.cpu().numpy())
         )
@@ -271,7 +286,7 @@ class Evaluator:
                     camera=self._cam,
                     vis_camera_json=self._vis_camera_json,
                     render_options_json=self._render_options_json,
-                )
+                )  # GT estimate
             if self._visualize_prediction:
                 visualize_estimation(
                     color_image=sample["color"],
