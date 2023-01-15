@@ -35,7 +35,7 @@ def test_correct_thresh() -> None:
         extent_gt,
         position_prediction,
         orientation_prediction,
-        extent_prediction
+        extent_prediction,
     )
 
     assert metrics.correct_thresh(**kwargs) == 1
@@ -203,6 +203,19 @@ def test_completeness_thresh() -> None:
     )  # 0.1039 > 0.1
 
 
+def test_normalized_average_distance() -> None:
+    """Test normalized average distance metric."""
+    points_gt = np.array([[0.0, 0.0, 0.0], [1.0, 1.0, 1.0]])
+    points_rec = np.array([[0.0, 0.0, 0.0], [2, 2, 2]])
+
+    # diam gt: sqrt(3)
+    # diam rec: sqrt(12)
+    # gt -> rec: 0.5 * sqrt(3)
+    # rec -> gt: 0.5 * sqrt(3)
+    # nad: max(0.5*sqrt(3)/sqrt(3), 0.5*sqrt(3)/sqrt(12)) = (sqrt(3)/2)/sqrt(3) = 0.5
+    assert metrics.normalized_average_distance(points_gt, points_rec) == 0.5
+
+
 def test_accuracy_thresh() -> None:
     """Test thresholded accuracy metric."""
     # First rec point has close enough neighbor, second does not
@@ -232,19 +245,19 @@ def test_accuracy_thresh() -> None:
     assert metrics.accuracy_thresh(points_gt, points_rec, 0.006, normalize=True) == 0.5
 
 
-def test_extent() -> None:
-    """Test computation of point cloud extent."""
+def test_diameter() -> None:
+    """Test computation of point cloud diameter."""
     points = np.array(
         [[-1.0, 1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, -5.0], [0.0, 0.0, 5.0]]
     )
-    assert metrics.extent(points) == 10.0
+    assert metrics.diameter(points) == 10.0
 
     # coplanar points
     points = np.array(
         [[-1.0, 0.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, -5.0], [0.0, 0.0, 5.0]]
     )
-    assert metrics.extent(points) == 10.0
+    assert metrics.diameter(points) == 10.0
 
     # less than 4 points
     points = np.array([[1.0, 0.0, 0.0], [0.0, 0.0, -5.0], [0.0, 0.0, 5.0]])
-    assert metrics.extent(points) == 10.0
+    assert metrics.diameter(points) == 10.0
