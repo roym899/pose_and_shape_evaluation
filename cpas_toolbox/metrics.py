@@ -130,7 +130,7 @@ def mean_accuracy(
     kd_tree = scipy.spatial.KDTree(points_gt)
     d, _ = kd_tree.query(points_rec, p=p_norm)
     if normalize:
-        return np.mean(d) / extent(points_gt)
+        return np.mean(d) / diameter(points_gt)
     else:
         return np.mean(d)
 
@@ -160,7 +160,7 @@ def mean_completeness(
     kd_tree = scipy.spatial.KDTree(points_rec)
     d, _ = kd_tree.query(points_gt, p=p_norm)
     if normalize:
-        return np.mean(d) / extent(points_gt)
+        return np.mean(d) / diameter(points_gt)
     else:
         return np.mean(d)
 
@@ -221,7 +221,7 @@ def completeness_thresh(
     kd_tree = scipy.spatial.KDTree(points_rec)
     d, _ = kd_tree.query(points_gt, p=p_norm)
     if normalize:
-        return np.sum(d / extent(points_gt) < threshold) / points_gt.shape[0]
+        return np.sum(d / diameter(points_gt) < threshold) / points_gt.shape[0]
     else:
         return np.sum(d < threshold) / points_gt.shape[0]
 
@@ -250,7 +250,7 @@ def accuracy_thresh(
     kd_tree = scipy.spatial.KDTree(points_gt)
     d, _ = kd_tree.query(points_rec, p=p_norm)
     if normalize:
-        return np.sum(d / extent(points_gt) < threshold) / points_rec.shape[0]
+        return np.sum(d / diameter(points_gt) < threshold) / points_rec.shape[0]
     else:
         return np.sum(d < threshold) / points_rec.shape[0]
 
@@ -287,7 +287,7 @@ def reconstruction_fscore(
     return 2 / (1 / recall + 1 / precision)
 
 
-def extent(points: np.ndarray) -> float:
+def diameter(points: np.ndarray) -> float:
     """Compute largest Euclidean distance between any two points.
 
     Args:

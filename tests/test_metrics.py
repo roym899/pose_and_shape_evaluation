@@ -237,14 +237,14 @@ def test_extent() -> None:
     points = np.array(
         [[-1.0, 1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, -5.0], [0.0, 0.0, 5.0]]
     )
-    assert metrics.extent(points) == 10.0
+    assert metrics.diameter(points) == 10.0
 
     # coplanar points
     points = np.array(
         [[-1.0, 0.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, -5.0], [0.0, 0.0, 5.0]]
     )
-    assert metrics.extent(points) == 10.0
+    assert metrics.diameter(points) == 10.0
 
     # less than 4 points
     points = np.array([[1.0, 0.0, 0.0], [0.0, 0.0, -5.0], [0.0, 0.0, 5.0]])
-    assert metrics.extent(points) == 10.0
+    assert metrics.diameter(points) == 10.0
