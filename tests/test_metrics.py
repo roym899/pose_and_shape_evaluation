@@ -232,8 +232,8 @@ def test_accuracy_thresh() -> None:
     assert metrics.accuracy_thresh(points_gt, points_rec, 0.006, normalize=True) == 0.5
 
 
-def test_extent() -> None:
-    """Test computation of point cloud extent."""
+def test_diameter() -> None:
+    """Test computation of point cloud diameter."""
     points = np.array(
         [[-1.0, 1.0, 0.0], [1.0, 0.0, 0.0], [0.0, 0.0, -5.0], [0.0, 0.0, 5.0]]
     )

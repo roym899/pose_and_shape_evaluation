@@ -7,102 +7,26 @@ from scipy.optimize import linprog
 from scipy.spatial.transform import Rotation
 
 
-def correct_thresh(
-    position_gt: np.ndarray,
-    position_prediction: np.ndarray,
-    orientation_gt: Rotation,
-    orientation_prediction: Rotation,
-    extent_gt: Optional[np.ndarray] = None,
-    extent_prediction: Optional[np.ndarray] = None,
-    points_gt: Optional[np.ndarray] = None,
-    points_prediction: Optional[np.ndarray] = None,
-    position_threshold: Optional[float] = None,
-    degree_threshold: Optional[float] = None,
-    iou_3d_threshold: Optional[float] = None,
-    fscore_threshold: Optional[float] = None,
-    rotational_symmetry_axis: Optional[int] = None,
-) -> int:
-    """Classify a pose prediction as correct or incorrect.
+def diameter(points: np.ndarray) -> float:
+    """Compute largest Euclidean distance between any two points.
 
     Args:
-        position_gt: Ground truth position, shape (3,).
-        position_prediction: Predicted position, shape (3,).
-        position_threshold: Position threshold in meters, no threshold if None.
-        orientation_gt:
-            Ground truth orientation.
-            This is the rotation that rotates points from bounding box to camera frame.
-        orientation_prediction:
-            Predicted orientation.
-            This is the rotation that rotates points from bounding box to camera frame.
-        extent_gt:
-            Bounding box extents, shape (3,).
-            Only used if IoU threshold specified.
-        extent_prediction:
-            Bounding box extents, shape (3,).
-            Only used if IoU threshold specified.
-        point_gt: Set of true points, shape (N,3).
-        points_rec: Set of reconstructed points, shape (M,3).
-        degree_threshold: Orientation threshold in degrees, no threshold if None.
-        iou_3d_threshold: 3D IoU threshold, no threshold if None.
-        rotational_symmetry_axis:
-            Specify axis along which rotation is ignored. If None, no axis is ignored.
-            0 for x-axis, 1 for y-axis, 2 for z-axis.
-
+        points_gt: set of true
+        p_norm: which Minkowski p-norm is used for distance and nearest neighbor query
     Returns:
-        1 if error is below all provided thresholds.  0 if error is above one provided
-        threshold.
+        Ratio of reconstructed points with closest ground truth point closer than
+        threshold (in p-norm).
     """
-    if position_threshold is not None:
-        position_error = np.linalg.norm(position_gt - position_prediction)
-        if position_error > position_threshold:
-            return 0
-    if degree_threshold is not None:
-        rad_threshold = degree_threshold * np.pi / 180.0
-        if rotational_symmetry_axis is not None:
-            p = np.array([0.0, 0.0, 0.0])
-            p[rotational_symmetry_axis] = 1.0
-            p1 = orientation_gt.apply(p)
-            p2 = orientation_prediction.apply(p)
-            rad_error = np.arccos(p1 @ p2)
-        else:
-            rad_error = (orientation_gt * orientation_prediction.inv()).magnitude()
-        if rad_error > rad_threshold:
-            return 0
-    if iou_3d_threshold is not None:
-        if rotational_symmetry_axis is not None:
-            max_iou = 0
+    try:
+        hull = scipy.spatial.ConvexHull(points)
+    except scipy.spatial.qhull.QhullError:
+        # fallback to brute force distance matrix
+        return np.max(scipy.spatial.distance_matrix(points, points))
 
-            for r in np.linspace(0, np.pi, 100):
-                p = np.array([0.0, 0.0, 0.0])
-                p[rotational_symmetry_axis] = 1.0
-                p *= r
-                sym_rot = Rotation.from_rotvec(r)
-                iou = iou_3d(
-                    position_gt,
-                    orientation_gt,
-                    extent_gt,
-                    position_prediction,
-                    orientation_prediction * sym_rot,
-                    extent_prediction,
-                )
-                max_iou = max(iou, max_iou)
-            iou = max_iou
-        else:
-            iou = iou_3d(
-                position_gt,
-                orientation_gt,
-                extent_gt,
-                position_prediction,
-                orientation_prediction,
-                extent_prediction,
-            )
-        if iou < iou_3d_threshold:
-            return 0
-    if fscore_threshold is not None:
-        fscore = reconstruction_fscore(points_gt, points_prediction, 0.01)
-        if fscore < fscore_threshold:
-            return 0
-    return 1
+    # this is wasteful, if too slow implement rotating caliper method
+    return np.max(
+        scipy.spatial.distance_matrix(points[hull.vertices], points[hull.vertices])
+    )
 
 
 def mean_accuracy(
@@ -113,7 +37,8 @@ def mean_accuracy(
 ) -> float:
     """Compute accuracy metric.
 
-    Accuracy metric is the same as asymmetric chamfer distance from rec to gt.
+    Accuracy metric is the same as the mean pointwise distance (or asymmetric chamfer
+    distance) from rec to gt.
 
     See, for example, Occupancy Networks Learning 3D Reconstruction in Function Space,
     Mescheder et al., 2019.
@@ -143,7 +68,8 @@ def mean_completeness(
 ) -> float:
     """Compute completeness metric.
 
-    Completeness metric is the same as asymmetric chamfer distance from gt to rec.
+    Completeness metric is the same as the mean pointwise distance (or asymmetric
+    chamfer distance) from gt to rec.
 
     See, for example, Occupancy Networks Learning 3D Reconstruction in Function Space,
     Mescheder et al., 2019.
@@ -195,6 +121,27 @@ def symmetric_chamfer(
         mean_completeness(points_gt, points_rec, p_norm=p_norm, normalize=normalize)
         + mean_accuracy(points_gt, points_rec, p_norm=p_norm, normalize=normalize)
     ) / 2
+
+
+def normalized_average_distance(
+    points_gt: np.ndarray,
+    points_rec: np.ndarray,
+    p_norm: int = 2,
+) -> float:
+    """Compute the maximum of the directed normalized average distances.
+
+    Args:
+        points_gt: set of true points, expected shape (N,3)
+        points_rec: set of reconstructed points, expected shape (M,3)
+
+    Returns:
+        Maximum of normalized mean accuracy and mean completeness metrics using the
+        specified p-norm.
+    """
+    return max(
+        mean_completeness(points_gt, points_rec, p_norm=p_norm, normalize=True),
+        mean_accuracy(points_gt, points_rec, p_norm=p_norm, normalize=True),
+    )
 
 
 def completeness_thresh(
@@ -285,28 +232,6 @@ def reconstruction_fscore(
     if recall < 1e-7 or precision < 1e-7:
         return 0
     return 2 / (1 / recall + 1 / precision)
-
-
-def diameter(points: np.ndarray) -> float:
-    """Compute largest Euclidean distance between any two points.
-
-    Args:
-        points_gt: set of true
-        p_norm: which Minkowski p-norm is used for distance and nearest neighbor query
-    Returns:
-        Ratio of reconstructed points with closest ground truth point closer than
-        threshold (in p-norm).
-    """
-    try:
-        hull = scipy.spatial.ConvexHull(points)
-    except scipy.spatial.qhull.QhullError:
-        # fallback to brute force distance matrix
-        return np.max(scipy.spatial.distance_matrix(points, points))
-
-    # this is wasteful, if too slow implement rotating caliper method
-    return np.max(
-        scipy.spatial.distance_matrix(points[hull.vertices], points[hull.vertices])
-    )
 
 
 def iou_3d_sampling(
@@ -482,3 +407,108 @@ def _find_inside_point(
     if res.fun > 0:  # no intersection
         return None
     return res.x[:3]
+
+
+def correct_thresh(
+    position_gt: np.ndarray,
+    position_prediction: np.ndarray,
+    orientation_gt: Rotation,
+    orientation_prediction: Rotation,
+    extent_gt: Optional[np.ndarray] = None,
+    extent_prediction: Optional[np.ndarray] = None,
+    points_gt: Optional[np.ndarray] = None,
+    points_prediction: Optional[np.ndarray] = None,
+    position_threshold: Optional[float] = None,
+    degree_threshold: Optional[float] = None,
+    iou_3d_threshold: Optional[float] = None,
+    fscore_threshold: Optional[float] = None,
+    nad_threshold: Optional[float] = None,
+    rotational_symmetry_axis: Optional[int] = None,
+) -> int:
+    """Classify a pose prediction as correct or incorrect.
+
+    Args:
+        position_gt: Ground truth position, shape (3,).
+        position_prediction: Predicted position, shape (3,).
+        position_threshold: Position threshold in meters, no threshold if None.
+        orientation_gt:
+            Ground truth orientation.
+            This is the rotation that rotates points from bounding box to camera frame.
+        orientation_prediction:
+            Predicted orientation.
+            This is the rotation that rotates points from bounding box to camera frame.
+        extent_gt:
+            Bounding box extents, shape (3,).
+            Only used if IoU threshold specified.
+        extent_prediction:
+            Bounding box extents, shape (3,).
+            Only used if IoU threshold specified.
+        point_gt: Set of true points, shape (N,3).
+        points_rec: Set of reconstructed points, shape (M,3).
+        degree_threshold: Orientation threshold in degrees, no threshold if None.
+        iou_3d_threshold: 3D IoU threshold, no threshold if None.
+        nad_threshold: Normalized average distance thresold, no threshold if None.
+        rotational_symmetry_axis:
+            Specify axis along which rotation is ignored. If None, no axis is ignored.
+            0 for x-axis, 1 for y-axis, 2 for z-axis.
+
+    Returns:
+        1 if error is below all provided thresholds.  0 if error is above one provided
+        threshold.
+    """
+    if position_threshold is not None:
+        position_error = np.linalg.norm(position_gt - position_prediction)
+        if position_error > position_threshold:
+            return 0
+    if degree_threshold is not None:
+        rad_threshold = degree_threshold * np.pi / 180.0
+        if rotational_symmetry_axis is not None:
+            p = np.array([0.0, 0.0, 0.0])
+            p[rotational_symmetry_axis] = 1.0
+            p1 = orientation_gt.apply(p)
+            p2 = orientation_prediction.apply(p)
+            rad_error = np.arccos(p1 @ p2)
+        else:
+            rad_error = (orientation_gt * orientation_prediction.inv()).magnitude()
+        if rad_error > rad_threshold:
+            return 0
+    if iou_3d_threshold is not None:
+        if rotational_symmetry_axis is not None:
+            max_iou = 0
+
+            for r in np.linspace(0, np.pi, 100):
+                p = np.array([0.0, 0.0, 0.0])
+                p[rotational_symmetry_axis] = 1.0
+                p *= r
+                sym_rot = Rotation.from_rotvec(r)
+                iou = iou_3d(
+                    position_gt,
+                    orientation_gt,
+                    extent_gt,
+                    position_prediction,
+                    orientation_prediction * sym_rot,
+                    extent_prediction,
+                )
+                max_iou = max(iou, max_iou)
+            iou = max_iou
+        else:
+            iou = iou_3d(
+                position_gt,
+                orientation_gt,
+                extent_gt,
+                position_prediction,
+                orientation_prediction,
+                extent_prediction,
+            )
+        if iou < iou_3d_threshold:
+            return 0
+    if fscore_threshold is not None:
+        # TODO make 0.01 a parameter
+        fscore = reconstruction_fscore(points_gt, points_prediction, 0.01)
+        if fscore < fscore_threshold:
+            return 0
+    if nad_threshold is not None:
+        nad = normalized_average_distance(points_gt, points_prediction)
+        if nad < nad_threshold:
+            return 0
+    return 1
