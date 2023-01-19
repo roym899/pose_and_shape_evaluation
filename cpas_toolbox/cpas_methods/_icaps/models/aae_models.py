@@ -175,12 +175,8 @@ class AAE(nn.Module):
         self, object_names, capacity=1, code_dim=128, model_path=None, device="cuda"
     ):
         super(AAE, self).__init__()
-        # dir
-        if not os.path.exists("./checkpoints"):
-            os.mkdir("./checkpoints")
 
         self.device = device
-        self.model_dir = "./checkpoints"
 
         self.object_names = object_names
         self.code_dim = code_dim
