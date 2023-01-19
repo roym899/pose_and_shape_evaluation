@@ -378,7 +378,7 @@ def iou_3d(
     """Compute 3D IoU of oriented bounding boxes analytically.
 
     Code partly based on https://github.com/google-research-datasets/Objectron/.
-    Implementation uses HalfSpace intersection instead of Sutherland-Hodgman algorithm.
+    Implementation uses half-space intersection instead of Sutherland-Hodgman algorithm.
 
     Args:
         p1: Center position of first bounding box, shape (3,).
