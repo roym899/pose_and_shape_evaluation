@@ -35,7 +35,7 @@ if sys.version_info[0] <= 3 and sys.version_info[1] < 8:
 
 setuptools.setup(
     name="cpas_toolbox",
-    version="0.1.0",
+    version="1.0.0",
     author="Leonard Bruns",
     author_email="roym899@gmail.com",
     description="Toolbox to evaluate categorical pose and shape estimation",
