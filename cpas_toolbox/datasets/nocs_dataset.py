@@ -271,8 +271,7 @@ class NOCSDataset(torch.utils.data.Dataset):
             elif identifier == "fixed_real_test_obj_models":
                 zip_path = os.path.join(download_dir, "fixed_real_test_obj_models.zip")
                 utils.download(
-                    "https://drive.google.com/u/0/uc?id=1grAWfmWRm4gDmZnLRf9KF7-_eHX"
-                    "-12BO&export=download",
+                    "https://github.com/roym899/pose_and_shape_evaluation/releases/download/v1.0.0/fixed_real_test_obj_models.zip",
                     zip_path,
                 )
             else:
