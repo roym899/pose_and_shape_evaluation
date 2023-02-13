@@ -11,13 +11,21 @@ pip install cpas_toolbox
 ```
 
 ## Citation
-If you find this library useful in your research, consider citing [our publication](https://arxiv.org/abs/2202.10346):
+If you find this library useful in your research, consider citing [our conference paper](https://link.springer.com/chapter/10.1007/978-3-031-22216-0_25) or the [extended journal version (preprint)](https://arxiv.org/abs/2301.08147):
 ```
-@article{bruns2022evaluation,
-  title={On the Evaluation of {RGB-D}-based Categorical Pose and Shape Estimation},
+@inproceedings{bruns2023evaluation,
+  title={On the evaluation of RGB-D-based categorical pose and shape estimation},
   author={Bruns, Leonard and Jensfelt, Patric},
-  journal={arXiv preprint arXiv:2202.10346},
-  year={2022}
+  booktitle={Intelligent Autonomous Systems 17: Proceedings of the 17th International Conference IAS-17},
+  pages={360--377},
+  year={2023},
+  organization={Springer}
+}
+@article{bruns2023rgb,
+  title={RGB-D-Based Categorical Object Pose and Shape Estimation: Methods, Datasets, and Evaluation},
+  author={Bruns, Leonard and Jensfelt, Patric},
+  journal={arXiv preprint arXiv:2301.08147},
+  year={2023}
 }
 ```
 
