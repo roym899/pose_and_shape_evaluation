@@ -398,7 +398,7 @@ class AnnotatedRedwoodDataset(torch.utils.data.Dataset):
         elif self._remap_y_axis == "-z":
             rotation_o2n[2, 1] = -1
         else:
-            raise ValueError("Unsupported remap_y_axis {self.remap_y}")
+            raise ValueError("Unsupported remap_y_axis {self._remap_y_axis}")
 
         if self._remap_x_axis == "x":
             rotation_o2n[0, 0] = 1
@@ -413,7 +413,7 @@ class AnnotatedRedwoodDataset(torch.utils.data.Dataset):
         elif self._remap_x_axis == "-z":
             rotation_o2n[2, 0] = -1
         else:
-            raise ValueError("Unsupported remap_x_axis {self.remap_y}")
+            raise ValueError("Unsupported remap_x_axis {self._remap_x_axis}")
 
         # infer last column
         rotation_o2n[:, 2] = 1 - np.abs(np.sum(rotation_o2n, 1))  # rows must sum to +-1
