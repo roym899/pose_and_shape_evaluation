@@ -1,11 +1,11 @@
 """Script to run pose and shape evaluation for different datasets and methods."""
 import argparse
+import math
 import os
 import random
-import sys
 import time
 from datetime import datetime
-from typing import List, Optional, Tuple
+from typing import Optional, Tuple
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -272,8 +272,12 @@ class Evaluator:
                 category_str=sample["category_str"],
             )
             inference_time = time.time() - t_start
+
             self._runtime_data["total"] += inference_time
+            self._runtime_data["total_squared"] += inference_time**2
             self._runtime_data["count"] += 1
+            self._runtime_data["min"] = min(self._runtime_data["min"], inference_time)
+            self._runtime_data["max"] = max(self._runtime_data["max"], inference_time)
 
             if self._visualize_gt:
                 visualize_estimation(
@@ -334,7 +338,10 @@ class Evaluator:
         self._metric_data = {}
         self._runtime_data = {
             "total": 0.0,
+            "total_squared": 0.0,
             "count": 0.0,
+            "min": 1e10,
+            "max": 0.0,
         }
         for metric_name, metric_config_dict in self._metrics.items():
             self._metric_data[metric_name] = self._init_metric_data(metric_config_dict)
@@ -490,6 +497,19 @@ class Evaluator:
             pred_points += prediction["position"]
         return gt_points, pred_points
 
+    def _finalize_runtime_metric(self) -> dict:
+        mean = self._runtime_data["total"] / self._runtime_data["count"]
+        mean_squared = self._runtime_data["total_squared"] / self._runtime_data["count"]
+        variance = mean_squared - mean**2
+        std = math.sqrt(variance)
+        return {
+            "mean": mean,
+            "variance": variance,
+            "std": std,
+            "min": self._runtime_data["min"],
+            "max": self._runtime_data["max"],
+        }
+
     def _finalize_metrics(self, method_name: str) -> None:
         """Finalize metrics after all samples have been evaluated.
 
@@ -500,9 +520,9 @@ class Evaluator:
         yaml_file_path = os.path.join(results_dir_path, "results.yaml")
 
         self._results_dict[method_name] = {}
-        self._runtime_results_dict[method_name] = (
-            self._runtime_data["total"] / self._runtime_data["count"]
-        )
+
+        self._runtime_results_dict[method_name] = self._finalize_runtime_metric()
+
         for metric_name, metric_dict in self._metrics.items():
             if "position_thresholds" in metric_dict:  # correctness metrics
                 correct_counter = self._metric_data[metric_name]["correct_counters"]
