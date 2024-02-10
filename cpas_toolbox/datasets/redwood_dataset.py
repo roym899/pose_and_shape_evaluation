@@ -182,7 +182,7 @@ class AnnotatedRedwoodDataset(torch.utils.data.Dataset):
         with open(ann_json, "r") as f:
             anns_dict = json.load(f)
 
-        baseurl = "https://s3.us-west-1.wasabisys.com/redwood-3dscan/rgbd/"
+        baseurl = "https://redwood-3dscan.b-cdn.net/rgbd/"
         for seq_id in anns_dict.keys():
             download_dir_path = os.path.join(
                 self._root_dir_path, anns_dict[seq_id]["category"]
