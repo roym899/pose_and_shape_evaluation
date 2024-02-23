@@ -112,8 +112,8 @@ class ParticleFilter:
         self.cfg_pf = cfg_pf
 
         # visualization
-        self.views_vis = np.zeros((cfg_pf.N_E_ROT, 3), dtype=np.float)
-        self.wt_vis = np.ones((cfg_pf.N_E_ROT, 1), dtype=np.float)
+        self.views_vis = np.zeros((cfg_pf.N_E_ROT, 3), dtype=float)
+        self.wt_vis = np.ones((cfg_pf.N_E_ROT, 1), dtype=float)
 
         # rotation distribution expectation
         self.E_Rot = torch.ones((37 * 72 * 37,)).to(self.device).float()

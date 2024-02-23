@@ -44,7 +44,7 @@ __C.TRAIN.VAL_BATCH_SIZE = 8
 __C.TRAIN.TRAIN_AAE = True
 __C.TRAIN.TRAIN_TRANSNET = False
 __C.TRAIN.OBJECTS_CTG = ''
-__C.TRAIN.OBJECTS = []
+__C.TRAIN.OBJECTS = ()
 __C.TRAIN.BOOTSTRAP_CONST = 2000
 __C.TRAIN.USE_TRIPLET_LOSS = False
 __C.TRAIN.TRANS_LOSS_WT = 1.0
@@ -109,7 +109,7 @@ __C.TRAIN.TRUNC_X_MAX = 1.0
 __C.TRAIN.TRUNC_Y_MAX = 1.0
 
 # Render distance
-__C.TRAIN.RENDER_DIST = [3.5]
+__C.TRAIN.RENDER_DIST = (3.5,)
 __C.TRAIN.FU = 500.0
 __C.TRAIN.FV = 500.0
 __C.TRAIN.U0 = 64.0
@@ -148,7 +148,7 @@ __C.TRAIN.PHOTO_REALISTIC_DATA_PATH = '../YCB_Video_DPF/'
 __C.TEST = edict()
 # Default GPU device id
 __C.GPU_ID = 0
-__C.TEST.OBJECTS = []
+__C.TEST.OBJECTS = ()
 
 # Place outputs under an experiments directory
 __C.EXP_DIR = 'default'
@@ -169,7 +169,7 @@ __C.PF.UV_NOISE_PRIOR = 10.0
 __C.PF.Z_NOISE_PRIOR = 0.05
 __C.PF.ROT_NOISE = 0.05
 __C.PF.INIT_UV_NOISE = 30
-__C.PF.INIT_Z_RANGE = [0.2, 3.0]
+__C.PF.INIT_Z_RANGE = (0.2, 3.0)
 __C.PF.INIT_ROT_WT_VAR = 0.05
 __C.PF.TRANS_WT_VAR = 0.05
 __C.PF.ROT_WT_VAR = 0.05

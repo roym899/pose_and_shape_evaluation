@@ -188,7 +188,7 @@ class ICaps(CPASMethod):
                 for aae_category_dir in os.listdir(self._aae_ckp_dir_path):
                     if category_str in aae_category_dir:
                         os.rename(
-                            aae_category_dir,
+                            os.path.join(self._aae_ckp_dir_path, aae_category_dir),
                             os.path.join(self._aae_ckp_dir_path, category_str),
                         )
 

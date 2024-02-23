@@ -48,8 +48,8 @@ def anchor_target_layer(
     # overlaps between the anchors and the gt boxes
     # overlaps (ex, gt)
     overlaps = bbox_overlaps(
-        np.ascontiguousarray(anchors, dtype=np.float),
-        np.ascontiguousarray(gt_boxes, dtype=np.float),
+        np.ascontiguousarray(anchors, dtype=float),
+        np.ascontiguousarray(gt_boxes, dtype=float),
     )
     argmax_overlaps = overlaps.argmax(axis=1)
     max_overlaps = overlaps[np.arange(len(inds_inside)), argmax_overlaps]
