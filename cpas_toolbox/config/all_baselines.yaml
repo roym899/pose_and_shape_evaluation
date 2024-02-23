@@ -5,7 +5,7 @@ config:
     spd: ./spd.yaml
     crnet: ./crnet.yaml
     sgpa: ./sgpa.yaml
-    asmnet: ./asmnet.yaml
+    # asmnet: ./asmnet.yaml  # weights not available anymore
     icaps: ./icaps.yaml
     sdfest: ./sdfest.yaml
     dpdn: ./dpdn.yaml
